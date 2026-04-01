@@ -1,10 +1,19 @@
-from pydantic import Field, model_validator
+from pydantic import Field, field_validator, model_validator
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
     database_url: str = "postgresql+asyncpg://taxlens:taxlens@localhost:5432/taxlens"
     database_url_sync: str = "postgresql://taxlens:taxlens@localhost:5432/taxlens"
+
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def _normalize_async_url(cls, v: str) -> str:
+        """Accept Railway's postgres:// or postgresql:// and convert to asyncpg driver."""
+        v = v.replace("postgres://", "postgresql://", 1)
+        if "+asyncpg" not in v:
+            v = v.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return v
     api_key: str = Field(default="dev-api-key-change-me")
     jwt_secret: str = "taxlens-jwt-secret-change-in-production"
     debug: bool = False
@@ -32,6 +41,19 @@ class Settings(BaseSettings):
     @property
     def is_production(self) -> bool:
         return self.environment == "production"
+
+    @model_validator(mode="after")
+    def _derive_sync_url(self):
+        """Derive database_url_sync from database_url when not explicitly configured.
+
+        Handles Railway deployments where only DATABASE_URL is injected.
+        """
+        default_sync = "postgresql://taxlens:taxlens@localhost:5432/taxlens"
+        if self.database_url_sync == default_sync:
+            self.database_url_sync = self.database_url.replace(
+                "postgresql+asyncpg://", "postgresql://", 1
+            )
+        return self
 
     @model_validator(mode="after")
     def _validate_production(self):
