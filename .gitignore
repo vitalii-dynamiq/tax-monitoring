@@ -1,0 +1,25 @@
+__pycache__/
+data/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.db
+*.sqlite3
+.env
+.env.*
+!.env.example
+
+# Claude Code local files
+.claude/

@@ -1,0 +1,57 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_USER: taxlens
+      POSTGRES_PASSWORD: taxlens
+      POSTGRES_DB: taxlens
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+      - ./scripts/init_extensions.sql:/docker-entrypoint-initdb.d/01_extensions.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taxlens -d taxlens"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    ports:
+      - "8001:8000"
+    environment:
+      DATABASE_URL: postgresql+asyncpg://taxlens:taxlens@db:5432/taxlens
+      DATABASE_URL_SYNC: postgresql://taxlens:taxlens@db:5432/taxlens
+      API_KEY: ${API_KEY:-dev-api-key-change-me}
+      JWT_SECRET: ${JWT_SECRET:-taxlens-jwt-secret-change-in-production}
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      CORS_ORIGINS: ${CORS_ORIGINS:-*}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-sonnet-4-6}
+      MONITORING_JOB_TIMEOUT_SECONDS: ${MONITORING_JOB_TIMEOUT_SECONDS:-900}
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "python -m scripts.wait_for_db &&
+             alembic upgrade head &&
+             python -m scripts.seed_data &&
+             python -m scripts.seed_countries &&
+             python -m scripts.seed_enhancement 2>/dev/null || true &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  ui:
+    build: ./ui
+    ports:
+      - "3001:80"
+    depends_on:
+      api:
+        condition: service_healthy
+
