@@ -83,7 +83,7 @@ jobs:
 
   deploy:
     name: Deploy to Railway
-    needs: [lint, unit-tests, frontend]
+    needs: [lint, unit-tests, integration-tests, frontend]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
@@ -95,6 +95,7 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
       - name: Deploy UI service
+        working-directory: ui
         run: railway up --service ui --detach
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
