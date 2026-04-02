@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { cn } from "../lib/utils";
 import PageTransition from "../components/PageTransition";
 import { Check, Copy } from "lucide-react";
@@ -1407,9 +1409,14 @@ function CodeBlock({ title, code }: { title: string; code: string }) {
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
-      <pre className="px-4 py-4 overflow-x-auto bg-[#0d1117] text-[13px] leading-relaxed">
-        <code className="text-[#c9d1d9] font-mono whitespace-pre">{code}</code>
-      </pre>
+      <SyntaxHighlighter
+        language={code.trimStart().startsWith("{") || code.trimStart().startsWith("[") ? "json" : "bash"}
+        style={oneDark}
+        customStyle={{ margin: 0, padding: "1rem", fontSize: "13px", lineHeight: "1.6", borderRadius: 0 }}
+        wrapLongLines
+      >
+        {code}
+      </SyntaxHighlighter>
     </div>
   );
 }

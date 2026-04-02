@@ -90,6 +90,16 @@ export default function Shell() {
               TaxLens
             </span>
           )}
+          <button
+            onClick={toggleCollapsed}
+            className={cn(
+              "hidden lg:flex items-center justify-center rounded-md text-muted hover:text-text hover:bg-hover transition-colors w-7 h-7",
+              collapsed ? "" : "ml-auto"
+            )}
+            title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            <RiSideBarLine className={cn("w-4 h-4 transition-transform", collapsed && "rotate-180")} />
+          </button>
         </div>
 
         {!collapsed && (
@@ -201,17 +211,6 @@ export default function Shell() {
               <RiLogoutBoxRLine className="w-4.5 h-4.5" />
             </button>
           )}
-          <button
-            onClick={toggleCollapsed}
-            className={cn(
-              "hidden lg:flex items-center justify-center rounded-md text-muted hover:text-text hover:bg-hover transition-colors",
-              collapsed ? "w-full p-2" : "w-full p-2 gap-2"
-            )}
-            title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            <RiSideBarLine className={cn("w-4 h-4 transition-transform", collapsed && "rotate-180")} />
-            {!collapsed && <span className="text-xs">Collapse</span>}
-          </button>
         </div>
       </aside>
 

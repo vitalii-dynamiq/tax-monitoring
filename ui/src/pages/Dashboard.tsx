@@ -126,9 +126,8 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* Main Content: Charts Row */}
+      {/* Coverage Overview */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-8">
-        {/* Regional Coverage Donut */}
         <Card>
           <div className="px-6 py-4 border-b border-border">
             <span className="text-base font-semibold text-text">Global Coverage by Region</span>
@@ -144,21 +143,19 @@ export default function Dashboard() {
           </div>
         </Card>
 
-      </div>
-
-      {/* Coverage Numbers Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-        {[
-          { label: "Countries", value: countries.size, color: "text-accent" },
-          { label: "Sub-jurisdictions", value: jurisdictions.length - countries.size, color: "text-success" },
-          { label: "Tax Rates", value: activeRates.length, color: "text-warning" },
-          { label: "Rules & Exemptions", value: "235", color: "text-danger" },
-        ].map((item) => (
-          <Card key={item.label} className="p-4 text-center">
-            <div className={`text-2xl sm:text-3xl font-bold tabular-nums ${item.color}`}>{item.value}</div>
-            <div className="text-xs text-dim mt-1 uppercase tracking-wide">{item.label}</div>
-          </Card>
-        ))}
+        <div className="grid grid-cols-2 gap-4 content-center">
+          {[
+            { label: "Countries", value: countries.size, color: "text-accent" },
+            { label: "Sub-jurisdictions", value: jurisdictions.length - countries.size, color: "text-success" },
+            { label: "Tax Rates", value: activeRates.length, color: "text-warning" },
+            { label: "Rules & Exemptions", value: "235", color: "text-danger" },
+          ].map((item) => (
+            <Card key={item.label} className="p-5 text-center">
+              <div className={`text-2xl sm:text-3xl font-bold tabular-nums ${item.color}`}>{item.value}</div>
+              <div className="text-xs text-dim mt-1 uppercase tracking-wide">{item.label}</div>
+            </Card>
+          ))}
+        </div>
       </div>
 
       {/* Secondary Content */}
