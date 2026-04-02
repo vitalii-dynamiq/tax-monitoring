@@ -113,7 +113,8 @@ class APIKeyMiddleware(BaseHTTPMiddleware):
                 request.state.user = payload.get("sub")
                 request.state.user_role = payload.get("role", "user")
                 return await call_next(request)
-            except Exception:
+            except Exception as exc:
+                logger.warning("JWT validation failed for %s: %s", request.url.path, exc)
                 return JSONResponse(
                     status_code=401,
                     content={"detail": "Invalid or expired token"},

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.auth import require_admin
+from app.api.auth import get_current_user, require_admin
 from app.db.session import get_db
 from app.schemas.monitoring import (
     DetectedChangeCreate,
@@ -55,6 +55,7 @@ async def list_sources(
     status: str | None = None,
     limit: int = Query(100, ge=1, le=2000),
     offset: int = Query(0, ge=0),
+    _user=Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     sources = await get_all_sources(
@@ -65,7 +66,7 @@ async def list_sources(
 
 
 @router.get("/sources/{source_id}", response_model=MonitoredSourceResponse)
-async def get_source(source_id: int, db: AsyncSession = Depends(get_db)):
+async def get_source(source_id: int, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     source = await get_source_by_id(db, source_id)
     if not source:
         raise HTTPException(404, "Source not found")
@@ -96,6 +97,7 @@ async def list_changes(
     review_status: str | None = None,
     limit: int = Query(100, ge=1, le=2000),
     offset: int = Query(0, ge=0),
+    _user=Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     changes = await get_all_changes(
@@ -106,7 +108,7 @@ async def list_changes(
 
 
 @router.get("/changes/{change_id}", response_model=DetectedChangeResponse)
-async def get_change(change_id: int, db: AsyncSession = Depends(get_db)):
+async def get_change(change_id: int, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     change = await get_change_by_id(db, change_id)
     if not change:
         raise HTTPException(404, "Change not found")
@@ -192,6 +194,7 @@ async def list_monitoring_jobs(
     trigger_type: str | None = None,
     limit: int = Query(100, ge=1, le=2000),
     offset: int = Query(0, ge=0),
+    _user=Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     jobs = await list_jobs(
@@ -207,7 +210,7 @@ async def list_monitoring_jobs(
 
 
 @router.get("/jobs/{job_id}", response_model=MonitoringJobResponse)
-async def get_monitoring_job(job_id: int, db: AsyncSession = Depends(get_db)):
+async def get_monitoring_job(job_id: int, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     job = await get_job(db, job_id)
     if not job:
         raise HTTPException(404, "Job not found")
@@ -229,6 +232,7 @@ async def list_monitoring_schedules(
     enabled: bool | None = None,
     limit: int = Query(100, ge=1, le=2000),
     offset: int = Query(0, ge=0),
+    _user=Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     schedules = await list_schedules(db, enabled=enabled, limit=limit, offset=offset)
@@ -237,7 +241,7 @@ async def list_monitoring_schedules(
 
 @router.get("/schedules/{jurisdiction_code}", response_model=MonitoringScheduleResponse)
 async def get_monitoring_schedule(
-    jurisdiction_code: str, db: AsyncSession = Depends(get_db)
+    jurisdiction_code: str, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)
 ):
     schedule = await get_schedule(db, jurisdiction_code)
     if not schedule:
@@ -322,6 +326,7 @@ async def list_discovery_jobs(
     status: str | None = None,
     limit: int = Query(100, ge=1, le=2000),
     offset: int = Query(0, ge=0),
+    _user=Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """List discovery jobs."""

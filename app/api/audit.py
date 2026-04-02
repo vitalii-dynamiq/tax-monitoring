@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.api.auth import get_current_user
 from app.db.session import get_db
 from app.schemas.audit import AuditLogResponse
 from app.services.audit_service import get_audit_log
@@ -14,6 +15,7 @@ async def list_audit_entries(
     entity_id: int | None = None,
     limit: int = Query(100, ge=1, le=2000),
     offset: int = Query(0, ge=0),
+    _user=Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     return await get_audit_log(

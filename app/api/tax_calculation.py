@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.api.auth import get_current_user
 from app.db.session import get_db
 from app.schemas.tax_calculation import (
     BatchCalculationRequest,
@@ -16,6 +17,7 @@ router = APIRouter(prefix="/v1/tax", tags=["Tax Calculation"])
 @router.post("/calculate", response_model=TaxCalculationResponse)
 async def calculate_endpoint(
     request: TaxCalculationRequest,
+    _user=Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """Calculate accommodation tax for a booking.
@@ -44,6 +46,7 @@ async def calculate_endpoint(
 @router.post("/calculate/batch", response_model=BatchCalculationResponse)
 async def calculate_batch_endpoint(
     request: BatchCalculationRequest,
+    _user=Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     return await calculate_tax_batch(db, request)

@@ -3,7 +3,7 @@ from datetime import date
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.auth import require_admin
+from app.api.auth import get_current_user, require_admin
 from app.db.session import get_db
 from app.schemas.tax_rate import TaxRateBulkCreate, TaxRateCreate, TaxRateResponse
 from app.services.jurisdiction_service import get_jurisdiction_with_ancestors
@@ -36,6 +36,7 @@ async def list_rates(
     effective_date: date | None = None,
     limit: int = Query(100, ge=1, le=2000),
     offset: int = Query(0, ge=0),
+    _user=Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     rates = await get_all_rates(
@@ -54,6 +55,7 @@ async def list_rates(
 async def lookup_rates(
     jurisdiction_code: str,
     effective_date: date | None = None,
+    _user=Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """Get all active rates for a jurisdiction on a given date."""
@@ -80,7 +82,7 @@ async def lookup_rates(
 
 
 @router.get("/{rate_id}", response_model=TaxRateResponse)
-async def get_rate(rate_id: int, db: AsyncSession = Depends(get_db)):
+async def get_rate(rate_id: int, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     rate = await get_rate_by_id(db, rate_id)
     if not rate:
         raise HTTPException(404, "Rate not found")

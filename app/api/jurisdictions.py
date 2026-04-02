@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.auth import require_admin
+from app.api.auth import get_current_user, require_admin
 from app.db.session import get_db
 from app.schemas.jurisdiction import (
     JurisdictionBulkCreate,
@@ -52,6 +52,7 @@ async def list_jurisdictions(
     q: str | None = Query(None, description="Search by name"),
     limit: int = Query(100, ge=1, le=2000),
     offset: int = Query(0, ge=0),
+    _user=Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     results = await get_all_jurisdictions(
@@ -73,6 +74,7 @@ async def resolve_jurisdiction_endpoint(
     country: str | None = Query(None, description="Filter by ISO country code (e.g., US, ES, JP)"),
     type: str | None = Query(None, description="Filter by jurisdiction type (country, state, city, etc.)"),
     limit: int = Query(10, ge=1, le=50),
+    _user=Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """Resolve a location name or code to matching jurisdictions.
@@ -93,7 +95,7 @@ async def resolve_jurisdiction_endpoint(
 
 
 @router.get("/{code}", response_model=JurisdictionResponse)
-async def get_jurisdiction(code: str, db: AsyncSession = Depends(get_db)):
+async def get_jurisdiction(code: str, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     j = await get_jurisdiction_by_code(db, code)
     if not j:
         raise HTTPException(404, f"Jurisdiction not found: {code}")
@@ -101,13 +103,13 @@ async def get_jurisdiction(code: str, db: AsyncSession = Depends(get_db)):
 
 
 @router.get("/{code}/children", response_model=list[JurisdictionResponse])
-async def get_children(code: str, db: AsyncSession = Depends(get_db)):
+async def get_children(code: str, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     children = await get_jurisdiction_children(db, code)
     return [_jurisdiction_to_response(c) for c in children]
 
 
 @router.get("/{code}/ancestors", response_model=list[JurisdictionResponse])
-async def get_ancestors(code: str, db: AsyncSession = Depends(get_db)):
+async def get_ancestors(code: str, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     ancestors = await get_jurisdiction_ancestors(db, code)
     return [_jurisdiction_to_response(a) for a in ancestors]
 
