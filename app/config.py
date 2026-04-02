@@ -37,7 +37,7 @@ class Settings(BaseSettings):
     monitoring_job_timeout_seconds: int = 900
     monitoring_scheduler_interval_seconds: int = 60
 
-    model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
+    model_config = {"env_file": ".env", "env_file_encoding": "utf-8", "extra": "ignore"}
 
     @property
     def is_production(self) -> bool:
