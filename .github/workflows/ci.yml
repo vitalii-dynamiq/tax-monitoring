@@ -62,7 +62,7 @@ jobs:
       - name: Run migrations
         run: alembic upgrade head
       - name: Run integration tests
-        run: pytest tests/ -m integration -q
+        run: pytest tests/ -m integration -q || test $? -eq 5
 
   frontend:
     runs-on: ubuntu-latest

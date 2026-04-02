@@ -33,7 +33,7 @@ export default function Dashboard() {
       api.rates.list({ limit: "2000" }).catch(() => []),
       api.monitoring.changes({ review_status: "pending", limit: "2000" }).catch(() => []),
       api.monitoring.listJobs({ limit: "10" }).catch(() => []),
-    ]).then(([_h, j, r, pc, rj]) => {
+    ]).then(([, j, r, pc, rj]) => {
       setJurisdictions(j);
       setRates(r);
       setPendingChanges(pc);
