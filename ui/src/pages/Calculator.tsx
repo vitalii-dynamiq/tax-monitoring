@@ -13,7 +13,7 @@ import { formatCurrency } from "../lib/utils";
 
 const PRESETS: (Partial<TaxCalculationRequest> & { label: string })[] = [
   { label: "NYC Hotel", jurisdiction_code: "US-NY-NYC", nightly_rate: 300, currency: "USD", nights: 5, property_type: "hotel", star_rating: 4 },
-  { label: "Dubai 5-Star", jurisdiction_code: "AE-DU-DXB", nightly_rate: 800, currency: "AED", nights: 3, property_type: "hotel", star_rating: 5 },
+  { label: "Dubai 5-Star", jurisdiction_code: "AE-DU", nightly_rate: 800, currency: "AED", nights: 3, property_type: "hotel", star_rating: 5 },
   { label: "Barcelona", jurisdiction_code: "ES-CT-BCN", nightly_rate: 200, currency: "EUR", nights: 4, property_type: "hotel", star_rating: 4, number_of_guests: 2 },
   { label: "Tokyo Luxury", jurisdiction_code: "JP-13-TYO", nightly_rate: 45000, currency: "JPY", nights: 3, property_type: "hotel", star_rating: 5 },
   { label: "Paris STR", jurisdiction_code: "FR-IDF-PAR", nightly_rate: 150, currency: "EUR", nights: 5, property_type: "short_term_rental" },
