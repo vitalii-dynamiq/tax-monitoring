@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { RiArrowRightSLine } from "react-icons/ri";
 import {
-  Globe, MapPin, TrendingUp, AlertTriangle, Shield, Zap,
-  Calculator, ScrollText, AlertCircle, BookOpen,
+  Globe, MapPin, TrendingUp, AlertTriangle,
+  Calculator, ScrollText, AlertCircle, BookOpen, Shield, Zap,
 } from "lucide-react";
 import PageHeader from "../components/PageHeader";
 import PageTransition from "../components/PageTransition";
@@ -15,13 +15,11 @@ import {
   api,
   type Jurisdiction,
   type TaxRate,
-  type HealthResponse,
   type DetectedChange,
   type MonitoringJob,
 } from "../lib/api";
 
 export default function Dashboard() {
-  const [health, setHealth] = useState<HealthResponse | null>(null);
   const [jurisdictions, setJurisdictions] = useState<Jurisdiction[]>([]);
   const [rates, setRates] = useState<TaxRate[]>([]);
   const [pendingChanges, setPendingChanges] = useState<DetectedChange[]>([]);
@@ -35,8 +33,7 @@ export default function Dashboard() {
       api.rates.list({ limit: "2000" }).catch(() => []),
       api.monitoring.changes({ review_status: "pending", limit: "2000" }).catch(() => []),
       api.monitoring.listJobs({ limit: "10" }).catch(() => []),
-    ]).then(([h, j, r, pc, rj]) => {
-      setHealth(h);
+    ]).then(([_h, j, r, pc, rj]) => {
       setJurisdictions(j);
       setRates(r);
       setPendingChanges(pc);

@@ -72,7 +72,7 @@ export default function Badge({ value, className }: { value: string; className?:
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 px-3 py-1 rounded-md border text-[13px] font-semibold uppercase tracking-wide whitespace-nowrap",
+        "inline-flex items-center gap-1 px-2 py-0.5 rounded-md border text-[11px] font-semibold uppercase tracking-wide whitespace-nowrap",
         variant,
         className
       )}

@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
+import { useAuth } from "../hooks/useAuth";
 import PageHeader from "../components/PageHeader";
 import PageTransition from "../components/PageTransition";
 import Card from "../components/Card";
@@ -74,6 +75,7 @@ export default function Jurisdictions() {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState<JurisdictionTab>("overview");
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const { isAdmin } = useAuth();
 
   // Reset tab when jurisdiction changes
   useEffect(() => {
@@ -200,12 +202,14 @@ export default function Jurisdictions() {
           title="Jurisdictions"
           description={`${totalJurisdictions} jurisdictions across ${stats.countries} countries`}
         />
-        <button
-          onClick={() => setShowCreateModal(true)}
-          className="btn-primary px-4 py-2 text-sm flex-shrink-0"
-        >
-          {currentCode ? "+ Add Sub-Jurisdiction" : "+ Add Country"}
-        </button>
+        {isAdmin && (
+          <button
+            onClick={() => setShowCreateModal(true)}
+            className="btn-primary px-4 py-2 text-sm flex-shrink-0"
+          >
+            {currentCode ? "+ Add Sub-Jurisdiction" : "+ Add Country"}
+          </button>
+        )}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
