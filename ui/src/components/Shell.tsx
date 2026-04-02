@@ -183,16 +183,6 @@ export default function Shell() {
               </button>
             </div>
           )}
-          <div className="flex items-center gap-2.5">
-            <div className={cn(
-              "w-2 h-2 rounded-full",
-              dbStatus === "Connected" ? "bg-success" : dbStatus === "Offline" ? "bg-danger" : "bg-warning"
-            )} />
-            <span className="text-sm text-dim">Database {dbStatus}</span>
-          </div>
-          {appVersion && (
-            <div className="text-xs text-dim/60">v{appVersion}</div>
-          )}
         </div>
       </aside>
 

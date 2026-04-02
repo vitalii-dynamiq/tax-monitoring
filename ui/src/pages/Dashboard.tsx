@@ -129,25 +129,6 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* Platform Health Banner */}
-      <Card className="mb-8 bg-gradient-to-r from-accent/5 to-success/5 border-accent/20">
-        <div className="px-4 sm:px-6 py-5 flex flex-wrap items-center gap-3 sm:gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-success/10 flex items-center justify-center">
-              <Shield className="w-5 h-5 text-success" />
-            </div>
-            <div>
-              <div className="text-sm font-semibold text-text">Platform Operational</div>
-              <div className="text-xs text-dim">v{health?.version} &middot; DB {health?.database} &middot; AI {health?.ai_configured ? "Active" : "Inactive"}</div>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 text-xs text-dim">
-            <Zap className="w-3.5 h-3.5 text-accent" />
-            <span>Sub-50ms API response &middot; 100% global OTA coverage</span>
-          </div>
-        </div>
-      </Card>
-
       {/* Main Content: Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-8">
         {/* Regional Coverage Donut */}
