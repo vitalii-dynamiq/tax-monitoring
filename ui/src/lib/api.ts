@@ -18,7 +18,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   if (!res.ok) {
     if (res.status === 401 && !path.startsWith("/v1/auth/")) {
       localStorage.removeItem("taxlens_token");
-      window.location.href = "/login";
+      window.dispatchEvent(new Event("auth:logout"));
     }
     const body = await res.json().catch(() => null);
     throw new Error(body?.detail || `${res.status} ${res.statusText}`);

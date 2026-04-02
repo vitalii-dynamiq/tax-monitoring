@@ -60,6 +60,16 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Clear auth state when a 401 response removes the token (dispatched from api.ts)
+  useEffect(() => {
+    const handleLogout = () => {
+      setToken(null);
+      setUser(null);
+    };
+    window.addEventListener("auth:logout", handleLogout);
+    return () => window.removeEventListener("auth:logout", handleLogout);
+  }, []);
+
   const login = useCallback(async (email: string, password: string) => {
     const res = await fetch("/v1/auth/login", {
       method: "POST",
