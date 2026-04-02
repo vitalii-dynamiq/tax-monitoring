@@ -16,7 +16,6 @@ from app.models.jurisdiction import Jurisdiction
 from app.models.monitoring_job import MonitoringJob
 from app.models.monitoring_schedule import MonitoringSchedule
 from app.models.tax_rate import TaxRate
-from app.models.tax_rule import TaxRule
 
 logger = logging.getLogger(__name__)
 
@@ -316,7 +315,7 @@ async def run_monitoring_job_with_limits(job_id: int) -> None:
                 run_monitoring_job(job_id),
                 timeout=settings.monitoring_job_timeout_seconds,
             )
-        except asyncio.TimeoutError:
+        except TimeoutError:
             logger.error("Job %d timed out after %ds", job_id, settings.monitoring_job_timeout_seconds)
             try:
                 async with async_session_factory() as db:

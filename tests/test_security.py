@@ -30,6 +30,7 @@ class TestProductionConfigValidation:
             Settings(
                 environment="production",
                 api_key="a-real-production-key",
+                jwt_secret="a-real-jwt-secret",
                 cors_origins="*",
             )
 
@@ -38,6 +39,7 @@ class TestProductionConfigValidation:
         s = Settings(
             environment="production",
             api_key="a-real-production-key",
+            jwt_secret="a-real-jwt-secret",
             cors_origins="https://app.example.com",
         )
         assert s.is_production is True
@@ -70,9 +72,15 @@ class TestAuthenticationEnforcement:
                         test_path = test_path.replace(param, "DUMMY")
 
                     resp = getattr(client, method)(test_path)
-                    assert resp.status_code == 401, (
-                        f"{method.upper()} {path} returned {resp.status_code} without API key"
-                    )
+                    # Auth endpoints may return 422 (validation) or 403 (disabled)
+                    if path.startswith("/v1/auth/"):
+                        assert resp.status_code in (401, 403, 422), (
+                            f"{method.upper()} {path} returned {resp.status_code} without API key"
+                        )
+                    else:
+                        assert resp.status_code == 401, (
+                            f"{method.upper()} {path} returned {resp.status_code} without API key"
+                        )
 
     def test_public_paths_accessible_without_key(self, client):
         for path in ["/health", "/docs", "/openapi.json"]:

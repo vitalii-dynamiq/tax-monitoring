@@ -6,13 +6,10 @@ import traceback
 from datetime import UTC, datetime
 
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
 
 from app.config import settings
 from app.db.session import async_session_factory
 from app.models.jurisdiction import Jurisdiction
-from app.models.monitoring_job import MonitoringJob
 from app.models.monitoring_schedule import MonitoringSchedule
 from app.models.tax_category import TaxCategory
 from app.models.tax_rate import TaxRate
@@ -30,7 +27,7 @@ async def run_discovery_job(job_id: int) -> None:
                 _run_discovery_job_inner(job_id),
                 timeout=settings.monitoring_job_timeout_seconds,
             )
-        except asyncio.TimeoutError:
+        except TimeoutError:
             logger.error("Discovery job %d timed out after %ds", job_id, settings.monitoring_job_timeout_seconds)
             try:
                 async with async_session_factory() as db:

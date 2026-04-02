@@ -60,7 +60,7 @@ class AIExtractedRate(BaseModel):
     confidence: float = Field(ge=0.0, le=1.0, description="Confidence score 0.0-1.0")
 
     @model_validator(mode="after")
-    def validate_actionable_rate(self) -> "AIExtractedRate":
+    def validate_actionable_rate(self) -> AIExtractedRate:
         """Ensure new/changed rates have concrete values — no vague alerts."""
         if self.change_type in ("new", "changed"):
             if self.rate_type in ("percentage", "flat") and self.rate_value is None:

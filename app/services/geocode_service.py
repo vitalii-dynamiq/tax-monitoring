@@ -8,7 +8,6 @@ Includes in-memory cache to minimize external API calls.
 """
 
 import logging
-from functools import lru_cache
 
 import httpx
 

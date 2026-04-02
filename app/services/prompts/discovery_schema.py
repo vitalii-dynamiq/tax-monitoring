@@ -57,7 +57,7 @@ class AIDiscoveredJurisdiction(BaseModel):
     confidence: float = Field(ge=0.0, le=1.0, description="Confidence score 0.0-1.0")
 
     @model_validator(mode="after")
-    def validate_has_own_taxes(self) -> "AIDiscoveredJurisdiction":
+    def validate_has_own_taxes(self) -> AIDiscoveredJurisdiction:
         """Only include jurisdictions that actually have their own tax rules."""
         if not self.has_own_tax_rules:
             raise ValueError(

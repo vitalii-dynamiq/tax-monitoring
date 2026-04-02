@@ -5,7 +5,16 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
-from app.api import api_keys, auth, audit, jurisdictions, monitoring, tax_calculation, tax_rates, tax_rules
+from app.api import (
+    api_keys,
+    audit,
+    auth,
+    jurisdictions,
+    monitoring,
+    tax_calculation,
+    tax_rates,
+    tax_rules,
+)
 from app.middleware import setup_middleware
 from app.services.scheduler import start_scheduler, stop_scheduler
 

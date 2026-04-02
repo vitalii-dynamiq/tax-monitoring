@@ -57,7 +57,13 @@ async def get_current_user(request: Request, db: AsyncSession = Depends(get_db))
     """Extract and validate the current user from middleware state or JWT header."""
     # 1. Check if middleware already authenticated (JWT or API key)
     user_email = getattr(request.state, "user", None)
-    if user_email and user_email != "api-key-user":
+    if user_email == "api-key-user":
+        # Static API key — return virtual admin user
+        from types import SimpleNamespace
+        return SimpleNamespace(
+            id=0, email="api-key-user", role="admin", is_active=True,
+        )
+    if user_email:
         user = await get_user_by_email(db, user_email)
         if user and user.is_active:
             return user
