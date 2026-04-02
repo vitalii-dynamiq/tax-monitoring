@@ -16,7 +16,7 @@ def db_already_seeded(dsn: str) -> bool:
     dsn = dsn.replace("postgresql+asyncpg://", "postgresql://", 1)
     conn = psycopg2.connect(dsn)
     cur = conn.cursor()
-    cur.execute("SELECT COUNT(*) FROM tax_jurisdictions")
+    cur.execute("SELECT COUNT(*) FROM jurisdictions")
     count = cur.fetchone()[0]
     cur.close()
     conn.close()
