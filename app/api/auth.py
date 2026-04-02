@@ -100,6 +100,9 @@ async def require_admin(request: Request, db: AsyncSession = Depends(get_db)):
 @router.post("/register", response_model=UserResponse, status_code=201)
 async def register(body: UserRegister, db: AsyncSession = Depends(get_db)):
     """Register a new user account."""
+    from app.config import settings
+    if not settings.registration_enabled:
+        raise HTTPException(status_code=403, detail="Registration is currently disabled")
     existing = await get_user_by_email(db, body.email)
     if existing:
         raise HTTPException(status_code=409, detail="Email already registered")

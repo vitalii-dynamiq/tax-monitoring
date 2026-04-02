@@ -162,6 +162,11 @@ select.input-field {
 .btn-danger:active { transform: scale(0.98); }
 .btn-danger:disabled { opacity: 0.5; cursor: not-allowed; }
 
+/* Interactive elements — pointer cursor */
+a, button, [role="button"], label[for], select, summary, [tabindex]:not([tabindex="-1"]) {
+  cursor: pointer;
+}
+
 /* Focus accessibility */
 button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
   outline: 2px solid var(--color-accent);

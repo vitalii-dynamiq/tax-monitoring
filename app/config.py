@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     debug: bool = False
     cors_origins: str = "*"
     environment: str = "development"
+    registration_enabled: bool = False
 
     # Anthropic API
     anthropic_api_key: str = ""

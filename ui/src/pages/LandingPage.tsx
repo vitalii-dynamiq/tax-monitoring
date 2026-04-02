@@ -255,14 +255,11 @@ export default function LandingPage() {
             <a href="#coverage" className="hover:text-white transition-colors">Coverage</a>
           </div>
           <div className="flex items-center gap-3">
-            <Link to="/login" className="text-[14px] text-white/50 hover:text-white transition-colors hidden sm:block">
-              Log in
-            </Link>
             <Link
               to="/login"
               className="h-9 px-4 rounded-lg bg-white text-[#09090b] text-[14px] font-medium flex items-center hover:bg-white/90 transition-colors"
             >
-              Get started
+              Sign in
             </Link>
           </div>
         </div>
@@ -461,10 +458,10 @@ export default function LandingPage() {
               Get API access <RiArrowRightLine className="w-4 h-4" />
             </Link>
             <a
-              href="mailto:hello@taxlens.io"
+              href="mailto:hello@getdynamiq.ai"
               className="h-12 px-7 rounded-lg border border-white/[0.1] text-[15px] font-medium text-white/60 flex items-center hover:text-white hover:border-white/20 transition-all"
             >
-              Talk to sales
+              Talk to founders
             </a>
           </div>
         </div>
@@ -472,14 +469,16 @@ export default function LandingPage() {
 
       {/* ─── Footer ─── */}
       <footer className="border-t border-white/[0.06] py-10 px-5 sm:px-8">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2.5">
             <img src="/logo.svg" alt="TaxLens" className="w-5 h-5 opacity-40" />
-            <span className="text-[13px] text-white/25">TaxLens &middot; Global Accommodation Tax Intelligence</span>
+            <span className="text-[13px] text-white/25">&copy; {new Date().getFullYear()} Dynamiq Technologies, Inc.</span>
           </div>
-          <div className="flex items-center gap-6 text-[13px] text-white/25">
+          <div className="flex items-center flex-wrap justify-center gap-6 text-[13px] text-white/25">
             <Link to="/app" className="hover:text-white/50 transition-colors">Dashboard</Link>
             <Link to="/app/docs" className="hover:text-white/50 transition-colors">API Docs</Link>
+            <a href="https://getdynamiq.ai/privacy" target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition-colors">Privacy Policy</a>
+            <a href="https://getdynamiq.ai/terms" target="_blank" rel="noopener noreferrer" className="hover:text-white/50 transition-colors">Terms of Service</a>
           </div>
         </div>
       </footer>

@@ -3,16 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import Card from "../components/Card";
 
-type Tab = "login" | "register";
-
 export default function LoginPage() {
-  const [tab, setTab] = useState<Tab>("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  const { login, register } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   async function handleSubmit(e: FormEvent) {
@@ -21,11 +18,7 @@ export default function LoginPage() {
     setSubmitting(true);
 
     try {
-      if (tab === "login") {
-        await login(email, password);
-      } else {
-        await register(email, password);
-      }
+      await login(email, password);
       navigate("/app", { replace: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : "An unexpected error occurred");
@@ -45,31 +38,7 @@ export default function LoginPage() {
         </div>
 
         <Card className="p-6 animate-slideUp">
-          {/* Tabs */}
-          <div className="flex rounded-md border border-border overflow-hidden mb-6">
-            <button
-              type="button"
-              onClick={() => { setTab("login"); setError(null); }}
-              className={
-                tab === "login"
-                  ? "flex-1 py-2.5 text-sm font-semibold bg-accent text-white transition-colors"
-                  : "flex-1 py-2.5 text-sm font-medium text-muted bg-surface hover:bg-hover transition-colors"
-              }
-            >
-              Log In
-            </button>
-            <button
-              type="button"
-              onClick={() => { setTab("register"); setError(null); }}
-              className={
-                tab === "register"
-                  ? "flex-1 py-2.5 text-sm font-semibold bg-accent text-white transition-colors"
-                  : "flex-1 py-2.5 text-sm font-medium text-muted bg-surface hover:bg-hover transition-colors"
-              }
-            >
-              Register
-            </button>
-          </div>
+          <h2 className="text-base font-semibold text-text mb-6">Sign in to your account</h2>
 
           {/* Error */}
           {error && (
@@ -109,7 +78,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                autoComplete={tab === "login" ? "current-password" : "new-password"}
+                autoComplete="current-password"
                 minLength={8}
               />
             </div>
@@ -119,24 +88,16 @@ export default function LoginPage() {
               className="btn-primary w-full"
               disabled={submitting}
             >
-              {submitting
-                ? (tab === "login" ? "Logging in..." : "Creating account...")
-                : (tab === "login" ? "Log In" : "Create Account")}
+              {submitting ? "Signing in..." : "Sign In"}
             </button>
           </form>
         </Card>
 
         <p className="text-center text-xs text-dim mt-6">
-          {tab === "login"
-            ? "Don't have an account? "
-            : "Already have an account? "}
-          <button
-            type="button"
-            onClick={() => { setTab(tab === "login" ? "register" : "login"); setError(null); }}
-            className="text-accent hover:underline font-medium"
-          >
-            {tab === "login" ? "Register" : "Log in"}
-          </button>
+          Need access?{" "}
+          <a href="mailto:hello@getdynamiq.ai" className="text-accent hover:underline font-medium">
+            Contact us
+          </a>
         </p>
       </div>
     </div>
