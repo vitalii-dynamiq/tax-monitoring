@@ -80,7 +80,23 @@ async def get_active_rates_for_jurisdiction(
         if existing is None or rate.effective_start > existing.effective_start:
             best[key] = rate
     deduped = list(best.values())
-    deduped.sort(key=lambda r: r.calculation_order)
+
+    # Hierarchical override: when child jurisdiction has the same tax_category
+    # as a parent, the child's rate overrides (not stacks on top of) the parent.
+    # jurisdiction_ids is ordered ancestors-first → child-last, so higher index = deeper.
+    depth_map = {jid: i for i, jid in enumerate(jurisdiction_ids)}
+    category_best: dict[int, TaxRate] = {}
+    for rate in deduped:
+        cat_id = rate.tax_category_id
+        existing = category_best.get(cat_id)
+        if existing is None:
+            category_best[cat_id] = rate
+        else:
+            existing_depth = depth_map.get(existing.jurisdiction_id, 0)
+            current_depth = depth_map.get(rate.jurisdiction_id, 0)
+            if current_depth > existing_depth:
+                category_best[cat_id] = rate
+    deduped = sorted(category_best.values(), key=lambda r: r.calculation_order)
     return deduped
 
 

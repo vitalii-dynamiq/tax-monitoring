@@ -239,6 +239,7 @@ def calculate_tiered(
     nights: int,
     number_of_guests: int = 1,
     currency: str = "USD",
+    category_level_2: str = "",
 ) -> Decimal:
     """
     OpenFisca-inspired scale calculation.
@@ -255,9 +256,12 @@ def calculate_tiered(
             for tier in tiers:
                 tier_min = Decimal(str(tier.get("min", 0)))
                 tier_max = tier.get("max")
-                if tier_max is None or nightly_rate <= Decimal(str(tier_max)):
+                if tier_max is None or nightly_rate < Decimal(str(tier_max)):
                     if nightly_rate >= tier_min:
-                        return _round_tax(Decimal(str(tier["value"])) * nights, currency)
+                        base = Decimal(str(tier["value"])) * nights
+                        if "per_person" in category_level_2:
+                            base *= number_of_guests
+                        return _round_tax(base, currency)
             return Decimal("0")
 
         case "threshold":
@@ -483,6 +487,7 @@ def calculate_taxes(
                     effective_nights,
                     context.number_of_guests,
                     currency,
+                    category.level_2,
                 )
             case _:
                 tax_amount = Decimal("0")
