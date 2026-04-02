@@ -2,6 +2,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.auth import get_current_user, require_admin
+from app.config import settings as app_settings
 from app.db.session import get_db
 from app.schemas.monitoring import (
     DetectedChangeCreate,
@@ -13,9 +14,8 @@ from app.schemas.monitoring import (
     MonitoringScheduleResponse,
     MonitoringScheduleUpdate,
 )
-from app.services.jurisdiction_service import get_jurisdiction_by_code
-from app.config import settings as app_settings
 from app.services.discovery_job_service import run_discovery_job
+from app.services.jurisdiction_service import get_jurisdiction_by_code
 from app.services.monitoring_job_service import (
     create_job,
     get_job,
@@ -66,7 +66,9 @@ async def list_sources(
 
 
 @router.get("/sources/{source_id}", response_model=MonitoredSourceResponse)
-async def get_source(source_id: int, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+async def get_source(
+    source_id: int, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db),
+):
     source = await get_source_by_id(db, source_id)
     if not source:
         raise HTTPException(404, "Source not found")
@@ -74,7 +76,9 @@ async def get_source(source_id: int, _user=Depends(get_current_user), db: AsyncS
 
 
 @router.post("/sources", response_model=MonitoredSourceResponse, status_code=201)
-async def create_new_source(data: MonitoredSourceCreate, _admin=Depends(require_admin), db: AsyncSession = Depends(get_db)):
+async def create_new_source(
+    data: MonitoredSourceCreate, _admin=Depends(require_admin), db: AsyncSession = Depends(get_db),
+):
     try:
         source = await create_source(db, data)
         return _source_to_response(source)
@@ -108,7 +112,9 @@ async def list_changes(
 
 
 @router.get("/changes/{change_id}", response_model=DetectedChangeResponse)
-async def get_change(change_id: int, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+async def get_change(
+    change_id: int, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db),
+):
     change = await get_change_by_id(db, change_id)
     if not change:
         raise HTTPException(404, "Change not found")
@@ -116,7 +122,9 @@ async def get_change(change_id: int, _user=Depends(get_current_user), db: AsyncS
 
 
 @router.post("/changes", response_model=DetectedChangeResponse, status_code=201)
-async def create_new_change(data: DetectedChangeCreate, _admin=Depends(require_admin), db: AsyncSession = Depends(get_db)):
+async def create_new_change(
+    data: DetectedChangeCreate, _admin=Depends(require_admin), db: AsyncSession = Depends(get_db),
+):
     change = await create_change(db, data)
     return _change_to_response(change)
 
@@ -210,7 +218,9 @@ async def list_monitoring_jobs(
 
 
 @router.get("/jobs/{job_id}", response_model=MonitoringJobResponse)
-async def get_monitoring_job(job_id: int, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+async def get_monitoring_job(
+    job_id: int, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db),
+):
     job = await get_job(db, job_id)
     if not job:
         raise HTTPException(404, "Job not found")
@@ -241,7 +251,9 @@ async def list_monitoring_schedules(
 
 @router.get("/schedules/{jurisdiction_code}", response_model=MonitoringScheduleResponse)
 async def get_monitoring_schedule(
-    jurisdiction_code: str, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)
+    jurisdiction_code: str,
+    _user=Depends(get_current_user),
+    db: AsyncSession = Depends(get_db)
 ):
     schedule = await get_schedule(db, jurisdiction_code)
     if not schedule:
@@ -302,7 +314,9 @@ async def trigger_discovery_run(
     if not jurisdiction:
         raise HTTPException(404, f"Jurisdiction not found: {country_code}")
     if jurisdiction.jurisdiction_type != "country":
-        raise HTTPException(400, f"{country_code} is not a country. Discovery only works on countries.")
+        raise HTTPException(
+            400, f"{country_code} is not a country. Discovery only works on countries.",
+        )
 
     if await has_running_job(db, jurisdiction.id):
         raise HTTPException(409, "A job is already running for this jurisdiction")

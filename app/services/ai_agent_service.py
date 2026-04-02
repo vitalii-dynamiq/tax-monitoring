@@ -93,7 +93,7 @@ class TaxMonitoringAgent:
 
             # Log what happened in this turn
             tool_calls = [b.name for b in response.content if b.type == "tool_use"]
-            text_blocks = [b for b in response.content if hasattr(b, "text")]
+            _ = [b for b in response.content if hasattr(b, "text")]  # noqa: F841
             logger.info(
                 "[%s] Turn %d response: stop_reason=%s, tools_called=%s, "
                 "input_tokens=%s, output_tokens=%s",

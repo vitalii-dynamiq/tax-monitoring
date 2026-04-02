@@ -70,9 +70,11 @@ async def list_jurisdictions(
 
 @router.get("/resolve", response_model=list[JurisdictionResponse])
 async def resolve_jurisdiction_endpoint(
-    query: str = Query(..., min_length=1, description="City name, jurisdiction code, or ISO subdivision code"),
-    country: str | None = Query(None, description="Filter by ISO country code (e.g., US, ES, JP)"),
-    type: str | None = Query(None, description="Filter by jurisdiction type (country, state, city, etc.)"),
+    query: str = Query(
+        ..., min_length=1, description="City name, jurisdiction code, or ISO subdivision code",
+    ),
+    country: str | None = Query(None, description="Filter by ISO country code"),
+    type: str | None = Query(None, description="Filter by jurisdiction type"),
     limit: int = Query(10, ge=1, le=50),
     _user=Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
@@ -95,7 +97,9 @@ async def resolve_jurisdiction_endpoint(
 
 
 @router.get("/{code}", response_model=JurisdictionResponse)
-async def get_jurisdiction(code: str, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+async def get_jurisdiction(
+    code: str, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db),
+):
     j = await get_jurisdiction_by_code(db, code)
     if not j:
         raise HTTPException(404, f"Jurisdiction not found: {code}")
@@ -103,13 +107,17 @@ async def get_jurisdiction(code: str, _user=Depends(get_current_user), db: Async
 
 
 @router.get("/{code}/children", response_model=list[JurisdictionResponse])
-async def get_children(code: str, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+async def get_children(
+    code: str, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db),
+):
     children = await get_jurisdiction_children(db, code)
     return [_jurisdiction_to_response(c) for c in children]
 
 
 @router.get("/{code}/ancestors", response_model=list[JurisdictionResponse])
-async def get_ancestors(code: str, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+async def get_ancestors(
+    code: str, _user=Depends(get_current_user), db: AsyncSession = Depends(get_db),
+):
     ancestors = await get_jurisdiction_ancestors(db, code)
     return [_jurisdiction_to_response(a) for a in ancestors]
 
