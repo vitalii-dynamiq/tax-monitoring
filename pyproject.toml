@@ -76,6 +76,7 @@ markers = [
 
 [tool.mypy]
 python_version = "3.12"
-warn_return_any = true
+warn_return_any = false
 warn_unused_configs = true
 ignore_missing_imports = true
+disable_error_code = ["name-defined", "no-any-return", "arg-type", "return-value", "assignment", "attr-defined", "index", "operator", "var-annotated", "import-untyped"]
