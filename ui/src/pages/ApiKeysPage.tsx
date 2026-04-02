@@ -232,7 +232,7 @@ export default function ApiKeysPage() {
             Include your API key in the <code className="text-xs">X-API-Key</code> header:
           </p>
           <div className="bg-surface rounded-md p-3 font-mono text-xs text-muted overflow-x-auto">
-            curl -H "X-API-Key: txl_your_key_here" http://localhost:8001/v1/jurisdictions
+            curl -H "X-API-Key: txl_your_key_here" https://api.taxlens.getdynamiq.ai/v1/jurisdictions
           </div>
         </Card>
       </div>

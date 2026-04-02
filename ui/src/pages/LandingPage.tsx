@@ -69,7 +69,7 @@ function SyntaxRequest() {
   return (
     <>
       <span className="text-emerald-400">curl</span>{" "}
-      <span className="text-white/60">https://api.taxlens.io/v1/tax/calculate</span>{" "}
+      <span className="text-white/60">https://api.taxlens.getdynamiq.ai/v1/tax/calculate</span>{" "}
       <span className="text-white/30">\</span>{"\n"}
       {"  "}<span className="text-amber-400">-H</span>{" "}
       <span className="text-sky-300">"X-API-Key: txl_your_key"</span>{" "}

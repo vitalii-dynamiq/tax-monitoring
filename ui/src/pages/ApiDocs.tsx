@@ -70,7 +70,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "platform_type", type: "string", required: false, default: "\"direct\"", description: "Booking channel: direct, ota, metasearch, etc." },
       { name: "is_bundled", type: "boolean", required: false, default: "false", description: "Whether the room is part of a bundled package." },
     ],
-    exampleRequest: `curl -X POST http://localhost:8000/v1/tax/calculate \\
+    exampleRequest: `curl -X POST https://api.taxlens.getdynamiq.ai/v1/tax/calculate \\
   -H "Content-Type: application/json" \\
   -H "X-API-Key: dev-api-key-change-me" \\
   -d '{
@@ -150,7 +150,7 @@ const ENDPOINTS: ApiEndpoint[] = [
     requestBody: [
       { name: "calculations", type: "array", required: true, description: "Array of TaxCalculationRequest objects (same schema as single calculate endpoint)." },
     ],
-    exampleRequest: `curl -X POST http://localhost:8000/v1/tax/calculate/batch \\
+    exampleRequest: `curl -X POST https://api.taxlens.getdynamiq.ai/v1/tax/calculate/batch \\
   -H "Content-Type: application/json" \\
   -H "X-API-Key: dev-api-key-change-me" \\
   -d '{
@@ -207,7 +207,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "limit", type: "integer", required: false, default: "100", description: "Max results (1-500)" },
       { name: "offset", type: "integer", required: false, default: "0", description: "Pagination offset" },
     ],
-    exampleRequest: `curl http://localhost:8000/v1/jurisdictions?country_code=US&jurisdiction_type=state \\
+    exampleRequest: `curl https://api.taxlens.getdynamiq.ai/v1/jurisdictions?country_code=US&jurisdiction_type=state \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `[
   {
@@ -240,7 +240,7 @@ const ENDPOINTS: ApiEndpoint[] = [
     parameters: [
       { name: "code", type: "string", required: true, description: "Jurisdiction code (path parameter)" },
     ],
-    exampleRequest: `curl http://localhost:8000/v1/jurisdictions/US-NY-NYC \\
+    exampleRequest: `curl https://api.taxlens.getdynamiq.ai/v1/jurisdictions/US-NY-NYC \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `{
   "id": 3,
@@ -267,7 +267,7 @@ const ENDPOINTS: ApiEndpoint[] = [
     parameters: [
       { name: "code", type: "string", required: true, description: "Parent jurisdiction code (path parameter)" },
     ],
-    exampleRequest: `curl http://localhost:8000/v1/jurisdictions/US/children \\
+    exampleRequest: `curl https://api.taxlens.getdynamiq.ai/v1/jurisdictions/US/children \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `[
   { "code": "US-CA", "name": "California", "jurisdiction_type": "state", ... },
@@ -287,7 +287,7 @@ const ENDPOINTS: ApiEndpoint[] = [
     parameters: [
       { name: "code", type: "string", required: true, description: "Jurisdiction code (path parameter)" },
     ],
-    exampleRequest: `curl http://localhost:8000/v1/jurisdictions/US-NY-NYC/ancestors \\
+    exampleRequest: `curl https://api.taxlens.getdynamiq.ai/v1/jurisdictions/US-NY-NYC/ancestors \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `[
   { "code": "US", "name": "United States", "jurisdiction_type": "country", ... },
@@ -314,7 +314,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "status", type: "string", required: false, default: "\"active\"", description: "active, inactive, pending" },
       { name: "metadata", type: "object", required: false, default: "{}", description: "Arbitrary key-value metadata" },
     ],
-    exampleRequest: `curl -X POST http://localhost:8000/v1/jurisdictions \\
+    exampleRequest: `curl -X POST https://api.taxlens.getdynamiq.ai/v1/jurisdictions \\
   -H "Content-Type: application/json" \\
   -H "X-API-Key: dev-api-key-change-me" \\
   -d '{
@@ -356,7 +356,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "limit", type: "integer", required: false, default: "100", description: "Max results (1-500)" },
       { name: "offset", type: "integer", required: false, default: "0", description: "Pagination offset" },
     ],
-    exampleRequest: `curl "http://localhost:8000/v1/rates?jurisdiction_code=US-NY-NYC&status=active" \\
+    exampleRequest: `curl "https://api.taxlens.getdynamiq.ai/v1/rates?jurisdiction_code=US-NY-NYC&status=active" \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `[
   {
@@ -386,7 +386,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "jurisdiction_code", type: "string", required: true, description: "Jurisdiction code to look up" },
       { name: "effective_date", type: "date", required: false, description: "Date to check (defaults to today)" },
     ],
-    exampleRequest: `curl "http://localhost:8000/v1/rates/lookup?jurisdiction_code=US-NY-NYC" \\
+    exampleRequest: `curl "https://api.taxlens.getdynamiq.ai/v1/rates/lookup?jurisdiction_code=US-NY-NYC" \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `{
   "jurisdiction": {
@@ -424,7 +424,7 @@ const ENDPOINTS: ApiEndpoint[] = [
     parameters: [
       { name: "rate_id", type: "integer", required: true, description: "Rate ID (path parameter)" },
     ],
-    exampleRequest: `curl http://localhost:8000/v1/rates/3 \\
+    exampleRequest: `curl https://api.taxlens.getdynamiq.ai/v1/rates/3 \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `{
   "id": 3,
@@ -468,7 +468,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "authority_name", type: "string", required: false, description: "Name of issuing authority" },
       { name: "status", type: "string", required: false, default: "\"active\"", description: "Rate status" },
     ],
-    exampleRequest: `curl -X POST http://localhost:8000/v1/rates \\
+    exampleRequest: `curl -X POST https://api.taxlens.getdynamiq.ai/v1/rates \\
   -H "Content-Type: application/json" \\
   -H "X-API-Key: dev-api-key-change-me" \\
   -d '{
@@ -502,7 +502,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "reviewed_by", type: "string", required: false, default: "\"system\"", description: "Reviewer identifier" },
       { name: "review_notes", type: "string", required: false, description: "Review notes" },
     ],
-    exampleRequest: `curl -X POST "http://localhost:8000/v1/rates/5/approve?reviewed_by=alice" \\
+    exampleRequest: `curl -X POST "https://api.taxlens.getdynamiq.ai/v1/rates/5/approve?reviewed_by=alice" \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `{
   "id": 5,
@@ -524,7 +524,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "reviewed_by", type: "string", required: false, default: "\"system\"", description: "Reviewer identifier" },
       { name: "review_notes", type: "string", required: false, description: "Reason for rejection" },
     ],
-    exampleRequest: `curl -X POST "http://localhost:8000/v1/rates/5/reject?reviewed_by=alice&review_notes=Outdated" \\
+    exampleRequest: `curl -X POST "https://api.taxlens.getdynamiq.ai/v1/rates/5/reject?reviewed_by=alice&review_notes=Outdated" \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `{
   "id": 5,
@@ -552,7 +552,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "limit", type: "integer", required: false, default: "100", description: "Max results (1-500)" },
       { name: "offset", type: "integer", required: false, default: "0", description: "Pagination offset" },
     ],
-    exampleRequest: `curl "http://localhost:8000/v1/rules?jurisdiction_code=HR-19-DBV" \\
+    exampleRequest: `curl "https://api.taxlens.getdynamiq.ai/v1/rules?jurisdiction_code=HR-19-DBV" \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `[
   {
@@ -600,7 +600,7 @@ const ENDPOINTS: ApiEndpoint[] = [
     parameters: [
       { name: "rule_id", type: "integer", required: true, description: "Rule ID (path parameter)" },
     ],
-    exampleRequest: `curl http://localhost:8000/v1/rules/21 \\
+    exampleRequest: `curl https://api.taxlens.getdynamiq.ai/v1/rules/21 \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `{
   "id": 21,
@@ -634,7 +634,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "legal_reference", type: "string", required: false, description: "Legal citation" },
       { name: "status", type: "string", required: false, default: "\"active\"", description: "Rule status" },
     ],
-    exampleRequest: `curl -X POST http://localhost:8000/v1/rules \\
+    exampleRequest: `curl -X POST https://api.taxlens.getdynamiq.ai/v1/rules \\
   -H "Content-Type: application/json" \\
   -H "X-API-Key: dev-api-key-change-me" \\
   -d '{
@@ -675,7 +675,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "limit", type: "integer", required: false, default: "100", description: "Max results (1-500)" },
       { name: "offset", type: "integer", required: false, default: "0", description: "Pagination offset" },
     ],
-    exampleRequest: `curl "http://localhost:8000/v1/monitoring/sources?jurisdiction_code=US-NY-NYC" \\
+    exampleRequest: `curl "https://api.taxlens.getdynamiq.ai/v1/monitoring/sources?jurisdiction_code=US-NY-NYC" \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `[
   {
@@ -704,7 +704,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "language", type: "string", required: false, default: "\"en\"", description: "Content language" },
       { name: "check_frequency_days", type: "integer", required: false, default: "7", description: "How often to check (days)" },
     ],
-    exampleRequest: `curl -X POST http://localhost:8000/v1/monitoring/sources \\
+    exampleRequest: `curl -X POST https://api.taxlens.getdynamiq.ai/v1/monitoring/sources \\
   -H "Content-Type: application/json" \\
   -H "X-API-Key: dev-api-key-change-me" \\
   -d '{
@@ -736,7 +736,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "limit", type: "integer", required: false, default: "100", description: "Max results (1-500)" },
       { name: "offset", type: "integer", required: false, default: "0", description: "Pagination offset" },
     ],
-    exampleRequest: `curl "http://localhost:8000/v1/monitoring/changes?review_status=needs_review" \\
+    exampleRequest: `curl "https://api.taxlens.getdynamiq.ai/v1/monitoring/changes?review_status=needs_review" \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `[
   {
@@ -766,7 +766,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "reviewed_by", type: "string", required: false, default: "\"system\"", description: "Reviewer identifier" },
       { name: "review_notes", type: "string", required: false, description: "Review notes" },
     ],
-    exampleRequest: `curl -X POST http://localhost:8000/v1/monitoring/changes/1/review \\
+    exampleRequest: `curl -X POST https://api.taxlens.getdynamiq.ai/v1/monitoring/changes/1/review \\
   -H "Content-Type: application/json" \\
   -H "X-API-Key: dev-api-key-change-me" \\
   -d '{
@@ -791,7 +791,7 @@ const ENDPOINTS: ApiEndpoint[] = [
     title: "Trigger Monitoring Run",
     description: "Start an AI-powered tax monitoring job for a jurisdiction. The agent uses web search to find current tax regulations, compares them against stored data, and creates draft changes for review. Returns 202 Accepted with the job object — poll GET /jobs/{id} for progress.",
     group: "Monitoring Jobs",
-    exampleRequest: `curl -X POST http://localhost:8000/v1/monitoring/jobs/US-NY-NYC/run \\
+    exampleRequest: `curl -X POST https://api.taxlens.getdynamiq.ai/v1/monitoring/jobs/US-NY-NYC/run \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `{
   "id": 1,
@@ -823,7 +823,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "limit", type: "integer", required: false, default: "100", description: "Max results (1-500)" },
       { name: "offset", type: "integer", required: false, default: "0", description: "Pagination offset" },
     ],
-    exampleRequest: `curl "http://localhost:8000/v1/monitoring/jobs?jurisdiction_code=US-NY-NYC&job_type=monitoring&limit=10" \\
+    exampleRequest: `curl "https://api.taxlens.getdynamiq.ai/v1/monitoring/jobs?jurisdiction_code=US-NY-NYC&job_type=monitoring&limit=10" \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `[
   {
@@ -853,7 +853,7 @@ const ENDPOINTS: ApiEndpoint[] = [
     title: "Get Job Details",
     description: "Get a specific monitoring or discovery job. Poll this endpoint to track job progress after triggering a run.",
     group: "Monitoring Jobs",
-    exampleRequest: `curl "http://localhost:8000/v1/monitoring/jobs/1" \\
+    exampleRequest: `curl "https://api.taxlens.getdynamiq.ai/v1/monitoring/jobs/1" \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `{
   "id": 1,
@@ -884,7 +884,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "limit", type: "integer", required: false, default: "100", description: "Max results (1-500)" },
       { name: "offset", type: "integer", required: false, default: "0", description: "Pagination offset" },
     ],
-    exampleRequest: `curl "http://localhost:8000/v1/monitoring/schedules?enabled=true" \\
+    exampleRequest: `curl "https://api.taxlens.getdynamiq.ai/v1/monitoring/schedules?enabled=true" \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `[
   {
@@ -905,7 +905,7 @@ const ENDPOINTS: ApiEndpoint[] = [
     title: "Get Schedule",
     description: "Get the monitoring schedule for a specific jurisdiction.",
     group: "Schedules",
-    exampleRequest: `curl "http://localhost:8000/v1/monitoring/schedules/US-NY-NYC" \\
+    exampleRequest: `curl "https://api.taxlens.getdynamiq.ai/v1/monitoring/schedules/US-NY-NYC" \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `{
   "id": 1,
@@ -929,7 +929,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "cadence", type: "string", required: false, description: "Cadence: daily, weekly, monthly, or custom" },
       { name: "cron_expression", type: "string", required: false, description: "Custom cron expression (required when cadence is 'custom'). Example: '0 3 * * 1' for Monday 3 AM" },
     ],
-    exampleRequest: `curl -X PUT http://localhost:8000/v1/monitoring/schedules/US-NY-NYC \\
+    exampleRequest: `curl -X PUT https://api.taxlens.getdynamiq.ai/v1/monitoring/schedules/US-NY-NYC \\
   -H "Content-Type: application/json" \\
   -H "X-API-Key: dev-api-key-change-me" \\
   -d '{
@@ -954,7 +954,7 @@ const ENDPOINTS: ApiEndpoint[] = [
     title: "Trigger Discovery",
     description: "Start an AI-powered sub-jurisdiction discovery for a country. The agent searches official sources to find all states, cities, and districts that levy their own accommodation taxes. Creates new jurisdictions with status='pending' and initial draft tax rates. Only works on country-level jurisdictions.",
     group: "Discovery",
-    exampleRequest: `curl -X POST http://localhost:8000/v1/monitoring/discovery/AE/run \\
+    exampleRequest: `curl -X POST https://api.taxlens.getdynamiq.ai/v1/monitoring/discovery/AE/run \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `{
   "id": 1,
@@ -982,7 +982,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "limit", type: "integer", required: false, default: "100", description: "Max results" },
       { name: "offset", type: "integer", required: false, default: "0", description: "Pagination offset" },
     ],
-    exampleRequest: `curl "http://localhost:8000/v1/monitoring/discovery/jobs?country_code=AE" \\
+    exampleRequest: `curl "https://api.taxlens.getdynamiq.ai/v1/monitoring/discovery/jobs?country_code=AE" \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `[
   {
@@ -1016,7 +1016,7 @@ const ENDPOINTS: ApiEndpoint[] = [
       { name: "limit", type: "integer", required: false, default: "100", description: "Max results (1-500)" },
       { name: "offset", type: "integer", required: false, default: "0", description: "Pagination offset" },
     ],
-    exampleRequest: `curl "http://localhost:8000/v1/audit?entity_type=tax_rate&limit=10" \\
+    exampleRequest: `curl "https://api.taxlens.getdynamiq.ai/v1/audit?entity_type=tax_rate&limit=10" \\
   -H "X-API-Key: dev-api-key-change-me"`,
     exampleResponse: `[
   {
@@ -1224,7 +1224,7 @@ function OverviewSection() {
         legislative changes — all through a single REST API.
       </p>
       <div className="grid grid-cols-2 gap-4">
-        <InfoCard label="Base URL" value="http://localhost:8000" mono />
+        <InfoCard label="Base URL" value="https://api.taxlens.getdynamiq.ai" mono />
         <InfoCard label="Content Type" value="application/json" mono />
         <InfoCard label="API Version" value="v1" />
         <InfoCard label="Auth" value="X-API-Key header" />
@@ -1243,7 +1243,7 @@ function AuthSection() {
       </p>
       <CodeBlock
         title="Example"
-        code={`curl http://localhost:8000/v1/jurisdictions \\
+        code={`curl https://api.taxlens.getdynamiq.ai/v1/jurisdictions \\
   -H "X-API-Key: dev-api-key-change-me"`}
       />
       <p className="text-sm text-dim mt-3">

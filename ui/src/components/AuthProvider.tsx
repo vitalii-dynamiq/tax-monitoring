@@ -1,4 +1,5 @@
 import { createContext, useCallback, useEffect, useState, type ReactNode } from "react";
+import { API_BASE } from "../lib/api";
 
 interface User {
   id: number;
@@ -42,7 +43,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    fetch("/v1/auth/me", {
+    fetch(`${API_BASE}/v1/auth/me`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
@@ -71,7 +72,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
-    const res = await fetch("/v1/auth/login", {
+    const res = await fetch(`${API_BASE}/v1/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -90,7 +91,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const register = useCallback(async (email: string, password: string) => {
-    const regRes = await fetch("/v1/auth/register", {
+    const regRes = await fetch(`${API_BASE}/v1/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -102,7 +103,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     // Auto-login after registration
-    const loginRes = await fetch("/v1/auth/login", {
+    const loginRes = await fetch(`${API_BASE}/v1/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
