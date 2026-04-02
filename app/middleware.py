@@ -99,6 +99,8 @@ class APIKeyMiddleware(BaseHTTPMiddleware):
     PUBLIC_PATHS = {"/health", "/docs", "/redoc", "/openapi.json", "/v1/auth/login", "/v1/auth/register"}
 
     async def dispatch(self, request: Request, call_next: Callable) -> Response:
+        if request.method == "OPTIONS":
+            return await call_next(request)
         if request.url.path in self.PUBLIC_PATHS:
             return await call_next(request)
 
