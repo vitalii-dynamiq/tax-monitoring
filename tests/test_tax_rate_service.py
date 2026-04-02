@@ -304,7 +304,7 @@ class TestGetRulesForRates:
         )
         await db.commit()
 
-        rules_map = await get_rules_for_rates(
+        rules_map, _jurisdiction_rules = await get_rules_for_rates(
             db, [rate_pct.id, rate_flat.id], stay_date=date(2025, 6, 15),
         )
 

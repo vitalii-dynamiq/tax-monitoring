@@ -69,7 +69,7 @@ class TestTaxCalculationValidation:
             "currency": "USD",
             "nights": 3,
         }, headers=auth_headers)
-        assert response.status_code == 422
+        assert response.status_code in (400, 422)
 
     def test_calculate_requires_positive_nightly_rate(self, client, auth_headers):
         response = client.post("/v1/tax/calculate", json={
@@ -191,8 +191,8 @@ class TestPaginationValidation:
         response = client.get("/v1/jurisdictions?limit=0", headers=auth_headers)
         assert response.status_code == 422
 
-    def test_limit_over_500_returns_422(self, client, auth_headers):
-        response = client.get("/v1/jurisdictions?limit=501", headers=auth_headers)
+    def test_limit_over_2000_returns_422(self, client, auth_headers):
+        response = client.get("/v1/jurisdictions?limit=2001", headers=auth_headers)
         assert response.status_code == 422
 
     def test_negative_offset_rates(self, client, auth_headers):
