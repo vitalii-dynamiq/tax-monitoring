@@ -252,9 +252,16 @@ def calculate_tiered(
     if not tiers:
         return Decimal("0")
 
-    # Use star_rating as bracket key for star-based tiers, nightly_rate otherwise
+    # Detect if tiers are star-based: either category says "by_star" or
+    # tier max values are in 0-5 range (star ratings, not prices)
+    is_star_tier = "by_star" in category_level_2
+    if not is_star_tier and tiers and star_rating is not None:
+        max_vals = [t.get("max") or t.get("min", 0) for t in tiers]
+        if max_vals and all(isinstance(v, (int, float)) and v <= 10 for v in max_vals):
+            is_star_tier = True
+
     bracket_key = (
-        Decimal(str(star_rating)) if "by_star" in category_level_2 and star_rating is not None
+        Decimal(str(star_rating)) if is_star_tier and star_rating is not None
         else nightly_rate
     )
 
