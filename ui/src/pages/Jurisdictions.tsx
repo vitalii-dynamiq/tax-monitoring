@@ -45,16 +45,18 @@ const TYPE_ICONS: Record<string, typeof Globe> = {
 
 type JurisdictionTab = "overview" | "rates" | "rules" | "changes" | "monitoring" | "discovery";
 
-const TABS_DEFAULT: { key: JurisdictionTab; label: string }[] = [
+const TABS_BASE: { key: JurisdictionTab; label: string }[] = [
   { key: "overview", label: "Overview" },
   { key: "rates", label: "Rates" },
   { key: "rules", label: "Rules" },
+];
+
+const TABS_ADMIN: { key: JurisdictionTab; label: string }[] = [
   { key: "changes", label: "Changes" },
   { key: "monitoring", label: "Monitoring" },
 ];
 
-const TABS_COUNTRY: { key: JurisdictionTab; label: string }[] = [
-  ...TABS_DEFAULT,
+const TABS_DISCOVERY: { key: JurisdictionTab; label: string }[] = [
   { key: "discovery", label: "Discovery" },
 ];
 
@@ -269,7 +271,11 @@ export default function Jurisdictions() {
         <div className="space-y-6">
           {/* Tab Bar */}
           <div className="flex gap-1 bg-surface rounded-lg p-1 w-fit border border-border overflow-x-auto scrollbar-hide">
-            {(current?.jurisdiction_type === "country" ? TABS_COUNTRY : TABS_DEFAULT).map((t) => (
+            {[
+              ...TABS_BASE,
+              ...(isAdmin ? TABS_ADMIN : []),
+              ...(isAdmin && current?.jurisdiction_type === "country" ? TABS_DISCOVERY : []),
+            ].map((t) => (
               <button
                 key={t.key}
                 onClick={() => setActiveTab(t.key)}
