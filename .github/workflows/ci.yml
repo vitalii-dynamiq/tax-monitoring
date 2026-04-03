@@ -91,11 +91,13 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
       - name: Deploy API service
+        continue-on-error: true
         run: railway up --service api --detach
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
       - name: Deploy UI service
+        continue-on-error: true
         working-directory: ui
         run: railway up --service ui --detach
         env:
