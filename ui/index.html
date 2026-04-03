@@ -35,36 +35,23 @@
   </head>
   <body>
     <div id="root">
-      <!-- Static content for SEO crawlers and LLMs (replaced by React on load) -->
-      <main>
+      <!-- SEO content: visually hidden but crawlable by search engines and LLMs -->
+      <div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">
         <h1>Accommodation tax for platforms that scale</h1>
         <p>One API to calculate, track, and stay compliant with accommodation taxes in every jurisdiction worldwide.</p>
-        <section>
-          <p>235 Countries and territories. 916 Jurisdictions tracked. 1,017 Active tax rates. 235 Rules and exemptions.</p>
-        </section>
-        <section>
-          <h2>One request. Full tax breakdown.</h2>
-          <p>Send a jurisdiction, dates, and nightly rate. Get back every tax component, the effective rate, applicable rules, and legal references.</p>
-        </section>
-        <section>
-          <h2>Everything tax compliance needs</h2>
-          <p>Hierarchical tax chains: Country, state, and city taxes resolved in one call.</p>
-          <p>Rules engine included: Exemptions for long stays, child guests, star ratings, property types.</p>
-          <p>Always current: Monitoring agents scan regulatory sources daily.</p>
-          <p>One API, every jurisdiction: From NYC hotel tax to Bali's regional levies.</p>
-          <p>Collection model clarity: Know exactly who collects: the property, the platform, or the guest.</p>
-          <p>Audit-ready: Every rate change tracked with legal references and effective dates.</p>
-        </section>
-        <section>
-          <h2>100% of global OTA markets</h2>
-          <p>Every country where Airbnb, Booking.com, and Expedia operate.</p>
-        </section>
-        <footer>
-          <p>&copy; 2026 Dynamiq Technologies, Inc.</p>
-          <a href="https://getdynamiq.ai/privacy">Privacy Policy</a>
-          <a href="https://getdynamiq.ai/terms">Terms of Service</a>
-        </footer>
-      </main>
+        <p>235 Countries and territories. 916 Jurisdictions tracked. 1,017 Active tax rates. 235 Rules and exemptions.</p>
+        <h2>One request. Full tax breakdown.</h2>
+        <p>Send a jurisdiction, dates, and nightly rate. Get back every tax component, the effective rate, applicable rules, and legal references.</p>
+        <h2>Everything tax compliance needs</h2>
+        <p>Hierarchical tax chains. Rules engine included. Always current. One API, every jurisdiction. Collection model clarity. Audit-ready.</p>
+        <h2>100% of global OTA markets</h2>
+        <p>Every country where Airbnb, Booking.com, and Expedia operate.</p>
+        <p>&copy; 2026 Dynamiq Technologies, Inc.</p>
+      </div>
+      <!-- Loading indicator matching landing page dark theme -->
+      <div style="min-height:100vh;background:#09090b;display:flex;align-items:center;justify-content:center">
+        <img src="/logo.svg" alt="TaxLens" width="40" height="40" style="opacity:0.5">
+      </div>
     </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
