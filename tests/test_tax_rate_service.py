@@ -266,10 +266,12 @@ class TestGetActiveRatesForJurisdiction:
         )
 
         ids = {r.id for r in rates}
-        # Should include state rate + both NYC rates
-        assert state_rate.id in ids
-        assert data["rate_pct"].id in ids
-        assert data["rate_flat"].id in ids
+        # Child overrides parent for same tax_category: NYC rate_pct
+        # overrides NY state_rate (same occ_pct category). rate_flat
+        # has a different category so it's kept.
+        assert data["rate_pct"].id in ids  # NYC occ_pct overrides NY occ_pct
+        assert data["rate_flat"].id in ids  # different category, kept
+        assert state_rate.id not in ids  # overridden by deeper NYC rate
 
     async def test_rates_ordered_by_calculation_order(self, db):
         data = await seed_nyc_hierarchy(db)
