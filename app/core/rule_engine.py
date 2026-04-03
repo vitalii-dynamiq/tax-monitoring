@@ -240,6 +240,7 @@ def calculate_tiered(
     number_of_guests: int = 1,
     currency: str = "USD",
     category_level_2: str = "",
+    star_rating: int | None = None,
 ) -> Decimal:
     """
     OpenFisca-inspired scale calculation.
@@ -251,13 +252,19 @@ def calculate_tiered(
     if not tiers:
         return Decimal("0")
 
+    # Use star_rating as bracket key for star-based tiers, nightly_rate otherwise
+    bracket_key = (
+        Decimal(str(star_rating)) if "by_star" in category_level_2 and star_rating is not None
+        else nightly_rate
+    )
+
     match tier_type:
         case "single_amount":
             for tier in tiers:
                 tier_min = Decimal(str(tier.get("min", 0)))
                 tier_max = tier.get("max")
-                if tier_max is None or nightly_rate < Decimal(str(tier_max)):
-                    if nightly_rate >= tier_min:
+                if tier_max is None or bracket_key < Decimal(str(tier_max)):
+                    if bracket_key >= tier_min:
                         base = Decimal(str(tier["value"])) * nights
                         if "per_person" in category_level_2:
                             base *= number_of_guests
@@ -488,6 +495,7 @@ def calculate_taxes(
                     context.number_of_guests,
                     currency,
                     category.level_2,
+                    context.star_rating,
                 )
             case _:
                 tax_amount = Decimal("0")
