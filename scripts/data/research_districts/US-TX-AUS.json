@@ -1,0 +1,180 @@
+{
+  "_meta": {
+    "elapsed_seconds": 84.3,
+    "model": "claude-sonnet-4-6",
+    "parent_code": "US-TX-AUS",
+    "parent_db_name": "Austin",
+    "parent_db_path": "US.TX.AUS",
+    "parent_exists_in_db": true,
+    "parent_name_hint": "Austin",
+    "parent_state_hint": "Texas",
+    "researched_at": "2026-04-21T22:14:47.542335+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: accepted districts with overall_confidence>=0.5 and statutory backing; rejected rates/rules matching proposed/not-enacted/service-charge patterns. Reviewer still owns final draft->active promotion.",
+    "reviewed_at": "2026-04-21T22:29:54.739884+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io",
+    "scope_note": null
+  },
+  "districts": [
+    {
+      "authority_name": "City of Austin / ATPID Management Corporation / Visit Austin",
+      "confidence": 0.97,
+      "enabling_statute": "Texas Local Government Code Chapter 372 (Public Improvement Districts); City of Austin Ordinance establishing the ATPID, adopted December 12, 2024",
+      "geographic_scope": "All hotels with 100 or more rooms located within the full-purpose jurisdiction of the City of Austin, Texas. Non-contiguous district covering qualifying hotels city-wide (not geographically bounded to a sub-area).",
+      "name": "Austin Tourism Public Improvement District (ATPID)",
+      "path_suffix": "ATPID",
+      "rates": [
+        {
+          "authority_name": "City of Austin / ATPID Management Corporation",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "new",
+          "confidence": 0.97,
+          "currency_code": null,
+          "effective_end": "2034-12-31",
+          "effective_start": "2025-01-01",
+          "enacted_date": "2024-12-12",
+          "legal_reference": "Texas Local Government Code \u00a7372; City of Austin Ordinance (Dec. 12, 2024); ATPID Service Plan 2024",
+          "legal_uri": "https://services.austintexas.gov/edims/document.cfm?id=442085",
+          "rate_type": "percentage",
+          "rate_value": 2.0,
+          "source_quote": "The new district, encompassing hotels with 100 or more rooms, will levy a new 2-percentage-point assessment on gross taxable room revenue starting in April 2025.",
+          "source_url": "https://austinmonitor.com/stories/2024/12/council-approves-new-hotel-fee-agreement-freeing-funds-for-homelessness-services/",
+          "tax_category_code": "tourism_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "type": "apply_assessment"
+          },
+          "change_type": "new",
+          "conditions": {
+            "field": "room_count",
+            "operator": ">=",
+            "value": 100
+          },
+          "confidence": 0.97,
+          "description": "Only hotels with 100 or more rooms are subject to the ATPID assessment. Hotels with fewer than 100 rooms are excluded from the district by the enabling state legislation.",
+          "effective_end": null,
+          "effective_start": "2025-01-01",
+          "enacted_date": null,
+          "legal_reference": "Texas Local Government Code \u00a7372; ATPID Service Plan 2024",
+          "name": "Minimum Room Count Threshold",
+          "rule_type": "threshold",
+          "source_quote": "The implementing state legislation that allowed Austin to create a Tourism PID only allowed hotels with 100 or more rooms to participate in the District and be subject to the two percent assessment.",
+          "source_url": "https://www.austintexas.org/austin-tpid/faq/"
+        },
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "new",
+          "conditions": {
+            "field": "hot_exempt",
+            "operator": "==",
+            "value": true
+          },
+          "confidence": 0.95,
+          "description": "The ATPID assessment only applies to room night revenue that is subject to local hotel occupancy tax. If a room night is exempt from local HOT (e.g., stays of 30+ consecutive days by permanent residents), it is also exempt from the ATPID assessment.",
+          "effective_end": null,
+          "effective_start": "2025-01-01",
+          "enacted_date": null,
+          "legal_reference": "ATPID Service Plan 2024",
+          "name": "HOT-Exempt Room Nights Excluded",
+          "rule_type": "exemption",
+          "source_quote": "If a room night rental transaction is exempt from local hotel occupancy tax, it is also exempt from the application of the ATPID assessment.",
+          "source_url": "https://www.austintexas.org/austin-tpid/faq/"
+        },
+        {
+          "action": {
+            "type": "apply_assessment"
+          },
+          "change_type": "new",
+          "conditions": {
+            "field": "revenue_type",
+            "operator": "==",
+            "value": "taxable_room_night"
+          },
+          "confidence": 0.93,
+          "description": "The ATPID assessment applies to taxable room night revenues (sleeping rooms), not to meeting room revenue, banquet rooms, or other hotel revenue. Resort fees and other mandatory nightly charges incident to room rental that are subject to local HOT are included in the assessment base.",
+          "effective_end": null,
+          "effective_start": "2025-01-01",
+          "enacted_date": null,
+          "legal_reference": "ATPID Service Plan 2024",
+          "name": "Assessment Applies to Taxable Room Night Revenue Only",
+          "rule_type": "condition",
+          "source_quote": "The TPID Fee applies to any fee that is added onto each room night charge by the hotel. Accordingly, the TPID Fee would apply to resort fees, state cost recovery fees, and any other nightly fee that is considered room night revenue that is subject to the local hotel tax.",
+          "source_url": "https://www.austintexas.org/austin-tpid/faq/"
+        },
+        {
+          "action": {
+            "cap_pct": 2.0,
+            "type": "cap"
+          },
+          "change_type": "new",
+          "conditions": null,
+          "confidence": 0.95,
+          "description": "The assessment rate shall not exceed 2% of the price paid to hotels for a room. Any increase from the established rate requires a three-fourths vote of the ATPID Board plus majority approval by Austin City Council.",
+          "effective_end": null,
+          "effective_start": "2025-01-01",
+          "enacted_date": null,
+          "legal_reference": "ATPID Service Plan 2024; Texas Local Government Code \u00a7372",
+          "name": "Assessment Rate Cap",
+          "rule_type": "cap",
+          "source_quote": "in no event shall the assessment amount exceed two percent of the price paid to hotels for a room in a hotel.",
+          "source_url": "https://services.austintexas.gov/edims/document.cfm?id=442036"
+        },
+        {
+          "action": {
+            "dissolution_date": "2034-12-31",
+            "type": "auto_dissolve"
+          },
+          "change_type": "new",
+          "conditions": null,
+          "confidence": 0.92,
+          "description": "The ATPID is established for a 10-year term beginning January 1, 2025 and running through 2034. It may be renewed if the requisite number of hotel owners petition and Austin City Council approves renewal.",
+          "effective_end": "2034-12-31",
+          "effective_start": "2025-01-01",
+          "enacted_date": "2024-12-12",
+          "legal_reference": "ATPID Service Plan 2024",
+          "name": "10-Year District Term (2025\u20132034)",
+          "rule_type": "condition",
+          "source_quote": "The Austin TPID is a 10 year service plan, beginning in 2025 and running through 2035.",
+          "source_url": "https://www.austintexas.org/austin-tpid/"
+        }
+      ],
+      "source_quote": "The Austin Tourism Public Improvement District, or ATPID, was officially established on December 12, 2024, and went into effect on January 1, 2025. It's funded via a special assessment levy on hotels with over 100 rooms in the City of Austin limits. The annual assessment rate for all hotel properties within the ATPID is two percent (2%) of gross taxable nightly room rental revenue.",
+      "source_url": "https://www.austintexas.gov/department/maintenance-and-operations-mo-public-improvement-districts-pids",
+      "suggested_code": "US-TX-AUS-ATPID"
+    }
+  ],
+  "notes": "\n1. VENUE PROJECT TAX (2%): Austin's city-wide HOT is officially 11% (9% general occupancy + 2% venue project tax authorized under Texas LGC Chapter 334 and imposed via Ordinance No. 980709-G effective Aug. 1, 1998 to fund Austin Convention Center expansion). This 2% venue component is part of the city-wide 11% local HOT, which combined with the 6% state HOT equals the 15% total already recorded in the parent DB. This is NOT a separate sub-city district \u2014 it covers all hotels city-wide and is collected and remitted as part of the city's HOT. NOT reported as a new district.\n\n2. DOWNTOWN AUSTIN PUBLIC IMPROVEMENT DISTRICT (Downtown PID): An active maintenance & operations PID governed by City Council. However, this is a traditional real-property-based PID funded by assessments against real property parcels. It does NOT impose any hotel accommodation tax or room-night-based assessment. NOT reported.\n\n3. OTHER TRADITIONAL PIDs: Austin has three M&O PIDs (per austintexas.gov/financial-services/public-improvement-districts). None impose accommodation taxes on hotel guests \u2014 they are real-property assessments for services like enhanced maintenance and security. NOT reported.\n\n4. NO ADDITIONAL SPECIAL HOTEL ZONES: Searches for 6th Street entertainment districts, airport area hotel districts, university area hotel taxes, and other sub-city accommodation levies found no statutory special-purpose accommodation tax districts beyond the ATPID.\n\n5. GEOGRAPHIC SCOPE NOTE: The ATPID is technically non-contiguous (hotels are scattered across the city), but membership is defined by a property characteristic (100+ rooms) within Austin city limits, not a defined geographic sub-area. This is the standard Texas TPID structure, and it is widely recognized as a distinct special-purpose district even though it covers the full city for qualifying hotels.\n",
+  "overall_confidence": 0.95,
+  "parent_code": "US-TX-AUS",
+  "sources_checked": [
+    "https://www.austintexas.gov/department/maintenance-and-operations-mo-public-improvement-districts-pids",
+    "https://www.austintexas.org/austin-tpid/faq/",
+    "https://www.austintexas.org/austin-tpid/",
+    "https://services.austintexas.gov/edims/document.cfm?id=442085",
+    "https://services.austintexas.gov/edims/document.cfm?id=442036",
+    "https://services.austintexas.gov/edims/document.cfm?id=411807",
+    "https://services.austintexas.gov/edims/document.cfm?id=349559",
+    "https://austinmonitor.com/stories/2024/12/council-approves-new-hotel-fee-agreement-freeing-funds-for-homelessness-services/",
+    "https://www.austintexas.gov/page/hotel-occupancy-taxes-faq",
+    "https://www.austintexas.gov/page/hotel-occupancy-taxes",
+    "https://www.austintexas.gov/page/hotel-and-rental-tax",
+    "https://www.austintexas.gov/page/austin-downtown-public-improvement-district",
+    "https://www.austintexas.gov/financial-services/public-improvement-districts",
+    "https://financeonline.austintexas.gov/afo/afo_content.cfm?s=64&p=112",
+    "https://www.austintexas.gov/sites/default/files/files/Austin-Finance-Online-Payment-Procedures.pdf",
+    "https://meetings.skift.com/2024/12/16/austin-tourism-public-improvement-district-approved/",
+    "https://data.austintexas.gov/stories/s/g7b4-xbiq",
+    "https://comptroller.texas.gov/economy/fiscal-notes/archive/2018/august/convention-centers.php",
+    "https://services.austintexas.gov/edims/document.cfm?id=305078",
+    "https://statutes.capitol.texas.gov/Docs/LG/htm/LG.334.htm",
+    "https://capitol.texas.gov/tlodocs/89R/analysis/html/SB01921S.htm"
+  ],
+  "summary": "One special-purpose accommodation tax district found within Austin: the Austin Tourism Public Improvement District (ATPID), a 2% assessment on gross taxable room night revenue levied against all hotels with 100 or more rooms within Austin city limits. Established by City Council ordinance on December 12, 2024, effective January 1, 2025 (collections began April 1, 2025). This is a 10-year district running through 2035. The city-wide 11% HOT (9% general + 2% venue project) was investigated; the 2% venue component is already captured in the parent DB's 15% aggregate rate and is NOT a separate sub-city district. The Downtown Austin Public Improvement District was reviewed but imposes no hotel accommodation tax \u2014 it is a traditional real-property-based M&O PID. No other sub-city hotel tax zones or districts were found."
+}

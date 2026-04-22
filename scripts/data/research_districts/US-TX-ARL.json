@@ -1,0 +1,217 @@
+{
+  "_meta": {
+    "create_missing_parent": true,
+    "elapsed_seconds": 116.2,
+    "model": "claude-sonnet-4-6",
+    "parent_code": "US-TX-ARL",
+    "parent_db_name": null,
+    "parent_db_path": null,
+    "parent_exists_in_db": false,
+    "parent_name_hint": "Arlington",
+    "parent_state_hint": "Texas",
+    "researched_at": "2026-04-21T22:16:45.728198+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: accepted districts with overall_confidence>=0.5 and statutory backing; rejected rates/rules matching proposed/not-enacted/service-charge patterns. Reviewer still owns final draft->active promotion.",
+    "reviewed_at": "2026-04-21T22:29:54.738533+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io",
+    "scope_note": "Arlington, TX (AT&T Stadium / Globe Life Field), NOT Arlington VA."
+  },
+  "districts": [
+    {
+      "authority_name": "ATPID Board of Directors (administered and collected by City of Arlington Treasury; programs managed by Arlington Convention and Visitors Bureau)",
+      "confidence": 0.95,
+      "enabling_statute": "Texas Local Government Code Chapter 372, Section 372.0035 (Tourism Public Improvement Districts in Municipalities)",
+      "geographic_scope": "All hotels and motels within the City of Arlington, Texas with 75 or more guest rooms",
+      "name": "Arlington Tourism Public Improvement District (ATPID)",
+      "path_suffix": "ATPID",
+      "rates": [
+        {
+          "authority_name": "Arlington Tourism Public Improvement District (ATPID)",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.95,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "2016-10-01",
+          "enacted_date": null,
+          "legal_reference": "Texas Local Government Code \u00a7372.0035; Arlington City Council Resolution (September 2016)",
+          "legal_uri": null,
+          "rate_type": "percentage",
+          "rate_value": 2.0,
+          "source_quote": "The ATPID was formally approved by the Arlington City Council in September 2016 and commenced operations in October 2016 (for a 10-year term).",
+          "source_url": "https://atpid.com/creation/",
+          "tax_category_code": "tourism_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "type": "apply_assessment"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "room_count",
+            "operator": ">=",
+            "value": 75
+          },
+          "confidence": 0.95,
+          "description": "Only hotels and motels within Arlington with 75 or more guest rooms are subject to the ATPID assessment. Properties below this threshold are exempt.",
+          "effective_end": null,
+          "effective_start": "2016-10-01",
+          "enacted_date": null,
+          "legal_reference": "Texas Local Government Code \u00a7372.0035",
+          "name": "75-Room Minimum Threshold",
+          "rule_type": "threshold",
+          "source_quote": "The District consists of hotel properties in the City of Arlington with 75 rooms or more.",
+          "source_url": "https://atpid.com/overview-objectives/"
+        },
+        {
+          "action": {
+            "type": "apply_assessment"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "room_type",
+            "operator": "==",
+            "value": "HOT-taxable"
+          },
+          "confidence": 0.92,
+          "description": "The 2% ATPID assessment applies only to net occupancy receipts from sleeping rooms that are subject to Hotel Occupancy Tax (i.e., rooms rented for fewer than 30 consecutive days). Permanent residents (30+ consecutive days) are exempt.",
+          "effective_end": null,
+          "effective_start": "2016-10-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Assessment Base: HOT-Taxable Rooms Only",
+          "rule_type": "condition",
+          "source_quote": "These properties pay a 2% TPID assessment fee on net occupancy receipts from sleeping rooms that are subject to Hotel Occupancy Tax.",
+          "source_url": "https://atpid.com/"
+        },
+        {
+          "action": null,
+          "change_type": "unchanged",
+          "conditions": null,
+          "confidence": 0.88,
+          "description": "The ATPID was approved for a 10-year term commencing October 2016, with Annual Service and Assessment Plans presented to City Council annually for review and approval. The district is approaching its term expiration and renewal status should be monitored.",
+          "effective_end": "2026-09-30",
+          "effective_start": "2016-10-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "10-Year District Term (2016\u20132026)",
+          "rule_type": "condition",
+          "source_quote": "The ATPID was formally approved by the Arlington City Council in September 2016 and commenced operations in October 2016 (for a 10-year term).",
+          "source_url": "https://atpid.com/creation/"
+        }
+      ],
+      "source_quote": "The ATPID is supported by a 2% TPID assessment fee on net occupancy receipts from sleeping rooms that are subject to Hotel Occupancy Tax from hotels within the city of Arlington with 75 rooms or more.",
+      "source_url": "https://atpid.com/about-atpid/",
+      "suggested_code": "US-TX-ARL-ATPID"
+    },
+    {
+      "authority_name": "City of Arlington (levied pursuant to voter approval under TX LGC Ch. 334)",
+      "confidence": 0.85,
+      "enabling_statute": "Texas Local Government Code Chapter 334 (Sports and Community Venue Projects); Arlington Voter Referendum November 2004; Arlington Voter Referendum November 2016",
+      "geographic_scope": "City of Arlington, Texas \u2014 all hotels city-wide. Voter-approved under Texas Local Government Code Chapter 334 for the Cowboys Complex Development Project (AT&T Stadium, 2004) and extended to the Texas Rangers Complex Development Project (Globe Life Field, 2016). Distinct from the regular city-wide municipal HOT.",
+      "name": "Arlington Venue Project Hotel Occupancy Tax (Cowboys & Rangers Complex Development Projects)",
+      "path_suffix": "VENUE",
+      "rates": [
+        {
+          "authority_name": "City of Arlington",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.88,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "2004-11-01",
+          "enacted_date": "2004-11-01",
+          "legal_reference": "Texas Local Government Code Chapter 334 (Subchapter H); Arlington 2004 Voter Referendum (Cowboys Complex); Arlington 2016 Voter Referendum (Rangers Complex)",
+          "legal_uri": null,
+          "rate_type": "percentage",
+          "rate_value": 2.0,
+          "source_quote": "In 2004, Arlington voters approved a half-cent sales tax increase, a 2% hotel occupancy tax and a 5% rental car tax to pay for the City of Arlington's $325 million contribution toward a new retractable-roof stadium that would bring the Dallas Cowboys to town.",
+          "source_url": "https://fortworthreport.org/2025/08/12/touchdown-city-of-arlington-pays-off-att-stadium-debt-10-years-early/",
+          "tax_category_code": "occ_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": null,
+          "change_type": "unchanged",
+          "conditions": null,
+          "confidence": 0.85,
+          "description": "Unlike the ATPID, the venue project HOT applies to all hotels city-wide in Arlington (no room-count threshold). It is a separate 2% levy distinct from the regular city municipal HOT, authorized under Texas LGC Ch. 334 via voter referendum. Revenues are dedicated to servicing bonds for AT&T Stadium (Cowboys) and Globe Life Field (Rangers) construction.",
+          "effective_end": null,
+          "effective_start": "2004-11-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Venue HOT Applies to All City-Wide Hotels",
+          "rule_type": "condition",
+          "source_quote": "The half-cent sales tax, the 2% hotel occupancy tax and the 5% rental car sales tax will remain in place. This is because Arlington voters in 2017 approved these funding sources for the City's contribution toward Globe Life Field construction.",
+          "source_url": "https://fortworthreport.org/2025/08/12/touchdown-city-of-arlington-pays-off-att-stadium-debt-10-years-early/"
+        },
+        {
+          "action": null,
+          "change_type": "unchanged",
+          "conditions": null,
+          "confidence": 0.9,
+          "description": "By law, venue HOT revenues can only be used to repay the City's stadium debt (AT&T Stadium bonds and Globe Life Field bonds). They cannot be added to the General Fund or used for general services.",
+          "effective_end": null,
+          "effective_start": "2004-11-01",
+          "enacted_date": null,
+          "legal_reference": "Texas Local Government Code Chapter 334 \u00a7334.251-334.258",
+          "name": "Dedicated Revenue Use \u2014 Stadium Debt Service",
+          "rule_type": "condition",
+          "source_quote": "By law, this revenue can only be used to repay the City's stadium debt. It cannot be added to the General Fund, which pays for core city services.",
+          "source_url": "https://fortworthreport.org/2025/08/12/touchdown-city-of-arlington-pays-off-att-stadium-debt-10-years-early/"
+        },
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "stay_length_days",
+            "operator": ">=",
+            "value": 30
+          },
+          "confidence": 0.92,
+          "description": "Standard Texas HOT exemption: guests staying 30 or more consecutive days are not subject to the venue HOT.",
+          "effective_end": null,
+          "effective_start": "2004-11-01",
+          "enacted_date": null,
+          "legal_reference": "Texas Tax Code \u00a7156.101",
+          "name": "Permanent Resident Exemption",
+          "rule_type": "exemption",
+          "source_quote": "Anyone who rents a room for 30 or more consecutive days is considered a permanent resident and is not required to pay the hotel tax.",
+          "source_url": "https://comptroller.texas.gov/economy/development/sales-tax/hotel.php"
+        }
+      ],
+      "source_quote": "four entities responding to the survey \u2014 Brazos County and the cities of Arlington, El Paso and McAllen \u2014 collect both a city or county HOT tax and a separate HOT tax for sports and community venues.",
+      "source_url": "https://comptroller.texas.gov/economy/fiscal-notes/archive/2016/june-july/hotel-tax.php",
+      "suggested_code": "US-TX-ARL-VENUE"
+    }
+  ],
+  "notes": "1. VENUE TAX STRUCTURE: The Arlington venue project HOT (2%) is technically authorized as a city-wide levy under Texas LGC Ch. 334, not a geographically sub-scoped district in the traditional sense. However, the Texas Comptroller explicitly categorizes it as a 'separate HOT tax for sports and community venues' \u2014 distinct from Arlington's base city HOT. It was voter-approved in separate referenda (2004, 2016). It is reported here as a distinct special-purpose levy. \n\n2. ATPID TERM: The ATPID was created for a 10-year term starting October 2016, potentially expiring September 2026. The district's website shows hotel assessment rolls updated as recently as January 2026, suggesting it remains active. Renewal or extension status should be monitored.\n\n3. TARRANT COUNTY HOT: Tarrant County (which encompasses Arlington) was reviewed as a potential additional taxing layer but does not appear to levy a separate county-level hotel occupancy tax applicable in Arlington based on available sources.\n\n4. ENTERTAINMENT DISTRICT BID/TIRZ: Arlington has a Tax Increment Reinvestment Zone (TIRZ) in the Entertainment District (around AT&T Stadium and Globe Life Field), and a related $810M expansion was approved. However, this TIRZ captures incremental property and sales tax values \u2014 it does not directly impose an additional hotel accommodation tax/assessment on guests, so it was NOT included as a reportable district.\n\n5. SHORT-TERM RENTAL DISTRICT: Arlington has designated a Short-Term Rental District (approximately one mile from the Entertainment District center) where STRs are permitted. STRs in this zone must collect and remit HOT, but this is not a separate tax district with its own additional rate \u2014 just a geographic permission zone. Not included.\n\n6. CONVENTION CENTER: Arlington's new convention center (connected to the Loews Hotel) was reviewed. It does not appear to impose a separate convention center facility district tax distinct from existing taxes; it is funded through the TIRZ and HOT revenues already captured. Not included.",
+  "overall_confidence": 0.87,
+  "parent_code": "US-TX-ARL",
+  "sources_checked": [
+    "https://atpid.com/about-atpid/",
+    "https://atpid.com/creation/",
+    "https://atpid.com/overview-objectives/",
+    "https://www.arlingtontx.gov/Government/Budget-Finance/Treasury/Hotel-Occupancy-Tax/Arlington-Tourism-Public-Improvement-District-ATPID",
+    "https://comptroller.texas.gov/economy/fiscal-notes/archive/2016/june-july/hotel-tax.php",
+    "https://comptroller.texas.gov/taxes/hotel/faq.php",
+    "https://arlingtontx.granicus.com/MetaViewer.php?view_id=9&clip_id=2136&meta_id=242174",
+    "https://en.wikipedia.org/wiki/AT%26T_Stadium",
+    "https://en.wikipedia.org/wiki/Globe_Life_Field",
+    "https://fortworthreport.org/2025/08/12/touchdown-city-of-arlington-pays-off-att-stadium-debt-10-years-early/",
+    "https://www.arlingtontx.gov/files/assets/city/v/2/finance/documents/treasury/disclosure-statements/fy-2005-disclosure-documents.pdf",
+    "https://services.austintexas.gov/edims/document.cfm?id=411807",
+    "https://www.wfaa.com/article/sports/nfl/cowboys/arlington-dallas-cowboys-renovations-att-stadium-proposal-city-council-meeting/287-f4b63b75-1434-4c7b-866a-7b17372ea38f"
+  ],
+  "summary": "Found 2 active special-purpose accommodation tax districts in Arlington, TX: (1) The Arlington Tourism Public Improvement District (ATPID), a statutory Tourism PID under TX LGC \u00a7372.0035 imposing a 2% assessment on net occupancy receipts at hotels with 75+ rooms, active since October 2016 for a 10-year term; and (2) The Arlington Venue Project (Cowboys/Rangers Complex Development), a voter-approved city-wide venue HOT under TX LGC Ch. 334 at 2% \u2014 distinct from the base city HOT \u2014 first approved in 2004 for AT&T Stadium and extended/re-ratified in 2016 for Globe Life Field. The Texas Comptroller explicitly confirms Arlington collects both a regular city HOT and a separate venue HOT. The ATPID assessment is collected alongside (not in lieu of) the city HOT."
+}

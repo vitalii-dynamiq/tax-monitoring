@@ -1,0 +1,510 @@
+{
+  "_meta": {
+    "elapsed_seconds": 148.9,
+    "model": "claude-sonnet-4-6",
+    "parent_code": "US-ID",
+    "parent_db_name": "Idaho",
+    "parent_db_path": "US.ID",
+    "parent_exists_in_db": true,
+    "parent_name_hint": "Idaho",
+    "parent_state_hint": null,
+    "researched_at": "2026-04-21T22:13:21.250381+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: accepted districts with overall_confidence>=0.5 and statutory backing; rejected rates/rules matching proposed/not-enacted/service-charge patterns. Reviewer still owns final draft->active promotion.",
+    "reviewed_at": "2026-04-21T22:29:54.736527+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io",
+    "scope_note": "Idaho state-wide: cover ALL auditorium districts (Boise, Pocatello-Chubbuck, Idaho Falls, Sun Valley)."
+  },
+  "districts": [
+    {
+      "authority_name": "Greater Boise Auditorium District Board of Directors",
+      "confidence": 0.99,
+      "enabling_statute": "Idaho Code Title 67, Chapter 49 (I.C. \u00a7 67-4902 et seq.); tax authority under I.C. \u00a7 67-4917B",
+      "geographic_scope": "Most of Boise, all of Garden City, and portions of Eagle, Meridian, and unincorporated Ada County \u2014 follows the former Boise Junior College district boundary (Floating Feather Road to the north, Lake Hazel Road to the south, Eagle Road to the west, and a confluence of Warm Springs Avenue and Gowen Road to the east). Does not align with any single city boundary.",
+      "name": "Greater Boise Auditorium District",
+      "path_suffix": "GBAD",
+      "rates": [
+        {
+          "authority_name": "Greater Boise Auditorium District",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.99,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "1959-06-09",
+          "enacted_date": null,
+          "legal_reference": "Idaho Code Title 67, Chapter 49; I.C. \u00a7 67-4917B",
+          "legal_uri": "https://legislature.idaho.gov/statutesrules/idstat/title67/t67ch49/",
+          "rate_type": "percentage",
+          "rate_value": 5.0,
+          "source_quote": "Greater Boise Auditorium District Tax: 5% of the listing price including any cleaning fee and guest fee for reservations 30 nights and shorter.",
+          "source_url": "https://www.airbnb.com/help/article/2302",
+          "tax_category_code": "occ_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "type": "apply"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "stay_length_days",
+            "operator": "<=",
+            "value": 30
+          },
+          "confidence": 0.99,
+          "description": "The auditorium district tax only applies to lodging rentals of 30 days or less. Stays of 31 or more consecutive days under a lease or similar agreement are exempt.",
+          "effective_end": null,
+          "effective_start": "1959-06-09",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "30-Day Short-Term Lodging Only",
+          "rule_type": "threshold",
+          "source_quote": "Auditorium districts charge a local sales tax only for short-term lodging (30 days or less) within their district boundaries.",
+          "source_url": "https://tax.idaho.gov/taxes/taxes-on-sales/aud/"
+        },
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "guest_type",
+            "operator": "in",
+            "value": [
+              "federal_government",
+              "state_government",
+              "local_government",
+              "qualifying_org"
+            ]
+          },
+          "confidence": 0.97,
+          "description": "Lodging directly billed and paid by the federal government, Idaho state or local government, and qualifying organizations is exempt from the district tax.",
+          "effective_end": null,
+          "effective_start": "1959-06-09",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Government and Qualifying Organization Exemption",
+          "rule_type": "exemption",
+          "source_quote": "Only lodging rentals that are directly billed and paid by the federal government, Idaho state or local government, and qualifying organizations is exempt.",
+          "source_url": "https://tax.idaho.gov/taxes/sales-use/guides-for-certain-groups/lodging/tax-types/"
+        },
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "lodging_type",
+            "operator": "==",
+            "value": "campground"
+          },
+          "confidence": 0.99,
+          "description": "The auditorium district tax does not apply to campground charges.",
+          "effective_end": null,
+          "effective_start": "1959-06-09",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Campground Exemption",
+          "rule_type": "exemption",
+          "source_quote": "An auditorium district tax doesn't apply to campgrounds.",
+          "source_url": "https://tax.idaho.gov/taxes/taxes-on-sales/aud/"
+        }
+      ],
+      "source_quote": "The District receives its revenue from a 5% room tax paid by travelers and collected by hotels, motels and other lodging properties within the District's boundaries.",
+      "source_url": "https://www.boiseauditorium.com/faq/",
+      "suggested_code": "US-ID-GBAD"
+    },
+    {
+      "authority_name": "Pocatello-Chubbuck Auditorium District Board of Directors",
+      "confidence": 0.99,
+      "enabling_statute": "Idaho Code Title 67, Chapter 49 (I.C. \u00a7 67-4902 et seq.); voter-approved 1998",
+      "geographic_scope": "The cities of Pocatello and Chubbuck, Bannock County, Idaho. Boundaries encompass both city limits, recognizing the shared local economy.",
+      "name": "Pocatello-Chubbuck Auditorium District",
+      "path_suffix": "PCAD",
+      "rates": [
+        {
+          "authority_name": "Pocatello-Chubbuck Auditorium District",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.99,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "1998-01-01",
+          "enacted_date": null,
+          "legal_reference": "Idaho Code Title 67, Chapter 49",
+          "legal_uri": "https://legislature.idaho.gov/statutesrules/idstat/title67/t67ch49/",
+          "rate_type": "percentage",
+          "rate_value": 5.0,
+          "source_quote": "Pocatello/Chubbuck Auditorium District Tax: 5% of the listing price including any cleaning fee and guest fee for reservations 30 nights and shorter.",
+          "source_url": "https://www.airbnb.com/help/article/2302",
+          "tax_category_code": "occ_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "type": "apply"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "stay_length_days",
+            "operator": "<=",
+            "value": 30
+          },
+          "confidence": 0.99,
+          "description": "Tax applies only to lodging rentals of 30 days or less. Stays of 31+ consecutive days under a lease are exempt.",
+          "effective_end": null,
+          "effective_start": "1998-01-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "30-Day Short-Term Lodging Only",
+          "rule_type": "threshold",
+          "source_quote": "Lodging sales you made to the same tenant under the terms of a lease or similar agreement for 31 or more consecutive days [are nontaxable].",
+          "source_url": "https://tax.idaho.gov/wp-content/uploads/forms/EIN00096/EIN00096_03-31-2026.pdf"
+        },
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "guest_type",
+            "operator": "in",
+            "value": [
+              "federal_government",
+              "state_government",
+              "local_government",
+              "qualifying_org"
+            ]
+          },
+          "confidence": 0.97,
+          "description": "Lodging directly billed and paid by the federal government, Idaho state or local government, and qualifying organizations is exempt.",
+          "effective_end": null,
+          "effective_start": "1998-01-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Government and Qualifying Organization Exemption",
+          "rule_type": "exemption",
+          "source_quote": "Room charges directly paid by the U.S. government, Idaho governmental agencies, or other exempt buyers [are nontaxable].",
+          "source_url": "https://tax.idaho.gov/wp-content/uploads/forms/EIN00096/EIN00096_03-31-2026.pdf"
+        },
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "lodging_type",
+            "operator": "==",
+            "value": "campground"
+          },
+          "confidence": 0.99,
+          "description": "The auditorium district tax does not apply to campground charges.",
+          "effective_end": null,
+          "effective_start": "1998-01-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Campground Exemption",
+          "rule_type": "exemption",
+          "source_quote": "An auditorium district tax doesn't apply to campgrounds.",
+          "source_url": "https://tax.idaho.gov/taxes/taxes-on-sales/aud/"
+        }
+      ],
+      "source_quote": "Travelers staying at our community's hotels and motels pay a five percent tax on their rooms. Those funds are passed on to the auditorium district to operate and market the event center.",
+      "source_url": "https://pocatellochubbuckad.com/the-auditorium-district/",
+      "suggested_code": "US-ID-PCAD"
+    },
+    {
+      "authority_name": "Idaho Falls Auditorium District Board of Trustees",
+      "confidence": 0.98,
+      "enabling_statute": "Idaho Code Title 67, Chapter 49 (I.C. \u00a7 67-4902 et seq.)",
+      "geographic_scope": "The city limits of Idaho Falls, Bonneville County, Idaho. Boundaries encompass all of the area within the City of Idaho Falls.",
+      "name": "Idaho Falls Auditorium District",
+      "path_suffix": "IFAD",
+      "rates": [
+        {
+          "authority_name": "Idaho Falls Auditorium District",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.97,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "2000-01-01",
+          "enacted_date": null,
+          "legal_reference": "Idaho Code Title 67, Chapter 49",
+          "legal_uri": "https://legislature.idaho.gov/statutesrules/idstat/title67/t67ch49/",
+          "rate_type": "percentage",
+          "rate_value": 5.0,
+          "source_quote": "Idaho Falls Auditorium District Tax: 5% of the listing price including any cleaning fee and guest fee for reservations 30 nights and shorter.",
+          "source_url": "https://www.airbnb.com/help/article/2302",
+          "tax_category_code": "occ_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "type": "apply"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "stay_length_days",
+            "operator": "<=",
+            "value": 30
+          },
+          "confidence": 0.99,
+          "description": "Tax applies only to lodging rentals of 30 days or less. Stays of 31+ consecutive days under a lease are exempt.",
+          "effective_end": null,
+          "effective_start": "2000-01-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "30-Day Short-Term Lodging Only",
+          "rule_type": "threshold",
+          "source_quote": "Lodging sales you made to the same person under the terms of a lease or similar agreement for 31 or more consecutive days [are nontaxable].",
+          "source_url": "https://tax.idaho.gov/wp-content/uploads/forms/EIN00095/EIN00095_10-05-2023.pdf"
+        },
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "guest_type",
+            "operator": "in",
+            "value": [
+              "federal_government",
+              "state_government",
+              "local_government",
+              "qualifying_org"
+            ]
+          },
+          "confidence": 0.97,
+          "description": "Lodging directly billed and paid by the federal government, Idaho state or local government, and qualifying organizations is exempt.",
+          "effective_end": null,
+          "effective_start": "2000-01-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Government and Qualifying Organization Exemption",
+          "rule_type": "exemption",
+          "source_quote": "Room charges directly paid by the U.S. government, Idaho governmental agencies, or other exempt buyers [are nontaxable].",
+          "source_url": "https://tax.idaho.gov/wp-content/uploads/forms/EIN00095/EIN00095_10-05-2023.pdf"
+        },
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "lodging_type",
+            "operator": "==",
+            "value": "campground"
+          },
+          "confidence": 0.99,
+          "description": "The auditorium district tax does not apply to campground charges.",
+          "effective_end": null,
+          "effective_start": "2000-01-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Campground Exemption",
+          "rule_type": "exemption",
+          "source_quote": "An auditorium district tax doesn't apply to campgrounds.",
+          "source_url": "https://tax.idaho.gov/taxes/taxes-on-sales/aud/"
+        }
+      ],
+      "source_quote": "Using a 5% Auditorium District fee, the proceeds to be utilized for the purchase or lease of the facility generate $1.5 million per year.",
+      "source_url": "https://idahofallsauditoriumdistrict.com/funding/",
+      "suggested_code": "US-ID-IFAD"
+    },
+    {
+      "authority_name": "Nampa Auditorium District Board of Directors",
+      "confidence": 0.96,
+      "enabling_statute": "Idaho Code Title 67, Chapter 49 (I.C. \u00a7 67-4902 et seq.); voter-approved November 2024",
+      "geographic_scope": "A defined sub-area of Nampa, Canyon County, Idaho. Boundaries run roughly: Boise River to the north, Greenhurst Road to the south, McDermott Road and Can Ada Road to the east, and Midland Boulevard and Lake Avenue to the west. The district encompasses hotels near the Ford Idaho Center and Nampa Civic Center but does not cover the full City of Nampa.",
+      "name": "Nampa Auditorium District",
+      "path_suffix": "NAD",
+      "rates": [
+        {
+          "authority_name": "Nampa Auditorium District",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "new",
+          "confidence": 0.97,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "2026-05-01",
+          "enacted_date": "2024-11-05",
+          "legal_reference": "Idaho Code Title 67, Chapter 49",
+          "legal_uri": "https://legislature.idaho.gov/statutesrules/idstat/title67/t67ch49/",
+          "rate_type": "percentage",
+          "rate_value": 5.0,
+          "source_quote": "Like other auditorium districts across Idaho, the district will soon be able to collect a very specific 5% tax on hotel and motel room receipts within the district.",
+          "source_url": "https://www.ktvb.com/article/news/local/208/whats-next-impact-voters-approve-nampa-auditorium-district-november-election/277-ba73c88d-b626-4045-a6fd-83f6260658a3",
+          "tax_category_code": "occ_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "type": "apply"
+          },
+          "change_type": "new",
+          "conditions": {
+            "field": "stay_length_days",
+            "operator": "<=",
+            "value": 30
+          },
+          "confidence": 0.99,
+          "description": "Tax applies only to lodging rentals of 30 days or less.",
+          "effective_end": null,
+          "effective_start": "2026-05-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "30-Day Short-Term Lodging Only",
+          "rule_type": "threshold",
+          "source_quote": "Auditorium districts charge a local sales tax only for short-term lodging (30 days or less) within their district boundaries.",
+          "source_url": "https://tax.idaho.gov/pressrelease/idaho-tax-commission-to-administer-more-auditorium-districts-taxes/"
+        },
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "new",
+          "conditions": {
+            "field": "lodging_type",
+            "operator": "==",
+            "value": "campground"
+          },
+          "confidence": 0.99,
+          "description": "The auditorium district tax does not apply to campground charges.",
+          "effective_end": null,
+          "effective_start": "2026-05-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Campground Exemption",
+          "rule_type": "exemption",
+          "source_quote": "This tax also applies to nonsleeping rooms, such as meeting rooms, but it doesn't apply to campgrounds.",
+          "source_url": "https://tax.idaho.gov/pressrelease/idaho-tax-commission-to-administer-more-auditorium-districts-taxes/"
+        }
+      ],
+      "source_quote": "Every hotel room within this district will see a new 5% tax that will go directly back to improvements on the Idaho and Civic Centers.",
+      "source_url": "https://www.kivitv.com/nampa/nampa-voters-supported-the-auditorium-district-now-what",
+      "suggested_code": "US-ID-NAD"
+    },
+    {
+      "authority_name": "Mountain Community Center District Board of Directors",
+      "confidence": 0.97,
+      "enabling_statute": "Idaho Code Title 67, Chapter 49 (I.C. \u00a7 67-4902 et seq.); voter-approved November 4, 2025",
+      "geographic_scope": "Northern Valley County and portions of Adams County, Idaho, encompassing the McCall-Donnelly area (including Tamarack Resort and Brundage Mountain Resort). District boundaries align with those of the McCall and Donnelly School Districts. Southern Valley County (Cascade area) is excluded as it has its own recreation district.",
+      "name": "Mountain Community Center District",
+      "path_suffix": "MCCD",
+      "rates": [
+        {
+          "authority_name": "Mountain Community Center District",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "new",
+          "confidence": 0.97,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "2026-06-01",
+          "enacted_date": "2025-11-04",
+          "legal_reference": "Idaho Code Title 67, Chapter 49",
+          "legal_uri": "https://legislature.idaho.gov/statutesrules/idstat/title67/t67ch49/",
+          "rate_type": "percentage",
+          "rate_value": 5.0,
+          "source_quote": "The district cannot levy property taxes, but will add a 5% tax to all stays in short-term rentals and motels in the McCall-Donnelly area, including at Tamarack Resort and Brundage Mountain Resort.",
+          "source_url": "https://valleylookout.com/2025/11/04/election-results-mountain-community-center-district-passes-incumbents-mostly-prevail/",
+          "tax_category_code": "occ_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "type": "apply"
+          },
+          "change_type": "new",
+          "conditions": {
+            "field": "stay_length_days",
+            "operator": "<=",
+            "value": 30
+          },
+          "confidence": 0.99,
+          "description": "Tax applies only to lodging rentals of 30 days or less.",
+          "effective_end": null,
+          "effective_start": "2026-06-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "30-Day Short-Term Lodging Only",
+          "rule_type": "threshold",
+          "source_quote": "Auditorium districts charge a local sales tax only for short-term lodging (30 days or less) within their district boundaries.",
+          "source_url": "https://tax.idaho.gov/pressrelease/idaho-tax-commission-to-administer-more-auditorium-districts-taxes/"
+        },
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "new",
+          "conditions": {
+            "field": "lodging_type",
+            "operator": "==",
+            "value": "campground"
+          },
+          "confidence": 0.99,
+          "description": "The auditorium district tax does not apply to campground charges.",
+          "effective_end": null,
+          "effective_start": "2026-06-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Campground Exemption",
+          "rule_type": "exemption",
+          "source_quote": "This tax also applies to nonsleeping rooms, such as meeting rooms, but it doesn't apply to campgrounds.",
+          "source_url": "https://tax.idaho.gov/pressrelease/idaho-tax-commission-to-administer-more-auditorium-districts-taxes/"
+        }
+      ],
+      "source_quote": "Starting on June 1, 2026, lodging providers in the district will need to collect a 5% tax on all lodging-related sales that the auditorium district tax applies to.",
+      "source_url": "https://tax.idaho.gov/pressrelease/idaho-tax-commission-to-administer-more-auditorium-districts-taxes/",
+      "suggested_code": "US-ID-MCCD"
+    }
+  ],
+  "notes": "1. SUN VALLEY / KETCHUM LOCAL OPTION TAXES: The reviewer's scope note mentioned 'Sun Valley' as a potential auditorium district. No Sun Valley Auditorium District exists. Instead, the City of Sun Valley has a city-wide Local Option Tax (LOT) of 4% on occupancy/lodging sales (per official Sun Valley ordinances 484, 572, 573), and the City of Ketchum has a city-wide LOT of 3% on room sales (per Ketchum Ordinance 712, effective January 1, 2014). These are city-wide resort city taxes levied under Idaho Code Title 50, Chapter 10, not sub-city special districts, and are administered directly by the cities. They would be reported as city-level taxes, not special districts. Hailey also has a city-wide LOT. Other resort cities with city-wide LOTs: Donnelly, Driggs, Lava Hot Springs, McCall, Ponderay, Riggins, Salmon, Sandpoint, Stanley, Swan Valley, Tetonia, Victor \u2014 all city-wide taxes, not sub-city districts.\\n\\n2. MERIDIAN AUDITORIUM DISTRICT PROPOSAL: In 2024, Meridian was exploring an auditorium district proposal (bounded roughly by Eagle Road east, Victory Road south, McDermott Road/Can Ada Road west, and Fairview Avenue/train tracks north). As of the research date (April 2026), no Meridian Auditorium District vote had passed; this was not included.\\n\\n3. IDAHO FALLS AUDITORIUM DISTRICT ESTABLISHMENT DATE: The exact founding/tax-levy-start date for IFAD was not pinpointed in sources. The old Idaho Falls Auditorium District tax form instructions (2014) confirm a 5% rate. An establishment date of 2000-01-01 was used as a conservative placeholder. The actual founding date may differ; IFAD was active by at least the early 2000s.\\n\\n4. NO TMDs/BIDs WITH HOTEL TAX AUTHORITY FOUND: No Tourism Marketing Districts, Tourism Improvement Districts, or Business Improvement Districts with statutory hotel tax assessment authority were found in Idaho. The state's resort city LOT mechanism and auditorium district mechanism are the primary vehicles for sub-state lodging taxes.\\n\\n5. NAMPA AUDITORIUM DISTRICT MAY 2026 TRANSITION: The Tax Commission took over NAD administration with the April 2026 return (due May 20). The effective date of May 1, 2026 reflects when Tax Commission administration formally began; the district was voter-approved in November 2024 and may have had some early collection by the district itself before this date.",
+  "overall_confidence": 0.95,
+  "parent_code": "US-ID",
+  "sources_checked": [
+    "https://tax.idaho.gov/taxes/taxes-on-sales/aud/",
+    "https://tax.idaho.gov/pressrelease/idaho-tax-commission-to-administer-more-auditorium-districts-taxes/",
+    "https://www.boiseauditorium.com/faq/",
+    "https://www.boiseauditorium.com/district-overview/",
+    "https://www.airbnb.com/help/article/2302",
+    "https://pocatellochubbuckad.com/the-auditorium-district/",
+    "https://idahofallsauditoriumdistrict.com/funding/",
+    "http://www.idahofallsauditoriumdistrict.com/wp-content/uploads/2014/12/Sales-Tax-Return-Form-BLANK1.pdf",
+    "https://nampaauditoriumdistrict.com/",
+    "https://www.kivitv.com/nampa/nampa-voters-supported-the-auditorium-district-now-what",
+    "https://www.ktvb.com/article/news/local/208/whats-next-impact-voters-approve-nampa-auditorium-district-november-election/277-ba73c88d-b626-4045-a6fd-83f6260658a3",
+    "https://mountaincommunitycenter.com/",
+    "https://valleylookout.com/2026/03/27/no-stone-unturned-mountain-community-center-seeking-proposals-for-land/",
+    "https://valleylookout.com/2025/11/04/election-results-mountain-community-center-district-passes-incumbents-mostly-prevail/",
+    "https://www.ktvb.com/article/news/local/north-valley-county-voters-to-decide-on-community-center-district-proposal-idaho/277-ca489095-76f3-4b87-b006-ef7517294900",
+    "https://boisedev.com/news/2024/06/12/auditorium-districts-meridian-nampa/",
+    "https://tax.idaho.gov/taxes/taxes-on-sales/travel-and-convention-tax/",
+    "https://sunvalleyidaho.gov/optiontax",
+    "https://www.ketchumidaho.org/administration/page/local-option-tax-lot",
+    "https://tax.idaho.gov/taxes/sales-use/sales-tax/local-sales-tax/city-sales-tax/",
+    "https://www.cdaid.org/files/Planning/Auditorium_Dist_Code.pdf",
+    "https://legislature.idaho.gov/statutesrules/idstat/title67/t67ch49/"
+  ],
+  "summary": "Found 5 special-purpose auditorium districts in Idaho that impose additional lodging taxes on top of the state rate. All are statutory under Idaho Code Title 67, Chapter 49. Three long-established districts (GBAD since 1959, PCAD since 1998, IFAD) levy 5% on short-term lodging. Two newly voter-approved districts (Nampa Auditorium District, effective May 1 2026; Mountain Community Center District, effective June 1 2026) also levy 5%. No other sub-city special-purpose accommodation tax districts (TMDs, BIDs, etc.) were found in Idaho with statutory hotel tax authority."
+}

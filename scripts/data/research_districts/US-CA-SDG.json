@@ -1,0 +1,267 @@
+{
+  "_meta": {
+    "elapsed_seconds": 131.5,
+    "model": "claude-sonnet-4-6",
+    "parent_code": "US-CA-SDG",
+    "parent_db_name": "San Diego",
+    "parent_db_path": "US.CA.SDG",
+    "parent_exists_in_db": true,
+    "parent_name_hint": "San Diego",
+    "parent_state_hint": "California",
+    "researched_at": "2026-04-21T22:08:30.576901+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: accepted districts with overall_confidence>=0.5 and statutory backing; rejected rates/rules matching proposed/not-enacted/service-charge patterns. Reviewer still owns final draft->active promotion.",
+    "reviewed_at": "2026-04-21T22:29:54.731674+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io",
+    "scope_note": null
+  },
+  "districts": [
+    {
+      "authority_name": "City of San Diego Office of the City Treasurer / SDTMD Corporation",
+      "confidence": 0.98,
+      "enabling_statute": "San Diego Municipal Code, Article 1, Division 25 (TMD Procedural Ordinance); Resolution of Formation R-307843 (Nov. 26, 2012, 39.5-year renewal); modified Aug. 2, 2016 (70+ room threshold effective Sept. 1, 2016)",
+      "geographic_scope": "All lodging businesses with 70 or more rooms located within the City of San Diego municipal boundary (city-wide, but limited by the 70-room threshold \u2014 does not apply to smaller properties or short-term rentals)",
+      "name": "San Diego Tourism Marketing District (SDTMD)",
+      "path_suffix": "TMD",
+      "rates": [
+        {
+          "authority_name": "City of San Diego / SDTMD Corporation",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.98,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "2016-09-01",
+          "enacted_date": "2016-08-02",
+          "legal_reference": "SDMC Article 1, Division 25; Resolution R-307843; 2016 TMD Modification (70+ room threshold)",
+          "legal_uri": "https://www.sandiego.gov/economic-development/about/marketing",
+          "rate_type": "percentage",
+          "rate_value": 2.0,
+          "source_quote": "Effective September 1, 2016, the TMD assessment was officially amended to be applicable only to lodging businesses with 70 or more rooms. The TMD assessment due is 2% of the assessable rent (gross room revenue less any exempt revenue).",
+          "source_url": "https://www.sandiego.gov/sites/default/files/legacy/treasurer/pdf/totfactsheet.pdf",
+          "tax_category_code": "tourism_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "type": "apply_rate"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "room_count",
+            "operator": ">=",
+            "value": 70
+          },
+          "confidence": 0.98,
+          "description": "The TMD assessment only applies to lodging businesses with 70 or more sleeping rooms. Hotels, motels, and similar properties with fewer than 70 rooms are exempt from the TMD assessment.",
+          "effective_end": null,
+          "effective_start": "2016-09-01",
+          "enacted_date": null,
+          "legal_reference": "SDMC Article 1, Division 25; 2016 TMD Modification",
+          "name": "70-Room Minimum Threshold",
+          "rule_type": "threshold",
+          "source_quote": "The assessment imposed is levied solely upon lodging businesses with seventy (70) or more sleeping rooms within the City of San Diego.",
+          "source_url": "https://www.sandiego.gov/sites/default/files/legacy/treasurer/pdf/totfactsheet.pdf"
+        },
+        {
+          "action": null,
+          "change_type": "unchanged",
+          "conditions": null,
+          "confidence": 0.95,
+          "description": "The TMD assessment is technically levied on the lodging business (operator), not the transient. However, the operator may elect to pass the assessment on to the transient as a separately itemized charge on the folio, which must be identified as 'San Diego Tourism Marketing District Assessment.'",
+          "effective_end": null,
+          "effective_start": "2008-01-01",
+          "enacted_date": null,
+          "legal_reference": "SDMC Article 1, Division 25",
+          "name": "Operator Pass-Through Election",
+          "rule_type": "condition",
+          "source_quote": "The Tourism Marketing District (TMD) assessment is levied on the lodging business with 70 or more rooms in San Diego; the Operator may elect to pass the TMD assessment onto the Transient.",
+          "source_url": "https://www.sandiego.gov/treasurer/taxesfees/tot"
+        },
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "OR": [
+              {
+                "field": "stay_length_days",
+                "operator": ">=",
+                "value": 30
+              },
+              {
+                "field": "payer",
+                "operator": "==",
+                "value": "US_government"
+              },
+              {
+                "field": "daily_rate",
+                "operator": "<=",
+                "value": 25.0
+              }
+            ]
+          },
+          "confidence": 0.9,
+          "description": "Transients whose rent is paid directly by the U.S. Government or State of California are exempt. Transients staying 30+ days (one month or more) are also exempt. Stays with a daily charge of $25 or less are exempt.",
+          "effective_end": null,
+          "effective_start": "2008-01-01",
+          "enacted_date": null,
+          "legal_reference": "SDMC Article 1, Division 25",
+          "name": "Government / Federal Exemption",
+          "rule_type": "exemption",
+          "source_quote": "Some situations are exempt from TOT and TMD fees, such as: When a transient stays for one month or more. When the total daily rental charge is $25 or less. When the transient is exempt from paying taxes due to specific treaties or laws. When rent is paid directly by the U.S. Government or the State of California.",
+          "source_url": "https://vacationrentallicense.com/post/san-diegos-transient-occupancy-tax"
+        },
+        {
+          "action": null,
+          "change_type": "unchanged",
+          "conditions": null,
+          "confidence": 0.97,
+          "description": "When calculating the TMD assessment, the TOT amount should NOT be included in the assessable rent base. The TMD is calculated on gross room revenue less exempt revenue only.",
+          "effective_end": null,
+          "effective_start": "2008-01-01",
+          "enacted_date": null,
+          "legal_reference": "SDMC Article 1, Division 25; SDTMD Fact Sheet",
+          "name": "TMD Not Included in TMD Calculation Base",
+          "rule_type": "condition",
+          "source_quote": "TOT should not be included when calculating the TMD assessment.",
+          "source_url": "https://www.sandiego.gov/sites/default/files/legacy/treasurer/pdf/totfactsheet.pdf"
+        }
+      ],
+      "source_quote": "Lodging businesses in the City of San Diego with 70 rooms or more are assessed a two percent fee on each room night sale. Assessment collection is administered by the City of San Diego and funds are distributed to the SDTMD.",
+      "source_url": "https://sdtmd.org/economic-impact-of-tourism/faqs/",
+      "suggested_code": "US-CA-SDG-TMD"
+    },
+    {
+      "authority_name": "City of San Diego Office of the City Treasurer",
+      "confidence": 0.92,
+      "enabling_statute": "San Diego Municipal Code, Chapter III, Article 5, Division 2 (Measure C); voter-approved citizen initiative March 3, 2020; effective May 1, 2025",
+      "geographic_scope": "Three proximity-based sub-zones within the City of San Diego, defined by distance from the San Diego Convention Center. Zone 1 (closest, 13.75% TOT) covers properties nearest the Convention Center including the Gaslamp/downtown waterfront corridor; Zone 2 (12.75% TOT) covers a mid-distance ring; Zone 3 (farthest, 11.75% TOT) covers the remainder of the city. Applies to all lodging (hotels, motels, STROs, RV parks) \u2014 NOT limited by room count.",
+      "name": "Measure C \u2014 Convention Center TOT Zone Overlay",
+      "path_suffix": "MEASC",
+      "rates": [
+        {
+          "authority_name": "City of San Diego",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "new",
+          "confidence": 0.95,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "2025-05-01",
+          "enacted_date": "2020-03-03",
+          "legal_reference": "SDMC Chapter III, Article 5, Division 2; Measure C (voter initiative, March 2020)",
+          "legal_uri": "https://www.sandiego.gov/treasurer/taxesfees/tot",
+          "rate_type": "tiered",
+          "rate_value": null,
+          "source_quote": "Measure C establishes three tax zones with corresponding rates (11.75%, 12.75%, and 13.75%), related to the lodging facility's proximity to the Convention Center.",
+          "source_url": "https://www.insidesandiego.org/hotel-room-tax-increase-starting-may-1",
+          "tax_category_code": "occ_pct",
+          "tier_type": "threshold",
+          "tiers": [
+            {
+              "rate_value": 13.75,
+              "zone": "Zone 1 (closest to Convention Center)"
+            },
+            {
+              "rate_value": 12.75,
+              "zone": "Zone 2 (mid-distance)"
+            },
+            {
+              "rate_value": 11.75,
+              "zone": "Zone 3 (farthest)"
+            }
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "action": null,
+          "change_type": "new",
+          "conditions": null,
+          "confidence": 0.95,
+          "description": "Measure C replaced the prior flat 10.5% city-wide TOT rate with the three-zone tiered structure effective May 1, 2025. The applicable zone rate is the full TOT rate for that property \u2014 it is not an additive overlay but a replacement of the base rate.",
+          "effective_end": null,
+          "effective_start": "2025-05-01",
+          "enacted_date": "2020-03-03",
+          "legal_reference": "SDMC Chapter III, Article 5, Division 2",
+          "name": "Zone Rate Replaces Prior Flat 10.5% TOT",
+          "rule_type": "condition",
+          "source_quote": "The City has prevailed in trial court and is moving forward with increasing the TOT, currently at 10.5%, to be paid by hotel guests, and visitors staying in RV parks and short-term rental properties. Measure C establishes three tax zones with corresponding rates (11.75%, 12.75%, and 13.75%), related to the lodging facility's proximity to the Convention Center.",
+          "source_url": "https://www.insidesandiego.org/hotel-room-tax-increase-starting-may-1"
+        },
+        {
+          "action": null,
+          "change_type": "new",
+          "conditions": null,
+          "confidence": 0.92,
+          "description": "For the first five years (through approximately FY2030), 59% of Measure C additional revenue funds Convention Center improvements/operations and 41% funds City homelessness programs.",
+          "effective_end": "2030-04-30",
+          "effective_start": "2025-05-01",
+          "enacted_date": "2020-03-03",
+          "legal_reference": "Measure C (SDMC Chapter III, Article 5, Division 2)",
+          "name": "Revenue Allocation \u2014 First 5 Years",
+          "rule_type": "condition",
+          "source_quote": "For the first five years, city officials said that the additional revenue will be allocated in the following ways: 59% to finance Convention Center improvements and otherwise support the Convention Center operations; 41% to City efforts to address homelessness, including shelter and support programs, permanent supportive housing, and associated costs.",
+          "source_url": "https://timesofsandiego.com/business/2025/03/20/city-of-san-diego-announces-hotel-room-tax-increase-effective-may-1/"
+        },
+        {
+          "action": null,
+          "change_type": "new",
+          "conditions": null,
+          "confidence": 0.9,
+          "description": "For years 6 through 10, 59% of Measure C revenue continues to fund Convention Center improvements, 31% funds homelessness programs, and 10% funds street repairs and infrastructure.",
+          "effective_end": "2035-04-30",
+          "effective_start": "2030-05-01",
+          "enacted_date": "2020-03-03",
+          "legal_reference": "Measure C (SDMC Chapter III, Article 5, Division 2)",
+          "name": "Revenue Allocation \u2014 Years 6\u201310",
+          "rule_type": "condition",
+          "source_quote": "For years 6 through 10, the additional TOT revenue will be allocated as follows: 59% to finance Convention Center improvements and otherwise support Convention Center operations. 31% to City efforts to address homelessness... 10% to support street repairs.",
+          "source_url": "https://www.insidesandiego.org/hotel-room-tax-increase-starting-may-1"
+        },
+        {
+          "action": null,
+          "change_type": "new",
+          "conditions": null,
+          "confidence": 0.98,
+          "description": "Measure C did not alter the SDTMD 2% assessment. The TMD assessment continues unchanged and is calculated separately on top of the Measure C TOT rates.",
+          "effective_end": null,
+          "effective_start": "2025-05-01",
+          "enacted_date": null,
+          "legal_reference": "Measure C FAQ \u2014 City of San Diego Office of the City Treasurer",
+          "name": "No Change to TMD Assessment Under Measure C",
+          "rule_type": "condition",
+          "source_quote": "There are no changes to the TMD assessment.",
+          "source_url": "https://www.sandiego.gov/sites/default/files/2025-06/citizen-initiative-faq-june-2025_1.pdf"
+        }
+      ],
+      "source_quote": "Voters approved Measure C, dividing the City into three tax zones and establishing new TOT rates for each zone (11.75%, 12.75%, and 13.75%). To determine the tax rate for a lodging property, visit the City's interactive tax zone lookup map.",
+      "source_url": "https://www.sandiego.gov/treasurer/taxesfees/tot",
+      "suggested_code": "US-CA-SDG-MEASC"
+    }
+  ],
+  "notes": "1. San Diego BIDs (18 active districts): Investigated the City's Business Improvement District program. BID assessments are levied on businesses' annual business tax certificate, not on transient occupancy or room nights. The City's BID page confirms assessments fund marketing and improvements generally, with TOT revenues being a separate funding source the City may pass to BIDs through grants. No BID imposes a per-night accommodation tax. Rejected as non-qualifying voluntary/business-tax assessments, not statutory room-night taxes.\n\n2. Measure C classification note: Measure C (effective May 1, 2025) is technically a restructuring/amendment of the city-wide TOT ordinance into three geographic zones rather than a classically separate special-purpose district. It is codified under SDMC Chapter III, Article 5, Division 2. Included here because (a) it creates distinct sub-city geographic zones with materially different rates (11.75%, 12.75%, 13.75%), (b) the revenue is earmarked specifically for Convention Center, homelessness, and street repair \u2014 distinct from the general fund TOT, and (c) it needs to be reconciled against the parent database's known rate of 12.65% (which appears to be mid-zone or a pre-Measure C blended figure). Reviewers should confirm whether the database rate of 12.65% should be updated to reflect the three zone rates.\n\n3. Mission Bay / SeaWorld / Airport area: No separate sub-city hotel accommodation tax district found for these areas beyond the city-wide TOT and TMD.\n\n4. Prior TMD rate structure (2013\u20132016): From Jan 1, 2013 to Aug 31, 2016, the TMD assessed 0.55% on properties with 1\u201329 rooms and 2% on properties with 30+ rooms. Modified in 2016 to apply only to 70+ room properties at 2%. This is historical and superseded.\n\n5. California state-level TBID/tourism assessments: No separate state-level California tourism assessment applies specifically to San Diego properties beyond the local TMD.",
+  "overall_confidence": 0.93,
+  "parent_code": "US-CA-SDG",
+  "sources_checked": [
+    "https://www.sandiego.gov/treasurer/taxesfees/tot",
+    "https://sdtmd.org/economic-impact-of-tourism/faqs/",
+    "https://sdtmd.org/",
+    "https://www.sandiego.gov/economic-development/about/marketing",
+    "https://www.sandiego.gov/sites/default/files/legacy/treasurer/pdf/totfactsheet.pdf",
+    "https://www.sandiego.gov/sites/default/files/2025-06/citizen-initiative-faq-june-2025_1.pdf",
+    "https://www.insidesandiego.org/hotel-room-tax-increase-starting-may-1",
+    "https://fox5sandiego.com/news/local-news/san-diegos-hotel-room-tax-increases-soon/",
+    "https://timesofsandiego.com/business/2025/03/20/city-of-san-diego-announces-hotel-room-tax-increase-effective-may-1/",
+    "https://www.nbcsandiego.com/news/local/appeal-court-upholds-measure-c-as-citizen-initiative/3911378/",
+    "https://civitasadvisors.com/san-diego-tourism-marketing-district/",
+    "https://www.sandiego.gov/economic-development/about/bids",
+    "https://www.caminopolicy.com/briefings/san-diegos-tourism-marketing-district"
+  ],
+  "summary": "Two special-purpose accommodation tax mechanisms found within the City of San Diego. (1) The San Diego Tourism Marketing District (SDTMD) is a well-established statutory benefit assessment district levying a 2% assessment on lodging businesses with 70+ rooms city-wide, layered on top of the TOT, administered by the City Treasurer and renewed for a 40-year term from Jan 1, 2013. (2) Measure C (voter-approved 2020, effective May 1, 2025) restructured the city-wide TOT into three geographic zones based on proximity to the Convention Center (11.75%, 12.75%, 13.75%), replacing the prior flat 10.5% rate \u2014 this is technically a modification to the base TOT itself, not a standalone district, but creates meaningful sub-city rate differentiation. San Diego's 18 BIDs assess general business taxes (not transient occupancy) and were rejected as non-qualifying. No other sub-city accommodation-specific special districts were found."
+}

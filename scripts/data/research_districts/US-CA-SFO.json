@@ -1,0 +1,179 @@
+{
+  "_meta": {
+    "elapsed_seconds": 116.2,
+    "model": "claude-sonnet-4-6",
+    "parent_code": "US-CA-SFO",
+    "parent_db_name": "San Francisco",
+    "parent_db_path": "US.CA.SFO",
+    "parent_exists_in_db": true,
+    "parent_name_hint": "San Francisco",
+    "parent_state_hint": "California",
+    "researched_at": "2026-04-21T22:28:57.811054+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: accepted districts with overall_confidence>=0.5 and statutory backing; rejected rates/rules matching proposed/not-enacted/service-charge patterns. Reviewer still owns final draft->active promotion.",
+    "reviewed_at": "2026-04-21T22:29:54.734066+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io",
+    "scope_note": null
+  },
+  "districts": [
+    {
+      "authority_name": "San Francisco Tourism Improvement District Management Corporation (SFTIDMC)",
+      "confidence": 0.92,
+      "enabling_statute": "SF Board of Supervisors Resolution, Feb. 5, 2013; SF Business and Tax Regulations Code Article 15; California Property and Business Improvement District Law of 1994",
+      "geographic_scope": "All tourist hotels throughout San Francisco city limits, divided into two zones: Zone 1 (hotels on/east of Van Ness Ave, on/east of South Van Ness Ave, and on/north of 16th St from South Van Ness to the Bay \u2014 the core downtown/SoMa/Fisherman's Wharf tourism corridor proximate to Moscone Center); Zone 2 (all remaining tourist hotels in the city, west of Van Ness/South Van Ness and south of 16th St).",
+      "name": "San Francisco Moscone Expansion District",
+      "path_suffix": "MED",
+      "rates": [
+        {
+          "authority_name": "San Francisco Tourism Improvement District Management Corporation (SFTIDMC)",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.92,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "2013-07-01",
+          "enacted_date": "2013-02-05",
+          "legal_reference": "MED Management District Plan (Nov. 20, 2012); SF Business and Tax Regulations Code Article 15",
+          "legal_uri": "https://sftid.com/documents/MED_Management_Plan_Appendices_11_20_12_FINAL.pdf",
+          "rate_type": "percentage",
+          "rate_value": 1.25,
+          "source_quote": "assessment formula of 1.25% and 0.3125% for tourist hotels located in Zones 1 and 2 respectively, calculated on the assessable gross room revenue from tourist rooms of calendar year 2011 as reported by hotels.",
+          "source_url": "https://sftid.com/documents/MED_Management_Plan_Appendices_11_20_12_FINAL.pdf",
+          "tax_category_code": "infrastructure_pct",
+          "tier_type": null,
+          "tiers": null
+        },
+        {
+          "authority_name": "San Francisco Tourism Improvement District Management Corporation (SFTIDMC)",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.91,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "2013-07-01",
+          "enacted_date": "2013-02-05",
+          "legal_reference": "MED Management District Plan (Nov. 20, 2012); SF Business and Tax Regulations Code Article 15",
+          "legal_uri": "https://sftid.com/documents/MED_Management_Plan_Appendices_11_20_12_FINAL.pdf",
+          "rate_type": "percentage",
+          "rate_value": 0.3125,
+          "source_quote": "assessment formula of 1.25% and 0.3125% for tourist hotels located in Zones 1 and 2 respectively, calculated on the assessable gross room revenue from tourist rooms of calendar year 2011 as reported by hotels.",
+          "source_url": "https://sftid.com/documents/MED_Management_Plan_Appendices_11_20_12_FINAL.pdf",
+          "tax_category_code": "infrastructure_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "rate_pct": 1.25,
+            "type": "apply_rate"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "hotel_zone",
+            "operator": "==",
+            "value": "Zone1"
+          },
+          "confidence": 0.92,
+          "description": "The 1.25% rate applies to tourist hotels in Zone 1, defined as hotels with addresses on or east of Van Ness Avenue, on or east of South Van Ness Avenue, and on or north of 16th Street from South Van Ness to the Bay. These hotels receive greater direct benefit from Moscone Center expansion and pay a higher assessment accordingly.",
+          "effective_end": null,
+          "effective_start": "2013-07-01",
+          "enacted_date": null,
+          "legal_reference": "MED Management District Plan, pp. 6\u20138",
+          "name": "Zone 1 Higher Rate \u2014 Proximity to Moscone Center",
+          "rule_type": "condition",
+          "source_quote": "Zone 1 hotels are located within a defined geographic proximity to Moscone Center, and are readily accessible to the Moscone Center and its surrounding area via the City's transportation infrastructure.",
+          "source_url": "https://sftid.com/documents/MED_Management_Plan_Appendices_11_20_12_FINAL.pdf"
+        },
+        {
+          "action": {
+            "rate_pct": 0.3125,
+            "type": "apply_rate"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "hotel_zone",
+            "operator": "==",
+            "value": "Zone2"
+          },
+          "confidence": 0.91,
+          "description": "The 0.3125% rate applies to Zone 2 tourist hotels (west of Van Ness/South Van Ness and south of 16th St). These hotels benefit indirectly via 'compression' demand generated by Moscone conventions and pay a lower proportional assessment.",
+          "effective_end": null,
+          "effective_start": "2013-07-01",
+          "enacted_date": null,
+          "legal_reference": "MED Management District Plan, pp. 6\u20138",
+          "name": "Zone 2 Lower Rate \u2014 Citywide Hotels Outside Zone 1",
+          "rule_type": "condition",
+          "source_quote": "Proportional benefits will accrue to tourist hotels in Zone 2 via 'compression' i.e., studies show that increased convention activity generates higher demand for the limited supply of hotel rooms in Zone 1, which in turns increases demand.",
+          "source_url": "https://sftid.com/documents/MED_Management_Plan_Appendices_11_20_12_FINAL.pdf"
+        },
+        {
+          "action": {
+            "type": "apply_assessment"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "property_type",
+            "operator": "==",
+            "value": "tourist_hotel"
+          },
+          "confidence": 0.9,
+          "description": "Unlike the TID (which was expanded to include short-term residential rental hosts from Jan 1, 2024), the MED assessment applies only to tourist hotels, not to short-term residential rental hosts.",
+          "effective_end": null,
+          "effective_start": "2013-07-01",
+          "enacted_date": null,
+          "legal_reference": "MED Management District Plan; SF Treasurer TOT page",
+          "name": "Hotels Only \u2014 Short-Term Residential Rentals Excluded",
+          "rule_type": "condition",
+          "source_quote": "The Moscone Expansion District (\"MED\" or \"District\") charges each hotel in the district(s) an assessment on gross hotel room revenue.",
+          "source_url": "https://sftreasurer.org/business/taxes-fees/transient-occupancy-tax-tot"
+        },
+        {
+          "action": {
+            "expiry_approx": "2045",
+            "term_years": 32,
+            "type": "cap"
+          },
+          "change_type": "unchanged",
+          "conditions": null,
+          "confidence": 0.88,
+          "description": "The MED was established as a 32-year district beginning July 2013, running through approximately 2045. Revenues fund bonds issued for the Moscone Center expansion project.",
+          "effective_end": null,
+          "effective_start": "2013-07-01",
+          "enacted_date": null,
+          "legal_reference": "MED Management District Plan; Trade Show Executive report Feb. 2013",
+          "name": "32-Year District Term",
+          "rule_type": "cap",
+          "source_quote": "The annual assessments for the hotels within in the MED will range from 0.31% to 0.50% of gross room revenues and will be collected for 32 years. The revenues will be used to finance bonds for the expansion.",
+          "source_url": "https://tradeshowexecutive.com/san-francisco-approves-hotel-district-to-fund-moscone-center-expansion/"
+        }
+      ],
+      "source_quote": "Feb. 5, 2013 \u2013 The San Francisco Board of Supervisors today approved the creation of the Moscone Expansion District (MED) which will provide the majority of funding for the expansion of the City's convention center. The annual assessments for the hotels within in the MED will range from 0.31% to 0.50% of gross room revenues and will be collected for 32 years.",
+      "source_url": "https://sftid.com/moscone.html",
+      "suggested_code": "US-CA-SFO-MED"
+    }
+  ],
+  "notes": "1. TID RATE CHANGE NOT IN DB: The SF Tourism Improvement District (TID) \u2014 already in the database at 1.25% \u2014 had its rates increased by the SFTIDMC Board on August 23, 2024, effective November 1, 2024. Current TID rates are 2.25% (Zone 1: on/east of Van Ness Ave, on/east of South Van Ness Ave, and on/north of 16th St from South Van Ness to the Bay) and 2.00% (Zone 2: west of Van Ness/South Van Ness and south of 16th St). The DB entry at 1.25% appears to reflect the Jan 1, 2024 Zone 1 base rate; the Zone 2 rate (1.00% at Jan 2024, now 2.00%) and the Nov 2024 +1% increase across both zones are not reflected. This should be flagged for a rate update in the parent TID record. 2. Community Benefit Districts (CBDs): San Francisco has 16 active CBDs (property-owner funded), but these are funded by property assessments on property owners, NOT hotel-room-revenue assessments on transient guests, so they do not constitute special accommodation tax districts. The Union Square and Yerba Buena CBDs were specifically reviewed \u2014 they do not levy hotel guest assessments. 3. SF.gov confirms exactly two sector-specific accommodation districts citywide: TID and MED. No other special hotel tax districts found.",
+  "overall_confidence": 0.93,
+  "parent_code": "US-CA-SFO",
+  "sources_checked": [
+    "https://sftid.com/",
+    "https://sftid.com/faq.html",
+    "https://sftid.com/moscone.html",
+    "https://sftid.com/documents/MED_Management_Plan_Appendices_11_20_12_FINAL.pdf",
+    "https://sftreasurer.org/business/taxes-fees/transient-occupancy-tax-tot",
+    "https://sftreasurer.org/notice-short-term-residential-hosts",
+    "https://sftreasurer.org/file/annual-tottidfinal2024/download",
+    "https://www.sf.gov/news--board-supervisors-approve-renewal-and-expansion-san-francisco-tourism-improvement-district-0",
+    "https://www.sf.gov/community-benefit-districts",
+    "https://sfgov.legistar.com/View.ashx?M=F&ID=2303725&GUID=CD4D630C-FA2C-4D3A-9AE2-C322D2AFDEF4&From=Granicus",
+    "https://sfelections.sfgov.org/sites/default/files/Documents/ElectionsArchives/2022TIDFrequentlyAskedQuestions.pdf",
+    "https://sfelections.sfgov.org/sites/default/files/Documents/ElectionsArchives/2022TIDRenewalManagementPlan.pdf",
+    "https://tradeshowexecutive.com/san-francisco-approves-hotel-district-to-fund-moscone-center-expansion/",
+    "https://etaxstatement.sfgov.org/HT24/",
+    "https://www.sfgov.org/services/hotel-tax-efiling"
+  ],
+  "summary": "Found 1 active special-purpose sub-city assessment district beyond the already-catalogued TID: the Moscone Expansion District (MED), a legally separate district established in February 2013 and still actively collected as confirmed by SF Treasurer (March 2026). The MED levies a tiered assessment (1.25% for Zone 1 / 0.3125% for Zone 2 hotels) on gross hotel room revenue, separate from and in addition to the TID. Importantly, the TID itself has undergone a significant uncatalogued rate change: the SFTIDMC Board increased TID rates by 1% on November 1, 2024, bringing Zone 1 to 2.25% and Zone 2 to 2.00%\u2014materially different from the 1.25% currently in the database. This TID rate change is flagged in the notes but TID itself is not re-reported as a new district."
+}

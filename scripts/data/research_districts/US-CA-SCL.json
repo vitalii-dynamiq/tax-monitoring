@@ -1,0 +1,229 @@
+{
+  "_meta": {
+    "create_missing_parent": true,
+    "elapsed_seconds": 97.6,
+    "model": "claude-sonnet-4-6",
+    "parent_code": "US-CA-SCL",
+    "parent_db_name": null,
+    "parent_db_path": null,
+    "parent_exists_in_db": false,
+    "parent_name_hint": "Santa Clara",
+    "parent_state_hint": "California",
+    "researched_at": "2026-04-21T22:10:50.374290+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: accepted districts with overall_confidence>=0.5 and statutory backing; rejected rates/rules matching proposed/not-enacted/service-charge patterns. Reviewer still owns final draft->active promotion.",
+    "reviewed_at": "2026-04-21T22:29:54.730455+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io",
+    "scope_note": "City of Santa Clara (Levi's Stadium / 49ers), NOT Santa Clara County."
+  },
+  "districts": [
+    {
+      "authority_name": "City of Santa Clara / Santa Clara Stadium Authority",
+      "confidence": 0.93,
+      "enabling_statute": "Mello-Roos Community Facilities Act of 1982; City of Santa Clara Ordinance No. 1859, levying special taxes within CFD No. 2010-1",
+      "geographic_scope": "Eight hotels in the North Bayshore area of Santa Clara in the vicinity of Levi's Stadium and California's Great America Theme Park (approved by a vote of the eight hotel property owners in that designated zone).",
+      "name": "Santa Clara Community Facilities District No. 2010-1",
+      "path_suffix": "CFD2010",
+      "rates": [
+        {
+          "authority_name": "City of Santa Clara",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.93,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "2014-08-02",
+          "enacted_date": null,
+          "legal_reference": "Ordinance No. 1859, City of Santa Clara CFD No. 2010-1",
+          "legal_uri": "https://www.santaclaraca.gov/our-city/santa-clara-stadium-authority/stadium-authority-board/past-agenda-reports-49ers",
+          "rate_type": "percentage",
+          "rate_value": 2.0,
+          "source_quote": "The current Community Facilities District Tax rate is 2.0%. Community Facilities District Tax (CFD): Applies only to hotels in the designated CFD boundary, near Levi's Stadium.",
+          "source_url": "https://www.santaclaraca.gov/business-development/business-services/tot-community-facilities-district-tax",
+          "tax_category_code": "occ_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "tax": "CFD 2% special tax",
+            "type": "apply"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "hotel_location",
+            "operator": "within",
+            "value": "CFD No. 2010-1 boundary (North Bayshore / Levi's Stadium vicinity)"
+          },
+          "confidence": 0.93,
+          "description": "CFD tax applies ONLY to hotels within the designated CFD boundary near Levi's Stadium (8 North Bayshore-area hotels). Hotels outside this boundary are not subject to CFD tax.",
+          "effective_end": null,
+          "effective_start": "2014-08-02",
+          "enacted_date": null,
+          "legal_reference": "City of Santa Clara Ordinance No. 1859; CFD No. 2010-1",
+          "name": "CFD Geographic Boundary Condition",
+          "rule_type": "condition",
+          "source_quote": "Community Facilities District Tax (CFD): Applies only to hotels in the designated CFD boundary, near Levi's Stadium.",
+          "source_url": "https://www.santaclaraca.gov/our-city/departments-a-f/finance/business-tax-license/hotel-operator-faq-tot-cfd-and-tid"
+        },
+        {
+          "action": {
+            "cap_amount_total": 35000000,
+            "duration_years": 40,
+            "type": "cap"
+          },
+          "change_type": "unchanged",
+          "conditions": null,
+          "confidence": 0.88,
+          "description": "The CFD special tax was designed to generate up to approximately $35 million (excluding debt service and financing costs) to finance publicly-owned infrastructure for Levi's Stadium, lasting approximately 40 years from the stadium's first game.",
+          "effective_end": null,
+          "effective_start": "2014-08-02",
+          "enacted_date": null,
+          "legal_reference": "City of Santa Clara Ordinance No. 1859; CFD No. 2010-1",
+          "name": "CFD Revenue Cap",
+          "rule_type": "cap",
+          "source_quote": "This special tax would be pledged to finance portions of the publicly owned infrastructure for the proposed stadium project, up to a cap of $35 million (excluding debt service and other financing costs).",
+          "source_url": "https://www.santaclaraca.gov/our-city/santa-clara-stadium-authority/stadium-authority-board/past-agenda-reports-49ers"
+        },
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "stay_length_days",
+            "operator": ">=",
+            "value": 31
+          },
+          "confidence": 0.9,
+          "description": "Stays of 31 or more consecutive days are exempt from the CFD tax, mirroring the TOT exemption rules. The exemption applies starting on the 31st consecutive day, not retroactively.",
+          "effective_end": null,
+          "effective_start": "2014-08-02",
+          "enacted_date": null,
+          "legal_reference": "Santa Clara City Code Section 3.25.020; Ord. 1847 \u00a7 2, 10-20-09; Ord. 2033 \u00a7 1, 10-19-21",
+          "name": "Over 30-Day Stay Exemption",
+          "rule_type": "exemption",
+          "source_quote": "The CFD tax and TID assessment mirror the TOT rules. Thus, any charge subject to TOT is also subject to CFD and TID.",
+          "source_url": "https://www.santaclaraca.gov/our-city/departments-a-f/finance/business-tax-license/hotel-operator-faq-tot-cfd-and-tid"
+        }
+      ],
+      "source_quote": "If approved by a vote of the hotel property owners included in the CFD, a special tax equivalent to 2% transient occupancy tax (TOT) would be placed on those eight hotels. This special tax would be pledged to finance portions of the publicly owned infrastructure for the proposed stadium project, up to a cap of $35 million.",
+      "source_url": "https://www.santaclaraca.gov/our-city/santa-clara-stadium-authority/stadium-authority-board/past-agenda-reports-49ers",
+      "suggested_code": "US-CA-SCL-CFD2010"
+    },
+    {
+      "authority_name": "City of Santa Clara / Silicon Valley/Santa Clara DMO, Inc. dba Discover Santa Clara\u2122 (Owners' Association)",
+      "confidence": 0.97,
+      "enabling_statute": "California Streets and Highways Code Section 36600 et seq. (Property and Business Improvement District Law of 1994); Santa Clara City Council resolution adopted May 25, 2021",
+      "geographic_scope": "11 hotels near the Santa Clara Convention Center (AC Hotel Santa Clara, Avatar Hotel, Delta Hotel by Marriott, Element Santa Clara, Embassy Suites, Hilton Santa Clara, Hyatt Centric Silicon Valley, Hyatt House, Hyatt Regency, Marriott Santa Clara, and TownePlace Suites by Marriott). Sub-city zone around the Convention Center corridor.",
+      "name": "Santa Clara Tourism Improvement District (SCTID)",
+      "path_suffix": "SCTID",
+      "rates": [
+        {
+          "authority_name": "City of Santa Clara / Discover Santa Clara\u2122",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.97,
+          "currency_code": null,
+          "effective_end": "2026-06-30",
+          "effective_start": "2021-07-01",
+          "enacted_date": "2021-05-25",
+          "legal_reference": "California Streets and Highways Code \u00a736600 et seq.; Santa Clara City Council resolution of May 25, 2021",
+          "legal_uri": "https://www.santaclaraca.gov/our-city/departments-a-f/finance/tid-assessment",
+          "rate_type": "percentage",
+          "rate_value": 2.0,
+          "source_quote": "SCTID activities are funded by a 2% assessment on gross short-term (30 days or less) room rentals (10 rooms or more) on lodging businesses and ensures funding for Silicon Valley/Santa Clara DMO, Inc. dba Discover Santa Clara\u2122.",
+          "source_url": "https://www.santaclaraca.gov/our-city/departments-a-f/finance/tid-assessment",
+          "tax_category_code": "tourism_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "assessment": "SCTID 2% assessment",
+            "type": "apply"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "room_count",
+            "operator": ">=",
+            "value": 10
+          },
+          "confidence": 0.97,
+          "description": "SCTID assessment applies only to lodging businesses with 10 or more rooms. Properties with fewer than 10 rooms are not subject to the assessment.",
+          "effective_end": null,
+          "effective_start": "2021-07-01",
+          "enacted_date": null,
+          "legal_reference": "SCTID Management District Plan; California Streets and Highways Code \u00a736600 et seq.",
+          "name": "Minimum Room Threshold",
+          "rule_type": "threshold",
+          "source_quote": "SCTID activities are funded by a 2% assessment on gross short-term (30 days or less) room rentals (10 rooms or more) on lodging businesses.",
+          "source_url": "https://www.santaclaraca.gov/our-city/departments-a-f/finance/tid-assessment"
+        },
+        {
+          "action": {
+            "assessment": "SCTID 2%",
+            "type": "apply"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "stay_length_days",
+            "operator": "<=",
+            "value": 30
+          },
+          "confidence": 0.97,
+          "description": "The SCTID assessment applies only to short-term rentals of 30 days or less. Stays exceeding 30 consecutive days are not subject to the assessment.",
+          "effective_end": null,
+          "effective_start": "2021-07-01",
+          "enacted_date": null,
+          "legal_reference": "SCTID Management District Plan; Santa Clara City Code Section 3.25.020",
+          "name": "Short-Term Rental Only (\u226430 Days)",
+          "rule_type": "exemption",
+          "source_quote": "SCTID activities are funded by a 2% assessment on gross short-term (30 days or less) room rentals (10 rooms or more) on lodging businesses.",
+          "source_url": "https://www.santaclaraca.gov/our-city/departments-a-f/finance/tid-assessment"
+        },
+        {
+          "action": {
+            "note": "Assessment expires June 30, 2026 absent renewal",
+            "type": "override"
+          },
+          "change_type": "unchanged",
+          "conditions": null,
+          "confidence": 0.95,
+          "description": "The current SCTID was formed for a five-year term (July 1, 2021 \u2013 June 30, 2026). Continuation beyond June 30, 2026 would require renewal by City Council.",
+          "effective_end": "2026-06-30",
+          "effective_start": "2021-07-01",
+          "enacted_date": null,
+          "legal_reference": "California Streets and Highways Code \u00a736600 et seq.; Santa Clara City Council resolution of May 25, 2021",
+          "name": "SCTID Five-Year Term / Renewal Required",
+          "rule_type": "condition",
+          "source_quote": "The SCTID was formed for a five-year term, July 1, 2021 \u2013 June 30, 2026.",
+          "source_url": "https://www.santaclaraca.gov/our-city/departments-a-f/finance/tid-assessment"
+        }
+      ],
+      "source_quote": "On May 25, 2021, at the request of the lodging businesses, Santa Clara City Council voted to establish the Santa Clara Tourism Improvement District (SCTID) pursuant to the Property and Business Improvement District Law of 1994, Streets and Highways Code Section 36600 et seq.",
+      "source_url": "https://www.santaclaraca.gov/our-city/departments-a-f/finance/tid-assessment",
+      "suggested_code": "US-CA-SCL-SCTID"
+    }
+  ],
+  "notes": "1. Santa Clara Downtown BID (Franklin Square area): Investigated per santaclaraca.gov/our-city/departments-g-z/public-works/maintenance-operations/business-improvement-district-bid. This is a general commercial business improvement district around Franklin Square, funded by annual benefit fees based on a formula for all types of businesses. It explicitly excludes residential uses and apartment rentals. There is no accommodation-specific hotel room assessment \u2014 it does not qualify as a special-purpose accommodation tax district. REJECTED.\n\n2. CFD effective date: The CFD tax was legislated to commence at the first game at the stadium. Levi's Stadium opened July 17, 2014; the first game (MLS match) was August 2, 2014. Thus 2014-08-02 is used as the effective_start. The Ballotpedia source confirms the tax \"would last for about 40 years\" from that date (i.e., approximately until 2054).\n\n3. SCTID historical predecessor: The SCTID was initially formed in 2005 under the Parking and Business Improvement Law of 1989, then reconstituted in 2021 under the Property and Business Improvement District Law of 1994. Only the current (2021) incarnation is reported, as it is the operative statutory authority.\n\n4. California Tourism Assessment (0.195%): Several hotel listings mention a statewide California Tourism Assessment alongside the SCTID. This is a statewide levy collected by the California Travel and Tourism Commission, not a Santa Clara city or sub-city district tax \u2014 excluded per scope rules.\n\n5. No venue-specific district (e.g., separate stadium zone) separate from the CFD was found. The CFD IS the stadium financing mechanism for the hotel sector.",
+  "overall_confidence": 0.92,
+  "parent_code": "US-CA-SCL",
+  "sources_checked": [
+    "https://www.santaclaraca.gov/business-development/business-services/tot-community-facilities-district-tax",
+    "https://www.santaclaraca.gov/our-city/departments-a-f/finance/business-tax-license/hotel-operator-faq-tot-cfd-and-tid",
+    "https://www.santaclaraca.gov/our-city/departments-a-f/finance/tid-assessment",
+    "https://www.santaclaraca.gov/our-city/santa-clara-stadium-authority/stadium-authority-board/past-agenda-reports-49ers",
+    "https://ballotpedia.org/Santa_Clara_Stadium_for_the_49ers,_Measure_J_(June_2010)",
+    "https://levisstadium.com/2023/10/levis-stadium-economic-fiscal-analysis-a-primary-and-secondary-study/",
+    "https://www.discoversantaclara.org/about-us/",
+    "https://www.santaclaraca.gov/our-city/departments-g-z/public-works/maintenance-operations/business-improvement-district-bid",
+    "https://www.santaclaraca.gov/our-city/santa-clara-stadium-authority/community-facilities-district-cfd"
+  ],
+  "summary": "Found 2 special-purpose accommodation tax districts within the City of Santa Clara: (1) Community Facilities District No. 2010-1 (CFD), a 2% special tax on 8 hotels in the North Bayshore/Levi's Stadium area, enacted via Ordinance No. 1859 to finance stadium infrastructure; and (2) Santa Clara Tourism Improvement District (SCTID), a 2% assessment on 11 hotels near the Santa Clara Convention Center, established May 25, 2021 under California S&H Code \u00a736600 for a five-year term (July 1, 2021\u2013June 30, 2026). Also investigated the Santa Clara Downtown BID (Franklin Square) \u2014 rejected as it does not impose any accommodation-specific tax."
+}

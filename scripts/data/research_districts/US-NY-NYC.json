@@ -1,0 +1,42 @@
+{
+  "_meta": {
+    "elapsed_seconds": 73.3,
+    "model": "claude-sonnet-4-6",
+    "parent_code": "US-NY-NYC",
+    "parent_db_name": "New York City",
+    "parent_db_path": "US.NY.NYC",
+    "parent_exists_in_db": true,
+    "parent_name_hint": "New York City",
+    "parent_state_hint": "New York",
+    "researched_at": "2026-04-21T22:20:40.260262+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: accepted districts with overall_confidence>=0.5 and statutory backing; rejected rates/rules matching proposed/not-enacted/service-charge patterns. Reviewer still owns final draft->active promotion.",
+    "reviewed_at": "2026-04-21T22:29:54.737669+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io",
+    "scope_note": null
+  },
+  "districts": [],
+  "notes": "1. NYC Business Improvement Districts (BIDs): NYC has 74 BIDs whose assessments are levied on commercial property owners via property tax bills (collected by NYC Dept. of Finance and remitted to BIDs). These assessments are NOT guest-facing accommodation taxes and are not imposed on hotel occupants. Investigated specifically: Times Square Alliance, Hudson Yards BID. None qualify as a statutory sub-city accommodation tax district.\n\n2. NYC Convention Center Hotel Unit Fee (\"Javits Fee\", NY Tax Law \u00a71104): This $1.50/unit/day fee is mandated by state law and applies to ALL hotels in ALL five boroughs of NYC \u2014 it is city-wide in scope, not a sub-city special district. Revenue goes to the New York Convention Center Development Corporation (Javits Center). Already captured in the known taxes as convention_pct/flat at $1.50. It does not represent a geographically-scoped sub-city district.\n\n3. Hudson Yards Infrastructure Corporation (HYIC): HYIC finances the ~45-block Hudson Yards Financing District's subway extension and infrastructure through bonds secured by PILOTs (payments in lieu of property taxes) and tax equivalency payments from newly constructed/renovated buildings within the district. This is a developer/property-owner mechanism \u2014 no guest-facing accommodation surcharge is levied. Hotels in the district pay property tax normally and may enter into PILOT agreements, but guests pay no special hotel accommodation district fee.\n\n4. Metropolitan Commuter Transportation District (MCTD) 0.375% sales tax: This applies to all taxable sales (including hotel occupancy) across all five NYC boroughs PLUS seven surrounding counties (Nassau, Suffolk, Dutchess, Westchester, Rockland, Orange, Putnam). It is a regional tax broader than NYC and is not a sub-city special district.\n\n5. Manhattan 8% parking surcharge: This applies specifically to parking services in Manhattan (not hotel room occupancy). It is a borough-specific charge but applies only to parking, not accommodation.\n\n6. Tourism Improvement Districts (TIDs) / Tourism Marketing Districts (TMDs): New York State has not enacted enabling legislation creating hotel tourism improvement or marketing districts comparable to California's Property and Business Improvement District Law or similar frameworks. No statutory NYC-area TID/TMD with a hotel accommodation assessment was found.\n\n7. Auditorium Districts: These are Idaho-specific. No equivalent structure exists in New York State.\n\n8. Venue/Sports Districts: No sub-city hotel accommodation tax tied to a sports or entertainment venue district was found for NYC (unlike, e.g., Arlington TX). Madison Square Garden and Barclays Center area hotels pay standard citywide taxes only.",
+  "overall_confidence": 0.93,
+  "parent_code": "US-NY-NYC",
+  "sources_checked": [
+    "https://www.nyc.gov/site/finance/business/business-hotel-room-occupancy-tax.page",
+    "https://www.tax.ny.gov/pubs_and_bulls/tg_bulletins/st/hotel_and_motel_occupancy.htm",
+    "https://www.tax.ny.gov/pdf/publications/sales/pub848.pdf",
+    "https://www.nysenate.gov/legislation/laws/TAX/1104",
+    "https://codes.findlaw.com/ny/tax-law/tax-sect-1104.html",
+    "https://legalclarity.org/what-is-the-jacob-javits-center-tax/",
+    "https://hanyc.org/faq/",
+    "https://www.travelersunited.org/new-york-city-hotel-resort-fees/",
+    "https://cbcny.org/research/bids-organization-oversight-and-transparency",
+    "https://www.nyc.gov/site/hyic/index.page",
+    "https://www.ibo.nyc.ny.us/iboreports/hudsonyards2013.html",
+    "https://comptroller.nyc.gov/statements/hudson-yards-infrastructure-corporation-hyic/",
+    "https://en.wikipedia.org/wiki/Tourism_improvement_district",
+    "https://www.tax.ny.gov/pubs_and_bulls/tg_bulletins/st/sales_tax_rates_additional_sales_taxes_and_fees.htm",
+    "https://www.tax.ny.gov/bus/mctmt/",
+    "https://www.nysenate.gov/legislation/laws/TAX/A29",
+    "https://www.ibo.nyc.gov/assets/ibo/downloads/pdf/taxes-and-other-revenues/2025/2025-july-how-has-taxing-hotel-remarketers-affect-city-hotel-occupancy-tax-revenue.pdf",
+    "https://www.tax.ny.gov/pubs_and_bulls/tg_bulletins/st/parking-nyc.htm"
+  ],
+  "summary": "No qualifying special-purpose sub-city accommodation tax districts found within New York City. All statutory hotel levies in NYC operate at the city-wide or state-wide level. Thorough investigation covered BIDs, tourism improvement districts, convention center districts, infrastructure corporations, borough-specific surcharges, and venue/sports districts \u2014 none impose a geographically scoped (sub-city) guest-facing accommodation tax beyond the known city-wide taxes already in the database."
+}

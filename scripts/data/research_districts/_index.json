@@ -1,0 +1,22 @@
+{
+  "entries": [
+    {
+      "code": "US-CA-SFO",
+      "districts_found": 1,
+      "elapsed_seconds": 116.2,
+      "name_hint": "San Francisco",
+      "output_file": "US-CA-SFO.json",
+      "overall_confidence": 0.93,
+      "parent_exists_in_db": true,
+      "started_at": "2026-04-21T22:27:01.600458+00:00",
+      "status": "completed",
+      "total_rates": 2,
+      "total_rules": 4
+    }
+  ],
+  "max_agent_turns": 30,
+  "max_search_uses": 25,
+  "model": "claude-sonnet-4-6",
+  "run_completed_at": "2026-04-21T22:28:57.811930+00:00",
+  "run_started_at": "2026-04-21T22:27:01.574807+00:00"
+}

@@ -1,0 +1,231 @@
+{
+  "_meta": {
+    "elapsed_seconds": 157.2,
+    "model": "claude-sonnet-4-6",
+    "parent_code": "US-CA-SJC",
+    "parent_db_name": "San Jose",
+    "parent_db_path": "US.CA.SJC",
+    "parent_exists_in_db": true,
+    "parent_name_hint": "San Jose",
+    "parent_state_hint": "California",
+    "researched_at": "2026-04-21T22:19:24.923476+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: accepted districts with overall_confidence>=0.5 and statutory backing; rejected rates/rules matching proposed/not-enacted/service-charge patterns. Reviewer still owns final draft->active promotion.",
+    "reviewed_at": "2026-04-21T22:29:54.734870+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io",
+    "scope_note": null
+  },
+  "districts": [
+    {
+      "authority_name": "City of San Jose Finance Department",
+      "confidence": 0.9,
+      "enabling_statute": "Convention Center Facilities District No. 2008-1; City of San Jose ordinance adopted per voter approval (78% yes); effective July 1, 2009. Annexation Area No. 2 adopted 2021 (Legistar File #21-1012).",
+      "geographic_scope": "All hotels/motels within the city limits of the City of San Jose, divided into two zones: Zone 1 (within 2.25-mile radius of San Jose McEnery Convention Center at 150 W. San Carlos St.) and Zone 2 (outside that radius but within city limits). The district was subsequently expanded via Annexation Area No. 2 in 2021.",
+      "name": "San Jose Convention Center Facilities District No. 2008-1",
+      "path_suffix": "CCFD",
+      "rates": [
+        {
+          "authority_name": "City of San Jose Finance Department",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.92,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "2009-07-01",
+          "enacted_date": null,
+          "legal_reference": "Convention Center Facilities District No. 2008-1, Rate and Method of Apportionment (RMA) \u2014 Zone 1",
+          "legal_uri": "http://www3.csjfinance.org/CCFD/CCFD.pdf",
+          "rate_type": "percentage",
+          "rate_value": 4.0,
+          "source_quote": "Zone 1: 4% per room per night for hotels/motels located within two-and-one-quarter-mile (2 \u00bc) radius of the SJMCC",
+          "source_url": "http://www3.csjfinance.org/CCFD/CCFD.pdf",
+          "tax_category_code": "infrastructure_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "rate_pct": 4.0,
+            "type": "apply_rate"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "distance_from_SJMCC_miles",
+            "operator": "<=",
+            "value": 2.25
+          },
+          "confidence": 0.9,
+          "description": "The 4% CCFD rate applies to hotels/motels within the 2.25-mile radius of the San Jose McEnery Convention Center (Zone 1). Hotels outside this radius but within city limits fall in Zone 2 (rate not confirmed numerically in public-facing documents).",
+          "effective_end": null,
+          "effective_start": "2009-07-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Zone 1 Geographic Scope",
+          "rule_type": "threshold",
+          "source_quote": "Pursuant to the Rate and Method of Apportionment (the \"RMA\"), the special tax is collected in two zones defined by the distance of a two and one quarter (2 \u00bc) mile radius from the San Jos\u00e9 Convention Center.",
+          "source_url": "http://www3.csjfinance.org/CCFD/CityNoticestoLodgingOperators_v2.pdf"
+        },
+        {
+          "action": {
+            "type": "apply"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "property_type",
+            "operator": "==",
+            "value": "hotel_motel"
+          },
+          "confidence": 0.9,
+          "description": "The CCFD Tax is imposed on all hotels/motels located within the city limits of the City of San Jose, not limited to a sub-district.",
+          "effective_end": null,
+          "effective_start": "2009-07-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Imposed on All Hotels/Motels in City Limits",
+          "rule_type": "condition",
+          "source_quote": "The Convention Center Facility District Tax is imposed on all hotels/motels located within the city limits of the City of San Jose.",
+          "source_url": "http://www3.csjfinance.org/CCFD/CCFD.pdf"
+        }
+      ],
+      "source_quote": "The Convention Center Facilities District (\"CCFD\") Tax, approved by 78% of the qualified voters, is a special tax levied on real property classified as a hotel property beginning July 1, 2009. The CCFD Tax is applied as a percentage of the room rental. This special tax finances the expansion, construction, reconstruction, rehabilitation, and upgrade of the San Jos\u00e9 McEnery Convention Center facilities.",
+      "source_url": "https://www.sanjoseca.gov/your-government/departments-offices/finance/tax-forms-permits-resources/hotel-taxes",
+      "suggested_code": "US-CA-SJC-CCFD"
+    },
+    {
+      "authority_name": "San Jose Hotels Inc. (administered by City of San Jose Finance Department)",
+      "confidence": 0.93,
+      "enabling_statute": "San Jose Ordinance No. 27644, adopted by San Jose City Council on January 24, 2006, effective February 26, 2006. Reauthorized annually per San Jos\u00e9 Resolution No. 78561.",
+      "geographic_scope": "All hotels/motels with 80 or more guest rooms located within the city limits of the City of San Jose. Three concentric zones based on distance from San Jose McEnery Convention Center (SJMCC): Zone A (within 1 mile), Zone B (1 to 3 miles), Zone C (outside 3 miles).",
+      "name": "San Jose Hotel Business Improvement District (HBID)",
+      "path_suffix": "HBID",
+      "rates": [
+        {
+          "authority_name": "San Jose Hotels Inc. / City of San Jose",
+          "base_type": "per_night",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.93,
+          "currency_code": "USD",
+          "effective_end": null,
+          "effective_start": "2006-02-26",
+          "enacted_date": null,
+          "legal_reference": "San Jose Ordinance No. 27644; Resolution No. 78561 \u2014 Zone A",
+          "legal_uri": "http://www3.csjfinance.org/HBIDRemittanceForm_front%20page_.pdf",
+          "rate_type": "flat",
+          "rate_value": 2.0,
+          "source_quote": "Zone A: $2.00 per occupied room per night for hotels/motels located within one-mile radius of the SJMCC",
+          "source_url": "http://www3.csjfinance.org/HBIDRemittanceForm_front%20page_.pdf",
+          "tax_category_code": "city_tax_flat",
+          "tier_type": null,
+          "tiers": null
+        },
+        {
+          "authority_name": "San Jose Hotels Inc. / City of San Jose",
+          "base_type": "per_night",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.93,
+          "currency_code": "USD",
+          "effective_end": null,
+          "effective_start": "2006-02-26",
+          "enacted_date": null,
+          "legal_reference": "San Jose Ordinance No. 27644; Resolution No. 78561 \u2014 Zone B",
+          "legal_uri": "http://www3.csjfinance.org/HBIDRemittanceForm_front%20page_.pdf",
+          "rate_type": "flat",
+          "rate_value": 1.0,
+          "source_quote": "Zone B: $1.00 per occupied room per night for hotels/motels located within one to three miles from SJMCC",
+          "source_url": "http://www3.csjfinance.org/HBIDRemittanceForm_front%20page_.pdf",
+          "tax_category_code": "city_tax_flat",
+          "tier_type": null,
+          "tiers": null
+        },
+        {
+          "authority_name": "San Jose Hotels Inc. / City of San Jose",
+          "base_type": "per_night",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.93,
+          "currency_code": "USD",
+          "effective_end": null,
+          "effective_start": "2006-02-26",
+          "enacted_date": null,
+          "legal_reference": "San Jose Ordinance No. 27644; Resolution No. 78561 \u2014 Zone C",
+          "legal_uri": "http://www3.csjfinance.org/HBIDRemittanceForm_front%20page_.pdf",
+          "rate_type": "flat",
+          "rate_value": 0.75,
+          "source_quote": "Zone C: $0.75 per occupied room per night for hotels/motels located outside the three-mile radius of SJMCC",
+          "source_url": "http://www3.csjfinance.org/HBIDRemittanceForm_front%20page_.pdf",
+          "tax_category_code": "city_tax_flat",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "type": "apply"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "hotel_room_count",
+            "operator": ">=",
+            "value": 80
+          },
+          "confidence": 0.95,
+          "description": "The HBID fee applies only to hotels and motels with 80 or more guest rooms. Smaller properties are exempt.",
+          "effective_end": null,
+          "effective_start": "2006-02-26",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Minimum Room Count Threshold",
+          "rule_type": "threshold",
+          "source_quote": "The Hotel Business Improvement District Fee is imposed on all hotels/motels with 80 OR MORE GUEST ROOMS located within the city limits of the City of San Jose.",
+          "source_url": "http://www3.csjfinance.org/HBIDRemittanceForm_front%20page_.pdf"
+        },
+        {
+          "action": {
+            "type": "apply"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "occupancy_status",
+            "operator": "==",
+            "value": "occupied"
+          },
+          "confidence": 0.95,
+          "description": "The HBID fee is assessed per occupied room per night, not on all available rooms.",
+          "effective_end": null,
+          "effective_start": "2006-02-26",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Occupied Room Night Basis",
+          "rule_type": "condition",
+          "source_quote": "The HBID is due as follows: Zone A: $2.00 per occupied room per night... Zone B: $1.00 per occupied room per night... Zone C: $0.75 per occupied room per night",
+          "source_url": "http://www3.csjfinance.org/HBIDRemittanceForm_front%20page_.pdf"
+        }
+      ],
+      "source_quote": "The Hotel Business Improvement District (\"HBID\") includes all hotels with 80 or more guest rooms located within the city limits of the City of San Jose. The HBID provides revenues for marketing efforts and event opportunities, as specified in the HBID's annual budget approved by the City Council.",
+      "source_url": "https://www.sanjoseca.gov/your-government/departments-offices/finance/tax-forms-permits-resources/hotel-taxes",
+      "suggested_code": "US-CA-SJC-HBID"
+    }
+  ],
+  "notes": "1. CCFD Zone 2 Rate: The official notice letter (CityNoticestoLodgingOperators_v2.pdf) references two zones and states 'The amount of the special tax for the above referenced hotel in Zone 2 is...' but the rate value is redacted/not captured in the indexed content. The official remittance form (CCFD.pdf) only shows Zone 1 at 4%. The Zone 2 rate is likely lower than 4% (hotels further from the convention center pay less), but could not be confirmed numerically from available public sources. Recommend direct contact with San Jose Finance Dept at (408) 535-7055 to confirm Zone 2 rate. The salestaxhandbook.com reference to 'San Jose Convention Center Facility District Zone 2' and 'San Jose 3+ Mile Convention Center District' suggests distinct tax jurisdictions with different rates. 2. Downtown PBID: The San Jose Downtown Property-Based Improvement District (established 2007, renewed 2012 and ~2022) assesses property owners based on parcel and building square footage ($0.1339/sq ft for commercial, $0.1083/sq ft for residential/nonprofit). It is NOT a per-room-night accommodation tax levied on hotel guests. A 2018 Worldcon 76 event listing cited a '$0.50 Property Based Business Improvement District (PBID) fee' but this appears to be a hotel-level fee the property owner may pass through, not a statutorily mandated guest accommodation tax. The PBID's enabling documents do not structure it as a per-night hotel guest charge. Excluded from district findings accordingly. 3. California Tourism Assessment Program (CTAP): The state-level California Tourism Assessment (typically 0.065% of gross room revenue for hotels with 50+ rooms) was considered but is a state-level program administered by the California Office of Tourism, not a San Jose sub-city district. Excluded. 4. Proposed TOT increase: In early 2026, San Jose was considering a ballot measure to increase TOT by 2% (from ~10% to ~12%). As of research date (April 2026), this does not appear to have been enacted yet. Not included.",
+  "overall_confidence": 0.82,
+  "parent_code": "US-CA-SJC",
+  "sources_checked": [
+    "https://www.sanjoseca.gov/your-government/departments-offices/finance/tax-forms-permits-resources/hotel-taxes",
+    "http://www3.csjfinance.org/CCFD/CCFD.pdf",
+    "http://www3.csjfinance.org/CCFD/CityNoticestoLodgingOperators_v2.pdf",
+    "http://www3.csjfinance.org/HBIDRemittanceForm_front%20page_.pdf",
+    "https://www.sanjoseca.gov/your-government/departments-offices/finance/tax-forms-permits-resources/hotel-taxes/hotel-taxes-forms",
+    "https://www.worldcon76.org/travel-lodging/hotels",
+    "https://sjdowntown.com/property-based-improvement-district/",
+    "https://sanjosespotlight.com/downtown-san-jose-special-property-based-improvement-district-pbid-tax-up-for-renewal/",
+    "https://sanjose.legistar.com/LegislationDetail.aspx?ID=4924656&GUID=D4F3C9B1-F2F4-481A-9473-5FE507263471",
+    "https://www.hotel-online.com/news/san-jose-faces-up-to-a-65-million-shortfall-could-a-hotel-tax-increase-improve-the-citys-finances",
+    "https://www.salestaxhandbook.com/california/rates/san-jose"
+  ],
+  "summary": "Found 2 active special-purpose accommodation tax districts in San Jose beyond the base TOT: (1) Convention Center Facilities District No. 2008-1 (CCFD) \u2014 a voter-approved special tax on all hotels/motels citywide levied at 4% of room rental for Zone 1 hotels (within 2.25-mile radius of SJMCC); Zone 2 rate referenced but not confirmed numerically. (2) Hotel Business Improvement District (HBID) \u2014 a flat per-room-per-night fee on hotels with 80+ rooms, with three geographic zones based on distance from SJMCC ($2.00/$1.00/$0.75). The Downtown PBID was investigated but found to assess property owners by parcel square footage, not as an accommodation-specific per-night tax on hotel guests."
+}

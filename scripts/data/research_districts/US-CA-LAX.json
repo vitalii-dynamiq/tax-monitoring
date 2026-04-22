@@ -1,0 +1,198 @@
+{
+  "_meta": {
+    "elapsed_seconds": 112.6,
+    "model": "claude-sonnet-4-6",
+    "parent_code": "US-CA-LAX",
+    "parent_db_name": "Los Angeles",
+    "parent_db_path": "US.CA.LAX",
+    "parent_exists_in_db": true,
+    "parent_name_hint": "Los Angeles",
+    "parent_state_hint": "California",
+    "researched_at": "2026-04-21T22:22:34.905009+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: accepted districts with overall_confidence>=0.5 and statutory backing; rejected rates/rules matching proposed/not-enacted/service-charge patterns. Reviewer still owns final draft->active promotion.",
+    "reviewed_at": "2026-04-21T22:29:54.728927+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io",
+    "scope_note": null
+  },
+  "districts": [
+    {
+      "authority_name": "Los Angeles Tourism Marketing District Corporation (administered by LA Tourism & Convention Board)",
+      "confidence": 0.95,
+      "enabling_statute": "California Streets and Highways Code \u00a736600 et seq. (Property and Business Improvement District Law of 1994); City of Los Angeles Ordinance No. 183567 (June 26, 2015); renewed 2025\u20132034 per Management District Plan filed September 2024 with LA City Clerk (Council File 14-0943-S3)",
+      "geographic_scope": "All lodging businesses with 50 or more rooms within the geographic boundaries of the City of Los Angeles. Hotels with fewer than 50 rooms are excluded.",
+      "name": "Los Angeles Tourism Marketing District (LATMD)",
+      "path_suffix": "LATMD",
+      "rates": [
+        {
+          "authority_name": "Los Angeles Tourism Marketing District Corporation",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "changed",
+          "confidence": 0.95,
+          "currency_code": null,
+          "effective_end": "2034-12-31",
+          "effective_start": "2022-05-01",
+          "enacted_date": "2022-04-01",
+          "legal_reference": "CA Streets & Highways Code \u00a736600 et seq.; LA City Clerk Council File 14-0943-S3 (2024 renewal Management District Plan)",
+          "legal_uri": "https://cityclerk.lacity.org/onlinedocs/2014/14-0943-S3_misc_2_09-11-24.pdf",
+          "rate_type": "percentage",
+          "rate_value": 2.0,
+          "source_quote": "With an assessment rate of 2% on room rental revenue from lodging businesses with 50 rooms or more, the renewed LATMD is expected to ensure sustained momentum of Los Angeles as a world-class destination.",
+          "source_url": "https://civitasadvisors.com/tag/tourism-districts/",
+          "tax_category_code": "tourism_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "type": "assess"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "room_count",
+            "operator": ">=",
+            "value": 50
+          },
+          "confidence": 0.97,
+          "description": "Only lodging businesses with 50 or more rooms are subject to the LATMD assessment. Properties with fewer than 50 rooms are exempt.",
+          "effective_end": null,
+          "effective_start": "2016-04-01",
+          "enacted_date": null,
+          "legal_reference": "LA Ordinance No. 183567, Sec. 7; 2024 Management District Plan",
+          "name": "Minimum Room Count Threshold",
+          "rule_type": "threshold",
+          "source_quote": "The proposed Los Angeles Tourism Marketing District area consists of all lodging businesses with fifty (50) rooms or more, existing and in the future for the duration of this District within the geographic boundaries of the City of Los Angeles.",
+          "source_url": "https://cityclerk.lacity.org/onlinedocs/2014/14-0943_ord_183567_06-26-15.pdf"
+        },
+        {
+          "action": {
+            "type": "assess"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "stay_length_days",
+            "operator": "<",
+            "value": 31
+          },
+          "confidence": 0.95,
+          "description": "The LATMD assessment applies only to transient stays of fewer than 31 consecutive days, consistent with the TOT definition of 'transient.' Stays of 31 days or more are not assessed.",
+          "effective_end": null,
+          "effective_start": "2016-04-01",
+          "enacted_date": null,
+          "legal_reference": "LA Ordinance No. 183567, Sec. 7; Management District Plan",
+          "name": "Transient Stays Over 30 Days Exempt",
+          "rule_type": "exemption",
+          "source_quote": "For the duration of the District, the annual assessment rate will be 1.5% of Gross Room Rental Revenue for Transient stays of less than 31 days for Lodging Businesses.",
+          "source_url": "https://cityclerk.lacity.org/onlinedocs/2014/14-0943_ord_183567_06-26-15.pdf"
+        },
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "guest_type",
+            "operator": "in",
+            "value": [
+              "federal_employee_on_duty",
+              "state_employee_on_duty",
+              "foreign_diplomat_exempt"
+            ]
+          },
+          "confidence": 0.93,
+          "description": "Stays by Federal or State of California officers or employees on official government business, and stays by officers or employees of foreign governments exempt by express agreement, are not subject to the LATMD assessment.",
+          "effective_end": null,
+          "effective_start": "2016-04-01",
+          "enacted_date": null,
+          "legal_reference": "LA Ordinance No. 183567, Sec. 7",
+          "name": "Federal/State Government Employee Exemption",
+          "rule_type": "exemption",
+          "source_quote": "Assessments shall not include room rental revenue resulting from: a stay by any Federal or State of California officer or employee, including employees of federal credit unions, who provides proof that he or she is on Federal or State business; a stay by any officer or employee of a foreign government who is exempt by express [agreement].",
+          "source_url": "https://cityclerk.lacity.org/onlinedocs/2014/14-0943_ord_183567_06-26-15.pdf"
+        }
+      ],
+      "source_quote": "Effective May 1, 2022, hotels of 50 rooms or more within the City of Los Angeles are charged an increased assessment of 2.0% on room rental revenue, an increase from the previous 1.5% assessment rate.",
+      "source_url": "https://www.discoverlosangeles.com/tmd/latmd-overview",
+      "suggested_code": "US-CA-LAX-LATMD"
+    },
+    {
+      "authority_name": "City of Los Angeles Office of Finance",
+      "confidence": 0.82,
+      "enabling_statute": "Los Angeles Municipal Code (LAMC) \u00a721.7.2(b)",
+      "geographic_scope": "Hotels and lodging businesses physically located within one mile of Los Angeles International Airport (LAX). This is a sub-city geographic zone within the City of Los Angeles, covering the Westchester/LAX corridor neighborhood.",
+      "name": "LAX Airport Area TOT Surcharge Zone",
+      "path_suffix": "LAXZONE",
+      "rates": [
+        {
+          "authority_name": "City of Los Angeles Office of Finance",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.8,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "2000-01-01",
+          "enacted_date": null,
+          "legal_reference": "LAMC \u00a721.7.2(b)",
+          "legal_uri": "https://codelibrary.amlegal.com/codes/los_angeles/latest/lamc/0-0-0-126755",
+          "rate_type": "percentage",
+          "rate_value": 2.0,
+          "source_quote": "Airport Surcharge \u2014 2%: Additional TOT surcharge for hotels located within one mile of Los Angeles International Airport (LAX), per LAMC \u00a721.7.2(b). Total TOT = 16%.",
+          "source_url": "https://nationalcalculatorauthority.com/la-tourism-tax-tot-calculator",
+          "tax_category_code": "occ_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "surcharge_pct": 2.0,
+            "type": "surcharge"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "distance_from_lax_miles",
+            "operator": "<=",
+            "value": 1
+          },
+          "confidence": 0.8,
+          "description": "The additional 2% TOT surcharge applies only to lodging businesses physically located within one mile of Los Angeles International Airport (LAX). Hotels outside the one-mile radius pay only the standard 14% city TOT.",
+          "effective_end": null,
+          "effective_start": "2000-01-01",
+          "enacted_date": null,
+          "legal_reference": "LAMC \u00a721.7.2(b)",
+          "name": "One-Mile Proximity Requirement",
+          "rule_type": "condition",
+          "source_quote": "Airport Surcharge \u2014 2%: Additional TOT surcharge for hotels located within one mile of Los Angeles International Airport (LAX), per LAMC \u00a721.7.2(b).",
+          "source_url": "https://nationalcalculatorauthority.com/la-tourism-tax-tot-calculator"
+        }
+      ],
+      "source_quote": "Airport Surcharge \u2014 2%: Additional TOT surcharge for hotels located within one mile of Los Angeles International Airport (LAX), per LAMC \u00a721.7.2(b).",
+      "source_url": "https://nationalcalculatorauthority.com/la-tourism-tax-tot-calculator",
+      "suggested_code": "US-CA-LAX-LAXZONE"
+    }
+  ],
+  "notes": "\n1. LATMD rate discrepancy vs. database: The database lists the LATMD at 1.5% (infrastructure_pct). The rate was increased to 2.0% effective May 1, 2022, per official Discover Los Angeles (discoverlosangeles.com/tmd/latmd-overview). The 2016-2025 ordinance set 1.5%, but the LATMD Board passed a 2022 amendment raising it. The district was also renewed for a new 10-year term (2025\u20132034) at 2%, per Civitas Advisors announcement and the LA City Clerk's 2024 Engineer's Report (Council File 14-0943-S3). The database entry of 1.5% is therefore outdated.\n\n2. LAX Airport Surcharge confidence caveat: The surcharge is well-documented on multiple third-party sites and is cited to LAMC \u00a721.7.2(b). However, the exact provision text of \u00a721.7.2(b) was not directly retrieved from the full LAMC (the amlegal.com page for \u00a721.7.2 only showed the definitions subsection). The rate and provision citation are consistently referenced at 2% in accommodation tax calculators and hospitality authority sources. Confidence rated 0.80-0.82 accordingly. The effective start date of 2000-01-01 is an estimate; the exact enactment date of this specific surcharge provision was not pinpointed.\n\n3. West Hollywood Tourism Improvement District (3%): Investigated but EXCLUDED \u2014 West Hollywood is a separately incorporated city with its own municipal code and TOT, not part of the City of Los Angeles. Hotels in WeHo are subject to WeHo TOT (12.5%) plus the WeHoTID assessment (3%), not LA City taxes.\n\n4. California Tourism Assessment (0.195%): This is a state-level assessment (California Government Code \u00a713995 et seq.) applied to lodging businesses statewide with $1M+ in annual gross revenue. It is not a sub-city LA district and was excluded.\n\n5. Downtown LA BID, Hollywood BID, Arts District BID, Venice Beach BID: Investigated \u2014 these are property-based BIDs under the LAMC BID program that levy property assessments, not accommodation-specific hotel taxes. They do not impose separate per-night or per-room-revenue assessments on hotels beyond what is already captured by the LATMD. Excluded.\n\n6. Los Angeles Convention Center area: No dedicated convention center facility district (CCFD) tax on hotel rooms was found for LA. The LACC expansion is being funded through bond financing, not a hotel-specific assessment zone distinct from the LATMD.\n\n7. LAMC \u00a721.7.7 Community Tax District offset: Investigated \u2014 this provision allows operators in a 'City Community Tax District' formed under LA Administrative Code Chapter 10 to offset special taxes against TOT. No currently active hotel-specific Community Tax Districts with active hotel assessments were found beyond the LATMD.\n",
+  "overall_confidence": 0.88,
+  "parent_code": "US-CA-LAX",
+  "sources_checked": [
+    "https://www.discoverlosangeles.com/tmd/latmd-overview",
+    "https://cityclerk.lacity.org/onlinedocs/2014/14-0943_ord_183567_06-26-15.pdf",
+    "https://cityclerk.lacity.org/onlinedocs/2014/14-0943-S3_misc_2_09-11-24.pdf",
+    "https://cityclerk.lacity.org/onlinedocs/2014/14-0943-S3_misc_3_09-11-24.pdf",
+    "https://civitasadvisors.com/la-tmd-renewed-to-fuel-continued-growth-and-global-events/",
+    "https://civitasadvisors.com/tag/tourism-districts/",
+    "https://nationalcalculatorauthority.com/la-tourism-tax-tot-calculator",
+    "https://finance.lacity.gov/transient-occupancy-tax-requirements",
+    "https://finance.lacity.gov/sites/g/files/wph1721/files/2025-11/Non-Gross%20Receipts%20Business%20Tax%20Rate%20Table.pdf",
+    "https://codelibrary.amlegal.com/codes/los_angeles/latest/lamc/0-0-0-126755",
+    "https://codelibrary.amlegal.com/codes/los_angeles/latest/lamc/0-0-0-126729",
+    "https://clerk.lacity.gov/clerk-services/business-improvement-districts/bids-general-information/bids-faq",
+    "https://losangeleshospitalityauthority.com/los-angeles-hospitality-industry-frequently-asked-questions",
+    "https://www.discoverlosangeles.com/tourism-marketing-district-effective-until-december-2025"
+  ],
+  "summary": "Two special-purpose districts found within the City of Los Angeles that impose additional accommodation taxes beyond the base 14% TOT: (1) The Los Angeles Tourism Marketing District (LATMD), which was already in the database at 1.5% (infrastructure_pct) but was increased to 2.0% effective May 1, 2022, and was renewed for a fresh 10-year term (2025\u20132034) at the 2% rate \u2014 this is a changed/updated rate entry; (2) The LAX Airport Area TOT Surcharge, an additional 2% TOT levied on hotels located within one mile of Los Angeles International Airport per LAMC \u00a721.7.2(b), which is a genuine sub-city geographic zone not citywide. No other statutory hotel-specific accommodation tax districts were found within the City of Los Angeles proper."
+}

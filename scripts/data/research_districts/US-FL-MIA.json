@@ -1,0 +1,311 @@
+{
+  "_meta": {
+    "elapsed_seconds": 116.4,
+    "model": "claude-sonnet-4-6",
+    "parent_code": "US-FL-MIA",
+    "parent_db_name": "Miami-Dade County",
+    "parent_db_path": "US.FL.MIA",
+    "parent_exists_in_db": true,
+    "parent_name_hint": "Miami-Dade County",
+    "parent_state_hint": "Florida",
+    "researched_at": "2026-04-21T22:26:20.225938+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: accepted districts with overall_confidence>=0.5 and statutory backing; rejected rates/rules matching proposed/not-enacted/service-charge patterns. Reviewer still owns final draft->active promotion.",
+    "reviewed_at": "2026-04-21T22:29:54.735626+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io",
+    "scope_note": "Miami-Dade County. Miami Beach (US-FL-MIB) is a separate parent \u2014 if you find Miami Beach TIDs, still report them (reviewer will relocate to MIB)."
+  },
+  "districts": [
+    {
+      "authority_name": "City of Miami Beach Finance Department",
+      "confidence": 0.97,
+      "enabling_statute": "Chapter 67-930, Laws of Florida (1967), as amended by Chapters 82-142, 83-363, 93-286, 94-344; Miami Beach City Code Chapter 102, Article IV, Sections 246\u2013254",
+      "geographic_scope": "City of Miami Beach municipal limits only (an incorporated municipality within Miami-Dade County). Hotels, motels, rooming houses, and apartment houses within city limits.",
+      "name": "City of Miami Beach Municipal Resort Tax Zone",
+      "path_suffix": "MBRESORT",
+      "rates": [
+        {
+          "authority_name": "City of Miami Beach",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.97,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "1967-01-01",
+          "enacted_date": null,
+          "legal_reference": "Chapter 67-930, Laws of Florida; Miami Beach City Code Ch. 102, Art. IV \u00a7\u00a7246-254",
+          "legal_uri": "https://www.miamibeachfl.gov/city-hall/finance/filepay-resort-tax/",
+          "rate_type": "percentage",
+          "rate_value": 4.0,
+          "source_quote": "There is a 4% tax on the rent of a room or rooms in any hotel, motel, rooming house or apartment house, and a 2% tax levied on the total sales price of all food, beverages, alcoholic beverages (including beer and wine) sold in any restaurant, bar, or nightclub",
+          "source_url": "https://www.miamibeachfl.gov/city-hall/finance/filepay-resort-tax/",
+          "tax_category_code": "tourism_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "stay_length_days",
+            "operator": ">",
+            "value": 183
+          },
+          "confidence": 0.92,
+          "description": "No municipal resort tax on rentals under a written lease for a period longer than six consecutive months.",
+          "effective_end": null,
+          "effective_start": "1967-01-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Long-Term Stay Exemption",
+          "rule_type": "exemption",
+          "source_quote": "No municipal resort tax shall be imposed or paid on any rents collected under a written lease for a period longer than six consecutive months.",
+          "source_url": "https://www.townofsurfsidefl.gov/docs/default-source/bids-and-rfps/2018-bids/rfp-2018-04-marketing-services-for-town-of-surfsides-tourist-bureau/rfp-2018-04---marketing-service-proposal_final.pdf"
+        },
+        {
+          "action": {
+            "note": "County 2% Tourist Development Room Tax replaced by city 4% Municipal Resort Tax; county 3% CDT still applies",
+            "type": "override"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "property_municipality",
+            "operator": "==",
+            "value": "Miami Beach"
+          },
+          "confidence": 0.95,
+          "description": "Within Miami Beach city limits, the county-wide 2% Tourist Development Room Tax does NOT apply. The city's 4% Municipal Resort Tax applies instead. The county 3% Convention Development Tax still applies in addition to the city resort tax.",
+          "effective_end": null,
+          "effective_start": "1967-01-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "County Tourist Development Tax Exclusion",
+          "rule_type": "override",
+          "source_quote": "The Tourist Development Room Tax is a 2% tax collected throughout all of Miami-Dade County, except in Surfside, Bal Harbour, and Miami Beach.",
+          "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1499797928395868"
+        }
+      ],
+      "source_quote": "In Miami Beach, short-term rental establishments are subject to a 4% city Resort Tax in addition to the 3% county Convention Development Tax. These taxes are regulated by Florida Statute 212.0305, Florida Administrative Rule 12A-1.0641 and Miami-Dade County Ordinance Chapter 29, Article V Section 29-60.",
+      "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1499797928395868",
+      "suggested_code": "US-FL-MIA-MBRESORT"
+    },
+    {
+      "authority_name": "Bal Harbour Village Finance Department",
+      "confidence": 0.97,
+      "enabling_statute": "Chapter 67-930, Laws of Florida (1967), as amended by Chapters 82-142, 83-363, 93-286, 94-344",
+      "geographic_scope": "Village of Bal Harbour municipal limits only (small incorporated municipality in northeastern Miami-Dade County on a barrier island, north of Miami Beach). Hotels, motels, and apartment houses within village limits.",
+      "name": "Bal Harbour Village Municipal Resort Tax Zone",
+      "path_suffix": "BHRESORT",
+      "rates": [
+        {
+          "authority_name": "Bal Harbour Village",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.97,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "1967-01-01",
+          "enacted_date": null,
+          "legal_reference": "Chapter 67-930, Laws of Florida; Bal Harbour Village Code",
+          "legal_uri": "https://balharbourfl.gov/departments/tourism/",
+          "rate_type": "percentage",
+          "rate_value": 4.0,
+          "source_quote": "Bal Harbour Village levies a Resort Tax of four (4) percent of the amount received for the occupancy of a room in any hotel, motel, or apartment house.",
+          "source_url": "https://balharbourfl.gov/departments/tourism/",
+          "tax_category_code": "tourism_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "note": "County TDT and CDT replaced entirely by village 4% Municipal Resort Tax; Professional Sports Tax also excluded",
+            "type": "override"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "property_municipality",
+            "operator": "==",
+            "value": "Bal Harbour"
+          },
+          "confidence": 0.95,
+          "description": "Within Bal Harbour, neither the county 2% Tourist Development Room Tax nor the county 3% Convention Development Tax applies. Only the village 4% Municipal Resort Tax applies for accommodations. The county-wide Professional Sports Franchise Facility Tax also does not apply in Bal Harbour.",
+          "effective_end": null,
+          "effective_start": "1967-01-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "County Taxes Exclusion in Bal Harbour",
+          "rule_type": "override",
+          "source_quote": "The Convention Development Tax is a 3% tax collected throughout all Miami-Dade County, except in Surfside and Bal Harbour. The Tourist Development Room Tax is a 2% tax collected throughout all of Miami-Dade County, except in Surfside, Bal Harbour, and Miami Beach.",
+          "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1499797928395868"
+        }
+      ],
+      "source_quote": "Bal Harbour Village levies a Resort Tax of four (4) percent of the amount received for the occupancy of a room in any hotel, motel, or apartment house. In addition, it levies two (2) percent on retail sales of all items of food or beverages, alcoholic or otherwise, sold at retail for consumption on the premises, at any place of business within the Village.",
+      "source_url": "https://balharbourfl.gov/departments/tourism/",
+      "suggested_code": "US-FL-MIA-BHRESORT"
+    },
+    {
+      "authority_name": "Town of Surfside Finance Department",
+      "confidence": 0.97,
+      "enabling_statute": "Chapter 67-930, Laws of Florida (1967), as amended; Surfside Resort Tax Ordinance (Town Code, Article 70)",
+      "geographic_scope": "Town of Surfside municipal limits only (small coastal town in northeastern Miami-Dade County, between Bal Harbour and Miami Beach on a barrier island). Hotels, motels, and apartment houses within town limits.",
+      "name": "Town of Surfside Municipal Resort Tax Zone",
+      "path_suffix": "SFRESORT",
+      "rates": [
+        {
+          "authority_name": "Town of Surfside",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.97,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "1967-01-01",
+          "enacted_date": null,
+          "legal_reference": "Chapter 67-930, Laws of Florida; Surfside Town Code Art. 70 (Resort Tax Ordinance)",
+          "legal_uri": "https://www.townofsurfsidefl.gov/departments-services/finance/certificate-of-use-local-business-tax-receipt-and-resort-tax-information",
+          "rate_type": "percentage",
+          "rate_value": 4.0,
+          "source_quote": "The Town charges a Resort Tax of four percent (4%) on revenues generated by the sale of accommodations and two percent (2%) on revenues from food and beverages sold within the Town's limits.",
+          "source_url": "https://www.townofsurfsidefl.gov/docs/default-source/bids-and-rfps/2018-bids/rfp-2018-04-marketing-services-for-town-of-surfsides-tourist-bureau/rfp-2018-04---marketing-service-proposal_final.pdf",
+          "tax_category_code": "tourism_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "note": "County TDT and CDT replaced by town 4% Municipal Resort Tax; Professional Sports Tax also excluded",
+            "type": "override"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "property_municipality",
+            "operator": "==",
+            "value": "Surfside"
+          },
+          "confidence": 0.95,
+          "description": "Within Surfside, neither the county 2% Tourist Development Room Tax nor the county 3% Convention Development Tax applies. Only the town's 4% Municipal Resort Tax applies for accommodations. The county-wide Professional Sports Franchise Facility Tax also does not apply in Surfside.",
+          "effective_end": null,
+          "effective_start": "1967-01-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "County Taxes Exclusion in Surfside",
+          "rule_type": "override",
+          "source_quote": "The Convention Development Tax is a 3% tax collected throughout all Miami-Dade County, except in Surfside and Bal Harbour. The Tourist Development Room Tax is a 2% tax collected throughout all of Miami-Dade County, except in Surfside, Bal Harbour, and Miami Beach.",
+          "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1499797928395868"
+        }
+      ],
+      "source_quote": "Surfside is one of only three municipalities in Miami-Dade County currently eligible by Florida State Law to impose a Resort Tax of four percent (4%) on accommodations and two percent (2%) on food and beverage sales as a source of revenue. Miami Beach and Bal Harbour are the other two municipalities with the same capability.",
+      "source_url": "https://www.townofsurfsidefl.gov/departments-services/tourism",
+      "suggested_code": "US-FL-MIA-SFRESORT"
+    },
+    {
+      "authority_name": "Miami-Dade County Department of Regulatory and Economic Resources (RER)",
+      "confidence": 0.95,
+      "enabling_statute": "Florida Statute \u00a7 125.0104(3)(l); Miami-Dade County Code of Ordinances Chapter 29, Article V, Section 29-51",
+      "geographic_scope": "All incorporated and unincorporated areas of Miami-Dade County EXCEPT the municipal limits of Miami Beach, Bal Harbour, and Surfside. Applies to all hotels, motels, and short-term rental accommodations in the remaining 31 municipalities and unincorporated county area.",
+      "name": "Miami-Dade Professional Sports Franchise Facility Tax Zone",
+      "path_suffix": "PSFTAX",
+      "rates": [
+        {
+          "authority_name": "Miami-Dade County",
+          "base_type": "room_rate",
+          "calculation_order": 100,
+          "change_type": "unchanged",
+          "confidence": 0.88,
+          "currency_code": null,
+          "effective_end": null,
+          "effective_start": "1996-01-01",
+          "enacted_date": null,
+          "legal_reference": "Fla. Stat. \u00a7 125.0104(3)(l); Miami-Dade County Code Ch. 29, Art. V, \u00a7 29-51",
+          "legal_uri": "http://miamidade.elaws.us/code/coor_ch29_artv_sec29-51",
+          "rate_type": "percentage",
+          "rate_value": 1.0,
+          "source_quote": "Professional Sports Franchise Facility Tax: 1% of the listing price including any cleaning fee for reservations 182 nights and shorter. The tax is not applicable to reservations in Miami Beach, Bal Harbour and Surfside.",
+          "source_url": "https://www.airbnb.com/help/article/2301",
+          "tax_category_code": "tourism_pct",
+          "tier_type": null,
+          "tiers": null
+        }
+      ],
+      "rules": [
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "property_municipality",
+            "operator": "in",
+            "value": [
+              "Miami Beach",
+              "Bal Harbour",
+              "Surfside"
+            ]
+          },
+          "confidence": 0.95,
+          "description": "The Professional Sports Franchise Facility Tax does not apply within the municipal limits of Miami Beach, Bal Harbour, or Surfside, as those municipalities impose the Municipal Resort Tax under Chapter 67-930.",
+          "effective_end": null,
+          "effective_start": "1996-01-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Resort Municipality Exclusion",
+          "rule_type": "exemption",
+          "source_quote": "The Professional Sports Tax is a 1% tax collected throughout all of Miami-Dade County, except in Surfside, Bal Harbour, and Miami Beach.",
+          "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1499797928395868"
+        },
+        {
+          "action": {
+            "type": "exempt"
+          },
+          "change_type": "unchanged",
+          "conditions": {
+            "field": "stay_length_days",
+            "operator": ">",
+            "value": 183
+          },
+          "confidence": 0.9,
+          "description": "Tax does not apply to rentals of more than six months under bona fide written lease signed prior to occupancy.",
+          "effective_end": null,
+          "effective_start": "1996-01-01",
+          "enacted_date": null,
+          "legal_reference": null,
+          "name": "Long-Term Stay Exemption",
+          "rule_type": "exemption",
+          "source_quote": "Two of the most common exemptions include: a rental under a bona fide written lease for a period longer than six months, and a renter continuously occupying an accommodation for more than six months, and tax is paid on the first six months.",
+          "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1499797928395868"
+        }
+      ],
+      "source_quote": "The Professional Sports Tax is a 1% tax collected throughout all of Miami-Dade County, except in Surfside, Bal Harbour, and Miami Beach. These taxes are regulated by Florida Statute 125.0104, Florida Administrative Rule 12A-1.0641 and Miami-Dade County Ordinance Chapter 29, Article V Section 29-51. All Professional Sports Facilities Franchise tax receipts are used for debt service payments for Miami-Dade County professional sports facilities.",
+      "source_url": "https://www.miamidade.gov/global/service.page?Mduid_service=ser1499797928395868",
+      "suggested_code": "US-FL-MIA-PSFTAX"
+    }
+  ],
+  "notes": "1. PROFESSIONAL SPORTS FRANCHISE FACILITY TAX EFFECTIVE DATE: The exact ordinance enactment date for Miami-Dade's Professional Sports Franchise Facility Tax could not be pinpointed from public sources; the 1996-01-01 date is an estimate based on when the enabling statute \u00a7 125.0104(3)(l) was added to Florida law. Reviewer should confirm the precise effective date from the county's Chapter 29 ordinance history.\n\n2. MIAMI BEACH RELOCATION: The City of Miami Beach Municipal Resort Tax Zone (US-FL-MIA-MBRESORT) should likely be relocated by the reviewer to parent code US-FL-MIB (Miami Beach), as the scope note indicates Miami Beach is a separate parent. Reported here per reviewer instructions.\n\n3. BAL HARBOUR AND SURFSIDE: These are small incorporated municipalities within Miami-Dade County. The reviewer may wish to create separate parent codes for each, or keep them nested under US-FL-MIA. Bal Harbour has only one notable hotel (The St. Regis Bal Harbour) plus residential units; Surfside has limited hotel inventory.\n\n4. COUNTY-WIDE FOOD & BEVERAGE TAXES: Miami-Dade also levies a 2% Food & Beverage Tax on hotel/motel restaurant sales (Fla. Stat. \u00a7 212.0306(1)(a)) and a 1% Homeless & Domestic Violence Tax on non-hotel/motel establishments (\u00a7 212.0306(1)(b)), both county-wide except in Miami Beach, Bal Harbour, and Surfside. These apply to food/beverage sales rather than room charges, so they are not traditional accommodation taxes and were not included as districts. The reviewer should consider whether these warrant separate treatment.\n\n5. INVESTIGATED BUT REJECTED - GREATER MIAMI CONVENTION & VISITORS BUREAU (GMCVB): The GMCVB receives a portion of county tourist development tax revenues but does not itself levy any accommodation tax; it is a destination marketing organization. Not a statutory district.\n\n6. INVESTIGATED BUT REJECTED - MIAMI BEACH VISITOR AND CONVENTION AUTHORITY (MBVCA): The MBVCA manages tourism marketing for Miami Beach but does not impose a separate tax beyond the existing resort tax. It is funded from the resort tax proceeds. Not a separate taxing district.\n\n7. MIAMI-DADE SPECIAL ASSESSMENT DISTRICTS (1,000+): Miami-Dade has over 1,000 active special assessment districts for street lighting, security guards, etc., but these are property-owner assessments on residential/commercial real estate - not accommodation/transient rental taxes. None were found to impose hotel accommodation taxes.\n\n8. HOMESTEAD-MIAMI SPEEDWAY MOTORSPORTS DISTRICT: Investigated for potential venue/entertainment district tax. No special accommodation tax district found associated with the speedway.",
+  "overall_confidence": 0.88,
+  "parent_code": "US-FL-MIA",
+  "sources_checked": [
+    "https://www.miamidade.gov/global/service.page?Mduid_service=ser1499797928395868",
+    "https://www.edr.state.fl.us/Content/local-government/data/county-municipal/2025LOTTrates.pdf",
+    "https://floridarevenue.com/taxes/taxesfees/Pages/local_option.aspx",
+    "https://balharbourfl.gov/departments/tourism/",
+    "https://www.townofsurfsidefl.gov/departments-services/tourism",
+    "https://www.miamibeachfl.gov/city-hall/finance/filepay-resort-tax/",
+    "http://miamidade.elaws.us/code/coor_ch29_artv_sec29-51",
+    "https://edr.state.fl.us/Content/conferences/revenueimpact/archives/2024/_pdf/page645-647.pdf",
+    "https://www.airbnb.com/help/article/2301",
+    "https://www.floridasalestax.com/florida-tax-law-blog/2024/august/2024-fl-transient-hotel-rent-tax-rates-by-county/",
+    "https://moffataxlaw.com/florida-tourist-development-tax/",
+    "https://www.flsenate.gov/Laws/Statutes/2012/212.0306",
+    "https://issuu.com/miamiandmiamibeachguides.com/docs/2022_visitor_industry_overview/s/24310476"
+  ],
+  "summary": "Found 4 special-purpose accommodation tax districts within Miami-Dade County that impose taxes beyond the known county-wide base rates. Three are Municipal Resort Tax zones (Miami Beach, Bal Harbour, Surfside) authorized by Florida Chapter 67-930 (1967), each imposing a 4% accommodation tax that replaces \u2014 rather than stacks on \u2014 the county-wide Tourist Development Room Tax. The fourth is the Miami-Dade Professional Sports Franchise Facility Tax (1%), levied county-wide EXCEPT in the three resort municipalities, used for sports facilities debt service. The three Municipal Resort Tax zones were flagged for reviewer relocation to their respective parent codes (MIB for Miami Beach)."
+}
