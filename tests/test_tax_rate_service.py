@@ -300,7 +300,7 @@ class TestGetRulesForRates:
         rule_flat = await create_tax_rule(
             db, jurisdiction_id=nyc.id, rule_type="surcharge",
             name="Weekend Surcharge", priority=50,
-            conditions={"field": "day_of_week", "op": "in", "value": [5, 6]},
+            conditions={"field": "stay_day_of_week", "op": "in", "value": [5, 6]},
             action={"type": "add_flat", "value": 1.0},
             effective_start=date(2024, 1, 1), tax_rate_id=rate_flat.id,
         )

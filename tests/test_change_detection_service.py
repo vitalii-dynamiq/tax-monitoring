@@ -639,7 +639,7 @@ class TestProcessAiResults:
                     rule_type="surcharge",
                     name="Peak Season Surcharge",
                     description="10% surcharge during summer months.",
-                    conditions={"field": "month", "operator": "in", "value": [6, 7, 8]},
+                    conditions={"field": "stay_month", "operator": "in", "value": [6, 7, 8]},
                     action={"type": "surcharge", "surcharge_pct": 10},
                 ),
             ],
