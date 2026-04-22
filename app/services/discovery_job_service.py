@@ -178,7 +178,11 @@ async def _run_discovery_job_inner(job_id: int) -> None:
                     if rate_type == "percentage" and rate_value is not None:
                         db_rate_value = rate_value / 100.0
 
-                    # Resolve tax category
+                    # Resolve tax category — no silent fallback. If the agent
+                    # suggested a category code we don't have, skip the rate and
+                    # log loudly so the operator can add the category or correct
+                    # the research. Silently coercing to `occ_pct` produced
+                    # misclassified rates in earlier batches.
                     category = None
                     if category_code:
                         cat_result = await db.execute(
@@ -187,11 +191,13 @@ async def _run_discovery_job_inner(job_id: int) -> None:
                         category = cat_result.scalar_one_or_none()
 
                     if not category:
-                        # Try a generic category
-                        cat_result = await db.execute(
-                            select(TaxCategory).where(TaxCategory.code == "occ_pct")
+                        logger.warning(
+                            "Discovery job #%s: skipping rate for %s — "
+                            "unknown tax_category=%r (add to taxonomy or fix "
+                            "the research).",
+                            job_id, discovered.suggested_code, category_code,
                         )
-                        category = cat_result.scalar_one_or_none()
+                        continue
 
                     if category and rate_value is not None:
                         from datetime import date

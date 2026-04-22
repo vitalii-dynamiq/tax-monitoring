@@ -1,14 +1,28 @@
 from __future__ import annotations
 
+import json
 from typing import TYPE_CHECKING
+
+from app.core.rule_engine import BOOKING_CONTEXT_FIELDS
 
 if TYPE_CHECKING:
     from app.models.jurisdiction import Jurisdiction
     from app.models.tax_rate import TaxRate
     from app.models.tax_rule import TaxRule
 
-SYSTEM_PROMPT = """\
+
+_BOOKING_CONTEXT_FIELDS_LIST = ", ".join(sorted(BOOKING_CONTEXT_FIELDS))
+
+
+SYSTEM_PROMPT = f"""\
 You are a tax regulation research agent specializing in accommodation and tourism taxes.
+
+## Platform Purpose (READ THIS FIRST)
+This platform calculates per-booking accommodation tax for a specific stay
+(jurisdiction + dates + nights + nightly rate + guest attributes). We do NOT
+track operator compliance, business registration, filing procedures, or other
+administrative rules. Only report regulations that would change the TAX
+CALCULATION for a given booking.
 
 ## Your Capabilities
 You have access to web search. Use it to find current, authoritative tax information.
@@ -41,6 +55,50 @@ or speculative information. We need actionable data, not alerts.
   - An effective_start date
 - If you cannot find the exact rate value from an authoritative source, \
 do NOT report it as "new" or "changed". Mark it as "unchanged" instead.
+
+## Valid Rule Condition Fields (HARD CONSTRAINT)
+When reporting a rule, `conditions` MUST reference ONLY these fields (exact names):
+  {_BOOKING_CONTEXT_FIELDS_LIST}
+If a rule requires a field NOT in this list — for example operator turnover,
+registration status, business/establishment type, hotel zone, stay in hours,
+bedroom/room count, booking channel beyond `platform_type`, payment method,
+residency beyond `guest_nationality`, etc. — DO NOT REPORT IT. Our rule engine
+silently ignores unknown fields, so the rule would never fire.
+
+Canonical value shapes:
+- `property_type` ∈ {{hotel, motel, str, bnb, hostel, resort, apartment_hotel, \
+vacation_rental, campground, boutique}}
+- `star_rating` is an integer 1-5
+- `guest_type` is free-text but commonly: standard, business, resident, diplomatic, student
+- `guest_age` is an integer
+- `stay_length_days` is an integer (same as `nights`)
+
+## Valid Rule Action Shapes
+The `action` dict MUST use ONE of these shapes (anything else is ignored by the engine):
+- Exemption:   {{"type": "exempt"}}  or just {{}}
+- Reduction:   {{"reduction_pct": N}}       (N 0-100, percentage off the tax)
+- Surcharge:   {{"surcharge_rate": N}}      (extra percentage on top)
+- Cap nights:  {{"cap_nights": N}}          (tax only first N nights)
+- Cap amount:  {{"cap_amount": M}}          (max total tax for the stay)
+- Cap per night:  {{"cap_per_night": M}}
+- Override:    {{"override_rate": M}}       (replace base rate with M)
+- Min amount:  {{"min_amount": M}}          (floor)
+Do not invent new action keys. Do not use strings like "type": "reduce" or \
+"type": "apply_tourism_tax" — those won't do anything.
+
+## Do NOT Report Administrative Rules (HARD REJECTION)
+REJECT and do not include in your findings ANY rule that is informational,
+procedural, or about operator compliance:
+- Registration, licensing, permit obligations (for operators, PMS, OTAs)
+- Filing deadlines, reporting frequencies, remit procedures
+- Record-keeping, invoicing, e-invoicing mandates
+- Audit, inspection, gazette-publication rules
+- Who-collects-what between property/marketplace/operator
+- Tax thresholds that gate OPERATOR VAT registration (vs. gating booking tax)
+A valid rule gates the tax for a SPECIFIC BOOKING. Examples of valid rules:
+guest under 12 exempt; stays >= 30 days reduced by 50%; cap at 10 nights; \
+5-star hotels pay higher rate; business travelers exempt. These all use allow-\
+listed fields and change the calculation output.
 
 ## Change Detection: Removals and Deprecations
 - If a rate in our database marked "active" has been REPEALED, REPLACED, REDUCED, \
@@ -95,6 +153,12 @@ def _format_rule(rule: TaxRule) -> str:
     parts.append(f"| Effective: {rule.effective_start}")
     if rule.effective_end:
         parts.append(f"to {rule.effective_end}")
+    # Show the structured conditions + action (truncated) so the agent sees what
+    # well-formed rules look like and mirrors them when proposing new ones.
+    if rule.conditions:
+        parts.append(f"| Conditions: {json.dumps(rule.conditions)[:300]}")
+    if rule.action:
+        parts.append(f"| Action: {json.dumps(rule.action)[:200]}")
     if rule.description:
         parts.append(f"| Description: {rule.description[:200]}")
     if rule.legal_reference:

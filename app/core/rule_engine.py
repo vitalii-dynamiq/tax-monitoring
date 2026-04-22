@@ -35,6 +35,21 @@ def _get_currency_decimals(currency: str) -> int:
     return CURRENCY_DECIMALS.get(currency.upper(), 2)
 
 
+BOOKING_CONTEXT_FIELDS: frozenset[str] = frozenset({
+    # BookingContext dataclass attributes
+    "jurisdiction_code", "stay_date", "checkout_date", "nightly_rate",
+    "nights", "currency", "property_type", "star_rating", "guest_type",
+    "guest_age", "guest_nationality", "number_of_guests", "is_marketplace",
+    "platform_type", "is_bundled",
+    # Computed properties exposed via BookingContext.get_field()
+    "stay_length_days", "stay_month", "stay_day_of_week", "total_stay_amount",
+})
+"""Allow-list of fields a tax rule's `conditions` may reference. Kept in sync
+with `BookingContext` below — anything else silently returns None in
+`get_field()` and the rule never fires. Prompts and output validators import
+this as the single source of truth."""
+
+
 @dataclass
 class BookingContext:
     """All attributes available for rule condition evaluation."""

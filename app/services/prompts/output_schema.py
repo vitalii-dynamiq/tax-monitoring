@@ -4,6 +4,30 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, model_validator
 
+from app.core.rule_engine import BOOKING_CONTEXT_FIELDS
+
+
+def _walk_condition_fields(cond: dict | None) -> set[str]:
+    """Extract every `field` name referenced in a conditions tree.
+
+    Handles both the canonical shape {"rules": [...], "operator": ...} and the
+    alternate {"AND": [...]}/{"OR": [...]} shape Claude occasionally emits.
+    """
+    out: set[str] = set()
+    if not isinstance(cond, dict):
+        return out
+    fld = cond.get("field")
+    if isinstance(fld, str):
+        out.add(fld)
+    for r in cond.get("rules") or []:
+        if isinstance(r, dict):
+            out |= _walk_condition_fields(r)
+    for key in ("AND", "OR", "and", "or"):
+        for r in cond.get(key) or []:
+            if isinstance(r, dict):
+                out |= _walk_condition_fields(r)
+    return out
+
 
 class AIExtractedRate(BaseModel):
     """A tax rate extracted by the AI monitoring agent."""
@@ -114,6 +138,27 @@ class AIExtractedRule(BaseModel):
         description="Direct quote from the source supporting this rule (max 2000 chars)",
     )
     confidence: float = Field(ge=0.0, le=1.0, description="Confidence score 0.0-1.0")
+
+    @model_validator(mode="after")
+    def validate_condition_fields(self) -> AIExtractedRule:
+        """Reject rules whose conditions reference fields the rule engine can't evaluate.
+
+        Only enforced for new/changed rules — unchanged/removed rules may carry
+        legacy field names from earlier seed batches and we don't want to fail
+        the whole agent response on them.
+        """
+        if self.change_type not in ("new", "changed"):
+            return self
+        used = _walk_condition_fields(self.conditions)
+        unknown = used - BOOKING_CONTEXT_FIELDS
+        if unknown:
+            raise ValueError(
+                f"Rule '{self.name}': conditions reference unknown field(s) "
+                f"{sorted(unknown)}. The rule engine only supports: "
+                f"{sorted(BOOKING_CONTEXT_FIELDS)}. "
+                "Either rewrite the rule to use a supported field or drop it."
+            )
+        return self
 
 
 class AIMonitoringResult(BaseModel):
