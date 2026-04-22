@@ -256,7 +256,8 @@ async def update_rate_status(
     rate.status = new_status
     if reviewed_by:
         rate.reviewed_by = reviewed_by
-        rate.reviewed_at = datetime.now(UTC)
+        # reviewed_at is TIMESTAMP WITHOUT TIME ZONE on local schema — use naive UTC
+        rate.reviewed_at = datetime.now(UTC).replace(tzinfo=None)
     if review_notes:
         rate.review_notes = review_notes
 

@@ -7,6 +7,7 @@ import Calculator from "./pages/Calculator";
 import AuditLog from "./pages/AuditLog";
 import ApiDocs from "./pages/ApiDocs";
 import ApiKeysPage from "./pages/ApiKeysPage";
+import PendingApprovals from "./pages/PendingApprovals";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import { useAuth } from "./hooks/useAuth";
@@ -42,6 +43,7 @@ export default function App() {
             <Route index element={<Dashboard />} />
             <Route path="jurisdictions" element={<Jurisdictions />} />
             <Route path="calculator" element={<Calculator />} />
+            <Route path="approvals" element={<PendingApprovals />} />
             <Route path="audit" element={<AuditLog />} />
             <Route path="api-keys" element={<ApiKeysPage />} />
             <Route path="docs" element={<ApiDocs />} />

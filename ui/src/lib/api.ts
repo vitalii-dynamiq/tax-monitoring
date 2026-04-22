@@ -266,6 +266,39 @@ export interface ChangeReviewRequest {
   review_notes?: string;
 }
 
+export interface PendingSummaryRow {
+  jurisdiction_id: number;
+  jurisdiction_code: string;
+  jurisdiction_name: string;
+  jurisdiction_type: string;
+  path: string | null;
+  pending_rates: number;
+  pending_rules: number;
+  earliest_created_at: string | null;
+  created_by_tags: string[];
+}
+
+export interface PendingSummary {
+  total_pending_rates: number;
+  total_pending_rules: number;
+  total_jurisdictions: number;
+  rows: PendingSummaryRow[];
+}
+
+export interface ApprovalRequest {
+  reviewed_by?: string;
+  review_notes?: string;
+  created_by?: string;
+}
+
+export interface BulkApprovalResponse {
+  jurisdiction_code: string;
+  new_status: "active" | "rejected";
+  approved_rate_ids: number[];
+  approved_rule_ids: number[];
+  reviewed_by: string;
+}
+
 export interface HealthResponse {
   status: string;
   version: string;
@@ -322,12 +355,54 @@ export const api = {
       if (date) params.set("effective_date", date);
       return request<RateLookupResponse>(`/v1/rates/lookup?${params}`);
     },
+    approve: (id: number, opts?: { reviewed_by?: string; review_notes?: string }) => {
+      const params = new URLSearchParams();
+      if (opts?.reviewed_by) params.set("reviewed_by", opts.reviewed_by);
+      if (opts?.review_notes) params.set("review_notes", opts.review_notes);
+      const qs = params.toString() ? `?${params}` : "";
+      return request<TaxRate>(`/v1/rates/${id}/approve${qs}`, { method: "POST" });
+    },
+    reject: (id: number, opts?: { reviewed_by?: string; review_notes?: string }) => {
+      const params = new URLSearchParams();
+      if (opts?.reviewed_by) params.set("reviewed_by", opts.reviewed_by);
+      if (opts?.review_notes) params.set("review_notes", opts.review_notes);
+      const qs = params.toString() ? `?${params}` : "";
+      return request<TaxRate>(`/v1/rates/${id}/reject${qs}`, { method: "POST" });
+    },
   },
 
   rules: {
     list: (params?: Record<string, string>) =>
       request<TaxRule[]>(`/v1/rules?${new URLSearchParams(params)}`),
     get: (id: number) => request<TaxRule>(`/v1/rules/${id}`),
+    approve: (id: number, opts?: { reviewed_by?: string; review_notes?: string }) => {
+      const params = new URLSearchParams();
+      if (opts?.reviewed_by) params.set("reviewed_by", opts.reviewed_by);
+      if (opts?.review_notes) params.set("review_notes", opts.review_notes);
+      const qs = params.toString() ? `?${params}` : "";
+      return request<TaxRule>(`/v1/rules/${id}/approve${qs}`, { method: "POST" });
+    },
+    reject: (id: number, opts?: { reviewed_by?: string; review_notes?: string }) => {
+      const params = new URLSearchParams();
+      if (opts?.reviewed_by) params.set("reviewed_by", opts.reviewed_by);
+      if (opts?.review_notes) params.set("review_notes", opts.review_notes);
+      const qs = params.toString() ? `?${params}` : "";
+      return request<TaxRule>(`/v1/rules/${id}/reject${qs}`, { method: "POST" });
+    },
+  },
+
+  approvals: {
+    summary: () => request<PendingSummary>("/v1/approvals/summary"),
+    approveJurisdiction: (code: string, body?: ApprovalRequest) =>
+      request<BulkApprovalResponse>(`/v1/approvals/jurisdiction/${code}/approve`, {
+        method: "POST",
+        body: JSON.stringify(body || {}),
+      }),
+    rejectJurisdiction: (code: string, body?: ApprovalRequest) =>
+      request<BulkApprovalResponse>(`/v1/approvals/jurisdiction/${code}/reject`, {
+        method: "POST",
+        body: JSON.stringify(body || {}),
+      }),
   },
 
   tax: {

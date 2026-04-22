@@ -1,3 +1,5 @@
+from datetime import UTC, datetime
+
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -8,9 +10,45 @@ from app.db.session import get_db
 from app.models.jurisdiction import Jurisdiction
 from app.models.tax_rule import TaxRule
 from app.schemas.tax_rule import TaxRuleCreate, TaxRuleResponse
+from app.services.audit_service import log_change
 from app.services.jurisdiction_service import get_jurisdiction_by_code
 
 router = APIRouter(prefix="/v1/rules", tags=["Tax Rules"])
+
+
+async def _update_rule_status(
+    db: AsyncSession,
+    rule_id: int,
+    new_status: str,
+    reviewed_by: str,
+    review_notes: str | None = None,
+) -> TaxRule | None:
+    result = await db.execute(
+        select(TaxRule).options(selectinload(TaxRule.jurisdiction)).where(TaxRule.id == rule_id)
+    )
+    rule = result.scalar_one_or_none()
+    if not rule:
+        return None
+
+    old_status = rule.status
+    rule.status = new_status
+    rule.reviewed_by = reviewed_by
+    # reviewed_at is TIMESTAMP WITHOUT TIME ZONE — use naive UTC
+    rule.reviewed_at = datetime.now(UTC).replace(tzinfo=None)
+    await db.flush()
+
+    await log_change(
+        db,
+        entity_type="tax_rule",
+        entity_id=rule.id,
+        action="status_change",
+        changed_by=reviewed_by,
+        change_source="api",
+        old_values={"status": old_status},
+        new_values={"status": new_status},
+        change_reason=review_notes,
+    )
+    return rule
 
 
 def _rule_to_response(rule: TaxRule) -> TaxRuleResponse:
@@ -51,6 +89,34 @@ async def list_rules(
 async def get_rule(rule_id: int, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(TaxRule).options(selectinload(TaxRule.jurisdiction)).where(TaxRule.id == rule_id))
     rule = result.scalar_one_or_none()
+    if not rule:
+        raise HTTPException(404, "Rule not found")
+    return _rule_to_response(rule)
+
+
+@router.post("/{rule_id}/approve", response_model=TaxRuleResponse)
+async def approve_rule(
+    rule_id: int,
+    reviewed_by: str = "system",
+    review_notes: str | None = None,
+    _admin=Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    rule = await _update_rule_status(db, rule_id, "active", reviewed_by, review_notes)
+    if not rule:
+        raise HTTPException(404, "Rule not found")
+    return _rule_to_response(rule)
+
+
+@router.post("/{rule_id}/reject", response_model=TaxRuleResponse)
+async def reject_rule(
+    rule_id: int,
+    reviewed_by: str = "system",
+    review_notes: str | None = None,
+    _admin=Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    rule = await _update_rule_status(db, rule_id, "rejected", reviewed_by, review_notes)
     if not rule:
         raise HTTPException(404, "Rule not found")
     return _rule_to_response(rule)

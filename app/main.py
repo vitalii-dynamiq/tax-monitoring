@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse
 
 from app.api import (
     api_keys,
+    approvals,
     audit,
     auth,
     jurisdictions,
@@ -56,6 +57,7 @@ app.include_router(tax_rules.router)
 app.include_router(tax_calculation.router)
 app.include_router(monitoring.router)
 app.include_router(audit.router)
+app.include_router(approvals.router)
 
 
 @app.exception_handler(Exception)
