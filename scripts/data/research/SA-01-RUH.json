@@ -1,0 +1,238 @@
+{
+  "_meta": {
+    "country_code": "SA",
+    "currency_code": "SAR",
+    "elapsed_seconds": 76.1,
+    "jurisdiction_code": "SA-01-RUH",
+    "jurisdiction_id": 515,
+    "jurisdiction_name": "Riyadh City",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "zatca.gov.sa",
+      "zatca.gov.sa"
+    ],
+    "researched_at": "2026-04-21T20:31:30.038265+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.424766+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "SA-01-RUH",
+  "notes": "1. ZATCA's website (zatca.gov.sa) does not publish a specific municipality/hotel tax page \u2014 this tax is administered by the Ministry of Municipal and Rural Affairs (not ZATCA), so ZATCA's portal does not contain direct rate references for the municipality tax. ZATCA only administers VAT. 2. The 2018 municipality tax was reported at the time VAT was 5%; VAT was subsequently raised to 15% on 1 July 2020. The municipality tax rate itself (5%/2.5%) has not been reported as changed. 3. The 5% municipality tax for 4-5 star hotels is confirmed current as of 2024 by a WIPO Riyadh conference document. 4. No Riyadh-specific city-level accommodation tax exists beyond the national municipality tax. 5. Saudi Arabia launched a VAT tourist refund scheme effective 18 April 2025 (for goods taken out of the country), but this does not apply to accommodation services \u2014 it only covers goods purchased for personal use and exported. 6. The municipality tax rate structure (tiered by star rating) would ideally benefit from direct official gazette citation; the evidence is from reputable news and legal databases rather than the primary gazette text.",
+  "overall_confidence": 0.85,
+  "rates": [
+    {
+      "authority_name": "Zakat, Tax and Customs Authority (ZATCA)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": "SAR",
+      "effective_end": null,
+      "effective_start": "2020-07-01",
+      "enacted_date": "2020-05-11",
+      "legal_reference": "Royal Decree No. A/638; VAT Law (Royal Decree No. M/113 dated 2/11/1438H)",
+      "legal_uri": "https://zatca.gov.sa/en/RulesRegulations/VAT/Pages/default.aspx",
+      "rate_type": "percentage",
+      "rate_value": 15.0,
+      "source_quote": "Consideration payable (including municipality tax or other local fees). Subject to VAT at 15%.",
+      "source_url": "https://zatca.gov.sa/en/HelpCenter/guidelines/Documents/Recreation%20and%20Entertainment.pdf",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Ministry of Municipal and Rural Affairs (Amanah Riyadh)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.88,
+      "currency_code": "SAR",
+      "effective_end": null,
+      "effective_start": "2018-02-14",
+      "enacted_date": "2018-02-14",
+      "legal_reference": "Ministry of Municipal and Rural Affairs Municipality Tax Decree, February 2018",
+      "legal_uri": "https://www.lexismiddleeast.com/pn/SaudiArabia/Tourist_taxes",
+      "rate_type": "percentage",
+      "rate_value": 5.0,
+      "source_quote": "There is a 5% municipality tax and 15% VAT hotels on top of the room price.",
+      "source_url": "https://www.wipo.int/diplomatic-conferences/en/docs/preferred-hotel-rates-wipo-dcdl-riyadh-2024.pdf",
+      "tax_category_code": "city_tax_pct",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Ministry of Municipal and Rural Affairs (Amanah Riyadh)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.88,
+      "currency_code": "SAR",
+      "effective_end": null,
+      "effective_start": "2018-02-14",
+      "enacted_date": "2018-02-14",
+      "legal_reference": "Ministry of Municipal and Rural Affairs Municipality Tax Decree, February 2018",
+      "legal_uri": "https://www.lexismiddleeast.com/pn/SaudiArabia/Tourist_taxes",
+      "rate_type": "percentage",
+      "rate_value": 2.5,
+      "source_quote": "Since 14 February 2018, a 5% tax on four and five-star hotels and a 2.5% tax on all other furnished accommodation is imposed by municipalities in Saudi Arabia.",
+      "source_url": "https://www.lexismiddleeast.com/pn/SaudiArabia/Tourist_taxes",
+      "tax_category_code": "city_tax_pct",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "rate_pct": 5.0,
+        "type": "apply_rate"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "hotel_star_rating",
+            "operator": ">=",
+            "value": 4
+          },
+          {
+            "field": "room_status",
+            "operator": "==",
+            "value": "occupied"
+          }
+        ]
+      },
+      "confidence": 0.88,
+      "description": "The 5% municipality tax rate applies exclusively to 4-star and 5-star hotels. Hotels of 3-star rating and below are subject to the lower 2.5% rate. The tax applies only to occupied rooms.",
+      "effective_end": null,
+      "effective_start": "2018-02-14",
+      "enacted_date": "2018-02-14",
+      "legal_reference": "Ministry of Municipal and Rural Affairs Municipality Tax Decree, February 2018",
+      "name": "Municipality Tax \u2013 4 & 5-Star Hotels Only (5%)",
+      "rule_type": "condition",
+      "source_quote": "The Ministry of Municipal and Rural Affairs has imposed a flat levy of 5% on each room occupied in hotels and furnished apartments across the Kingdom. The levy for rooms in three star hotels and downwards will be 2.5%.",
+      "source_url": "https://www.albawaba.com/business/saudi-arabia-introduces-new-tax-on-hotels-furnished-apartments-1089210"
+    },
+    {
+      "action": {
+        "rate_pct": 2.5,
+        "type": "apply_rate"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "hotel_star_rating",
+            "operator": "<=",
+            "value": 3
+          },
+          {
+            "field": "room_status",
+            "operator": "==",
+            "value": "occupied"
+          }
+        ]
+      },
+      "confidence": 0.88,
+      "description": "The 2.5% municipality tax rate applies to hotels of 3-star rating and below (including 1-star, 2-star, and 3-star), as well as furnished apartments and other commercial residence facilities. Applies only to occupied rooms.",
+      "effective_end": null,
+      "effective_start": "2018-02-14",
+      "enacted_date": "2018-02-14",
+      "legal_reference": "Ministry of Municipal and Rural Affairs Municipality Tax Decree, February 2018",
+      "name": "Municipality Tax \u2013 3-Star and Below Hotels (2.5%)",
+      "rule_type": "condition",
+      "source_quote": "Since 14 February 2018, a 5% tax on four and five-star hotels and a 2.5% tax on all other furnished accommodation is imposed by municipalities in Saudi Arabia.",
+      "source_url": "https://www.lexismiddleeast.com/pn/SaudiArabia/Tourist_taxes"
+    },
+    {
+      "action": {
+        "type": "apply_municipality_tax"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "room_status",
+        "operator": "==",
+        "value": "occupied"
+      },
+      "confidence": 0.9,
+      "description": "The municipality tax applies only to occupied rooms. Unoccupied rooms are not subject to the levy. This applies to all hotels, furnished apartments, and commercial residence facilities of any size or standard.",
+      "effective_end": null,
+      "effective_start": "2018-02-14",
+      "enacted_date": "2018-02-14",
+      "legal_reference": "Ministry of Municipal and Rural Affairs Municipality Tax Decree, February 2018",
+      "name": "Municipality Tax \u2013 Occupied Rooms Only",
+      "rule_type": "condition",
+      "source_quote": "Municipal tax, however, will be levied only on occupied rooms. It is mandatory for all hotels of any size, furnished apartments of any standard and any other commercial residence facilities.",
+      "source_url": "https://www.saudigazette.com.sa/article/528438"
+    },
+    {
+      "action": {
+        "rate_pct": 15.0,
+        "type": "tax_at_standard_rate"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "accommodation_type",
+        "operator": "in",
+        "value": [
+          "hotel",
+          "serviced_apartment",
+          "furnished_apartment",
+          "commercial_residence"
+        ]
+      },
+      "confidence": 0.9,
+      "description": "Hotel and serviced accommodation is explicitly excluded from the real estate VAT exemption. The supply of hotel accommodation, non-hotel but serviced accommodation, or residential property held out for rent in a similar manner to hotel or serviced accommodation does not qualify for VAT exemption and is taxable at the standard 15% rate.",
+      "effective_end": null,
+      "effective_start": "2020-07-01",
+      "enacted_date": "2020-05-11",
+      "legal_reference": "VAT Implementing Regulations; ZATCA VAT Real Estate Guidelines",
+      "name": "Hotel Accommodation Not Exempt from VAT",
+      "rule_type": "exemption",
+      "source_quote": "The supply of hotel accommodation, non-hotel but serviced accommodation, or residential property held out for rent in a similar manner to hotel or serviced accommodation will not qualify for exemption.",
+      "source_url": "https://www.vatupdate.com/2021/06/08/vat-rates-in-saudi-arabia/"
+    },
+    {
+      "action": {
+        "type": "monthly_remittance_required"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "accommodation_type",
+        "operator": "in",
+        "value": [
+          "hotel",
+          "furnished_apartment",
+          "commercial_residence"
+        ]
+      },
+      "confidence": 0.85,
+      "description": "Hotels and furnished apartments must collect the municipality tax from guests and deposit it with the Ministry of Municipal and Rural Affairs on a monthly basis. All properties must register with the Ministry to obtain a unique account number.",
+      "effective_end": null,
+      "effective_start": "2018-02-14",
+      "enacted_date": "2018-02-14",
+      "legal_reference": "Ministry of Municipal and Rural Affairs Municipality Tax Decree, February 2018",
+      "name": "Monthly Municipality Tax Remittance Requirement",
+      "rule_type": "condition",
+      "source_quote": "Hotels and furnished apartments will deposit the tax taken from guests with the ministry every month.",
+      "source_url": "https://www.saudigazette.com.sa/article/528438"
+    }
+  ],
+  "sources_checked": [
+    "https://zatca.gov.sa/en/Pages/default.aspx",
+    "https://zatca.gov.sa/en/RulesRegulations/VAT/Pages/default.aspx",
+    "https://zatca.gov.sa/en/HelpCenter/guidelines/Documents/Recreation%20and%20Entertainment.pdf",
+    "https://zatca.gov.sa/en/HelpCenter/FAQs/Pages/default.aspx",
+    "https://www.saudigazette.com.sa/article/528438",
+    "https://www.lexismiddleeast.com/pn/SaudiArabia/Tourist_taxes",
+    "https://www.wipo.int/diplomatic-conferences/en/docs/preferred-hotel-rates-wipo-dcdl-riyadh-2024.pdf",
+    "https://www.albawaba.com/business/saudi-arabia-introduces-new-tax-on-hotels-furnished-apartments-1089210",
+    "https://taxsummaries.pwc.com/saudi-arabia/corporate/other-taxes",
+    "https://www.fonoa.com/resources/country-tax-guides/saudi-arabia",
+    "https://mezan.sa/articles/vat-basics-saudi-arabia",
+    "https://www.vatupdate.com/2021/06/08/vat-rates-in-saudi-arabia/",
+    "https://www.lexismiddleeast.com/eJournal/2018-02-15_25"
+  ],
+  "summary": "Research identified 3 active accommodation tax rates for Riyadh City (SA), all new entries as our database had no prior records. Two key taxes apply: (1) VAT at 15% on all hotel/accommodation services, administered by ZATCA, effective 1 July 2020 (increased from original 5% introduced in 2018); (2) Municipality Tax at 5% for 4- and 5-star hotels, and 2.5% for 3-star and below hotels, imposed by the Ministry of Municipal and Rural Affairs effective 14 February 2018. Both taxes are confirmed still current as of 2024\u20132025, corroborated by the WIPO 2024 Riyadh conference hotel rates document. Hotel accommodation is explicitly NOT VAT-exempt (ZATCA guidelines confirm this). Municipality tax applies only to occupied rooms and is mandatory for all hotels, furnished apartments, and commercial residence facilities. 7+ sources checked across official ZATCA pages, PwC, Avalara, Saudi Gazette, LexisMiddleEast, WIPO, and other authoritative sources."
+}

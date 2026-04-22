@@ -1,0 +1,151 @@
+{
+  "_meta": {
+    "country_code": "CV",
+    "currency_code": "CVE",
+    "elapsed_seconds": 64.0,
+    "jurisdiction_code": "CV-RAI",
+    "jurisdiction_id": 802,
+    "jurisdiction_name": "Praia",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "dnre.gov.cv"
+    ],
+    "researched_at": "2026-04-21T20:06:16.593120+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.408890+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "CV-RAI",
+  "notes": "1. The priority government domain (dnre.gov.cv) did not return accessible results via web search, so no direct official legislative text could be retrieved. Findings are based on PwC Tax Summaries (Cabo Verde), reputable tourism/travel information sources, and news reporting from Macau Business (citing Lusa news agency) about the 2023 budget. 2. The tourism tax (Contribui\u00e7\u00e3o Tur\u00edstica) is a national-level tax that applies uniformly across all Cape Verde islands and municipalities, including Praia (Santiago Island). There does not appear to be a city-specific surcharge for Praia itself. 3. The VAT reduced rate of 10% for hotel lodging is confirmed by lodgecompliance.com; however, the effective date for this rate is uncertain (listed as 2023-01-01 as a reasonable estimate; the rate may have been in effect earlier). The PwC Tax Summaries confirm a tourism tax exists in the hotel sector but do not specify the exact CVE amount. 4. Some older sources cite the pre-2023 rate of 220 CVE/\u20ac2 \u2014 these appear to be outdated and not updated since the 2023 increase. The current rate of 276 CVE is consistently confirmed by multiple up-to-date sources through 2025\u20132026. 5. No evidence was found of any change to the tourism tax rate since the January 2023 increase, nor of any new Praia-specific municipal accommodation tax.",
+  "overall_confidence": 0.72,
+  "rates": [
+    {
+      "authority_name": "Government of Cape Verde (Dire\u00e7\u00e3o Nacional de Receitas do Estado - DNRE)",
+      "base_type": "per_person_per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.85,
+      "currency_code": "CVE",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-10-01",
+      "legal_reference": "State Budget Law 2023, Article 24",
+      "legal_uri": null,
+      "rate_type": "flat",
+      "rate_value": 276.0,
+      "source_quote": "The tax compulsorily paid by tourists in Cape Verde's hotels will increase 25% from January to 276 escudos (\u20ac2.50) per night",
+      "source_url": "https://macaubusiness.com/cabo-verde-tourist-tax-to-increase-25pct-to-e2-50-a-night/",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Government of Cape Verde (DNRE)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.65,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": null,
+      "legal_reference": "Cape Verde VAT Code \u2013 reduced rate for hotel and lodging services",
+      "legal_uri": null,
+      "rate_type": "percentage",
+      "rate_value": 10.0,
+      "source_quote": "Value-Added Tax (VAT) in Cape Verde has a standard rate of 15%, but a reduced rate of 10% applies specifically to lodging services from hotels and similar establishments",
+      "source_url": "https://www.lodgecompliance.com/countries/cape-verde-cabo-verde",
+      "tax_category_code": "vat_reduced",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "cap_nights": 10,
+        "type": "cap"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "stay_length_nights",
+        "operator": ">",
+        "value": 10
+      },
+      "confidence": 0.85,
+      "description": "The Cape Verde tourism tax (Contribui\u00e7\u00e3o Tur\u00edstica) is capped at a maximum of 10 consecutive nights per guest per accommodation stay. Stays beyond 10 nights are not charged additional tourist tax.",
+      "effective_end": null,
+      "effective_start": "2013-05-01",
+      "enacted_date": null,
+      "legal_reference": "Tourism Tax legislation (original introduction May 2013, as amended)",
+      "name": "Tourism Tax 10-Night Cap",
+      "rule_type": "cap",
+      "source_quote": "The value of Cape Verde's tourist tax is \u20ac2.50 (276 CVE) per person, per night up to a maximum of 10 nights (\u20ac25 per guest).",
+      "source_url": "https://feelcaboverde.com/en/taxes-and-fees-for-visitors/"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "guest_age",
+        "operator": "<",
+        "value": 16
+      },
+      "confidence": 0.9,
+      "description": "Visitors under the age of 16 are fully exempt from the Cape Verde tourism tax (Contribui\u00e7\u00e3o Tur\u00edstica). This exemption applies nationwide, including Praia.",
+      "effective_end": null,
+      "effective_start": "2013-05-01",
+      "enacted_date": null,
+      "legal_reference": "Tourism Tax legislation (original introduction May 2013)",
+      "name": "Children Under 16 Exemption",
+      "rule_type": "exemption",
+      "source_quote": "Visitors under the age of 16 are exempt from the tourist tax.",
+      "source_url": "https://feelcaboverde.com/en/taxes-and-fees-for-visitors/"
+    },
+    {
+      "action": {
+        "type": "apply_tax"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "accommodation_type",
+        "operator": "in",
+        "value": [
+          "hotel",
+          "hostel",
+          "apartment",
+          "villa",
+          "pension",
+          "bed_and_breakfast",
+          "guesthouse"
+        ]
+      },
+      "confidence": 0.85,
+      "description": "The Cape Verde Tourism Tax applies to all accommodation types, including hotels, hostels, apartments, villas, pensions, bed and breakfasts, and similar establishments. Collection is mandatory and handled by the accommodation provider, typically at check-in.",
+      "effective_end": null,
+      "effective_start": "2013-05-01",
+      "enacted_date": null,
+      "legal_reference": "Tourism Tax legislation (original introduction May 2013)",
+      "name": "Tourism Tax Applies to All Accommodation Types",
+      "rule_type": "condition",
+      "source_quote": "The Cape Verde Tourist Tax is a tax levied on all visitors staying in accommodation establishments in Cape Verde, such as hotels, hostels, apartments, pensions or other types of accommodation.",
+      "source_url": "https://feelcaboverde.com/en/taxes-and-fees-for-visitors/"
+    }
+  ],
+  "sources_checked": [
+    "https://www.discover-cape-verde.com/cape-verde-travel/cape-verde-tourist-tax/",
+    "https://www.vista-verde.com/en/info-service/travel-faq/",
+    "https://feelcaboverde.com/en/taxes-and-fees-for-visitors/",
+    "https://taxsummaries.pwc.com/cabo-verde/corporate/other-taxes",
+    "https://www.lodgecompliance.com/countries/cape-verde-cabo-verde",
+    "https://macaubusiness.com/cabo-verde-tourist-tax-to-increase-25pct-to-e2-50-a-night/",
+    "https://www.discover-cape-verde.com/tourist-tax-increase/",
+    "https://boe.incv.cv/Bulletins/DownloadAct?id=88454",
+    "https://sapo.pt/artigo/administracao-central-de-cabo-verde-fecha-2025-com-29-milhoes-de-euros-69a19b4a983f234be80f9b60",
+    "https://dnre.gov.cv"
+  ],
+  "summary": "Research confirmed two main accommodation-related taxes for Praia (and Cape Verde nationally): (1) A Tourism Tax (Contribui\u00e7\u00e3o Tur\u00edstica) of 276 CVE per person per night, capped at 10 nights per stay, effective January 1, 2023 (raised from 220 CVE). Multiple travel and news sources confirm this rate remains current through at least 2025\u20132026. (2) A reduced VAT rate of 10% applies to lodging services from hotels and similar establishments (versus the standard 15% Cape Verde VAT). Children under 16 are exempt from the tourism tax. Stays beyond 10 consecutive nights at the same property are not charged additional tourist tax. The priority government domain (dnre.gov.cv) did not return usable results via web search. 5 sources were checked and cross-referenced. No changes to the tourism tax rate have been found since January 2023."
+}

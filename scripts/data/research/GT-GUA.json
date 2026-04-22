@@ -1,0 +1,196 @@
+{
+  "_meta": {
+    "country_code": "GT",
+    "currency_code": "GTQ",
+    "elapsed_seconds": 78.6,
+    "jurisdiction_code": "GT-GUA",
+    "jurisdiction_id": 831,
+    "jurisdiction_name": "Guatemala City",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "sat.gob.gt"
+    ],
+    "researched_at": "2026-04-21T20:11:42.403294+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.413563+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "GT-GUA",
+  "notes": "1. Guatemala City does not have a city-specific or municipal hotel/accommodation tax separate from the national-level INGUAT (10%) and VAT (12%) taxes. The combined effective tax on hotel stays is 22% (12% IVA + 10% INGUAT). 2. The INGUAT 10% tax has been in effect since Decreto 1701 (1967) and its implementing Reglamento (1969). The effective_start dates shown are approximate based on when these laws came into force. 3. The SAT official portal (sat.gob.gt) was checked but does not publish specific hospitality tax rates directly; the INGUAT hospitality tax is collected by INGUAT (not SAT), though SAT proposals to take over collection were discussed as recently as 2016 but not enacted. 4. The 2 Quetzal threshold (approx. USD 0.26 at current exchange rates) is effectively nominal and applies to virtually all commercial accommodation. 5. No recent changes (2024-2025) to accommodation tax rates were found. The 2025 Guatemalan tax reform proposals reported by Auxadi concern income tax (ISR) rates, not accommodation/hospitality taxes. 6. The Airbnb Guatemala guide (2024) confirms the ongoing IVA obligation for short-term rental hosts and notes no accommodation-specific exemption from IVA.",
+  "overall_confidence": 0.88,
+  "rates": [
+    {
+      "authority_name": "Instituto Guatemalteco de Turismo (INGUAT)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": "GTQ",
+      "effective_end": null,
+      "effective_start": "1967-01-01",
+      "enacted_date": "1967-01-01",
+      "legal_reference": "Decreto 1701 del Congreso de la Rep\u00fablica, Art\u00edculo 26; Acuerdo Gubernativo M. de E. 33-69 (Reglamento)",
+      "legal_uri": "https://faolex.fao.org/docs/pdf/gua206964.pdf",
+      "rate_type": "percentage",
+      "rate_value": 10.0,
+      "source_quote": "EL INGUAT, percibir\u00e1 un impuesto del diez por ciento (10%) por hospedaje que se cobrar\u00e1 sobre las tarifas, excluida alimentaci\u00f3n y otros servicios, en hoteles, m\u00f3teles, campamentos, pensiones y dem\u00e1s centros de alojamiento, cuando la tarifa autorizada sea de dos quetzales o m\u00e1s por d\u00eda o fracci\u00f3n diaria.",
+      "source_url": "https://uip.inguat.gob.gt/index.php/ley-de-informacion-publica?download=1949:reglamento-para-la-aplicacion-de-la-ley-organica-de-inguat",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Superintendencia de Administraci\u00f3n Tributaria (SAT)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.97,
+      "currency_code": "GTQ",
+      "effective_end": null,
+      "effective_start": "1992-07-01",
+      "enacted_date": "1992-05-27",
+      "legal_reference": "Decreto 27-92 del Congreso de la Rep\u00fablica (Ley del Impuesto al Valor Agregado)",
+      "legal_uri": "https://www.tse.org.gt/images/UECFFPP/leyes/decreto_27-92-iva.pdf",
+      "rate_type": "percentage",
+      "rate_value": 12.0,
+      "source_quote": "La tarifa del IVA es del 12% del valor de cada producto o servicio y est\u00e1 siempre incluida en los precios de todo lo que compramos.",
+      "source_url": "https://portal.sat.gob.gt/portal/preguntas-frecuentes/principales-impuestos-guatemala/",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Superintendencia de Administraci\u00f3n Tributaria (SAT)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.85,
+      "currency_code": "GTQ",
+      "effective_end": null,
+      "effective_start": "1992-07-01",
+      "enacted_date": "1992-05-27",
+      "legal_reference": "Decreto 27-92, R\u00e9gimen de Peque\u00f1o Contribuyente",
+      "legal_uri": "https://assets.airbnb.com/help/AirbnbHostGuide2024_Guatemala_SPANISH.pdf",
+      "rate_type": "percentage",
+      "rate_value": 5.0,
+      "source_quote": "Si usted utiliza este r\u00e9gimen, no estar\u00e1 obligado al pago del Impuesto Sobre la Renta y sus servicios estar\u00e1n sujetos a una tarifa reducida de IVA del 5%.",
+      "source_url": "https://assets.airbnb.com/help/AirbnbHostGuide2024_Guatemala_SPANISH.pdf",
+      "tax_category_code": "vat_reduced",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "tax": "tourism_pct",
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "stay_length_days",
+        "operator": ">=",
+        "value": 30
+      },
+      "confidence": 0.93,
+      "description": "The 10% INGUAT hospitality tax does not apply to accommodation in rooms or apartments rented for monthly periods or for 30 consecutive days. This exemption is defined in the implementing regulation of Decreto 1701.",
+      "effective_end": null,
+      "effective_start": "1969-01-01",
+      "enacted_date": null,
+      "legal_reference": "Acuerdo Gubernativo M. de E. 33-69, Art\u00edculo 26 (Reglamento de Decreto 1701)",
+      "name": "Monthly/30-Day Stay Exemption from INGUAT Hotel Tax",
+      "rule_type": "exemption",
+      "source_quote": "El impuesto establecido a favor del INGUAT se aplicar\u00e1 al usuario y no estar\u00e1 involucrado en las tarifas que sobre hospedaje apruebe el INGUAT; deber\u00e1 hacerse p\u00fablico y no se cobrar\u00e1 cuando se trate de hospedaje en habitaciones o apartamentos por periodos mensuales o de treinta d\u00edas consecutivos.",
+      "source_url": "https://uip.inguat.gob.gt/index.php/ley-de-informacion-publica?download=1949:reglamento-para-la-aplicacion-de-la-ley-organica-de-inguat"
+    },
+    {
+      "action": {
+        "tax": "tourism_pct",
+        "type": "apply"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "room_rate_gtq_per_day",
+        "operator": ">=",
+        "value": 2.0
+      },
+      "confidence": 0.9,
+      "description": "The 10% INGUAT hospitality tax only applies when the INGUAT-authorized daily rate is 2 quetzals or more per day or fraction thereof. In practice, this threshold is effectively nominal given current price levels.",
+      "effective_end": null,
+      "effective_start": "1969-01-01",
+      "enacted_date": null,
+      "legal_reference": "Acuerdo Gubernativo M. de E. 33-69, Art\u00edculo 26 (Reglamento de Decreto 1701)",
+      "name": "INGUAT Hotel Tax Minimum Rate Threshold",
+      "rule_type": "condition",
+      "source_quote": "EL INGUAT, percibir\u00e1 un impuesto del diez por ciento (10%) por hospedaje que se cobrar\u00e1 sobre las tarifas, excluida alimentaci\u00f3n y otros servicios, en hoteles, m\u00f3teles, campamentos, pensiones y dem\u00e1s centros de alojamiento, cuando la tarifa autorizada sea de dos quetzales o m\u00e1s por d\u00eda o fracci\u00f3n diaria.",
+      "source_url": "https://uip.inguat.gob.gt/index.php/ley-de-informacion-publica?download=1949:reglamento-para-la-aplicacion-de-la-ley-organica-de-inguat"
+    },
+    {
+      "action": {
+        "note": "Exclude food/drink/other services from tax base",
+        "tax": "tourism_pct",
+        "type": "apply"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "charge_type",
+        "operator": "==",
+        "value": "room_rate"
+      },
+      "confidence": 0.92,
+      "description": "The 10% INGUAT hotel tax is calculated only on the room rate (tarifa de hospedaje) as authorized by INGUAT. Food, beverages, and other ancillary services are explicitly excluded from the tax base.",
+      "effective_end": null,
+      "effective_start": "1969-01-01",
+      "enacted_date": null,
+      "legal_reference": "Acuerdo Gubernativo M. de E. 33-69, Art\u00edculo 26 (Reglamento de Decreto 1701)",
+      "name": "Food and Other Services Excluded from INGUAT Hotel Tax Base",
+      "rule_type": "exemption",
+      "source_quote": "EL INGUAT, percibir\u00e1 un impuesto del diez por ciento (10%) por hospedaje que se cobrar\u00e1 sobre las tarifas, excluida alimentaci\u00f3n y otros servicios, en hoteles, m\u00f3teles, campamentos, pensiones y dem\u00e1s centros de alojamiento.",
+      "source_url": "https://biblioteca.inguat.gob.gt/Digital/Documentos/1701r.pdf"
+    },
+    {
+      "action": {
+        "type": "reduce",
+        "vat_rate": 5.0
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "taxpayer_type",
+            "operator": "==",
+            "value": "resident"
+          },
+          {
+            "field": "annual_income_gtq",
+            "operator": "<=",
+            "value": 150000
+          }
+        ]
+      },
+      "confidence": 0.85,
+      "description": "Guatemalan resident accommodation providers with annual gross income not exceeding Q150,000 may register under the Small Taxpayer Regime (Peque\u00f1o Contribuyente), applying a reduced 5% VAT rate instead of the standard 12%. This regime is not subject to Income Tax (ISR). Taxpayers exceeding Q150,000 must switch to the general regime.",
+      "effective_end": null,
+      "effective_start": "1992-07-01",
+      "enacted_date": null,
+      "legal_reference": "Decreto 27-92, R\u00e9gimen de Peque\u00f1o Contribuyente; SAT regulations",
+      "name": "Small Taxpayer Reduced VAT Regime",
+      "rule_type": "reduction",
+      "source_quote": "El de Peque\u00f1o Contribuyente, con el que se debe pagar una tasa del 5% sobre el monto facturado y que tiene el l\u00edmite m\u00e1ximo de ingresos de Q150 mil anuales.",
+      "source_url": "https://www.prensalibre.com/economia/cuales-son-las-obligaciones-tributarias-de-quien-arrienda-una-propiedad-por-airbnb-en-guatemala/"
+    }
+  ],
+  "sources_checked": [
+    "https://en.portal.sat.gob.gt/portal/",
+    "https://portal.sat.gob.gt/portal/preguntas-frecuentes/principales-impuestos-guatemala/",
+    "https://uip.inguat.gob.gt/index.php/ley-de-informacion-publica?download=1949:reglamento-para-la-aplicacion-de-la-ley-organica-de-inguat",
+    "https://biblioteca.inguat.gob.gt/Digital/Documentos/1701r.pdf",
+    "https://inguat.gob.gt/images/servicio-cobros/pdf/guia-pago-establecimientos-de-hospedaje.pdf",
+    "https://faolex.fao.org/docs/pdf/gua206964.pdf",
+    "https://assets.airbnb.com/help/AirbnbHostGuide2024_Guatemala_SPANISH.pdf",
+    "https://www.tse.org.gt/images/UECFFPP/leyes/decreto_27-92-iva.pdf",
+    "https://registro.inguat.gob.gt/wp-content/uploads/2022/06/Reglamento-Establecimiento-Hospedaje-1.pdf"
+  ],
+  "summary": "Research identified two primary accommodation taxes applicable in Guatemala City (and nationwide in Guatemala): (1) A 10% INGUAT hotel/hospitality tax (Impuesto sobre Hospedaje) levied on the INGUAT-authorized room rate, mandated by Decreto 1701 and its implementing regulation Acuerdo Gubernativo M. de E. 33-69; and (2) A 12% VAT (IVA) applicable to all goods and services including short-term accommodation, under Decreto 27-92, administered by SAT. Both taxes are long-standing and confirmed by official government sources (INGUAT, SAT). A monthly/30-day stay exemption applies to the 10% INGUAT tax. A reduced 5% VAT rate applies to small taxpayers (annual income under Q150,000). No city-specific or municipal accommodation tax unique to Guatemala City was identified \u2014 the applicable taxes are national-level. No recent changes were found. Checked 7 sources including sat.gob.gt, inguat.gob.gt, biblioteca.inguat.gob.gt, faolex.fao.org, and airbnb's Guatemala tax guide."
+}

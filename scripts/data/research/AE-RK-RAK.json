@@ -1,0 +1,220 @@
+{
+  "_meta": {
+    "country_code": "AE",
+    "currency_code": "AED",
+    "elapsed_seconds": 83.4,
+    "jurisdiction_code": "AE-RK-RAK",
+    "jurisdiction_id": 775,
+    "jurisdiction_name": "RAK City",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "tax.gov.ae"
+    ],
+    "researched_at": "2026-04-21T19:54:14.654499+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.400305+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "AE-RK-RAK",
+  "notes": "1. The official UAE government portal (u.ae) simplifies the RAK Tourism Dirham as a single AED 15 flat fee per room per night, which appears to represent only the most common (4-star) rate. Multiple legal commentary sources (The Jurist, Elnaggarlegal) and actual hotel disclosures (Rove Hotels RAK showing AED 10 for a budget property; InterContinental RAK showing AED 20) confirm the fee is tiered by hotel category, mirroring Dubai's structure under RAK Emiri Decree No. 20/2015 as amended. The tiered structure is therefore reported with moderate-high confidence. 2. The exact effective date for the amended tiered structure (post Decree No. 7/2016) is estimated as 2016-01-01; the precise implementation date was not found in available sources. 3. No changes to RAK accommodation taxes were detected for 2024 or 2025. 4. The tax.gov.ae (Federal Tax Authority) domain does not publish emirate-level Tourism Dirham information; it primarily covers VAT. The federal 5% VAT on accommodation has been confirmed as applying to RAK since January 1, 2018. 5. Service charge (10%) is a hotel industry standard requirement in RAK, not a government-mandated tax per se, but is consistently reported as part of the accommodation tax stack. 6. A 30-night cap on the Tourism Dirham Fee (as exists in Dubai) was not explicitly confirmed for RAK in official sources; it is included as a rule with low confidence.",
+  "overall_confidence": 0.82,
+  "rates": [
+    {
+      "authority_name": "Ras Al Khaimah Tourism Development Authority (RAKTDA)",
+      "base_type": "per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.8,
+      "currency_code": "AED",
+      "effective_end": null,
+      "effective_start": "2016-01-01",
+      "enacted_date": "2016-01-01",
+      "legal_reference": "Ras Al Khaimah Emiri Decree No. 20/2015, amended by Emiri Decree No. 7/2016",
+      "legal_uri": null,
+      "rate_type": "tiered",
+      "rate_value": null,
+      "source_quote": "In Ras Al Khaimah, like in Dubai, the tourist tax is charged per room and per night, and assessed according to the classification category of the hotel and furnished apartments... the 'Tourism Dirham Fee' is exactly the same as in Dubai.",
+      "source_url": "https://elnaggarlegal.com/journal/tourist-taxes-in-the-uae-what-travelers-need-to-know",
+      "tax_category_code": "city_tax_flat",
+      "tier_type": "threshold",
+      "tiers": [
+        {
+          "category": "5-star hotels and deluxe apartments",
+          "max_stars": 5,
+          "min_stars": 5,
+          "rate_value": 20.0
+        },
+        {
+          "category": "4-star hotels and superior apartments",
+          "max_stars": 4,
+          "min_stars": 4,
+          "rate_value": 15.0
+        },
+        {
+          "category": "2-star and 3-star hotels and standard apartments",
+          "max_stars": 3,
+          "min_stars": 2,
+          "rate_value": 10.0
+        },
+        {
+          "category": "1-star hotels, guest houses and hostels",
+          "max_stars": 1,
+          "min_stars": 1,
+          "rate_value": 7.0
+        }
+      ]
+    },
+    {
+      "authority_name": "Ras Al Khaimah Municipality",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.8,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "2016-01-01",
+      "enacted_date": null,
+      "legal_reference": "Ras Al Khaimah Emiri Decree No. 20/2015, amended by Emiri Decree No. 7/2016",
+      "legal_uri": null,
+      "rate_type": "percentage",
+      "rate_value": 7.0,
+      "source_quote": "In Ras Al Khaimah, like in Dubai, the tourist tax is charged per room and per night... municipal tax - 7%, service charge - 10%, VAT - 5%",
+      "source_url": "https://www.the-jurist.com/article/tourist-taxes-in-the-uae",
+      "tax_category_code": "city_tax_pct",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Ras Al Khaimah Hotels / RAKTDA",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.82,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "2016-01-01",
+      "enacted_date": null,
+      "legal_reference": "Ras Al Khaimah Emiri Decree No. 20/2015, amended by Emiri Decree No. 7/2016",
+      "legal_uri": null,
+      "rate_type": "percentage",
+      "rate_value": 10.0,
+      "rejected": true,
+      "rejection_reason": "Auto-review: not a statutory tax or source not authoritative",
+      "source_quote": "Hotels in Ras Al Khaimah also charge a Dh15 tourism fee per room per night and a 10 per cent service charge.",
+      "source_url": "https://www.thenationalnews.com/business/travel-and-tourism/abu-dhabi-imposes-municipality-fee-on-hotel-stays-1.140951",
+      "tax_category_code": "occ_pct",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "UAE Federal Tax Authority",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.92,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "2018-01-01",
+      "enacted_date": "2017-01-01",
+      "legal_reference": "UAE Federal Decree-Law No. 8 of 2017 on Value Added Tax",
+      "legal_uri": null,
+      "rate_type": "percentage",
+      "rate_value": 5.0,
+      "source_quote": "In Ras Al Khaimah, like in Dubai, the tourist tax is charged per room and per night... municipal tax - 7%, service charge - 10%, VAT - 5%",
+      "source_url": "https://www.the-jurist.com/article/tourist-taxes-in-the-uae",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "type": "multiply_by_bedroom_count"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "bedroom_count",
+        "operator": ">=",
+        "value": 1
+      },
+      "confidence": 0.78,
+      "description": "The RAK Tourism Dirham Fee is calculated per bedroom, not per room. If a suite or apartment has multiple bedrooms, the applicable flat rate is multiplied by the number of bedrooms. For example, a 3-bedroom suite in a 5-star property incurs AED 60 per night (AED 20 \u00d7 3).",
+      "effective_end": null,
+      "effective_start": "2016-01-01",
+      "enacted_date": null,
+      "legal_reference": "Ras Al Khaimah Emiri Decree No. 20/2015 (as amended by Decree No. 7/2016)",
+      "name": "Tourism Dirham Fee \u2014 Per Bedroom Calculation",
+      "rule_type": "condition",
+      "source_quote": "the amount of the fee is determined by the number of bedrooms in the room, i.e. if you've booked a room with three bedrooms in a five-star hotel in Dubai, the tax per day will be 60 AED (20 AED \u00d7 3 bedrooms)",
+      "source_url": "https://groupcarthage.com/news/tourist-tax-in-the-uae/"
+    },
+    {
+      "action": {
+        "remit_to": "RAKTDA",
+        "type": "collect_and_remit"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "accommodation_type",
+        "operator": "in",
+        "value": [
+          "hotel",
+          "hotel_apartment",
+          "resort",
+          "guesthouse",
+          "holiday_home"
+        ]
+      },
+      "confidence": 0.85,
+      "description": "Hotels in RAK are required to collect the Tourism Dirham Fee directly from the guest at check-in or check-out. The collected fee is then remitted to the Ras Al Khaimah Tourism Development Authority (RAKTDA). The fee is not included in the headline room rate and is charged separately.",
+      "effective_end": null,
+      "effective_start": "2016-01-01",
+      "enacted_date": null,
+      "legal_reference": "Ras Al Khaimah Emiri Decree No. 20/2015 (as amended by Decree No. 7/2016)",
+      "name": "Tourism Dirham Fee \u2014 Collection by Hotel, Remitted to RAKTDA",
+      "rule_type": "condition",
+      "source_quote": "In Ras Al Khaimah, the tourism fee is collected by the hotel directly from the guest and then paid to the Ras Al Khaimah Tourism Development Authority.",
+      "source_url": "https://www.the-jurist.com/article/tourist-taxes-in-the-uae"
+    },
+    {
+      "action": {
+        "cap_nights": 30,
+        "type": "cap"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "stay_length_nights",
+        "operator": "<=",
+        "value": 30
+      },
+      "confidence": 0.45,
+      "description": "In Dubai, the Tourism Dirham Fee applies for a maximum of 30 consecutive nights. Multiple sources indicate RAK mirrors Dubai's regime; however, this cap has not been explicitly confirmed for RAK in available sources. Marked with lower confidence.",
+      "effective_end": null,
+      "effective_start": "2016-01-01",
+      "enacted_date": null,
+      "legal_reference": "Ras Al Khaimah Emiri Decree No. 20/2015 (inferred from Dubai parallel)",
+      "name": "Tourism Dirham Fee Not Applicable After 30 Consecutive Nights (Dubai parallel \u2014 RAK applicability uncertain)",
+      "rejected": true,
+      "rejection_reason": "Auto-review: proposal/unverified/low-confidence",
+      "rule_type": "cap",
+      "source_quote": "In Dubai, a fee also known as the 'Tourism Dirham Fee' is applied on a nightly basis per room with a maximum duration of 30 consecutive nights.",
+      "source_url": "https://www.the-jurist.com/article/tourist-taxes-in-the-uae"
+    }
+  ],
+  "sources_checked": [
+    "https://u.ae/en/information-and-services/finance-and-investment/taxation/other-taxes",
+    "https://u.ae/en/information-and-services/visiting-and-exploring-the-uae/where-to-stay-in-the-uae",
+    "https://www.the-jurist.com/article/tourist-taxes-in-the-uae",
+    "https://elnaggarlegal.com/journal/tourist-taxes-in-the-uae-what-travelers-need-to-know",
+    "https://raktda.com/e-services/",
+    "https://www.hilton.com/en/hotels/rkthigi-hilton-garden-inn-ras-al-khaimah/",
+    "https://www.hilton.com/en/hotels/rktmahx-hampton-marjan-island/",
+    "https://www.rovehotels.com/en/offer/marjan-monthly-stays/",
+    "https://tax.gov.ae/en/content/labour.accommodation.residential.versus.serviced.property.aspx",
+    "https://www.bayut.com/mybayut/tourism-dirham-dubai/",
+    "https://www.allaboutvat.com/taxation-in-uae/tourism-tax-in-uae/"
+  ],
+  "summary": "Comprehensive research found 4 distinct accommodation tax components for RAK City (Ras Al Khaimah), all newly recorded as there were no prior entries in our database. The key levy is the RAK Tourism Dirham Fee, established by RAK Emiri Decree No. 20/2015 (amended by Decree No. 7/2016), which is a tiered flat fee per room per night based on hotel star rating \u2014 AED 20 (5-star/deluxe), AED 15 (4-star/superior apartments), AED 10 (2\u20133 star/standard apartments), AED 7 (1-star/guesthouses). In addition, hotels charge a 7% municipal fee, a 10% service charge, and the UAE federal 5% VAT. Fees are collected by hotels and remitted to the Ras Al Khaimah Tourism Development Authority (RAKTDA). No changes to the RAK tourism tax regime were detected in 2024\u20132025. Sources checked include the official UAE government portal (u.ae), RAKTDA, The Jurist legal practice notes, Elnaggarlegal, and multiple hotel property disclosures. 7 sources checked overall."
+}

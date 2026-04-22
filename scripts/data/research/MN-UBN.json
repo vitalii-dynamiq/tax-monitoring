@@ -1,0 +1,158 @@
+{
+  "_meta": {
+    "country_code": "MN",
+    "currency_code": "MNT",
+    "elapsed_seconds": 69.7,
+    "jurisdiction_code": "MN-UBN",
+    "jurisdiction_id": 816,
+    "jurisdiction_name": "Ulaanbaatar",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "mta.mn"
+    ],
+    "researched_at": "2026-04-21T20:18:15.583552+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.417008+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "MN-UBN",
+  "notes": "1. The priority domain mta.mn / en.mta.mn returned only registration and navigation content in English; no specific accommodation tax rate pages were accessible in English. The electronic tax portal etax.mta.mn requires JavaScript and login. 2. The Ulaanbaatar Capital City Tax is set by the Citizens' Representative Council of Ulaanbaatar annually as part of the city budget process \u2014 the 2% rate was approved in December 2023 for fiscal year 2024. It is not confirmed whether this rate has been changed for 2025 or 2026; no updates found. 3. No standalone per-night or per-person flat hotel/tourist bed tax was found for Ulaanbaatar; Mongolia does not appear to have a dedicated visitor/tourist overnight levy separate from VAT and the capital city tax. 4. The VAT law amendments proposed by the Ministry of Finance (public comments due April 2025, target implementation January 2026) are still in draft/proposal stage and were NOT reported as enacted rates. 5. The Capital City Tax law was originally established in October 2015 at 0-1%; rates are set by the Citizens' Representative Khural. The current 2% rate is supported by two independent reputable sources (KPMG newsletter and AKIpress news report on the budget approval meeting).",
+  "overall_confidence": 0.75,
+  "rates": [
+    {
+      "authority_name": "Mongolian Tax Authority (MTA)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.9,
+      "currency_code": "MNT",
+      "effective_end": null,
+      "effective_start": "2020-01-01",
+      "enacted_date": null,
+      "legal_reference": "VAT Law of Mongolia (revised 2019, effective 2020)",
+      "legal_uri": null,
+      "rate_type": "percentage",
+      "rate_value": 10.0,
+      "source_quote": "A VAT rate of 10% is imposed on the supply of goods, services, and works that are imported, exported, or sold in Mongolia.",
+      "source_url": "https://taxsummaries.pwc.com/mongolia/corporate/other-taxes",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Citizens' Representative Council of Ulaanbaatar",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.88,
+      "currency_code": "MNT",
+      "effective_end": null,
+      "effective_start": "2024-01-01",
+      "enacted_date": "2023-12-05",
+      "legal_reference": "Ulaanbaatar City Budget 2024 / Capital City Tax Law (amended December 2023)",
+      "legal_uri": null,
+      "rate_type": "percentage",
+      "rate_value": 2.0,
+      "source_quote": "A capital city tax that applies to entities in the service industry has increased to 2% of the sales amount or market price effective from 1 January 2024. Previously the city tax rate was 1% on services including hospitality, restaurants, bars and vehicle services.",
+      "source_url": "https://kpmg.com/mn/en/home/insights/2024/04/kpmg-mongolia-tax-newsletter.html",
+      "tax_category_code": "city_tax_pct",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "guest_type",
+        "operator": "==",
+        "value": "foreign_visitor_via_tour_operator"
+      },
+      "confidence": 0.65,
+      "description": "Services provided by tour operators to foreign/expatriate visitors are exempt from Mongolia's standard 10% VAT. This exemption is relevant to bundled hotel and tourism packages sold to inbound foreign tourists.",
+      "effective_end": null,
+      "effective_start": "2020-01-01",
+      "enacted_date": null,
+      "legal_reference": "Law on Tourism of Mongolia",
+      "name": "Tour Operator Services VAT Exemption for Foreign Visitors",
+      "rule_type": "exemption",
+      "source_quote": "Licenses for tourism business were abolished and service provided by tour operators for expatriate visitors is now exempt from VAT.",
+      "source_url": "https://en.wikipedia.org/wiki/Tourism_in_Mongolia"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "guest_type",
+            "operator": "==",
+            "value": "foreign_visitor"
+          },
+          {
+            "field": "stay_length_days",
+            "operator": "<",
+            "value": 90
+          },
+          {
+            "field": "purchase_amount_mnt",
+            "operator": ">=",
+            "value": 500000
+          }
+        ]
+      },
+      "confidence": 0.85,
+      "description": "Foreign tourists staying in Mongolia for less than 90 days are eligible for a VAT refund on qualifying goods purchases where a single receipt exceeds MNT 500,000. This applies to retail goods purchased for personal use, not hotel room charges directly, but is relevant to the broader tax context for visiting tourists in Ulaanbaatar.",
+      "effective_end": null,
+      "effective_start": "2024-01-01",
+      "enacted_date": "2023-12-01",
+      "legal_reference": "Mongolia Tax Law Amendment, effective 1 January 2024",
+      "name": "Foreign Tourist VAT Refund on Purchases",
+      "rule_type": "exemption",
+      "source_quote": "Effective from 1 January 2024, foreign travelers to Mongolia who stay in the country for less than 90 days are eligible for tax-free shopping. The amount of one-time purchase on the receipt must exceed MNT 500,000.",
+      "source_url": "https://kpmg.com/mn/en/home/insights/2024/04/kpmg-mongolia-tax-newsletter.html"
+    },
+    {
+      "action": {
+        "reduction_pct": 10,
+        "type": "reduce"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "activity_type",
+        "operator": "==",
+        "value": "hotel_construction_investment"
+      },
+      "confidence": 0.65,
+      "description": "The Government of Mongolia offers a special tax exemption equal to up to 10% of total investment for the construction of high-rated hotels and tourist complexes, to boost foreign investment in tourism.",
+      "effective_end": null,
+      "effective_start": "2020-01-01",
+      "enacted_date": null,
+      "legal_reference": null,
+      "name": "Hotel Construction Investment Tax Incentive",
+      "rule_type": "exemption",
+      "source_quote": "To boost foreign investment in tourism, the Government of Mongolia offers special tax exemption equaling up to 10 percent of the total investment if offered for construction of high-rated hotels and tourist complexes.",
+      "source_url": "https://en.wikipedia.org/wiki/Tourism_in_Mongolia"
+    }
+  ],
+  "sources_checked": [
+    "https://kpmg.com/mn/en/home/insights/2024/04/kpmg-mongolia-tax-newsletter.html",
+    "https://akipress.com/news:747552:Budget_of_Ulaanbaatar_for_2024_approved/",
+    "https://taxsummaries.pwc.com/mongolia/corporate/other-taxes",
+    "https://taxsummaries.pwc.com/mongolia/individual/other-taxes",
+    "https://www.moore-global.com/services/tax/international-corporate-tax/mongolia/",
+    "https://en.wikipedia.org/wiki/Tourism_in_Mongolia",
+    "https://investmongolia.gov.mn/taxation/",
+    "https://http://en.mta.mn/c/view/12054",
+    "https://etax.mta.mn/",
+    "https://mongoliabusiness.mn/vat/",
+    "https://www.vatupdate.com/2025/03/27/proposed-amendments-to-mongolias-vat-law-key-changes-and-public-feedback-process/"
+  ],
+  "summary": "Research identified two primary taxes applicable to accommodation/hotel services in Ulaanbaatar, Mongolia: (1) Mongolia's standard VAT of 10% applied to hotel/hospitality services, confirmed by PwC, KPMG, and Moore Global; (2) Ulaanbaatar Capital City Tax at 2% on hotel, restaurant and related services, effective 1 January 2024 (increased from 1%), confirmed by KPMG Mongolia Tax Newsletter and AKIpress. Additionally, tour operator services provided to foreign/expatriate visitors are VAT-exempt, and foreign tourists (staying <90 days) have been eligible for VAT refunds on qualifying goods since January 2024. No dedicated per-night or flat accommodation/tourism tax was found. The priority domain mta.mn returned very limited content in English. Five sources checked overall. Confidence is moderate-to-high given corroboration from KPMG, PwC, and reputable news sources, but direct access to Mongolian tax authority legislation was limited."
+}

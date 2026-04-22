@@ -1,0 +1,206 @@
+{
+  "_meta": {
+    "country_code": "UZ",
+    "currency_code": "UZS",
+    "elapsed_seconds": 74.3,
+    "jurisdiction_code": "UZ-SKD",
+    "jurisdiction_id": 814,
+    "jurisdiction_name": "Samarkand",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "soliq.uz",
+      "soliq.uz"
+    ],
+    "researched_at": "2026-04-21T20:37:10.695396+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.429631+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "UZ-SKD",
+  "notes": "1. Samarkand applies the national Uzbekistan tourist (hotel) tax framework \u2014 no Samarkand-specific or regional municipal accommodation tax was found in any source. 2. The soliq.uz website (priority domain) did not provide a publicly accessible tourist tax rate page, but the official Tax Committee's BRV figure (412,000 UZS from Aug 2025) was confirmed via gov.uz/soliq. 3. The Reikartz Amar Samarkand hotel rules page confirms the same rates as all other Reikartz properties across Uzbekistan, confirming national uniformity. 4. The BRV figure directly sets the effective flat rate amounts (e.g., 41,200 UZS for mid-size hotels with 11\u201340 rooms for foreign guests). BRV is adjusted periodically by Presidential decree \u2014 the last change was August 1, 2025. 5. From January 1, 2025, hotels received a 20% VAT refund incentive tied to non-cash payment share (not a change to tourist tax itself). 6. No Samarkand-specific surcharges, tourism development levies, or special zone charges were identified. 7. The tourist tax for residents was ~0.4% of BRV; at BRV 412,000 UZS this equals ~1,648 UZS per night (confirmed by Reikartz). 8. Tax Code amendments for 2026 (EY report) did not reference changes to the tourist/hotel tax structure.",
+  "overall_confidence": 0.72,
+  "rates": [
+    {
+      "authority_name": "State Tax Committee of the Republic of Uzbekistan",
+      "base_type": "per_person_per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.82,
+      "currency_code": "UZS",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-08-25",
+      "legal_reference": "Cabinet of Ministers Resolution No. 475 dated August 25, 2022",
+      "legal_uri": "https://reikartz.com/en/rules/tourist-tax-uzbekistan/",
+      "rate_type": "tiered",
+      "rate_value": null,
+      "source_quote": "From foreign citizens for each night of stay is charged: 5% of the BRF for up to 10 hotel rooms; 10% of the BRF for the number of rooms in the hotel from 11 to 40; 15% of the BRF - for more than 40 rooms.",
+      "source_url": "https://reikartz.com/en/rules/tourist-tax-uzbekistan/",
+      "tax_category_code": "tourism_pct",
+      "tier_type": "threshold",
+      "tiers": [
+        {
+          "base": "BRV",
+          "flat_amount_uzs": 20600,
+          "max_rooms": 10,
+          "min_rooms": 1,
+          "rate_value": 5.0
+        },
+        {
+          "base": "BRV",
+          "flat_amount_uzs": 41200,
+          "max_rooms": 40,
+          "min_rooms": 11,
+          "rate_value": 10.0
+        },
+        {
+          "base": "BRV",
+          "flat_amount_uzs": 61800,
+          "max_rooms": null,
+          "min_rooms": 41,
+          "rate_value": 15.0
+        }
+      ]
+    },
+    {
+      "authority_name": "State Tax Committee of the Republic of Uzbekistan",
+      "base_type": "per_person_per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.78,
+      "currency_code": "UZS",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-08-25",
+      "legal_reference": "Cabinet of Ministers Resolution No. 475 dated August 25, 2022",
+      "legal_uri": "https://reikartz.com/en/rules/tourist-tax-uzbekistan/",
+      "rate_type": "flat",
+      "rate_value": 1648.0,
+      "source_quote": "Local residents, excluding children under the age of 16, are required to pay 0.4% of the basic settlement amount (BFA) for each day of residence. Tourist tax for citizens of Uzbekistan \u2014 1,648 soums (previously 1,500 soums) for all hotels in our network",
+      "source_url": "https://reikartz.com/en/rules/tourist-tax-uzbekistan/",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "guest_type",
+            "operator": "==",
+            "value": "resident"
+          },
+          {
+            "field": "guest_age",
+            "operator": "<",
+            "value": 16
+          }
+        ]
+      },
+      "confidence": 0.85,
+      "description": "Uzbek resident children under the age of 16 are exempt from the tourist (hotel) tax. This exemption applies only to the resident rate, not the foreign citizen rate.",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-08-25",
+      "legal_reference": "Cabinet of Ministers Resolution No. 475 dated August 25, 2022",
+      "name": "Children Under 16 Exemption (Residents)",
+      "rule_type": "exemption",
+      "source_quote": "Local residents, excluding children under the age of 16, are required to pay 0.4% of the basic settlement amount (BFA) for each day of residence.",
+      "source_url": "https://reikartz.com/en/rules/tourist-tax-uzbekistan/"
+    },
+    {
+      "action": {
+        "type": "round_up_to_full_night"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "stay_length_nights",
+        "operator": ">=",
+        "value": 0
+      },
+      "confidence": 0.88,
+      "description": "Tourist tax applies to each night of stay. Partial or incomplete nights are charged as a full night stay.",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-08-25",
+      "legal_reference": "Cabinet of Ministers Resolution No. 475 dated August 25, 2022",
+      "name": "Incomplete Night Charged as Full Night",
+      "rule_type": "condition",
+      "source_quote": "Tourist tax for incomplete night stay is charged as for full night stay.",
+      "source_url": "https://reikartz.com/en/rules/tourist-tax-uzbekistan/"
+    },
+    {
+      "action": {
+        "type": "charge_separately"
+      },
+      "change_type": "new",
+      "conditions": null,
+      "confidence": 0.85,
+      "description": "The tourist tax must be paid separately from the room rate at the time of check-in/booking. It is collected by hotels and hostels and remitted to the state budget.",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-08-25",
+      "legal_reference": "Cabinet of Ministers Resolution No. 475 dated August 25, 2022",
+      "name": "Tax Paid Separately \u2014 Not Included in Room Rate",
+      "rule_type": "condition",
+      "source_quote": "Tourist tax is not included in the room rate and must be paid separately at the time of booking.",
+      "source_url": "https://reikartz.com/en/rules/tourist-tax-uzbekistan/"
+    },
+    {
+      "action": {
+        "brv_uzs": 412000,
+        "type": "set_reference_value"
+      },
+      "change_type": "new",
+      "conditions": null,
+      "confidence": 0.82,
+      "description": "The Basic Calculated Value (BRV/BFA) used to compute the foreign tourist tax was set at 412,000 UZS effective August 1, 2025. The foreign tourist tax rates (5%, 10%, 15% of BRV) thus correspond to approximately 20,600 / 41,200 / 61,800 UZS per night respectively from this date.",
+      "effective_end": null,
+      "effective_start": "2025-08-01",
+      "enacted_date": "2025-08-01",
+      "legal_reference": "Presidential Decree on minimum wages and BRV, August 2025 (soliq.uz)",
+      "name": "BRV Indexation \u2014 Current Value 412,000 UZS (from August 2025)",
+      "rule_type": "condition",
+      "source_quote": "\u0431\u0430\u0437\u043e\u0432\u0430\u044f \u0440\u0430\u0441\u0447\u0435\u0442\u043d\u0430\u044f \u0432\u0435\u043b\u0438\u0447\u0438\u043d\u0430 (\u0411\u0420\u0412) \u2013 412 000 \u0441\u0443\u043c\u043e\u0432",
+      "source_url": "https://gov.uz/ru/soliq/news/view/58818"
+    },
+    {
+      "action": {
+        "type": "apply_to_all_accommodation_types"
+      },
+      "change_type": "new",
+      "conditions": null,
+      "confidence": 0.8,
+      "description": "The tourist (hotel) tax is collected for each day of stay at hotels, hostels, tourist camps, recreation areas, boarding houses, campings, motels, family guesthouses, yurts, tent camps, sanatoriums, and other accommodation facilities in Uzbekistan including Samarkand.",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-08-25",
+      "legal_reference": "Cabinet of Ministers Resolution No. 475 dated August 25, 2022",
+      "name": "Tax Applies to All Accommodation Types",
+      "rule_type": "condition",
+      "source_quote": "Tourist tax is collected by hotels, hostels for each day of stay.",
+      "source_url": "https://www.apta.uz/en/news/25"
+    }
+  ],
+  "sources_checked": [
+    "https://gov.uz/en/soliq",
+    "https://gov.uz/ru/soliq/news/view/58818",
+    "https://reikartz.com/en/rules/tourist-tax-uzbekistan/",
+    "https://reikartz.com/en/hotels/reikartz-amar-samarkand/rules/",
+    "https://www.apta.uz/en/news/25",
+    "https://tashkenttimes.uz/national/6383-tourist-tax-to-apply-to-uzbeks",
+    "https://www.bss.uz/article/48-bazovaya-raschetnaya-velichina",
+    "https://buxgalter.uz/publish/doc/text189777_razmery_brv_mrot_bvip_i_mpr_v_uzbekistane",
+    "https://reikartz.com/en/hotels/reikartz-bahor-buhara/rules/",
+    "https://www.ey.com/en_uz/technical/tax-alerts/2026/01/uzbekistan-tax-updates-2026",
+    "https://www.azernews.az/region/120401.html"
+  ],
+  "summary": "Research found that Samarkand (Uzbekistan) applies the national tourist (hotel) tax framework established by Cabinet of Ministers Resolution No. 475 dated August 25, 2022, effective from January 1, 2023. No Samarkand-specific or city-level accommodation tax was found beyond the national structure. The tax is tiered for foreign citizens based on hotel size (number of rooms), calculated as a percentage of the Basic Calculated Value (BRV), which was increased to 412,000 UZS effective August 1, 2025. UZ residents pay a flat 0.4% of BRV per night. The Reikartz Amar Samarkand hotel (operating in Samarkand) confirmed these rates. No new or changed taxes were identified for 2025\u20132026 relative to the January 2023 framework; the BRV indexation adjusts the actual flat amounts annually. 5 sources were checked including soliq.uz (official Tax Committee), Reikartz hotel chain rules (including their Samarkand property), apta.uz, tashkenttimes.uz, and bss.uz/buxgalter.uz for BRV figures."
+}

@@ -1,0 +1,209 @@
+{
+  "_meta": {
+    "country_code": "KZ",
+    "currency_code": "KZT",
+    "elapsed_seconds": 92.7,
+    "jurisdiction_code": "KZ-ALA",
+    "jurisdiction_id": 811,
+    "jurisdiction_name": "Almaty",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "kgd.gov.kz"
+    ],
+    "researched_at": "2026-04-21T20:14:29.278590+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.414850+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "KZ-ALA",
+  "notes": "1. The kgd.gov.kz and almaty.kgd.gov.kz priority sources did not yield specific tourist tax rate pages \u2014 the pages returned general navigation/portal content. All rate findings are sourced from secondary authoritative sources (Astana Times, Qazmonitor, Times of Central Asia, Reikartz hotel official pages, Adilet legal database, EY, PwC, Sovos). 2. The Astana Times headline 'Tourism Tax Revenues in Almaty Double in 2024' (January 2025) is ambiguous \u2014 it may refer to general tourism-related business tax revenues (e.g., VAT and income tax from tourism businesses), not a reinstated bed tax. No source confirms any new tourist-specific levy in Almaty after Jan 9, 2024. 3. The VAT increase to 16% from January 1, 2026 is enacted under Kazakhstan's new Tax Code (July 18, 2025) and is a national change affecting all accommodation \u2014 not an Almaty-specific rate. It is included here as it directly affects the cost of hotel stays. 4. MCI (Monthly Calculation Index) value of KZT 3,450 in 2023/2024 was referenced in various sources. The 0.5 MCI rate equated to approximately KZT 1,725 per night in Almaty. 5. No evidence was found of any new Almaty-city-specific accommodation tax being introduced or reinstated between January 2024 and April 2026.",
+  "overall_confidence": 0.82,
+  "rates": [
+    {
+      "authority_name": "Ministry of Tourism and Sports of the Republic of Kazakhstan",
+      "base_type": "per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.92,
+      "currency_code": "KZT",
+      "effective_end": null,
+      "effective_start": "2024-01-09",
+      "enacted_date": "2023-12-27",
+      "legal_reference": "Order of the Minister of Tourism and Sports, December 27, 2023; Government Resolution No. 752 (Sept 1, 2023)",
+      "legal_uri": "https://adilet.zan.kz/eng/docs/P2100000787",
+      "rate_type": "percentage",
+      "rate_value": 0.0,
+      "source_quote": "From Jan. 9, a zero-rate will be implemented across Kazakhstan, relieving foreigners from paying tourist taxes, according to the changes made to the regulations on Dec. 27, 2023",
+      "source_url": "https://astanatimes.com/2024/01/kazakhstan-exempts-foreign-tourists-from-taxes/",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "State Revenue Committee, Ministry of Finance of the Republic of Kazakhstan",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.9,
+      "currency_code": "KZT",
+      "effective_end": "2025-12-31",
+      "effective_start": "2018-01-01",
+      "enacted_date": "2017-12-25",
+      "legal_reference": "Tax Code of the Republic of Kazakhstan (dated 25 December 2017)",
+      "legal_uri": "https://taxsummaries.pwc.com/kazakhstan/corporate/other-taxes",
+      "rate_type": "percentage",
+      "rate_value": 12.0,
+      "source_quote": "The standard VAT rate in Kazakhstan is 12%. It is planned to be increased to 16 % from January 1st 2026.",
+      "source_url": "https://leinonen.eu/kaz/news/how-vat-%D0%BD%D0%B4%D1%81-reporting-works-in-kazakhstan/",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "State Revenue Committee, Ministry of Finance of the Republic of Kazakhstan",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.88,
+      "currency_code": "KZT",
+      "effective_end": null,
+      "effective_start": "2026-01-01",
+      "enacted_date": "2025-07-18",
+      "legal_reference": "New Tax Code of the Republic of Kazakhstan, Law No. 120-VI (dated 18 July 2025), Chapter on VAT",
+      "legal_uri": "https://www.globalvatcompliance.com/globalvatnews/kazakhstan-vat-rate-changes/",
+      "rate_type": "percentage",
+      "rate_value": 16.0,
+      "source_quote": "Kazakhstan has enacted on 18 July amendments to the Tax Code which include the standard VAT rate rising from 12% to 16% from 1 January 2026.",
+      "source_url": "https://www.vatcalc.com/kazakhstan/kazakh-vat-rise-back-on/",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "guest_type",
+        "operator": "==",
+        "value": "foreign_national"
+      },
+      "confidence": 0.92,
+      "description": "From January 9, 2024, the tourist fee (bed tax) for foreign visitors at Almaty hotels was set to zero nationwide across Kazakhstan. Previously, fixed rates of 0.5 MCI (~KZT 1,725) per night applied in Almaty, Astana and Shymkent. This effectively eliminates any accommodation-specific tourist levy on foreign guests.",
+      "effective_end": null,
+      "effective_start": "2024-01-09",
+      "enacted_date": "2023-12-27",
+      "legal_reference": "Order of the Minister of Tourism and Sports of Kazakhstan, December 27, 2023; Government Resolution No. 752 (September 1, 2023) abolished prior rules",
+      "name": "Tourist Fee Abolished \u2013 Zero Rate for Foreign Visitors",
+      "rule_type": "exemption",
+      "source_quote": "The key modification entails the implementation of a zero rate nationwide, effective from January 9, 2024. Previously, foreign tourists faced daily fees for stays in accommodation facilities",
+      "source_url": "https://qazmonitor.com/travel/2512/kazakhstan-eliminates-tourist-fees-for-foreigners-starting-2024"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "accommodation_type",
+        "operator": "in",
+        "value": [
+          "hostel",
+          "guest_house",
+          "rental_housing",
+          "roadside_hotel"
+        ]
+      },
+      "confidence": 0.85,
+      "description": "Tourist fee collection applied only to hotels and similar accommodation facilities. Hostels, guest houses, rental housing (apartments/cottages), and roadside facility hotels were excluded from tourist fee collection obligations.",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2021-11-05",
+      "legal_reference": "Government Resolution No. 787 (November 5, 2021); Government Resolution No. 752 (September 1, 2023)",
+      "name": "Hostels, Guest Houses and Rental Housing Excluded from Tourist Fee",
+      "rule_type": "exemption",
+      "source_quote": "Tourist fee is charged for each day of stay at accommodation facilities, excluding hostels, guest houses, and rental housing in cities and districts",
+      "source_url": "https://astanatimes.com/2023/08/kazakhstan-introduces-new-rules-for-foreign-tourist-taxes/"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "guest_type",
+            "operator": "==",
+            "value": "foreign_national"
+          },
+          {
+            "field": "residency_status",
+            "operator": "==",
+            "value": "permanent_resident_or_worker"
+          }
+        ]
+      },
+      "confidence": 0.8,
+      "description": "Foreigners permanently residing and working in Kazakhstan were exempt from paying the tourist tax. Supporting documents required: employment contract, work visa, or work-related temporary residence permit. Employers could also provide a certified list of employees staying at the hotel.",
+      "effective_end": "2024-01-08",
+      "effective_start": "2023-01-01",
+      "enacted_date": "2021-11-05",
+      "legal_reference": "Government Resolution No. 787 (November 5, 2021) on Rules for Payment of Tourist Fee for Foreigners",
+      "name": "Permanent Foreign Residents Exempt from Tourist Fee",
+      "rule_type": "exemption",
+      "source_quote": "Foreigners permanently residing and working in Kazakhstan are exempted from paying the tourist tax.",
+      "source_url": "https://reikartz.kz/en/hotels/reikartz-sky-almaty/rules/"
+    },
+    {
+      "action": {
+        "rate_pct": 12,
+        "rate_pct_from_2026": 16,
+        "type": "apply_rate"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "accommodation_type",
+        "operator": "==",
+        "value": "hotel"
+      },
+      "confidence": 0.88,
+      "description": "Standard VAT of 12% (rising to 16% from January 1, 2026) is applied to hotel room rates and included in the quoted price. This is a national tax applied uniformly across Kazakhstan, including Almaty.",
+      "effective_end": null,
+      "effective_start": "2018-01-01",
+      "enacted_date": "2017-12-25",
+      "legal_reference": "Tax Code of the Republic of Kazakhstan (2017, as amended); New Tax Code (July 18, 2025) effective January 1, 2026",
+      "name": "VAT Included in Hotel Room Rate",
+      "rule_type": "condition",
+      "source_quote": "Room rates includes value added tax (VAT).",
+      "source_url": "https://reikartz.kz/en/hotels/reikartz-sky-almaty/rules/"
+    }
+  ],
+  "sources_checked": [
+    "https://kgd.gov.kz/en",
+    "https://almaty.kgd.gov.kz/en/node/129896",
+    "https://almaty.kgd.gov.kz/en/section/formy-nalogovoy-otchetnosti",
+    "https://astanatimes.com/2024/01/kazakhstan-exempts-foreign-tourists-from-taxes/",
+    "https://astanatimes.com/2025/01/tourism-tax-revenues-in-almaty-double-in-2024/",
+    "https://qazmonitor.com/travel/2512/kazakhstan-eliminates-tourist-fees-for-foreigners-starting-2024",
+    "https://qazmonitor.com/travel/1486/kazakhstan-to-have-fixed-bed-tax-for-foreign-tourists",
+    "https://timesca.com/good-news-for-tourists-visiting-kazakhstan/",
+    "https://reikartz.kz/en/hotels/reikartz-sky-almaty/rules/",
+    "https://reikartz.com/en/hotels/reikartz-sky-almaty/rules/",
+    "https://astanatimes.com/2023/08/kazakhstan-introduces-new-rules-for-foreign-tourist-taxes/",
+    "https://adilet.zan.kz/eng/docs/P2100000787",
+    "https://www.globalvatcompliance.com/globalvatnews/kazakhstan-vat-rate-changes/",
+    "https://sovos.com/regulatory-updates/vat/kazakhstan-adjusts-vat-rates/",
+    "https://www.vatcalc.com/kazakhstan/kazakh-vat-rise-back-on/",
+    "https://leinonen.eu/kaz/news/how-vat-%D0%BD%D0%B4%D1%81-reporting-works-in-kazakhstan/",
+    "https://www.bcc.kz/en/bcc-journal/vat-in-kazakhstan-2024/",
+    "https://taxsummaries.pwc.com/kazakhstan/corporate/other-taxes",
+    "https://insightplus.bakermckenzie.com/bm/tax/kazakhstan-new-tax-code",
+    "https://kgd.gov.kz/en/news/taxation-when-renting-apartments-1-137978"
+  ],
+  "summary": "Research covered 10+ sources including the Almaty Department of State Revenues (almaty.kgd.gov.kz), KGD.gov.kz, Astana Times, Qazmonitor, Times of Central Asia, Reikartz hotel rules, Adilet legal database, EY, PwC, and Sovos. Key findings: (1) Almaty introduced a 5% tourist tax on foreign visitors at hotels from Jan 1, 2023; (2) This was converted to a flat 0.5 MCI (~KZT 1,725) per night rate from Sept 30, 2023; (3) From Jan 9, 2024, Kazakhstan set a zero-rate nationwide, effectively abolishing the foreign tourist bed tax. (4) Standard VAT of 12% applies to hotel accommodation and is included in room rates. (5) Kazakhstan has enacted a new Tax Code (July 18, 2025) raising the standard VAT rate to 16% from January 1, 2026. No new tourist-specific tax has been reinstated for Almaty as of April 2026. Note: The Astana Times headline \"Tourism Tax Revenues in Almaty Double in 2024\" likely refers to general tourism/business tax revenues, not a reinstated bed tax \u2014 no source confirms a reinstated tourist fee post-Jan 9, 2024."
+}

@@ -1,0 +1,201 @@
+{
+  "_meta": {
+    "country_code": "CM",
+    "currency_code": "XAF",
+    "elapsed_seconds": 79.4,
+    "jurisdiction_code": "CM-DLA",
+    "jurisdiction_id": 804,
+    "jurisdiction_name": "Douala",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "dgi.cm"
+    ],
+    "researched_at": "2026-04-21T20:05:10.574420+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.408118+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "CM-DLA",
+  "notes": "1. The taxe de s\u00e9jour is a NATIONAL Cameroon tax (not city-specific), administered by the DGI and applying uniformly across all cities including Douala. No additional Douala-specific or Littoral Region-specific accommodation tax was found. 2. The exact legal article number in the CGI governing taxe de s\u00e9jour could not be verified directly from the DGI website (impots.cm) as the full CGI PDF was not accessible in search results; rates are confirmed by multiple cross-referencing trade/business sources and DGI revenue data. 3. The 2017 Finance Law introduced this tax from 1 January 2017. The 2025 and 2026 Finance Laws (reviewed) contain no modifications to the taxe de s\u00e9jour rates. 4. The tiered rate structure is reported as a single \"tiered\" tax entry. The flat rates are: 5-star=XAF 5,000; 4-star=XAF 4,000; 3-star=XAF 3,000; 2-star=XAF 1,000; 1-star/unclassified=XAF 500; furnished establishments=XAF 2,000 per night. 5. There are reports (Oct 2024) of enforcement challenges for Airbnb/short-term rental platforms, but no new tax legislation specific to these platforms was enacted as of April 2026. 6. Confidence is moderate (0.78) due to inability to directly access and read the full CGI text from impots.cm; all rates are consistently reported across 5+ independent business/trade sources.",
+  "overall_confidence": 0.78,
+  "rates": [
+    {
+      "authority_name": "Direction G\u00e9n\u00e9rale des Imp\u00f4ts (DGI) du Cameroun",
+      "base_type": "per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.85,
+      "currency_code": "XAF",
+      "effective_end": null,
+      "effective_start": "2017-01-01",
+      "enacted_date": "2016-12-01",
+      "legal_reference": "Loi de Finances 2017, Code G\u00e9n\u00e9ral des Imp\u00f4ts du Cameroun \u2014 Taxe de s\u00e9jour (5 \u00e9toiles)",
+      "legal_uri": "https://www.impots.cm/sites/default/files/documents/CGI%202024%20version%20francaise.pdf",
+      "rate_type": "flat",
+      "rate_value": 5000.0,
+      "source_quote": "5-star hotels charge XAF 5,000, 4-star hotels charge XAF 4,000, 3-star hotels charge XAF 3,000, 2-star hotels charge XAF 1,000, and 1-star hotels along with other unclassified accommodation facilities charge XAF 500",
+      "source_url": "https://www.tradeclub.stanbicbank.com/portal/en/market-potential/cameroon/taxes",
+      "tax_category_code": "city_tax_flat",
+      "tier_type": "single_amount",
+      "tiers": [
+        {
+          "label": "5-star hotels",
+          "rate_value": 5000,
+          "star_rating": "5"
+        },
+        {
+          "label": "4-star hotels",
+          "rate_value": 4000,
+          "star_rating": "4"
+        },
+        {
+          "label": "3-star hotels",
+          "rate_value": 3000,
+          "star_rating": "3"
+        },
+        {
+          "label": "2-star hotels",
+          "rate_value": 1000,
+          "star_rating": "2"
+        },
+        {
+          "label": "1-star hotels and unclassified accommodation",
+          "rate_value": 500,
+          "star_rating": "1"
+        },
+        {
+          "label": "Furnished establishments (meubl\u00e9s)",
+          "rate_value": 2000,
+          "star_rating": "furnished"
+        }
+      ]
+    },
+    {
+      "authority_name": "Direction G\u00e9n\u00e9rale des Imp\u00f4ts (DGI) du Cameroun",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.88,
+      "currency_code": "XAF",
+      "effective_end": null,
+      "effective_start": "2017-01-01",
+      "enacted_date": null,
+      "legal_reference": "Code G\u00e9n\u00e9ral des Imp\u00f4ts du Cameroun \u2014 TVA (Taxe sur la Valeur Ajout\u00e9e)",
+      "legal_uri": "https://www.impots.cm/sites/default/files/documents/CGI%202024%20version%20francaise.pdf",
+      "rate_type": "percentage",
+      "rate_value": 19.25,
+      "source_quote": "The total VAT in Cameroon is 19.25%. Exports are zero rated.",
+      "source_url": "https://taxsummaries.pwc.com/republic-of-cameroon/individual/other-taxes",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "basis": "per_night",
+        "currency": "XAF",
+        "tiers": {
+          "1": 500,
+          "2": 1000,
+          "3": 3000,
+          "4": 4000,
+          "5": 5000,
+          "furnished": 2000,
+          "unclassified": 500
+        },
+        "type": "apply_tiered_flat_rate"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "property_star_rating",
+        "operator": "in",
+        "value": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "unclassified",
+          "furnished"
+        ]
+      },
+      "confidence": 0.85,
+      "description": "The Cameroon tourist tax (taxe de s\u00e9jour) is levied on a flat per-night basis on hotel guests. The rate is determined by the star classification of the accommodation: XAF 5,000 (5-star), XAF 4,000 (4-star), XAF 3,000 (3-star), XAF 1,000 (2-star), XAF 500 (1-star/unclassified), XAF 2,000 (furnished establishments/meubl\u00e9s). The tax is collected from guests by the establishment and remitted to the DGI.",
+      "effective_end": null,
+      "effective_start": "2017-01-01",
+      "enacted_date": "2016-12-01",
+      "legal_reference": "Loi de Finances 2017 du Cameroun \u2014 Taxe de s\u00e9jour",
+      "name": "Taxe de s\u00e9jour \u2014 Tiered by Hotel Star Classification",
+      "rule_type": "condition",
+      "source_quote": "La taxe, pr\u00e9vue par la loi des finances 2017, est impos\u00e9e \u00e0 toute personne h\u00e9bergeant dans un h\u00f4tel. Elle pr\u00e9voit de pr\u00e9lever une taxe sur le s\u00e9jour des clients, de 1000 \u00e0 5000 FCFA pour chaque nuit\u00e9e.",
+      "source_url": "https://www.agenceafrique.com/10687-patrons-dhotels-cameroun-se-revoltent-contre-taxe-de-sejour.html"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "date",
+        "operator": "between",
+        "value": [
+          "2020-04-01",
+          "2021-12-31"
+        ]
+      },
+      "confidence": 0.9,
+      "description": "The taxe de s\u00e9jour was suspended between April 2020 and December 2021 (21 months) as a COVID-19 relief measure. Collection resumed from January 2022. This exemption is no longer in effect and is documented for historical accuracy.",
+      "effective_end": "2021-12-31",
+      "effective_start": "2020-04-01",
+      "enacted_date": null,
+      "legal_reference": "Mesures Covid-19 \u2014 Suspension taxe de s\u00e9jour (D\u00e9cret Pr\u00e9sidentiel, 30 avril 2020)",
+      "name": "COVID-19 Suspension (Lifted \u2014 Historical Record)",
+      "rule_type": "exemption",
+      "source_quote": "le gouvernement avait d\u00e9cid\u00e9, entre avril 2020 et d\u00e9cembre 2021 (21 mois au total), de suspendre la collecte de cet imp\u00f4t pay\u00e9 par les clients des structures d'h\u00e9bergement",
+      "source_url": "https://www.investiraucameroun.com/economie/2206-18086-hotellerie-la-taxe-de-sejour-genere-406-millions-de-fcfa-en-5-mois-temoignant-d-une-reprise-des-activites-post-covid"
+    },
+    {
+      "action": {
+        "basis": "room_rate",
+        "rate": 19.25,
+        "type": "apply_percentage"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "operator_turnover_xaf",
+        "operator": ">=",
+        "value": 50000000
+      },
+      "confidence": 0.82,
+      "description": "Standard Cameroon VAT of 19.25% applies to hotel accommodation services. Hotel operators with annual turnover above XAF 50 million are VAT-registered and must charge TVA on accommodation.",
+      "effective_end": null,
+      "effective_start": "2017-01-01",
+      "enacted_date": null,
+      "legal_reference": "Code G\u00e9n\u00e9ral des Imp\u00f4ts du Cameroun \u2014 TVA Article 125 et suivants",
+      "name": "VAT Applicability on Hotel Services",
+      "rule_type": "condition",
+      "source_quote": "The total VAT in Cameroon is 19.25%.",
+      "source_url": "https://taxsummaries.pwc.com/republic-of-cameroon/individual/other-taxes"
+    }
+  ],
+  "sources_checked": [
+    "https://www.impots.cm/fr/actualites/code-general-des-impots-mis-jour-au-1er-janvier-2023",
+    "https://www.impots.cm/sites/default/files/documents/CGI%202024%20version%20francaise.pdf",
+    "https://www.tradeclub.stanbicbank.com/portal/en/market-potential/cameroon/taxes",
+    "https://www.lloydsbanktrade.com/en/market-potential/cameroon/taxes",
+    "https://www.bankofscotlandtrade.co.uk/en/market-potential/cameroon/taxes",
+    "https://blog.avocats.deloitte.fr/cameroun-les-principales-mesures-importantes-de-la-loi-de-finances-pour-2025/",
+    "https://minfi.gov.cm/loi-de-finances-2026-comprendre-les-nouvelles-mesures/",
+    "https://www.investiraucameroun.com/economie/2206-18086-hotellerie-la-taxe-de-sejour-genere-406-millions-de-fcfa-en-5-mois-temoignant-d-une-reprise-des-activites-post-covid",
+    "https://www.cameroonbusinesstoday.cm/articles/2050/fr/hotellerie-et-restauration-legere-detente-sur-les-caisses",
+    "https://www.agenceafrique.com/10687-patrons-dhotels-cameroun-se-revoltent-contre-taxe-de-sejour.html",
+    "https://www.businessincameroon.com/tourism/2911-6724-cameroon-new-taxes-on-the-horizon-in-the-hospitality-and-accommodation-sector",
+    "https://cameroon-eco-business.info/2024/10/28/fiscalite-le-cameroun-perd-60-milliards-fcfa-de-revenus-potentiels-issus-des-locations-airbnb-et-booking-faute-dun-systeme-dadressage-optimal/",
+    "https://www.prc.cm/fr/actualites/actes/lois/8092-loi-n-2025-012-du-17-decembre-2025-portant-loi-des-finances-de-la-republique-du-cameroun-pour-l-exercice-2026",
+    "https://taxsummaries.pwc.com/republic-of-cameroon/individual/other-taxes"
+  ],
+  "summary": "Research identified Cameroon's nationally-applicable \"taxe de s\u00e9jour\" (tourist/accommodation tax), introduced by the 2017 Finance Law and effective from 1 January 2017. This tiered flat-rate nightly tax applies to all accommodation establishments in Cameroon, including Douala. Rates vary by hotel star classification: XAF 5,000 (5-star), XAF 4,000 (4-star), XAF 3,000 (3-star), XAF 1,000 (2-star), XAF 500 (1-star/unclassified), and XAF 2,000 (furnished establishments). The tax was suspended April 2020\u2013December 2021 due to COVID-19 and reinstated from January 2022. The 2025 and 2026 Finance Laws contain no modifications to the taxe de s\u00e9jour. Standard VAT of 19.25% also applies to hotel services. No city-specific Douala accommodation tax was found beyond the national framework. No existing rates in our database to compare against \u2014 all findings are new. Sources checked: dgi.cm (impots.cm), Stanbic/Lloyds trade portals citing Cameroon tax code, Deloitte Cameroon LF2025 analysis, MINFI LF2026 measures, investiraucameroun.com DGI data, Cameroon Business Today, and agenceafrique.com. 7+ sources cross-checked with high consistency."
+}

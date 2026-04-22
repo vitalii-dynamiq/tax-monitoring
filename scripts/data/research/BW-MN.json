@@ -1,0 +1,106 @@
+{
+  "_meta": {
+    "country_code": "BW",
+    "currency_code": "BWP",
+    "elapsed_seconds": 69.4,
+    "jurisdiction_code": "BW-MN",
+    "jurisdiction_id": 793,
+    "jurisdiction_name": "Maun",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "burs.org.bw"
+    ],
+    "researched_at": "2026-04-21T19:59:30.586729+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.404818+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "BW-MN",
+  "notes": "1. The BURS website (burs.org.bw) was accessible but only showed navigation menus without detailed rate tables \u2014 the tax rates page did not render substantive content in search results. Authoritative rates were confirmed via PwC Tax Summaries (taxsummaries.pwc.com) and vatcalc.com instead. 2. Some non-official sources (esgafricaconference.com, travelandtourworld.com) claim Botswana reimplemented a USD $30 Tourism Development Levy effective June 1, 2023. However, this could not be confirmed from official Botswana government sources (BTO, BURS, or botswanalaws.com), and is therefore excluded from the reported rates. This warrants further monitoring. 3. No city- or district-level accommodation taxes specific to Maun or the North-West District were found. All accommodation taxation in Botswana appears to be administered at the national level. 4. VAT Amendment Bill 2025 was noted but concerns digital services only and does not change the standard 14% VAT rate applicable to physical accommodation. 5. An older reference to a 10% sales tax on accommodation receipts and BWP 1 per bed-night training levy was found on botswana.co.za (referring to circa 2000 era), but these appear to be outdated/superseded by the current VAT regime and could not be confirmed as currently active.",
+  "overall_confidence": 0.72,
+  "rates": [
+    {
+      "authority_name": "Botswana Unified Revenue Service (BURS)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.92,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "2023-04-01",
+      "enacted_date": "2021-04-01",
+      "legal_reference": "Value Added Tax Act 2001 (as amended); VAT rate restored to 14% from 1 April 2023 after temporary reduction",
+      "legal_uri": "https://www.burs.org.bw/index.php/tax/value-added-tax",
+      "rate_type": "percentage",
+      "rate_value": 14.0,
+      "source_quote": "The VAT rate was initially changed from 12% to 14% on 1 April 2021; however, in an effort to reduce the impact of increasing inflation on the Botswana economy, the Botswana government introduced a temporary measure to alleviate the pressure by reducing the rate from 14% to 12% from 3 August 2022 up to 31 March 2023.",
+      "source_url": "https://taxsummaries.pwc.com/botswana/individual/significant-developments",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "visitor_origin",
+        "operator": "==",
+        "value": "SADC_member_state"
+      },
+      "confidence": 0.75,
+      "description": "Residents and citizens of Southern African Development Community (SADC) member states are exempt from the Tourism Development Levy (TDL). Note: The original 2017 TDL was cancelled in December 2017. A reported 2023 reimplementation of a USD $30 TDL at ports of entry for non-SADC visitors appeared in some non-official sources but could not be confirmed from authoritative government sources and is therefore not reported as a rate.",
+      "effective_end": "2017-12-11",
+      "effective_start": "2017-06-01",
+      "enacted_date": null,
+      "legal_reference": "Botswana Tourism Development Levy (TDL) \u2014 announced April 2017, cancelled December 2017",
+      "name": "SADC Resident Exemption from Tourism Development Levy",
+      "rule_type": "exemption",
+      "source_quote": "Fearing a backlash from various tourism industry stakeholders, the Botswana government has knocked on its head the introduction of a US$30 tax",
+      "source_url": "https://yourbotswana.com/2017/12/10/botswana-cancels-controversial-us30-tourist-levy/"
+    },
+    {
+      "action": {
+        "type": "levy_required"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "business_type",
+        "operator": "==",
+        "value": "licensed_tourist_enterprise"
+      },
+      "confidence": 0.65,
+      "description": "All licensed tourist enterprises in Botswana (including accommodation providers in Maun) are required to pay a levy as part of their operating licence conditions under the Tourism Act. Failure to pay the levy may result in licence revocation. The specific rate of this levy was not confirmed from publicly accessible official sources.",
+      "effective_end": null,
+      "effective_start": "2010-05-14",
+      "enacted_date": null,
+      "legal_reference": "Tourism (Tourist Enterprise Licensing) Regulations \u2014 S.I. 47, 2010",
+      "name": "Tourism Enterprise Levy Obligation",
+      "rule_type": "condition",
+      "source_quote": "The Committee shall revoke a tourist enterprise licence where, after six months from the time set by the Committee under subregulation (1), the tourist enterprise has failed to pay the levy and the fees imposed under subregulation (2).",
+      "source_url": "https://botswanalaws.com/consolidated-statutes/subsidiary-legislation/tourism-subsidiary-legislation"
+    }
+  ],
+  "sources_checked": [
+    "https://www.burs.org.bw/index.php/tax/value-added-tax",
+    "https://www.burs.org.bw/index.php/my-services/tax-rates",
+    "https://taxsummaries.pwc.com/botswana/corporate/other-taxes",
+    "https://www.vatcalc.com/botswana/botswana-vat-on-non-resident-digital-services/",
+    "https://www.vatupdate.com/2021/10/10/vat-rates-in-botswana/",
+    "https://bw.andersen.com/botswanas-value-added-tax-amendment-bill-2025-modernising-the-vat-landscape/",
+    "https://taxsummaries.pwc.com/botswana/individual/significant-developments",
+    "https://botswanalaws.com/consolidated-statutes/subsidiary-legislation/tourism-subsidiary-legislation",
+    "https://botswanalaws.com/consolidated-statutes/principle-legislation/tourism",
+    "https://www.benchafrica.com/bench-press/botswana-travel-tourism-development-levy/",
+    "https://www.victoriafalls-guide.net/botswana-tourism-levy-cancelled.html",
+    "https://insidetravel.news/botswana-tourism-levy-cancelled/",
+    "https://yourbotswana.com/2017/12/10/botswana-cancels-controversial-us30-tourist-levy/",
+    "https://www.eservices.gov.bw/tourism/faq.html",
+    "https://tradingeconomics.com/botswana/sales-tax-rate"
+  ],
+  "summary": "Research covered Botswana's national tax authority (BURS at burs.org.bw), PwC Tax Summaries, vatcalc.com, Botswana Laws, and multiple tourism news sources. No Maun-specific or North-West District-specific accommodation taxes were found \u2014 all applicable taxes are set at the national (Botswana) level. Key findings: (1) Standard VAT of 14% applies to all accommodation supplies in Botswana including Maun, confirmed by BURS and multiple authoritative sources. The rate was raised from 12% to 14% on April 1, 2021, temporarily reduced to 12% from August 3, 2022 to March 31, 2023, then restored to 14%. (2) The Tourism Development Levy (TDL) of USD $30 for non-SADC international visitors was announced in April 2017, postponed from its June 2017 start date, and officially cancelled in December 2017. Some unofficial sources claim a \"June 1, 2023\" reimplementation, but no authoritative government source confirmed this, and it is not reported here. (3) No city-level or district-level accommodation tax specific to Maun was found. 4 sources checked, moderate overall confidence due to limited detail accessible from burs.org.bw directly."
+}

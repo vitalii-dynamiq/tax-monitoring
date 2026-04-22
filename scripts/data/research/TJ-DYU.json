@@ -1,0 +1,210 @@
+{
+  "_meta": {
+    "country_code": "TJ",
+    "currency_code": "TJS",
+    "elapsed_seconds": 89.1,
+    "jurisdiction_code": "TJ-DYU",
+    "jurisdiction_id": 818,
+    "jurisdiction_name": "Dushanbe",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "andoz.tj",
+      "andoz.tj"
+    ],
+    "researched_at": "2026-04-21T20:33:01.123962+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.426873+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "TJ-DYU",
+  "notes": "1. No city-specific Dushanbe municipal accommodation tax was found beyond the national framework. Tajikistan's tax system is unified nationally (Tax Code Article 12) and local authorities do not impose separate hotel/accommodation taxes. 2. The 7% reduced VAT on hotel services applies nationally and is NOT creditable against output VAT \u2014 this is a key distinction. Only hotels/operators with annual gross income exceeding TJS 1 million are required to be VAT registered. 3. The $1/day tourist fee (enacted April 2019) has uncertain current enforcement status. The law was adopted but implementation mechanisms were unclear at enactment. Trip.com booking pages for Dushanbe hotels reference a \"city tax (tourist fee)\" in mandatory daily charges, suggesting it is being collected, but an exact TJS equivalent rate could not be confirmed from authoritative sources. The rate is denominated in USD per the law text. 4. The andoz.tj domain (priority source) was accessed via its official Tax Code PDF. The website itself does not appear to have a dedicated hotel tax page in English. 5. Future VAT reduction: The standard VAT rate is scheduled to decrease to 13% from January 1, 2027 per the enacted Tax Code. 6. The tourist fee flat rate of USD $1 is reported in USD, not TJS, per the original law text \u2014 currency_code set to USD accordingly.",
+  "overall_confidence": 0.65,
+  "rates": [
+    {
+      "authority_name": "Tax Committee of the Republic of Tajikistan (andoz.tj)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.88,
+      "currency_code": "TJS",
+      "effective_end": null,
+      "effective_start": "2022-01-01",
+      "enacted_date": "2021-12-23",
+      "legal_reference": "Tax Code of the Republic of Tajikistan (2021), Article 264; Law No. 1876 of 23 December 2021",
+      "legal_uri": "https://andoz.tj/docs/kodex/Kodex_14_05_2025_Nav_ENG_en.pdf",
+      "rate_type": "percentage",
+      "rate_value": 7.0,
+      "source_quote": "For hotel and catering services, the VAT rate is now 7%.",
+      "source_url": "https://lca.logcluster.org/13-tajikistan-customs-information",
+      "tax_category_code": "vat_reduced",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Tax Committee of the Republic of Tajikistan (andoz.tj)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.92,
+      "currency_code": "TJS",
+      "effective_end": "2026-12-31",
+      "effective_start": "2024-01-01",
+      "enacted_date": "2021-12-23",
+      "legal_reference": "Tax Code of the Republic of Tajikistan, Article 264, Part 1",
+      "legal_uri": "https://andoz.tj/docs/kodex/Kodex_14_05_2025_Nav_ENG_en.pdf",
+      "rate_type": "percentage",
+      "rate_value": 14.0,
+      "source_quote": "The value-added tax (VAT) rate specified in subparagraph 1), paragraph 1, Article 264 of this Code for taxable transactions and taxable imports is established at 14 percent for the period from 1 January 2024 to 31 December 2026, and at 13 percent starting from 1 January 2027",
+      "source_url": "https://andoz.tj/docs/kodex/Kodex_14_05_2025_Nav_ENG_en.pdf",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Tax Committee of the Republic of Tajikistan (andoz.tj)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.88,
+      "currency_code": "TJS",
+      "effective_end": null,
+      "effective_start": "2027-01-01",
+      "enacted_date": "2021-12-23",
+      "legal_reference": "Tax Code of the Republic of Tajikistan, Article 264, Part 1",
+      "legal_uri": "https://andoz.tj/docs/kodex/Kodex_14_05_2025_Nav_ENG_en.pdf",
+      "rate_type": "percentage",
+      "rate_value": 13.0,
+      "source_quote": "The value-added tax (VAT) rate specified in subparagraph 1), paragraph 1, Article 264 of this Code for taxable transactions and taxable imports is established at 14 percent for the period from 1 January 2024 to 31 December 2026, and at 13 percent starting from 1 January 2027",
+      "source_url": "https://andoz.tj/docs/kodex/Kodex_14_05_2025_Nav_ENG_en.pdf",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Majlisi Namoyandagon (Parliament) of Tajikistan \u2014 Ministry of Finance",
+      "base_type": "per_person_per_night",
+      "calculation_order": 200,
+      "change_type": "new",
+      "confidence": 0.5,
+      "currency_code": "USD",
+      "effective_end": null,
+      "effective_start": "2019-04-26",
+      "enacted_date": "2019-04-26",
+      "legal_reference": "Law of the Republic of Tajikistan 'On Other Mandatory Payments to the Budget' (amended April 26, 2019)",
+      "legal_uri": "https://cabar.asia/en/travel-agencies-in-tajikistan-law-on-tourist-fees-requires-clarification",
+      "rate_type": "flat",
+      "rate_value": 1.0,
+      "source_quote": "all tourists, including Tajik citizens traveling abroad on tours, must pay an additional fee of $1 per each day of stay in the country",
+      "source_url": "https://cabar.asia/en/travel-agencies-in-tajikistan-law-on-tourist-fees-requires-clarification",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "OR": [
+          {
+            "field": "guest_type",
+            "operator": "==",
+            "value": "veteran_WWII"
+          },
+          {
+            "field": "guest_type",
+            "operator": "==",
+            "value": "chernobyl_liquidator"
+          },
+          {
+            "field": "guest_type",
+            "operator": "==",
+            "value": "disabled_group_1_or_2"
+          },
+          {
+            "field": "guest_age",
+            "operator": "<",
+            "value": 16
+          },
+          {
+            "field": "guest_type",
+            "operator": "==",
+            "value": "diplomat"
+          }
+        ]
+      },
+      "confidence": 0.55,
+      "description": "Exemptions from the national tourist fee ($1/day) apply to: veterans of the Great Patriotic War, participants in recovery from the Chernobyl nuclear power plant accident, people with disabilities of the first and second groups, children under 16, and diplomats.",
+      "effective_end": null,
+      "effective_start": "2019-04-26",
+      "enacted_date": "2019-04-26",
+      "legal_reference": "Law 'On Other Mandatory Payments to the Budget' (amended April 26, 2019)",
+      "name": "Tourist Fee Exemption \u2014 Veterans, Disabled, Children, Diplomats",
+      "rule_type": "exemption",
+      "source_quote": "veterans of the Great Patriotic War, participants of the recovery from the accident at the Chernobyl nuclear power plant, people with disabilities of the first and second groups, children under 16 and diplomats will be exempted from duties",
+      "source_url": "https://cabar.asia/en/travel-agencies-in-tajikistan-law-on-tourist-fees-requires-clarification"
+    },
+    {
+      "action": {
+        "creditable": false,
+        "rate": 7.0,
+        "type": "reduce"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "service_type",
+        "operator": "==",
+        "value": "hotel_or_catering"
+      },
+      "confidence": 0.87,
+      "description": "Hotel and catering services are subject to a reduced VAT rate of 7% under the 2022 Tax Code. This reduced rate is not creditable against output VAT, unlike the standard rate.",
+      "effective_end": null,
+      "effective_start": "2022-01-01",
+      "enacted_date": "2021-12-23",
+      "legal_reference": "Tax Code of the Republic of Tajikistan (2021), Article 264",
+      "name": "Reduced VAT for Hotel Services (Non-Creditable)",
+      "rule_type": "reduction",
+      "source_quote": "For hotel and catering services, the VAT rate is now 7%.",
+      "source_url": "https://lca.logcluster.org/13-tajikistan-customs-information"
+    },
+    {
+      "action": {
+        "type": "apply_vat"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "annual_gross_income_TJS",
+        "operator": ">=",
+        "value": 1000000
+      },
+      "confidence": 0.82,
+      "description": "Taxpayers (including accommodation operators) are only required to register for and charge VAT if their gross income exceeds TJS 1 million over any 12 consecutive calendar months. Below this threshold, the simplified tax regime applies.",
+      "effective_end": null,
+      "effective_start": "2022-01-01",
+      "enacted_date": "2021-12-23",
+      "legal_reference": "Tax Code of the Republic of Tajikistan, Article 245",
+      "name": "VAT Registration Threshold \u2014 TJS 1 Million",
+      "rule_type": "threshold",
+      "source_quote": "a taxpayer whose total income for a maximum period of 12 full consecutive calendar months exceeds 1,000,000 somoni",
+      "source_url": "https://www.grantthornton.global/en/insights/indirect-tax-guide/indirect-tax---Tajikistan/"
+    }
+  ],
+  "sources_checked": [
+    "https://andoz.tj/docs/kodex/Kodex_14_05_2025_Nav_ENG_en.pdf",
+    "https://cabar.asia/en/travel-agencies-in-tajikistan-law-on-tourist-fees-requires-clarification",
+    "https://lca.logcluster.org/13-tajikistan-customs-information",
+    "https://daryo.uz/en/2024/01/07/tajikistans-vat-rate-drops-to-14-for-non-cash-transactions-from-january-1-2024",
+    "https://aaa.tj/articles/new-tax-code-of-tajikistan-key-changes",
+    "https://mfa.tj/en/berlin/view/9029/new-tax-code-of-tajikistan",
+    "https://www.grantthornton.global/en/insights/indirect-tax-guide/indirect-tax---Tajikistan/",
+    "https://www.vatcalc.com/tajikistan/tajikistan-cuts-vat-to-13-by-2027/",
+    "https://us.trip.com/hotels/bar/city/tj/dushanbe.html",
+    "https://partner.booking.com/en-gb/help/commission-invoices-tax/local-taxes/vat-legislation-tajikistan-faqs",
+    "https://www.hlbtj.com/wp-content/uploads/2022/07/%D0%9F%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F-Eng-Tax-Code.pdf"
+  ],
+  "summary": "Research into Dushanbe (Tajikistan) accommodation taxes revealed two key applicable taxes, both set at the national level under the Tajikistan Tax Code (effective 1 January 2022, last amended May 2025). No city-specific Dushanbe municipal accommodation tax was found. (1) A reduced VAT rate of 7% applies specifically to hotel and catering services, confirmed by the andoz.tj Tax Code PDF and multiple secondary sources. This replaced the previous 18% rate and is not creditable against output VAT. (2) A national VAT standard rate of 14% applies for non-cash transactions from 1 January 2024 through 31 December 2026 (dropping to 13% in 2027). (3) A national tourist fee of approximately USD $1 per person per day was enacted by parliament in April 2019 via amendments to the Law \"On Other Mandatory Payments to the Budget,\" though implementation details and current enforcement status remain unclear \u2014 it was referenced on some hotel booking pages as a \"city tax (tourist fee).\" Exemptions for the 2019 tourist fee include veterans, disabled persons (groups 1 and 2), children under 16, and diplomats. Sources checked include the andoz.tj official Tax Code PDF, CABAR.asia, daryo.uz, lca.logcluster.org, aaa.tj, and vatcalc.com. 6 sources checked overall. Confidence is moderate due to the difficulty of verifying real-time enforcement of the 2019 tourist fee law."
+}

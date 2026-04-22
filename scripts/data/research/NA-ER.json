@@ -1,0 +1,172 @@
+{
+  "_meta": {
+    "country_code": "NA",
+    "currency_code": "NAD",
+    "elapsed_seconds": 73.2,
+    "jurisdiction_code": "NA-ER",
+    "jurisdiction_id": 795,
+    "jurisdiction_name": "Swakopmund",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "nra.na",
+      "nra.na"
+    ],
+    "researched_at": "2026-04-21T20:23:14.240455+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.419658+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "NA-ER",
+  "notes": "1. The priority domain nra.na (NamRA) was checked but only the homepage and about-us/VAT pages were accessible; no accommodation-specific tax guidance page was found beyond confirming the 15% VAT rate. 2. No Swakopmund-specific municipal accommodation/tourism levy was found. Swakopmund Municipality's tariff documents relate to property assessment rates, not guest-facing tourism taxes. 3. The Namibia Tourism Board levy is a national tax collected by all registered accommodation establishments across Namibia (including Swakopmund). 4. Rates are reported as \"new\" since no prior rates existed in the database, not because the rates themselves are new legislation \u2014 they have been in force since 2004. 5. A 2017 government proposal to increase a flat N$7 levy (per night) was found in news sources, but this was never enacted and the 2% percentage-based levy under GN 137/2004 remains the operative regulation. 6. VAT on accommodation is charged at the standard 15% rate; however, it is explicitly excluded from the NTB levy calculation base per the regulations. 7. No evidence was found of any changes to NTB levy rates since 2004.",
+  "overall_confidence": 0.82,
+  "rates": [
+    {
+      "authority_name": "Namibia Tourism Board (NTB)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": "NAD",
+      "effective_end": null,
+      "effective_start": "2004-11-01",
+      "enacted_date": "2004-07-14",
+      "legal_reference": "Namibia Tourism Board Act 21 of 2000; Government Notice No. 137, Government Gazette No. 3235, 14 July 2004",
+      "legal_uri": "https://namiblii.org/akn/na/act/gn/2004/137/eng@2017-11-15",
+      "rate_type": "percentage",
+      "rate_value": 2.0,
+      "source_quote": "The levy payable in terms of regulation 2 is - (a) the amount equal to two percent (2%) of the total amount charged to guests over a levy period in accordance with the establishment's tariff - (i) for bed and breakfast; or, (ii) if breakfast is not included, for bed-night accommodation",
+      "source_url": "https://tasa.na/wp-content/uploads/2024/01/GRN-Gazette-3235-Tourism-Businesses-Regulations.pdf",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Namibia Tourism Board (NTB)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": "NAD",
+      "effective_end": null,
+      "effective_start": "2004-11-01",
+      "enacted_date": "2004-07-14",
+      "legal_reference": "Namibia Tourism Board Act 21 of 2000; Government Notice No. 137, Government Gazette No. 3235, 14 July 2004",
+      "legal_uri": "https://namiblii.org/akn/na/act/gn/2004/137/eng@2017-11-15",
+      "rate_type": "percentage",
+      "rate_value": 1.0,
+      "source_quote": "in the case of an accommodation establishment where a single tariff, inclusive of accommodation, food and beverages and recreational activities (if any) is charged, the amount equal to one percent (1%) of the total amount charged to guests over the levy period",
+      "source_url": "https://tasa.na/wp-content/uploads/2024/01/GRN-Gazette-3235-Tourism-Businesses-Regulations.pdf",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Namibia Revenue Agency (NamRA)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": "NAD",
+      "effective_end": null,
+      "effective_start": "2000-01-01",
+      "enacted_date": null,
+      "legal_reference": "Value-Added Tax Act No. 10 of 2000 (as amended)",
+      "legal_uri": "https://www.namra.org.na/tax-types/page/value-added-tax-vat-30120/",
+      "rate_type": "percentage",
+      "rate_value": 15.0,
+      "source_quote": "VAT is levied at the standard rate of 15% on the supply of most goods and services and on the importation of goods.",
+      "source_url": "https://www.namra.org.na/tax-types/page/value-added-tax-vat-30120/",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "establishment_type",
+        "operator": "in",
+        "value": [
+          "campsite",
+          "camping_park",
+          "caravan_park"
+        ]
+      },
+      "confidence": 0.95,
+      "description": "Campsites and camping/caravan parks are exempt from the NTB tourism levy. All other registered accommodation establishments (hotels, guesthouses, lodges, B&Bs) must collect and remit the levy.",
+      "effective_end": null,
+      "effective_start": "2004-11-01",
+      "enacted_date": "2004-07-14",
+      "legal_reference": "Namibia Tourism Board Act 21 of 2000; GN 137/2004, Regulation 2",
+      "name": "Campsite and Caravan Park Exemption",
+      "rule_type": "exemption",
+      "source_quote": "Every owner of a registered accommodation establishment, other than a campsite or a camping and caravan park, must pay a levy to the Namibia Tourism Board in the amount, and at the times and in the manner, prescribed by these regulations.",
+      "source_url": "https://namiblii.org/akn/na/act/gn/2004/137/eng@2017-11-15"
+    },
+    {
+      "action": {
+        "frequency": "bi-monthly",
+        "late_penalty_pct": 5,
+        "type": "payment_schedule"
+      },
+      "change_type": "new",
+      "conditions": null,
+      "confidence": 0.9,
+      "description": "The NTB tourism levy must be paid on or before the end of every two months (e.g., January/February levy is due by 31 March). Late payment incurs a 5% penalty per month on the outstanding amount.",
+      "effective_end": null,
+      "effective_start": "2004-11-01",
+      "enacted_date": "2004-07-14",
+      "legal_reference": "Namibia Tourism Board Act 21 of 2000; GN 137/2004, Regulation 4",
+      "name": "NTB Levy Payment Frequency \u2014 Bi-Monthly",
+      "rule_type": "condition",
+      "source_quote": "Levy must be paid on or before the end of every two months for example: January / February should be paid on or before 31 March ... An owner who fails to pay the full amount of the levy by the last day of the calendar month of the levy payment period must pay, in addition to the levy collected, a penalty charge of 5% of the levy amount.",
+      "source_url": "https://visitnamibia.com.na/faq/"
+    },
+    {
+      "action": {
+        "applicable_rate_pct": 1.0,
+        "type": "reduce"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "tariff_type",
+        "operator": "==",
+        "value": "all_inclusive"
+      },
+      "confidence": 0.92,
+      "description": "Where an accommodation establishment charges a single all-inclusive tariff covering accommodation, food, beverages, and recreational activities, the reduced 1% rate applies instead of the standard 2% rate. VAT amounts are excluded from the levy calculation base.",
+      "effective_end": null,
+      "effective_start": "2004-11-01",
+      "enacted_date": "2004-07-14",
+      "legal_reference": "Namibia Tourism Board Act 21 of 2000; GN 137/2004, Regulation 3(1)(b)",
+      "name": "All-Inclusive Tariff \u2014 Reduced Levy Rate",
+      "rule_type": "condition",
+      "source_quote": "in the case of an accommodation establishment where a single tariff, inclusive of accommodation, food and beverages and recreational activities (if any) is charged, the amount equal to one percent (1%) of the total amount charged to guests over the levy period, calculated in accordance with the single tariff.",
+      "source_url": "https://tasa.na/wp-content/uploads/2024/01/GRN-Gazette-3235-Tourism-Businesses-Regulations.pdf"
+    }
+  ],
+  "sources_checked": [
+    "https://namiblii.org/akn/na/act/gn/2004/137/eng@2017-11-15",
+    "https://namiblii.org/akn/na/act/gn/2004/137/eng@2017-11-15/source.pdf",
+    "https://tasa.na/wp-content/uploads/2024/01/GRN-Gazette-3235-Tourism-Businesses-Regulations.pdf",
+    "https://visitnamibia.com.na/faq/",
+    "https://www.npc.gov.na/wp-content/uploads/2022/06/Namibia-Tourism-Board-Act-21-of-2000.pdf",
+    "https://www.namra.org.na/",
+    "https://www.namra.org.na/about-us",
+    "https://www.namra.org.na/tax-types/page/value-added-tax-vat-30120/",
+    "https://taxsummaries.pwc.com/republic-of-namibia/corporate/other-taxes",
+    "https://swakopmun.com/rates-and-taxes/",
+    "https://swakopmun.com/",
+    "https://en.wikipedia.org/wiki/Namibia_Tourism_Board",
+    "https://www.namibian.com.na/tourism-levy-takes-effect/",
+    "https://wkh-law.com/namibia-2024-budget-tax-highlights/",
+    "https://www.lac.org.na/laws/2025/8761.pdf",
+    "https://www.lac.org.na/laws/2024/8403.pdf"
+  ],
+  "summary": "Research conducted across 8+ sources including NamibLII legal texts, Namibia Tourism Board (NTB) official FAQ, Government Gazette PDFs, NamRA official site, PwC Tax Summaries, and Swakopmund Municipality website. Swakopmund, as part of Namibia's Erongo Region, is subject to national-level accommodation taxes set under the Namibia Tourism Board Act 21 of 2000. Two key taxes apply: (1) the NTB Tourism Levy (2% for B&B/bed-night stays, 1% for all-inclusive tariffs) in force since 1 November 2004 per GN 137, and (2) standard VAT at 15% on accommodation services administered by NamRA. No Swakopmund-specific municipal accommodation levy or tourist tax was found \u2014 the Municipality of Swakopmund's tariff structure covers property rates/taxes but not a guest-facing accommodation levy. No rate changes were detected; the NTB levy regulations remain as enacted in 2004 and confirmed by multiple current sources. A historical proposal (2017) to increase a flat N$7 bed levy or transfer levy collection to NAMRA was found but was never enacted. Confidence is moderate-high given clear primary legal sources found, though direct access to the nra.na priority domain was limited to the homepage."
+}

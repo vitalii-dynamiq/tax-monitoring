@@ -1,0 +1,210 @@
+{
+  "_meta": {
+    "country_code": "NA",
+    "currency_code": "NAD",
+    "elapsed_seconds": 72.0,
+    "jurisdiction_code": "NA-KH",
+    "jurisdiction_id": 794,
+    "jurisdiction_name": "Windhoek",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "nra.na",
+      "nra.na"
+    ],
+    "researched_at": "2026-04-21T20:24:28.268425+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.420518+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "NA-KH",
+  "notes": "1. The NamRA priority domain (nra.na) redirects to namra.org.na \u2014 the Namibia Revenue Agency. Both the old and new URLs were checked. NamRA administers VAT but does NOT administer the tourism levy (which is collected by the NTB). 2. No Windhoek city-specific accommodation tax or municipal hotel tax was found. The City of Windhoek's municipal tariffs cover utilities, waste, sewerage, and property rates but do not include any specific overnight accommodation tax. 3. The 2025/2026 budget (presented March 2025) contained no changes to VAT or tourism levy rates \u2014 only corporate tax and other adjustments. 4. The tourism levy regulations (GN 137 of 2004) have remained unchanged since inception; the 2% rate has been consistently confirmed across multiple sources including NTB FAQ, The Namibian newspaper, and Wikipedia. 5. VAT is not applicable to hotel accommodation services purchased by foreign tourists for refund claims (tourists cannot reclaim VAT on services like hotel stays, only on goods). 6. All rates are reported as 'new' since no prior rates existed in the database for this jurisdiction.",
+  "overall_confidence": 0.82,
+  "rates": [
+    {
+      "authority_name": "Namibia Revenue Agency (NamRA)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "2000-11-27",
+      "enacted_date": "2000-11-27",
+      "legal_reference": "Value-Added Tax Act 10 of 2000 (as amended)",
+      "legal_uri": "https://www.namra.org.na/tax-types/page/value-added-tax-vat-30120/",
+      "rate_type": "percentage",
+      "rate_value": 15.0,
+      "source_quote": "VAT is levied at the standard rate of 15% on the supply of most goods and services and on the importation of goods.",
+      "source_url": "https://www.namra.org.na/tax-types/page/value-added-tax-vat-30120/",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Namibia Tourism Board (NTB)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.9,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "2004-11-01",
+      "enacted_date": "2004-11-01",
+      "legal_reference": "Government Notice 137 of 2004 under Namibia Tourism Board Act 21 of 2000",
+      "legal_uri": "https://namiblii.org/akn/na/act/gn/2004/137/eng@2017-11-15",
+      "rate_type": "percentage",
+      "rate_value": 2.0,
+      "source_quote": "the amount equal to two percent (2%) of the total amount charged to guests over a levy period in accordance with the establishment's tariff",
+      "source_url": "https://namiblii.org/akn/na/act/gn/2004/137/eng@2017-11-15",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Namibia Tourism Board (NTB)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.88,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "2004-11-01",
+      "enacted_date": "2004-11-01",
+      "legal_reference": "Government Notice 137 of 2004 under Namibia Tourism Board Act 21 of 2000",
+      "legal_uri": "https://namiblii.org/akn/na/act/gn/2004/137/eng@2017-11-15",
+      "rate_type": "percentage",
+      "rate_value": 1.0,
+      "source_quote": "in the case of an accommodation establishment where a single tariff, inclusive of accommodation, food and beverages and recreational activities (if any) is charged, the amount equal to one percent (1%) of the total amount charged to guests over the levy period",
+      "source_url": "https://namiblii.org/akn/na/act/gn/2004/137/eng@2017-11-15",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "establishment_type",
+        "operator": "in",
+        "value": [
+          "campsite",
+          "caravan_park",
+          "camping_park"
+        ]
+      },
+      "confidence": 0.9,
+      "description": "Campsites and camping and caravan parks are exempt from paying the NTB tourism levy, though they must still register with the NTB to operate legally.",
+      "effective_end": null,
+      "effective_start": "2004-11-01",
+      "enacted_date": "2004-11-01",
+      "legal_reference": "Government Notice 137 of 2004, Regulation 3; Namibia Tourism Board Act 21 of 2000",
+      "name": "Campsite and Caravan Park Tourism Levy Exemption",
+      "rule_type": "exemption",
+      "source_quote": "Every owner of a registered accommodation establishment, other than a campsite or a camping and caravan park, must pay a levy to the Namibia Tourism Board",
+      "source_url": "https://namiblii.org/akn/na/act/gn/2004/137/eng@2017-11-15"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "charge_type",
+        "operator": "==",
+        "value": "vat"
+      },
+      "confidence": 0.92,
+      "description": "VAT amounts charged and collected under the Value-Added Tax Act 2000 must be excluded from the calculation base when computing the NTB tourism levy due.",
+      "effective_end": null,
+      "effective_start": "2004-11-01",
+      "enacted_date": "2004-11-01",
+      "legal_reference": "Government Notice 137 of 2004, Regulation 3(2)",
+      "name": "VAT Excluded from Tourism Levy Base",
+      "rule_type": "exemption",
+      "source_quote": "Any amount representing value-added tax charged and collected in terms of the Value-Added Tax Act, 2000 (Act No. 10 of 2000) in respect of the provision of a service, must be disregarded for the purpose of calculating the amount of levy payable",
+      "source_url": "https://namiblii.org/akn/na/act/gn/2004/137/eng@2017-11-15"
+    },
+    {
+      "action": {
+        "per": "month",
+        "surcharge_pct": 5.0,
+        "type": "surcharge"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "payment_status",
+        "operator": "==",
+        "value": "late"
+      },
+      "confidence": 0.9,
+      "description": "An owner who fails to pay the NTB tourism levy in full by the due date must pay an additional penalty charge of 5% of any outstanding levy amount for each month (or part of a month) that the amount remains unpaid.",
+      "effective_end": null,
+      "effective_start": "2004-11-01",
+      "enacted_date": "2004-11-01",
+      "legal_reference": "Government Notice 137 of 2004, Regulation 5",
+      "name": "NTB Tourism Levy Late Payment Penalty",
+      "rule_type": "surcharge",
+      "source_quote": "An owner, who fails to pay the levy in full by the last day for payment prescribed by regulation 4(2)(a), must pay, in addition to the levy, a charge equal to 5 percent of any outstanding amount of the levy in respect of each month",
+      "source_url": "https://namiblii.org/akn/na/act/gn/2004/137/eng@2017-11-15"
+    },
+    {
+      "action": {
+        "frequency": "bimonthly",
+        "type": "payment_schedule"
+      },
+      "change_type": "new",
+      "conditions": null,
+      "confidence": 0.85,
+      "description": "The NTB tourism levy must be paid every two months (bimonthly), by the last day of the calendar month following each two-month levy period.",
+      "effective_end": null,
+      "effective_start": "2004-11-01",
+      "enacted_date": "2004-11-01",
+      "legal_reference": "Government Notice 137 of 2004, Regulation 4; Namibia Tourism Board Act 21 of 2000",
+      "name": "Tourism Levy Bimonthly Payment Schedule",
+      "rule_type": "condition",
+      "source_quote": "Levy must be paid on or before the end of every two months for example: January / February should be paid on or before 31 March",
+      "source_url": "https://visitnamibia.com.na/faq/"
+    },
+    {
+      "action": {
+        "rate_value": 1.0,
+        "type": "override"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "tariff_type",
+        "operator": "==",
+        "value": "all_inclusive"
+      },
+      "confidence": 0.88,
+      "description": "Where an accommodation establishment charges a single all-inclusive tariff covering accommodation, food and beverages and recreational activities, the tourism levy rate is reduced to 1% (instead of the standard 2%).",
+      "effective_end": null,
+      "effective_start": "2004-11-01",
+      "enacted_date": "2004-11-01",
+      "legal_reference": "Government Notice 137 of 2004, Regulation 3(1)(b)",
+      "name": "All-Inclusive Tariff Tourism Levy Rate",
+      "rule_type": "condition",
+      "source_quote": "Levy is calculated on the amount charged to your guests, 2 % for the bed and breakfast or bed only and 1% for all inclusive.",
+      "source_url": "https://visitnamibia.com.na/faq/"
+    }
+  ],
+  "sources_checked": [
+    "https://www.namra.org.na/tax-types/page/value-added-tax-vat-30120/",
+    "https://namiblii.org/akn/na/act/gn/2004/137/eng@2017-11-15",
+    "https://visitnamibia.com.na/faq/",
+    "https://en.wikipedia.org/wiki/Namibia_Tourism_Board",
+    "https://www.namibian.com.na/tourism-levy-takes-effect/",
+    "https://neweralive.na/ntb-projects-n40-million-loss",
+    "https://wkh-law.com/namibia-2024-budget-tax-highlights/",
+    "https://kpmg.com/us/en/taxnewsflash/news/2025/04/namibia-tax-proposals-2025-2026-budget.html",
+    "https://www.npc.gov.na/wp-content/uploads/2022/06/Namibia-Tourism-Board-Act-21-of-2000.pdf",
+    "https://www.windhoekcc.org.na/",
+    "https://www.namibian.com.na/city-of-windhoek-announces-municipal-tariff-increases/"
+  ],
+  "summary": "Researched accommodation and tourism taxes for Windhoek (Khomas Region), Namibia. Found two applicable taxes: (1) A national VAT of 15% on all goods and services including accommodation, administered by NamRA under the Value-Added Tax Act 10 of 2000 \u2014 confirmed unchanged in 2024/2025 budget. (2) A national Tourism Levy of 2% (room rate/B&B) or 1% (all-inclusive tariff) on accommodation establishments, collected by the Namibia Tourism Board (NTB) under Regulations GN 137 of 2004 effective 1 November 2004, still confirmed at 2% as the current rate. No Windhoek-specific city hotel or accommodation tax was found \u2014 municipal tariffs cover utilities only. No known rates existed in the database; all findings are new entries. Checked 8 sources including NamRA official site, NamibLII legal database, NTB FAQ, Wikipedia NTB article, PwC, KPMG, and WKH Law."
+}

@@ -1,0 +1,185 @@
+{
+  "_meta": {
+    "country_code": "UG",
+    "currency_code": "UGX",
+    "elapsed_seconds": 92.4,
+    "jurisdiction_code": "UG-KLA",
+    "jurisdiction_id": 797,
+    "jurisdiction_name": "Kampala",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "ura.go.ug"
+    ],
+    "researched_at": "2026-04-21T20:34:35.540865+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.427885+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "UG-KLA",
+  "notes": "1. LHT RATE UNCERTAINTY: The flat rate of UGX 7,635 (~USD $2) per room per night cited from the Monitor (2022) may be outdated or a simplified figure. The Local Governments (Amendment)(No.2) Act 2008 appears to establish tiered rates by hotel category (A, B, C), but the KCCA's official Local_Hotel_Tax_FAQs.pdf was inaccessible. The KCCA eCitie portal page was also truncated and did not show the actual rate table. The effective_start date of 2008-07-01 is the legislative commencement date; actual rates may have been revised since. Recommend sourcing the current KCCA LHT rate schedule directly from KCCA (ecitie2.kcca.go.ug or the KCCA PDF). 2. VAT THRESHOLD UNCHANGED: A February 2025 article mentioned a proposal to raise the VAT threshold to UGX 500 million, but this referred to an income tax investment capital exemption threshold for citizen-owned SMEs (not the VAT registration threshold). The VAT (Amendment) Act 2025 (assented 30 June 2025, effective 1 July 2025) did not change the 18% VAT rate or the UGX 150 million registration threshold, per PwC Uganda Tax Summaries (updated Jan 2026). 3. PRESIDENT'S HOTEL TAX REVIEW: In July 2025, President Museveni expressed intent to reconsider hotel taxation, calling tourism an export industry. As of April 2026, no formal legislative change has resulted. 4. No specific Kampala-only city/tourism tax (beyond the national VAT and KCCA LHT) was found. No Tourism Development Levy has been enacted as of the research date, though it was discussed as a future proposal. 5. The currency for the LHT flat rate is recorded as UGX 7,635 but the $2 USD figure suggests this was a USD-denominated rate converted at the time of the Monitor article (2022); the actual statutory rate per the Act may be expressed in UGX and subject to KCCA's annual rate-setting. Further verification from KCCA is recommended.",
+  "overall_confidence": 0.72,
+  "rates": [
+    {
+      "authority_name": "Uganda Revenue Authority (URA)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "1996-07-01",
+      "enacted_date": "2025-06-30",
+      "legal_reference": "Value Added Tax Act, Cap. 349 (Uganda); VAT (Amendment) Act 2025 (assented 30 June 2025)",
+      "legal_uri": "https://ura.go.ug/en/hotel-and-accommodation-sector/",
+      "rate_type": "percentage",
+      "rate_value": 18.0,
+      "source_quote": "VAT is a consumption tax charged at a rate of 18% on all supplies made by taxable persons i.e. persons registered or required to register for VAT purposes. The threshold for VAT registration is an annual turnover of over 150 million UGX or 37.5 million UGX for 3 consecutive months.",
+      "source_url": "https://ura.go.ug/en/hotel-and-accommodation-sector/",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Kampala Capital City Authority (KCCA)",
+      "base_type": "per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.6,
+      "currency_code": "UGX",
+      "effective_end": null,
+      "effective_start": "2008-07-01",
+      "enacted_date": "2008-06-24",
+      "legal_reference": "Local Governments (Amendment)(No.2) Act 2008, Cap 243; Kampala Capital City Act 2010",
+      "legal_uri": "https://faolex.fao.org/docs/pdf/uga151713.pdf",
+      "rate_type": "flat",
+      "rate_value": 7635.0,
+      "source_quote": "Hotel Tax - $2 (Shs 7,635) per room per night",
+      "source_url": "https://www.monitor.co.ug/uganda/business/prosper/hoteliers-and-taxes-the-bitter-sweet-relationship-3954912",
+      "tax_category_code": "city_tax_flat",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "rate_pct": 18.0,
+        "tax": "vat_standard",
+        "type": "apply_tax"
+      },
+      "change_type": "new",
+      "conditions": {
+        "OR": [
+          {
+            "field": "annual_turnover_ugx",
+            "operator": ">=",
+            "value": 150000000
+          },
+          {
+            "field": "quarterly_turnover_ugx",
+            "operator": ">=",
+            "value": 37500000
+          }
+        ]
+      },
+      "confidence": 0.93,
+      "description": "Hotels and accommodation providers with annual taxable turnover exceeding UGX 150 million (or UGX 37.5 million in any 3 consecutive calendar months) are required to register for VAT with URA and charge 18% VAT on room rates and other taxable supplies.",
+      "effective_end": null,
+      "effective_start": "2016-07-01",
+      "enacted_date": null,
+      "legal_reference": "Value Added Tax Act, Cap. 349, Uganda",
+      "name": "VAT Registration Threshold",
+      "rule_type": "threshold",
+      "source_quote": "The threshold for VAT registration is an annual turnover of over 150 million UGX or 37.5 million UGX for 3 consecutive months.",
+      "source_url": "https://ura.go.ug/en/hotel-and-accommodation-sector/"
+    },
+    {
+      "action": {
+        "frequency": "monthly",
+        "remit_to": "KCCA",
+        "type": "collect_and_remit"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "property_type",
+        "operator": "in",
+        "value": [
+          "hotel",
+          "lodge",
+          "guesthouse",
+          "serviced_apartment",
+          "motel",
+          "inn"
+        ]
+      },
+      "confidence": 0.88,
+      "description": "Hotel and lodge management in Kampala are legally obliged to collect the Local Government Hotel Tax (LHT) from room occupants per room per night and remit the collected amount to KCCA on a monthly basis. The tax applies to hotels, inns, guesthouses, serviced apartments, and motels. Diplomatic mission members are exempt.",
+      "effective_end": null,
+      "effective_start": "2008-07-01",
+      "enacted_date": "2008-06-24",
+      "legal_reference": "Local Governments (Amendment)(No.2) Act 2008, Cap 243; Kampala Capital City Act 2010, Section 50",
+      "name": "Local Hotel Tax (LHT) Collection Obligation",
+      "rule_type": "condition",
+      "source_quote": "LHT is levied on hotel and room accommodation per room per night and is paid by the room occupant. The tax is collected by the management of the hotel, which remits the same to KCCA on a monthly basis.",
+      "source_url": "https://ecitie2.kcca.go.ug/portal/revenue-sources-local-hotel/"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "guest_type",
+        "operator": "==",
+        "value": "diplomatic_mission_member"
+      },
+      "confidence": 0.8,
+      "description": "Members of diplomatic missions accredited to Uganda are exempt from the Local Government Hotel Tax.",
+      "effective_end": null,
+      "effective_start": "2008-07-01",
+      "enacted_date": "2008-06-24",
+      "legal_reference": "Local Governments (Amendment)(No.2) Act 2008, Cap 243",
+      "name": "Diplomatic Mission Exemption \u2013 Local Hotel Tax",
+      "rule_type": "exemption",
+      "source_quote": "Members of the Diplomatic Missions Accredited to Uganda.",
+      "source_url": "https://www.knowledge.uclga.org/IMG/pdf/practical_guide_for_lst.pdf"
+    },
+    {
+      "action": {
+        "type": "mandatory_efris_invoicing"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "vat_registered",
+        "operator": "==",
+        "value": true
+      },
+      "confidence": 0.85,
+      "description": "All VAT-registered accommodation businesses must issue electronic invoices/receipts via URA's Electronic Fiscal Receipting and Invoicing System (EFRIS). No input tax credit is allowed on purchases unless supported by EFRIS e-invoices or e-receipts.",
+      "effective_end": null,
+      "effective_start": "2021-01-01",
+      "enacted_date": null,
+      "legal_reference": "Value Added Tax Act, Cap. 349 (as amended); URA EFRIS regulations",
+      "name": "EFRIS E-Invoicing Requirement for VAT",
+      "rule_type": "condition",
+      "source_quote": "It is mandatory for all VAT registered taxpayers to issue e-invoices or e-receipts as no tax credit is allowed or claimable on purchases unless they are supported by e-invoices or e-receipts.",
+      "source_url": "https://ura.go.ug/en/hotel-and-accommodation-sector/"
+    }
+  ],
+  "sources_checked": [
+    "https://ura.go.ug/en/hotel-and-accommodation-sector/",
+    "https://ura.go.ug/en/tourism-sector-2/",
+    "https://ecitie2.kcca.go.ug/portal/revenue-sources-local-hotel/",
+    "https://nansanamc.go.ug/localHotelTax.html",
+    "https://www.kcca.go.ug/revenue-collection",
+    "https://www.monitor.co.ug/uganda/business/prosper/hoteliers-and-taxes-the-bitter-sweet-relationship-3954912",
+    "https://www.ey.com/en_gl/technical/tax-alerts/uganda-issues-tax-amendment-acts-for-2025",
+    "https://taxsummaries.pwc.com/uganda/corporate/other-taxes",
+    "https://statehouse.go.ug/president-museveni-wants-hotel-taxes-reconsidered-to-boost-tourism/",
+    "https://kikubolane.com/2024/12/02/ugandas-hotel-industry-cries-out-over-tax-burden/",
+    "https://faolex.fao.org/docs/pdf/uga151713.pdf",
+    "https://www.jackalwildadventures.com/luxury-travel-and-tourism-taxes-in-uganda/"
+  ],
+  "summary": "Research into Kampala, Uganda accommodation taxes confirmed two primary taxes applicable to hotel/accommodation guests and operators: (1) Value Added Tax (VAT) at 18% on all accommodation supplies by VAT-registered businesses (threshold: UGX 150 million annual turnover), administered by URA; and (2) Local Government Hotel Tax (LHT/LGHT) levied per room per night, collected by hotel management and remitted monthly to KCCA. The LHT rate commonly cited in industry sources is approximately USD $2 (UGX ~7,635) per room per night, though the exact tiered structure by hotel category per the Local Governments (Amendment)(No.2) Act 2008 could not be fully confirmed from publicly available official sources. No new accommodation-specific tax changes were found to have been enacted in 2025 for Kampala specifically. The VAT 2025 amendments (effective 1 July 2025) addressed anti-fragmentation rules and specific exemptions but did not change the 18% VAT rate or the UGX 150 million registration threshold. President Museveni expressed intent (July 2025) to reconsider hotel taxation policy, but no enacted changes resulted. Sources checked include: ura.go.ug (URA hotel sector page), ecitie2.kcca.go.ug (KCCA eCitie LHT page), nansanamc.go.ug, EY Uganda Tax Alert 2025, Monitor newspaper, and industry/travel sources. 5 sources checked. Overall confidence is moderate due to the LHT flat-rate figure coming primarily from industry press rather than the official KCCA LHT PDF (which was inaccessible)."
+}

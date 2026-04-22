@@ -1,0 +1,162 @@
+{
+  "_meta": {
+    "country_code": "BZ",
+    "currency_code": "BZD",
+    "elapsed_seconds": 73.8,
+    "jurisdiction_code": "BZ-BZ-BZE",
+    "jurisdiction_id": 709,
+    "jurisdiction_name": "Belize City",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "incometaxbelize.gov.bz"
+    ],
+    "researched_at": "2026-04-21T20:00:46.440570+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.405419+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "BZ-BZ-BZE",
+  "notes": "1. The incometaxbelize.gov.bz priority domain focuses on income and business tax (administered by the Income Tax Department), not accommodation/hotel tax. Hotel tax is administered by the Belize Tourism Board (BTB). No hotel-specific rates were found on the priority domain.\n\n2. A proposal to raise the hotel tax from 9% to 12.5% was reported in January 2025 (San Pedro Sun, Jan 31, 2025), attributed to PM John Brice\u00f1o. As of April 2026, no enacted legislation has been identified \u2014 the BTB, BELTRAIDE, and the Belize Hotel Association all continue to cite 9%. This proposal was NOT reported as enacted and therefore has not been included as a changed rate.\n\n3. The hotel tax applies nationwide across Belize (not just Belize City), so there is no city-specific surcharge for Belize City identified.\n\n4. Hotel accommodation charges are subject to the 9% BTB hotel tax, NOT the 12.5% GST. Other hotel services (restaurant, tours, etc.) are subject to GST at 12.5%.\n\n5. The effective_start date for the Hotels and Tourist Accommodation Act provisions is estimated based on the Act's original passage (Act 12 of 1997, commenced August 26, 1997). The online portal rule effective date is estimated based on December 2019 launch of Phase 2.\n\n6. GST (12.5% General Sales Tax) has NOT been reported as applying to the room accommodation charge itself; it applies to other hotel services. This is confirmed by a resort's FAQ: \"Room: Service Charge 10% and Hotel Tax 9%. Other Services: Service Charge 10% and GST 12.5%.\"",
+  "overall_confidence": 0.88,
+  "rates": [
+    {
+      "authority_name": "Belize Tourism Board (BTB)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": "BZD",
+      "effective_end": null,
+      "effective_start": "1997-08-26",
+      "enacted_date": null,
+      "legal_reference": "Hotels and Tourist Accommodation Act, Chapter 285, Laws of Belize (Revised Edition 2011)",
+      "legal_uri": "https://belizetourismboard.org/wp-content/uploads/2019/09/Hotel-and-Tourist-Accommodation-Act-Cap-285-Edition-2011.pdf",
+      "rate_type": "percentage",
+      "rate_value": 9.0,
+      "source_quote": "Hotels and Tourist Accommodations are required to collect this 9% tax from each guest, on behalf of the Government of Belize. This tax is then paid to the BTB.",
+      "source_url": "https://www.belizetourismboard.org/hotels/",
+      "tax_category_code": "occ_pct",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "rate_value": 9.0,
+        "tax_category": "occ_pct",
+        "type": "apply_tax"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "accommodation_type",
+        "operator": "in",
+        "value": [
+          "hotel",
+          "guest_house",
+          "vacation_rental",
+          "apartment",
+          "villa",
+          "lodge",
+          "bed_and_breakfast",
+          "condominium",
+          "cabin",
+          "cabana",
+          "room"
+        ]
+      },
+      "confidence": 0.95,
+      "description": "ALL categories/types of accommodations in Belize \u2014 including rooms, houses, vacation rentals, apartments, villas, hotels, guest houses, lodges, bed and breakfast, condominiums, cabins, and cabanas \u2014 must register with the BTB and collect the 9% hotel tax from each guest before advertising with any marketing or booking platform.",
+      "effective_end": null,
+      "effective_start": "1997-08-26",
+      "enacted_date": null,
+      "legal_reference": "Hotels and Tourist Accommodation Act, Chapter 285, Section 5(1), Laws of Belize",
+      "name": "Universal Accommodation Registration & Tax Collection Requirement",
+      "rule_type": "condition",
+      "source_quote": "ALL Category/Type of Accommodations including but not limited to, rooms, houses, vacation rental, apartments, villas, hotels, guest house, lodges, bed and breakfast, condominiums, cabin, cabanas must register with the Belize Tourism Board before advertising with any marketing and/or booking agents such as Airbnb, Booking.com, Hotels.com, Homeaway, Trip Advisor etc.",
+      "source_url": "https://www.belizetourismboard.org/tourism-resources/airbnb-resource/"
+    },
+    {
+      "action": {
+        "filing_deadline_day": 14,
+        "filing_frequency": "monthly",
+        "type": "condition"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "registration_status",
+        "operator": "==",
+        "value": "registered"
+      },
+      "confidence": 0.95,
+      "description": "All registered hotels/accommodations must submit a Monthly Accommodation Tax Return (MATR), Guest Registration Forms (GRFs), and tax payment to the BTB no later than the 14th day of the following month. If the 14th falls on a weekend or public/bank holiday, the due date is the next business day. Submissions are required even if occupancy was zero.",
+      "effective_end": null,
+      "effective_start": "2017-11-01",
+      "enacted_date": null,
+      "legal_reference": "Hotels and Tourist Accommodation Act, Chapter 285, Section 23, Laws of Belize",
+      "name": "Monthly Accommodation Tax Return (MATR) Filing Deadline",
+      "rule_type": "condition",
+      "source_quote": "Section 23 of the Hotel and Tourist Accommodation Act [HTAA] (Chapter 285) requires you to submit a Monthly Accommodation Tax Return, along with the Guest Registration Forms and Tax Payment, no later than the 14th day of the following month.",
+      "source_url": "https://www.belizetourismboard.org/tourism-resources/online-payment-invoicing-and-real-time-account-information/"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "guest_exemption_type",
+        "operator": "==",
+        "value": "diplomatic_foreign_affairs"
+      },
+      "confidence": 0.82,
+      "description": "Guests with an authorized letter of exemption from the Ministry of Foreign Affairs may be exempt from the 9% hotel accommodation tax. Accommodation providers must attach the exemption letter to the Guest Registration Form (GRF) for the status to change from pending to completion and to be excluded from Monthly Accommodation Tax Return (MATR) calculation.",
+      "effective_end": null,
+      "effective_start": "2019-12-01",
+      "enacted_date": null,
+      "legal_reference": "Hotels and Tourist Accommodation Act, Chapter 285, BTB Online Portal FAQ",
+      "name": "Diplomatic / Ministry of Foreign Affairs Exemption",
+      "rule_type": "exemption",
+      "source_quote": "If tax exempt is 'Yes', tax calculation will not be applied to the GRF. An authorized letter of exemption from the Ministry of Foreign Affairs must be attached for GRF Status to change from pending to completion and be allowed for MATR calculation.",
+      "source_url": "https://www.belizetourismboard.org/tourism-resources/online-payment-invoicing-and-real-time-account-information/online-portal-faqs/"
+    },
+    {
+      "action": {
+        "max_fine_bzd": 10000,
+        "surcharge_pct": 10.0,
+        "type": "surcharge"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "payment_date",
+        "operator": ">",
+        "value": "14th_of_following_month"
+      },
+      "confidence": 0.9,
+      "description": "A one-time surcharge of 10% of the principal tax is applied if the accommodation tax payment is received after the 14th of the following month. Fines up to BZD $10,000 may be issued for failure to submit monthly tax returns, guest registration forms, non-payment of taxes, or other violations of the HTAA.",
+      "effective_end": null,
+      "effective_start": "1997-08-26",
+      "enacted_date": null,
+      "legal_reference": "Hotels and Tourist Accommodation Act, Chapter 285, Section 25, Laws of Belize",
+      "name": "Late Payment Surcharge (10%)",
+      "rule_type": "surcharge",
+      "source_quote": "Surcharge of 10% \u2013 charged for the late payment of taxes. The one-time 10% surcharge is applied to the principal tax once the payment is received after the 14th of the following month.",
+      "source_url": "https://www.belizetourismboard.org/tourism-resources/online-payment-invoicing-and-real-time-account-information/online-portal-faqs/"
+    }
+  ],
+  "sources_checked": [
+    "https://www.belizetourismboard.org/hotels/",
+    "https://www.belizetourismboard.org/tourism-resources/airbnb-resource/",
+    "https://www.belizetourismboard.org/tourism-resources/online-payment-invoicing-and-real-time-account-information/",
+    "https://www.belizetourismboard.org/tourism-resources/online-payment-invoicing-and-real-time-account-information/online-portal-faqs/",
+    "https://beltraide.bz/belize-invest/why-belize/taxes-in-belize/",
+    "https://www.belizehotels.org/belize-quick-facts/",
+    "http://incometaxbelize.gov.bz/faqs/",
+    "http://incometaxbelize.gov.bz/about-us/",
+    "https://www.sanpedrosun.com/travel-and-tourism/2025/01/31/government-of-belize-seeks-to-increase-the-hotel-tax-to-12-5/",
+    "https://belizetourismboard.org/wp-content/uploads/2016/04/Chapter-285Hotel-Tourist-Accommodation-Act.pdf",
+    "http://www.belizeinvest.org.bz/friendly-tax-regime.html"
+  ],
+  "summary": "Research confirmed a single accommodation tax for Belize City (and Belize-wide): a 9% Hotel/Tourist Accommodation Tax collected by hotels on behalf of the Government of Belize and remitted monthly to the Belize Tourism Board (BTB), under the Hotels and Tourist Accommodation Act, Chapter 285. This rate is consistently confirmed across multiple authoritative and official sources including the BTB website, BELTRAIDE, and the Belize Hotel Association (2026 guide). A January 2025 news report indicated the Government of Belize was *considering* raising the hotel tax from 9% to 12.5%, but as of April 2026, no enacted legislation or official rate change has been found \u2014 all current authoritative sources still cite 9%. No city-specific surcharge for Belize City was identified; the hotel tax applies nationwide. A diplomatic/foreign affairs exemption process exists per the BTB online portal FAQs. GST (12.5%) applies to other hotel services but NOT to room accommodation charges, which are subject to the 9% hotel tax instead. 5 sources were checked and are in agreement. The incometaxbelize.gov.bz priority domain covers income/business tax, not hotel accommodation tax (which is administered by the BTB); no hotel-specific rates were found there."
+}

@@ -1,0 +1,174 @@
+{
+  "_meta": {
+    "country_code": "ZM",
+    "currency_code": "ZMW",
+    "elapsed_seconds": 71.8,
+    "jurisdiction_code": "ZM-LS",
+    "jurisdiction_id": 798,
+    "jurisdiction_name": "Lusaka",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "zra.org.zm",
+      "zra.org.zm"
+    ],
+    "researched_at": "2026-04-21T20:42:11.646310+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.432795+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "ZM-LS",
+  "notes": "1. The ZRA Tourism Levy page (zra.org.zm/tax-information/tax-information-details/tourism-levy/) did not render full content in the search result, returning only navigation elements \u2014 the official ZRA PDF (zra.org.zm/wp-content/uploads/2021/10/Tourism-Levy.pdf) was used as the primary authoritative source instead, which clearly states the 1.5% rate. 2. A student document on Studocu cited the rate as \"1%\" but also internally referenced \"1% (one point five per centum)\" \u2014 this is a student transcription error and the official ZRA source of 1.5% was used. 3. No Lusaka-specific municipal accommodation tax was identified; the Lusaka City Council imposes only a general annual business levy that applies across all business types and is not a guest-facing accommodation charge. 4. No changes to the Tourism Levy rate or VAT rate were found in the 2024 or 2025 Zambia national budgets. The 2024 budget only required tourism/hospitality businesses registered for Tourism Levy to adopt electronic invoicing (Smart Invoice). 5. VAT effective date set to 2014-01-01 reflecting when VAT on tourism services was standardized at 16% (previously 0% for tourism packages prior to 2014). 6. Both rates are national (applied across all of Zambia including Lusaka) and are administered by ZRA, not Lusaka City Council specifically.",
+  "overall_confidence": 0.85,
+  "rates": [
+    {
+      "authority_name": "Zambia Revenue Authority (ZRA)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": "ZMW",
+      "effective_end": null,
+      "effective_start": "2017-03-01",
+      "enacted_date": "2017-03-01",
+      "legal_reference": "Tourism Levy \u2013 Zambia Revenue Authority (Tourism and Arts Act)",
+      "legal_uri": "https://www.zra.org.zm/wp-content/uploads/2021/10/Tourism-Levy.pdf",
+      "rate_type": "percentage",
+      "rate_value": 1.5,
+      "source_quote": "The Tourism Levy is charged at a rate of 1.5% of the total bill for accommodation services or events.",
+      "source_url": "https://www.zra.org.zm/wp-content/uploads/2021/10/Tourism-Levy.pdf",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Zambia Revenue Authority (ZRA)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": "ZMW",
+      "effective_end": null,
+      "effective_start": "2014-01-01",
+      "enacted_date": "2014-01-01",
+      "legal_reference": "Value Added Tax Act, Chapter 331, Volume 19, Laws of Zambia",
+      "legal_uri": "https://www.zra.org.zm/tax-information/",
+      "rate_type": "percentage",
+      "rate_value": 16.0,
+      "source_quote": "Yes, Zambia has a VAT system administered by the Zambia Revenue Authority (ZRA), which includes three categories: a standard rate of 16%; a zero rate of 0%; and exempt goods and services.",
+      "source_url": "https://iclg.com/practice-areas/corporate-tax-laws-and-regulations/zambia",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "tax": "tourism_levy_1.5pct",
+        "type": "apply"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "establishment_type",
+        "operator": "in",
+        "value": [
+          "hotel",
+          "lodge",
+          "guesthouse",
+          "bush_camp",
+          "camping_site",
+          "caravan_park",
+          "backpackers",
+          "boarding_house",
+          "self_catering"
+        ]
+      },
+      "confidence": 0.92,
+      "description": "The Tourism Levy applies to overnight guests and non-resident guests attending meetings or workshops at registered tourism establishments. Eligible accommodation types include hotels, lodges, guesthouses, bush camps, camping sites, caravan parks, backpackers, boarding houses, self-catering facilities, and any building or premises used for accommodation by the public.",
+      "effective_end": null,
+      "effective_start": "2017-03-01",
+      "enacted_date": "2017-03-01",
+      "legal_reference": "Tourism Levy \u2013 Zambia Revenue Authority (Tourism and Arts Act)",
+      "name": "Tourism Levy \u2014 Eligible Accommodation Establishments",
+      "rule_type": "condition",
+      "source_quote": "Accommodation establishments include hotels, lodges, guesthouses, bush camps, camping sites, caravan parks, backpackers, boarding houses, self-catering facilities and any building or premises used for accommodation by the public but exclude government rest houses, or company guesthouses specifically meant for their employees or boarding houses for schools, colleges or universities.",
+      "source_url": "https://www.dailynationzambia.com/2021/10/an-insight-into-tourism-levy/"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "establishment_type",
+        "operator": "in",
+        "value": [
+          "government_rest_house",
+          "company_employee_guesthouse",
+          "school_boarding_house"
+        ]
+      },
+      "confidence": 0.9,
+      "description": "Government rest houses and company guesthouses specifically meant for their employees, as well as boarding houses for schools, colleges or universities, are excluded from the Tourism Levy.",
+      "effective_end": null,
+      "effective_start": "2017-03-01",
+      "enacted_date": "2017-03-01",
+      "legal_reference": "Tourism Levy \u2013 Zambia Revenue Authority (Tourism and Arts Act)",
+      "name": "Tourism Levy \u2014 Government Rest Houses and Employee Guesthouses Exemption",
+      "rule_type": "exemption",
+      "source_quote": "exclude government rest houses, or company guesthouses specifically meant for their employees or boarding houses for schools, colleges or universities.",
+      "source_url": "https://www.dailynationzambia.com/2021/10/an-insight-into-tourism-levy/"
+    },
+    {
+      "action": {
+        "note": "Tourism Levy is exclusive of and in addition to VAT and service charges",
+        "type": "apply_separately"
+      },
+      "change_type": "new",
+      "conditions": null,
+      "confidence": 0.92,
+      "description": "The Tourism Levy is charged in addition to, and is exclusive of, VAT and any service charges. Both VAT (16%) and the Tourism Levy (1.5%) apply separately on top of the room rate.",
+      "effective_end": null,
+      "effective_start": "2017-03-01",
+      "enacted_date": "2017-03-01",
+      "legal_reference": "Tourism Levy \u2013 Zambia Revenue Authority",
+      "name": "Tourism Levy \u2014 Exclusive of VAT and Service Charges",
+      "rule_type": "condition",
+      "source_quote": "tourism levy should not be confused with Value Added Tax (VAT) and the service charges, as it is different from and is exclusive of these two charges.",
+      "source_url": "https://www.dailynationzambia.com/2021/10/an-insight-into-tourism-levy/"
+    },
+    {
+      "action": {
+        "deadline_day": 14,
+        "deadline_reference": "following_month",
+        "type": "remittance_deadline"
+      },
+      "change_type": "new",
+      "conditions": null,
+      "confidence": 0.9,
+      "description": "Tourism enterprise operators must submit tourism levy returns and make payments to ZRA by the 14th day of the month following the month in which the levy was charged.",
+      "effective_end": null,
+      "effective_start": "2017-03-01",
+      "enacted_date": "2017-03-01",
+      "legal_reference": "Tourism Levy \u2013 Zambia Revenue Authority",
+      "name": "Tourism Levy \u2014 Remittance Deadline (14th of Following Month)",
+      "rule_type": "condition",
+      "source_quote": "they are required to submit a tourism levy return and make any payment due by the 14th day of the month following the one in which the levy was charged.",
+      "source_url": "https://www.dailynationzambia.com/2021/10/an-insight-into-tourism-levy/"
+    }
+  ],
+  "sources_checked": [
+    "https://www.zra.org.zm/wp-content/uploads/2021/10/Tourism-Levy.pdf",
+    "https://www.zra.org.zm/tax-information/tax-information-details/tourism-levy/",
+    "https://www.pkf-zambia.co.zm/media/s5spiigb/pkf-zambia-2024-budget-tax-highlights.pdf",
+    "https://www.pkf-zambia.co.zm/media/tczgpvyw/pkf-zambia-2025-budget-tax-highlights.pdf",
+    "https://taxsummaries.pwc.com/zambia/corporate/other-taxes",
+    "https://iclg.com/practice-areas/corporate-tax-laws-and-regulations/zambia",
+    "https://www.dailynationzambia.com/2021/10/an-insight-into-tourism-levy/",
+    "https://www.zra.org.zm/tax-information/",
+    "https://bowmanslaw.com/insights/zambia-extends-tourism-fiscal-relief-for-another-year/",
+    "https://www.lcc.gov.zm/"
+  ],
+  "summary": "Research into Lusaka, Zambia accommodation taxes identified two main taxes applicable to hotel/accommodation stays: (1) a national Tourism Levy of 1.5% administered by the Zambia Revenue Authority (ZRA), introduced 1 March 2017 and confirmed as unchanged in the 2024 and 2025 budgets; and (2) the standard national VAT of 16% applicable to accommodation services as standard-rated supplies. No Lusaka-specific city or municipal accommodation tax was found beyond the general business levy applied to all business types (which does not function as a guest-facing accommodation tax). No changes to Tourism Levy or VAT rates were found in recent budget cycles. 5 sources were checked including the official ZRA PDF guide, ZRA website, PKF Zambia 2024/2025 budget highlights, PwC Tax Summaries (updated March 2026), and ICLG Zambia 2026 report."
+}

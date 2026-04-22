@@ -1,0 +1,115 @@
+{
+  "_meta": {
+    "country_code": "BZ",
+    "currency_code": "BZD",
+    "elapsed_seconds": 59.2,
+    "jurisdiction_code": "BZ-SC",
+    "jurisdiction_id": 710,
+    "jurisdiction_name": "San Pedro",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "incometaxbelize.gov.bz"
+    ],
+    "researched_at": "2026-04-21T20:01:47.660531+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.406165+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "BZ-SC",
+  "notes": "1. San Pedro (Ambergris Caye) is subject to Belize's national hotel accommodation tax; no separate San Pedro Town Council / municipal accommodation tax was identified. 2. The priority source incometaxbelize.gov.bz covers income and business tax administration only and does not administer hotel/accommodation taxes \u2014 the BTB (belizetourismboard.org) is the authoritative body for hotel tax. 3. A proposal by the Government of Belize to increase the hotel tax from 9% to 12.5% was reported in January 2025 but was explicitly described as 'under consideration' \u2014 no enacted legislation or gazetted change was found, so this is NOT reported as a changed or new rate. Monitoring of official gazette or BTB announcements is recommended to detect if/when this is enacted. 4. The effective_start date of 1997-01-01 is approximate, based on the Hotels and Tourist Accommodation Act No. 12 of 1997 establishing the modern framework. The exact rate enactment date could not be confirmed from available sources. 5. The Accommodation Tax (Remission of Arrears) Act, 2022 (Act No. 22 of 2022) was found \u2014 this was a COVID-relief measure allowing remission of arrears on accommodation tax, not a rate change.",
+  "overall_confidence": 0.88,
+  "rates": [
+    {
+      "authority_name": "Belize Tourism Board (BTB)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": "BZD",
+      "effective_end": null,
+      "effective_start": "1997-01-01",
+      "enacted_date": null,
+      "legal_reference": "Hotels and Tourist Accommodation Act, Chapter 285, Laws of Belize (Revised Edition 2011)",
+      "legal_uri": "https://belizetourismboard.org/wp-content/uploads/2016/04/Chapter-285Hotel-Tourist-Accommodation-Act.pdf",
+      "rate_type": "percentage",
+      "rate_value": 9.0,
+      "source_quote": "Hotels and Tourist Accommodations are required to collect this 9% tax from each guest, on behalf of the Government of Belize. This tax is then paid to the BTB.",
+      "source_url": "https://www.belizetourismboard.org/hotels/",
+      "tax_category_code": "occ_pct",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "from_tax": "GST",
+        "note": "Room charges subject to 9% Hotel Tax only; non-room services subject to 12.5% GST",
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "charge_type",
+        "operator": "==",
+        "value": "room_accommodation"
+      },
+      "confidence": 0.85,
+      "description": "Hotel room accommodation charges in Belize are subject to the 9% Hotel Tax under the Hotels and Tourist Accommodation Act and are not subject to the 12.5% General Sales Tax (GST). Other hotel services (restaurant, bar, tours) attract GST at 12.5% instead.",
+      "effective_end": null,
+      "effective_start": "1997-01-01",
+      "enacted_date": null,
+      "legal_reference": "Hotels and Tourist Accommodation Act, Chapter 285; General Sales Tax Act",
+      "name": "Hotel Room Charges Exempt from GST",
+      "rule_type": "exemption",
+      "source_quote": "Room : Service Charge 10% and Hotel Tax 9% Other Services : Service Charge 10% and GST 12.5%",
+      "source_url": "https://www.itzanabelize.com/faq/getting-around/what-are-the-applicable-taxes-and-is-there-a-resort-charge"
+    },
+    {
+      "action": {
+        "authority": "Belize Tourism Board",
+        "remittance": "monthly",
+        "type": "require_registration"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "accommodation_type",
+        "operator": "in",
+        "value": [
+          "hotel",
+          "guesthouse",
+          "vacation_rental",
+          "apartment",
+          "villa",
+          "condominium",
+          "cabana",
+          "airbnb"
+        ]
+      },
+      "confidence": 0.9,
+      "description": "All tourist accommodations in Belize (including San Pedro / Ambergris Caye), including hotels, guesthouses, vacation rentals, apartments, villas, condominiums, cabanas, and Airbnb-style properties, must be registered and licensed with the Belize Tourism Board before operating or advertising. Unlicensed properties are not legally permitted to advertise or operate.",
+      "effective_end": null,
+      "effective_start": "1997-01-01",
+      "enacted_date": null,
+      "legal_reference": "Hotels and Tourist Accommodation Act, Chapter 285, Section 5(1), Laws of Belize (Revised Edition 2011)",
+      "name": "Hotel Tax Registration and Licensing Requirement",
+      "rule_type": "condition",
+      "source_quote": "ALL Category/Type of Accommodations including but not limited to, rooms, houses, vacation rental, apartments, villas, hotels, guest house, lodges, bed and breakfast, condominiums, cabin, cabanas must register with the Belize Tourism Board",
+      "source_url": "https://www.belizetourismboard.org/tourism-resources/airbnb-resource/"
+    }
+  ],
+  "sources_checked": [
+    "https://www.belizetourismboard.org/hotels/",
+    "https://www.belizetourismboard.org/tourism-resources/airbnb-resource/",
+    "https://beltraide.bz/belize-invest/why-belize/taxes-in-belize/",
+    "https://www.belizehotels.org/belize-quick-facts/",
+    "https://www.sanpedrosun.com/travel-and-tourism/2025/01/31/government-of-belize-seeks-to-increase-the-hotel-tax-to-12-5/",
+    "http://incometaxbelize.gov.bz/about-us/",
+    "http://incometaxbelize.gov.bz/register/",
+    "https://www.nationalassembly.gov.bz/wp-content/uploads/2022/09/Act-No.-22-of-2022-Accommodation-Tax-Remission-of-Arrears-Act.pdf",
+    "https://belizetourismboard.org/wp-content/uploads/2016/04/Chapter-285Hotel-Tourist-Accommodation-Act.pdf",
+    "https://www.portofinobelize.com/san-pedro-belize-resort-rates-and-policies",
+    "https://www.sunbreeze.net/san-pedro-belize-deluxe-rooms/"
+  ],
+  "summary": "Research confirmed one active national accommodation tax applicable to San Pedro, Belize: a 9% Hotel/Tourist Accommodation Tax levied on all hotel guest accommodation charges. This tax is mandated under the Hotels and Tourist Accommodation Act (Chapter 285, Laws of Belize) and is collected by all licensed hotels and tourist accommodations on behalf of the Government of Belize, then remitted monthly to the Belize Tourism Board (BTB). The rate is confirmed by multiple authoritative sources including the official BTB website (belizetourismboard.org), BELTRAIDE (belize investment authority), and the Belize Hotel Association. A proposal to raise the rate to 12.5% was reported in January 2025 but remains unlegislated \u2014 it was explicitly described as \"under consideration\" and no enacted law or gazetted change was found. GST (12.5%) applies to non-room hotel services (restaurant, bar, etc.) but hotel room charges are exempt from GST. No San Pedro-specific municipal accommodation tax was identified. The priority domain (incometaxbelize.gov.bz) administers income and business tax, not hotel accommodation tax. 7 unique sources were checked across government, industry, and news sources. Overall confidence is high that the 9% rate is current and correct."
+}

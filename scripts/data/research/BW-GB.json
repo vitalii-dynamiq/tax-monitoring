@@ -1,0 +1,144 @@
+{
+  "_meta": {
+    "country_code": "BW",
+    "currency_code": "BWP",
+    "elapsed_seconds": 80.5,
+    "jurisdiction_code": "BW-GB",
+    "jurisdiction_id": 792,
+    "jurisdiction_name": "Gaborone",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "burs.org.bw"
+    ],
+    "researched_at": "2026-04-21T19:58:19.174432+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.403651+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "BW-GB",
+  "notes": "1. BURS's website (burs.org.bw) does not publish specific accommodation or tourism tax rate pages \u2014 only navigation menus were retrievable; the core VAT rate is confirmed from authoritative third-party tax summaries (PwC, VATupdate) cross-referenced with BURS's own VAT page confirming 14% is the current standard rate since April 2023 (after the temporary reduction from August 2022\u2013March 2023 back to 12%). 2. The Tourism Industry Training Fund levy of BWP 10 per person per night is confirmed by both a Botswana government daily news article quoting a government minister and the Avani Gaborone hotel's current offer page. However, the exact enabling statutory instrument number and any recent changes to this levy rate could not be confirmed from primary legislative sources. An older source (botswana.co.za) references a P1-00 per bednight levy predating 2000, suggesting the rate was increased at some point. 3. The USD $30 Tourism Development Levy (TDL) proposed in 2017 was definitively cancelled in December 2017. Some low-quality 2025 news articles erroneously describe it as newly introduced; this is not supported by official sources and should not be treated as active. 4. Botswana's 2025/2026 budget proposals include corporate and personal income tax rate increases but no specific new accommodation or hotel taxes were identified. 5. Effective start dates for the training levy and VAT zero-rating rules are estimates based on available information; the exact dates could not be confirmed from primary legislation.",
+  "overall_confidence": 0.72,
+  "rates": [
+    {
+      "authority_name": "Botswana Unified Revenue Service (BURS)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.92,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "2023-04-01",
+      "enacted_date": "2021-04-01",
+      "legal_reference": "Value Added Tax Act (Cap. 50:03)",
+      "legal_uri": "https://www.burs.org.bw/index.php/tax/value-added-tax",
+      "rate_type": "percentage",
+      "rate_value": 14.0,
+      "source_quote": "The standard VAT rate of 14% applies to all supplies that do not qualify for an exemption or are not zero-rated.",
+      "source_url": "https://taxsummaries.pwc.com/botswana/corporate/other-taxes",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Botswana Department of Tourism / Tourism Industry Training Fund",
+      "base_type": "per_person_per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.75,
+      "currency_code": "BWP",
+      "effective_end": null,
+      "effective_start": "2010-01-01",
+      "enacted_date": null,
+      "legal_reference": "Tourism Act (Cap. 42:07); Tourism Regulations 2010",
+      "legal_uri": "https://botswanalaws.com/consolidated-statutes/subsidiary-legislation/tourism-subsidiary-legislation",
+      "rate_type": "flat",
+      "rate_value": 10.0,
+      "source_quote": "all accommodation facilities paid into the Tourism Industry Training Fund a training levy of P10 per paying guest per day.",
+      "source_url": "https://dailynews.gov.bw/news-detail/60888",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "type": "exempt",
+        "vat_rate": 0
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "supply_type",
+        "operator": "==",
+        "value": "export"
+      },
+      "confidence": 0.7,
+      "description": "Exports of goods and services and international transport are zero-rated for VAT purposes under the Botswana VAT Act. This may apply to accommodation provided to non-resident guests billed in foreign currency as an export of services in some circumstances, but standard hotel accommodation in Botswana is generally taxed at 14%.",
+      "effective_end": null,
+      "effective_start": "2002-07-01",
+      "enacted_date": null,
+      "legal_reference": "Value Added Tax Act (Cap. 50:03)",
+      "name": "VAT Zero-Rating for Exported/International Services",
+      "rule_type": "exemption",
+      "source_quote": "Zero-rated goods and services include exports of goods and services; international transport; cooking oil; petroleum gas; sale of a business as a going concern to a registered person",
+      "source_url": "https://www.lloydsbanktrade.com/en/market-potential/botswana/taxes"
+    },
+    {
+      "action": {
+        "note": "levy_not_in_force",
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": null,
+      "confidence": 0.88,
+      "description": "The proposed USD $30 Tourism Development Levy (TDL), originally announced for introduction on 1 June 2017 at all ports of entry for non-SADC international visitors, was officially cancelled in December 2017 by the Botswana Ministry of Environment, Natural Resources Conservation and Tourism. The levy bill was withdrawn and has not been reinstated as of April 2026.",
+      "effective_end": null,
+      "effective_start": "2017-12-11",
+      "enacted_date": null,
+      "legal_reference": "Tourism Development Levy Bill (withdrawn December 2017)",
+      "name": "Tourism Development Levy (TDL) \u2014 Cancelled",
+      "rule_type": "exemption",
+      "source_quote": "his ministry had decided to withdraw with immediate effect the proposed Tourism Development Levy (TDL) Bill, which was to be tabled in December 2017.",
+      "source_url": "https://yourbotswana.com/2017/12/10/botswana-cancels-controversial-us30-tourist-levy/"
+    },
+    {
+      "action": {
+        "amount": 10.0,
+        "basis": "per_person_per_night",
+        "currency": "BWP",
+        "type": "apply_levy"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "operator_type",
+        "operator": "==",
+        "value": "licensed_tourist_enterprise"
+      },
+      "confidence": 0.73,
+      "description": "The BWP 10 per paying guest per night training levy applies to all licensed tourist accommodation enterprises in Botswana (hotels, lodges, guesthouses, camps, etc.) operating under the Tourism Act. Unlicensed operators are not required to collect this levy but are also not permitted to operate legally.",
+      "effective_end": null,
+      "effective_start": "2010-01-01",
+      "enacted_date": null,
+      "legal_reference": "Tourism Act (Cap. 42:07); Tourism Regulations 2010",
+      "name": "Tourism Training Levy \u2014 Licensed Accommodation Enterprises Only",
+      "rule_type": "condition",
+      "source_quote": "all accommodation facilities paid into the Tourism Industry Training Fund a training levy of P10 per paying guest per day. She said the Department of Tourism monitored all licensed operations for compliance with the Tourism Act",
+      "source_url": "https://dailynews.gov.bw/news-detail/60888"
+    }
+  ],
+  "sources_checked": [
+    "https://www.burs.org.bw/index.php/tax/value-added-tax",
+    "https://burs.org.bw/index.php/tax-rates",
+    "https://taxsummaries.pwc.com/botswana/corporate/other-taxes",
+    "https://dailynews.gov.bw/news-detail/60888",
+    "https://www.avanihotels.com/en/gaborone/offers/avani-gaborone-advance-purchase",
+    "https://www.vatupdate.com/2021/10/10/vat-rates-in-botswana/",
+    "https://www.lodgecompliance.com/countries/botswana",
+    "https://yourbotswana.com/2017/12/10/botswana-cancels-controversial-us30-tourist-levy/",
+    "https://www.victoriafalls-guide.net/botswana-tourism-levy-cancelled.html",
+    "https://botswanalaws.com/consolidated-statutes/subsidiary-legislation/tourism-subsidiary-legislation",
+    "https://kpmg.com/us/en/taxnewsflash/news/2025/02/tnf-botswana-tax-proposals-2025-2026-budget.html"
+  ],
+  "summary": "Researched accommodation and tourism taxes for Gaborone, Botswana across 6 sources including burs.org.bw, PwC Tax Summaries, Botswana government portals, and hotel booking sites. Found three relevant tax instruments: (1) Standard VAT at 14% (currently confirmed), applicable to all accommodation services; (2) Tourism Industry Training Fund levy of BWP 10 per person per night, charged by all licensed accommodation facilities; (3) The proposed Tourism Development Levy (USD $30) was definitively CANCELLED in December 2017 and has not been officially reinstated. No database records existed to compare against, so all three are reported as new findings. Overall confidence is moderate, as BURS's own website did not publish specific accommodation tax rate pages, and the training levy rate is confirmed via a government daily news source and hotel disclosures but not directly from the enabling legislation text."
+}

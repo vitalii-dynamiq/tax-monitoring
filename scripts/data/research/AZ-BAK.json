@@ -1,0 +1,150 @@
+{
+  "_meta": {
+    "country_code": "AZ",
+    "currency_code": "AZN",
+    "elapsed_seconds": 76.4,
+    "jurisdiction_code": "AZ-BAK",
+    "jurisdiction_id": 830,
+    "jurisdiction_name": "Baku",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "taxes.gov.az"
+    ],
+    "researched_at": "2026-04-21T19:56:56.713006+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.402668+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "AZ-BAK",
+  "notes": "1. The taxes.gov.az priority domain was accessible and confirmed as the official State Tax Service portal. The published Tax Code PDF (mecelle_eng.pdf) lists hotel, camping, motel and dormitory services (Article 16.1.8.11) within the scope of simplified tax activities, but large hotels with turnover exceeding AZN 200,000/year would be full VAT payers at 18%, not simplified taxpayers. 2. No dedicated Baku city-level tourism/occupancy/bed tax was found in any official or authoritative source. A Priceline travel booking page mentioned a '3% tourist tax' but this could not be verified against any official source and was not reported as a confirmed rate. 3. The 2024 Tax Code amendments confirmed hotel services remain subject to standard 18% VAT. The cashless payment incentive is a cashback/rebate to hotel operators on their own tax liability, not a guest-facing rate change. 4. Confidence is modestly reduced (0.78) because the taxes.gov.az pages returned limited substantive content in English, and no direct official circular specifically on hotel taxation rates was accessible; however, multiple authoritative third-party tax summaries (PwC, Grant Thornton, VATupdate) all consistently confirm the 18% VAT as the sole applicable tax on accommodation services with no additional tourist levy. 5. The effective_start date for the VAT rate is listed as 1992-01-01 (Azerbaijan's independence era introduction of VAT), though the current Tax Code codification dates from 2001.",
+  "overall_confidence": 0.78,
+  "rates": [
+    {
+      "authority_name": "State Tax Service of Azerbaijan (under Ministry of Economy)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": "AZN",
+      "effective_end": null,
+      "effective_start": "1992-01-01",
+      "enacted_date": null,
+      "legal_reference": "Tax Code of the Republic of Azerbaijan, Article 159 (VAT); standard rate confirmed in multiple 2024-2026 sources",
+      "legal_uri": "https://taxes.gov.az/uploads/qanun/2016/mecelle_eng.pdf",
+      "rate_type": "percentage",
+      "rate_value": 18.0,
+      "source_quote": "Standard Rate \u2013 18%: Azerbaijan imposes a flat 18% VAT on most taxable supplies of goods and services and on imports. There are no reduced VAT rates; only the standard rate and a zero rate apply.",
+      "source_url": "https://www.vatupdate.com/2026/01/14/comprehensive-vat-guide-azerbaijan-2026/",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "exemption_applies_to": "hotel_operator_income_from_VAT_cashback",
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "payment_method",
+            "operator": "==",
+            "value": "cashless_POS"
+          },
+          {
+            "field": "service_type",
+            "operator": "==",
+            "value": "accommodation_core_only"
+          }
+        ]
+      },
+      "confidence": 0.8,
+      "description": "Revenues earned by hotel operators from the cashless (POS terminal) payment of VAT on core accommodation and staying services (excluding other additional services) are exempt from income/profit tax. This is a relief for hotel operators accepting cashless payments \u2014 not a reduction in the guest-facing 18% VAT rate.",
+      "effective_end": null,
+      "effective_start": "2024-01-01",
+      "enacted_date": "2023-12-01",
+      "legal_reference": "Tax Code of Azerbaijan 2024 Amendments (effective 1 January 2024)",
+      "name": "Hotel Cashless Payment VAT Incentive",
+      "rule_type": "exemption",
+      "source_quote": "Revenues earned from the cashless payment of VAT on accommodation and staying services (excluding other additional services) provided by hotels (including those located in liberated territories) are exempt from tax.",
+      "source_url": "https://www.caspianlegalcenter.az/news/more/tax-code-2024"
+    },
+    {
+      "action": {
+        "reduction_pct": 75,
+        "tax_type": "property_tax",
+        "type": "reduce"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "property_type",
+            "operator": "==",
+            "value": "hotel_or_sanatorium"
+          },
+          {
+            "field": "location",
+            "operator": "not_in",
+            "value": [
+              "Baku",
+              "Sumgait",
+              "Xirdalan",
+              "Absheron district"
+            ]
+          }
+        ]
+      },
+      "confidence": 0.85,
+      "description": "Property tax is reduced by 75% for a period of 3 years (2024-2026) for hotel and sanatorium properties located OUTSIDE Baku, Sumgait, X\u0131rdalan, and Absheron district. This reduction explicitly does NOT apply to hotels located within Baku city.",
+      "effective_end": "2026-12-31",
+      "effective_start": "2024-01-01",
+      "enacted_date": "2023-12-01",
+      "legal_reference": "Tax Code of Azerbaijan 2024 Amendments (effective 1 January 2024)",
+      "name": "Property Tax Reduction for Hotels Outside Baku (NOT applicable to Baku)",
+      "rule_type": "reduction",
+      "source_quote": "Property tax is reduced by 75% for a period of 3 years from January 1, 2024, for properties used as hotels and sanatoriums outside Baku, Sumgait, X\u0131rdalan cities, and Absheron district.",
+      "source_url": "https://www.caspianlegalcenter.az/news/more/tax-code-2024"
+    },
+    {
+      "action": {
+        "exemption_applies_to": "none",
+        "note": "No VAT refund available to tourists",
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "guest_type",
+        "operator": "==",
+        "value": "foreign_tourist"
+      },
+      "confidence": 0.9,
+      "description": "Azerbaijan does not operate a tourist VAT refund scheme (Tax Free Shopping) for foreign visitors. Tourists cannot reclaim VAT on purchases made in Azerbaijan upon departure.",
+      "effective_end": null,
+      "effective_start": "2001-01-01",
+      "enacted_date": null,
+      "legal_reference": "Azerbaijan Tax Code; confirmed by VATupdate 2026 Comprehensive VAT Guide",
+      "name": "No Tourist VAT Refund Scheme",
+      "rule_type": "exemption",
+      "source_quote": "Azerbaijan currently does not operate a tourist VAT refund scheme for retail purchases by foreign visitors (commonly known as Tax Free Shopping).",
+      "source_url": "https://www.vatupdate.com/2026/01/14/comprehensive-vat-guide-azerbaijan-2026/"
+    }
+  ],
+  "sources_checked": [
+    "https://taxes.gov.az/uploads/qanun/2016/mecelle_eng.pdf",
+    "https://www.taxes.gov.az/en",
+    "https://taxsummaries.pwc.com/azerbaijan/corporate/other-taxes",
+    "https://www.grantthornton.global/en/insights/indirect-tax-guide/indirect-tax---Azerbaijan/",
+    "https://www.vatupdate.com/2026/01/14/comprehensive-vat-guide-azerbaijan-2026/",
+    "https://www.caspianlegalcenter.az/news/more/tax-code-2024",
+    "https://en.wikipedia.org/wiki/Taxation_in_Azerbaijan",
+    "https://accounting.az/en/azerbaijan-tax-system-comprehensive-overview/",
+    "http://invest.gov.az/en/page/localize-in-Azerbaijan/tax-guide",
+    "https://world.salestaxhandbook.com/az-azerbaijan"
+  ],
+  "summary": "Research into Baku, Azerbaijan accommodation tax regulations identified one primary tax applicable to hotel/accommodation services: the standard 18% VAT (locally known as \u018flav\u0259 D\u0259y\u0259r Vergisi / \u018fDV). This is a national-level tax administered by the State Tax Service (taxes.gov.az) under the Ministry of Economy. No dedicated city-level tourism tax, bed tax, occupancy surcharge, or separate tourist levy specific to Baku was found in any official source. A notable 2024 Tax Code amendment provides a VAT cashback incentive for hotels that accept cashless payments via POS terminals on core accommodation services, but this is a rebate to the hotel operator \u2014 not a change to the guest-facing VAT rate. A 75% property tax reduction for hotel properties exists but is explicitly limited to areas OUTSIDE Baku/Sumgait/X\u0131rdalan/Absheron. No tourist VAT refund scheme for visitors exists. Azerbaijan also does not operate a Tax Free Shopping program. The taxes.gov.az domain was confirmed as the official State Tax Service portal. 5 authoritative sources were checked (taxes.gov.az Tax Code PDF, PwC Tax Summaries, Grant Thornton Indirect Tax Guide, VATupdate 2026 Guide, Caspian Legal Center 2024 amendments). No database rates to compare against (blank slate)."
+}

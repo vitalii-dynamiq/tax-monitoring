@@ -1,0 +1,96 @@
+{
+  "_meta": {
+    "country_code": "MP",
+    "currency_code": "USD",
+    "elapsed_seconds": 155.0,
+    "jurisdiction_code": "MP-SPN",
+    "jurisdiction_id": 778,
+    "jurisdiction_name": "Saipan",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "cnmifinance.gov.mp"
+    ],
+    "researched_at": "2026-04-21T20:20:52.623210+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.417885+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "MP-SPN",
+  "notes": "1. The effective_start date for these taxes is not precisely confirmed from available sources; the OS-3300 form is dated Rev. 11/201x (partially legible), suggesting the rates have been in place for many years. The date used (2000-01-01) is a placeholder conservative estimate. 2. The Bar Tax (10% on alcohol-serving licensed establishments) was also found on Form OS-3300 but is not a direct accommodation tax and is therefore not included as a primary rate here. 3. House Bill 24-9 (passed Sept 2025) proposes redirecting 1% or $40,000 of HOT to the Division of Parks and Recreation \u2014 this is a revenue allocation proposal only and does NOT change the 15% tax rate. It has not yet been signed into law as of research date. 4. No direct access to the underlying CNMI statute (4 CMC chapter governing hotel tax) was possible; the rate is confirmed from the official DoF tax form. 5. The CNMI DoF form confirms filings are on a monthly basis.",
+  "overall_confidence": 0.88,
+  "rates": [
+    {
+      "authority_name": "CNMI Division of Revenue and Taxation",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.9,
+      "currency_code": "USD",
+      "effective_end": null,
+      "effective_start": "2000-01-01",
+      "enacted_date": null,
+      "legal_reference": "CNMI Form OS-3300 (Monthly Bar and Occupancy Tax Return)",
+      "legal_uri": "https://www.finance.gov.mp/division-forms/revenue-taxation/additional-forms/form-os-3300.pdf",
+      "rate_type": "percentage",
+      "rate_value": 15.0,
+      "source_quote": "Occupancy tax is imposed upon transient occupants of a room or rooms in a hotel, lodging, motel, resort motel, apartment motel, or condominium located in the Commonwealth. The tax shall be 15 percent of the amount charged or paid for the accommodations.",
+      "source_url": "https://www.finance.gov.mp/division-forms/revenue-taxation/additional-forms/form-os-3300.pdf",
+      "tax_category_code": "occ_pct",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "type": "apply_tax"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "stay_length_days",
+        "operator": "<",
+        "value": 90
+      },
+      "confidence": 0.9,
+      "description": "The hotel occupancy tax applies only to transient occupants \u2014 persons who occupy a hotel, lodging house, motel, resort motel, apartment motel, or condominium in the CNMI for less than 90 consecutive days. Stays of 90 days or more are not subject to the occupancy tax.",
+      "effective_end": null,
+      "effective_start": "2000-01-01",
+      "enacted_date": null,
+      "legal_reference": "CNMI Form OS-3300 (Monthly Bar and Occupancy Tax Return)",
+      "name": "Transient Occupant Definition",
+      "rule_type": "condition",
+      "source_quote": "A 'Transient occupant of a room or rooms in a hotel, lodging house or similar facility' means a person who occupies such facilities in a specific location for less than 90 consecutive days.",
+      "source_url": "https://www.finance.gov.mp/division-forms/revenue-taxation/additional-forms/form-os-3300.pdf"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "stay_length_days",
+        "operator": ">=",
+        "value": 90
+      },
+      "confidence": 0.88,
+      "description": "Guests who stay for 90 or more consecutive days at the same location are not considered transient occupants and are exempt from the CNMI Hotel Occupancy Tax.",
+      "effective_end": null,
+      "effective_start": "2000-01-01",
+      "enacted_date": null,
+      "legal_reference": "CNMI Form OS-3300 (Monthly Bar and Occupancy Tax Return)",
+      "name": "Long-Stay Exemption (90+ Days)",
+      "rule_type": "exemption",
+      "source_quote": "A 'Transient occupant of a room or rooms in a hotel, lodging house or similar facility' means a person who occupies such facilities in a specific location for less than 90 consecutive days.",
+      "source_url": "https://www.finance.gov.mp/division-forms/revenue-taxation/additional-forms/form-os-3300.pdf"
+    }
+  ],
+  "sources_checked": [
+    "https://www.finance.gov.mp/forms.php",
+    "https://www.finance.gov.mp/division-forms/revenue-taxation/additional-forms/form-os-3300.pdf",
+    "https://www.finance.gov.mp/revenue-taxation.php",
+    "https://cnmilaw.org/pdf/cmc_section/T4/1402.pdf",
+    "https://www.mvariety.com/news/local/house-bill-redirects-hotel-tax-to-maintain-beautify-public-spaces/article_2e089a14-577c-4c35-888f-94d65b1cf104.html"
+  ],
+  "summary": "Research identified two accommodation-related taxes in Saipan/CNMI via the official CNMI Department of Finance Form OS-3300 (\"Monthly Bar and Occupancy Tax Return\") available at finance.gov.mp: (1) a Hotel Occupancy Tax at 15% of the amount charged for transient accommodations, and (2) a Bar Tax at 10% of gross revenue at licensed alcohol-serving establishments. Both rates are confirmed from the authoritative government source. No recent rate changes were found \u2014 House Bill 24-9 (Sept 2025) proposes reallocating a portion of HOT revenue for park beautification but does not change the rate itself. The CNMI does not appear to have a separate tourism levy or bed tax beyond these. 5 sources were checked including the CNMI DoF forms page, the OS-3300 form itself, CNMI law, and recent local news. Both taxes are reported as \"new\" entries since our database had no prior records for this jurisdiction."
+}

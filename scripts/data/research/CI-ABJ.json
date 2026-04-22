@@ -1,0 +1,341 @@
+{
+  "_meta": {
+    "country_code": "CI",
+    "currency_code": "XOF",
+    "elapsed_seconds": 119.5,
+    "jurisdiction_code": "CI-ABJ",
+    "jurisdiction_id": 805,
+    "jurisdiction_name": "Abidjan",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "dgi.gouv.ci"
+    ],
+    "researched_at": "2026-04-21T20:03:49.193470+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.407042+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "CI-ABJ",
+  "notes": "1. The Annexe Fiscale 2026 was adopted by the Ivorian Parliament and entered into force on 5 January 2026. The official PDF is hosted at dgbf.ci (Ministry of Finance/Budget). The DGI (dgi.gouv.ci) hosts the annex on their website but the page requires Flash Player to render \u2014 the content could not be directly extracted.\n\n2. The hotel star-rating tiered taxe de nuit\u00e9e is the key new levy for Abidjan. The rate of 2,000 XOF/night applies to hotels with 3 stars or more (the exact wording in some sources says \"plus de trois \u00e9toiles\" which could mean strictly 4+ stars; however, the official Annexe Fiscale 2026 document text from dgbf.ci and multiple commentary sources consistently describe it as \"3 \u00e9toiles et plus\" / \"trois \u00e9toiles et plus\").\n\n3. The TDT (Taxe pour le D\u00e9veloppement Touristique) at 2.5% applies to the amount invoiced to the client excluding VAT (HT \u2014 hors taxes). This is a tax charged by tourism operators on their clients, not a direct occupancy tax; however, it is effectively borne by guests.\n\n4. The standard VAT rate in C\u00f4te d'Ivoire is 18% (confirmed by CGI and multiple official sources); hotel services are generally subject to standard VAT at this rate (lodging, food/beverage services). No reduced VAT rate specifically for hotel accommodation was found for C\u00f4te d'Ivoire (unlike some other jurisdictions). However, note that accommodation/lodging expenses are listed as non-deductible for VAT purposes by businesses (CGI Art. 382).\n\n5. The taxe de nuit\u00e9e was previously proposed for 2025 but was not adopted by Parliament at that time; it was successfully adopted for 2026.\n\n6. The specific article number for the taxe de nuit\u00e9e in the Annexe Fiscale 2026 was not visible from the searchable PDF version. Deloitte CI materials confirm it falls under the \"Am\u00e9nagement des dispositions relatives \u00e0 la fiscalit\u00e9 des collectivit\u00e9s territoriales\" article.\n\n7. The 1,000 XOF rate for furnished residences in the Abidjan District is specifically confirmed for the District Autonome d'Abidjan (which encompasses Abidjan's communes). For hotels, the star-rating tiers apply city-wide regardless of commune population size.",
+  "overall_confidence": 0.85,
+  "rates": [
+    {
+      "authority_name": "Direction G\u00e9n\u00e9rale des Imp\u00f4ts de C\u00f4te d'Ivoire / Tr\u00e9sorier Municipal",
+      "base_type": "per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.9,
+      "currency_code": "XOF",
+      "effective_end": null,
+      "effective_start": "2026-01-05",
+      "enacted_date": "2025-12-19",
+      "legal_reference": "Annexe Fiscale 2026 \u00e0 la Loi de Finances pour la gestion 2026 (Article relatif \u00e0 la fiscalit\u00e9 des collectivit\u00e9s territoriales)",
+      "legal_uri": "https://www.dgbf.ci/wp-content/uploads/2025/12/Annexe-1-Annexe-Fiscale-2026.pdf",
+      "rate_type": "tiered",
+      "rate_value": null,
+      "source_quote": "Son montant varie selon le standing des h\u00f4tels. Une nuit\u00e9e co\u00fbtera 500 FCFA dans un h\u00f4tel sans \u00e9toile, 1 000 FCFA dans un h\u00f4tel une \u00e9toile, 1 500 FCFA dans un h\u00f4tel deux \u00e9toiles et 2 000 FCFA dans les h\u00f4tels trois \u00e9toiles et plus.",
+      "source_url": "https://www.sikafinance.com/marches/cote-divoire-instauration-dune-taxe-communale-sur-la-nuitee-hoteliere_59081",
+      "tax_category_code": "city_tax_flat",
+      "tier_type": "threshold",
+      "tiers": [
+        {
+          "condition": "hotel_stars == 0",
+          "label": "H\u00f4tel sans \u00e9toile (unrated hotel)",
+          "rate_value": 500
+        },
+        {
+          "condition": "hotel_stars == 1",
+          "label": "H\u00f4tel 1 \u00e9toile (1-star hotel)",
+          "rate_value": 1000
+        },
+        {
+          "condition": "hotel_stars == 2",
+          "label": "H\u00f4tel 2 \u00e9toiles (2-star hotel)",
+          "rate_value": 1500
+        },
+        {
+          "condition": "hotel_stars >= 3",
+          "label": "H\u00f4tel 3 \u00e9toiles et plus (3+ star hotel)",
+          "rate_value": 2000
+        }
+      ]
+    },
+    {
+      "authority_name": "Direction G\u00e9n\u00e9rale des Imp\u00f4ts de C\u00f4te d'Ivoire / Tr\u00e9sorier Municipal",
+      "base_type": "per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.9,
+      "currency_code": "XOF",
+      "effective_end": null,
+      "effective_start": "2026-01-05",
+      "enacted_date": "2025-12-19",
+      "legal_reference": "Annexe Fiscale 2026 \u00e0 la Loi de Finances pour la gestion 2026 (Article relatif \u00e0 la fiscalit\u00e9 des collectivit\u00e9s territoriales)",
+      "legal_uri": "https://www.dgbf.ci/wp-content/uploads/2025/12/Annexe-1-Annexe-Fiscale-2026.pdf",
+      "rate_type": "flat",
+      "rate_value": 1000.0,
+      "source_quote": "La taxe est fix\u00e9e \u00e0 500 FCFA par nuit\u00e9e dans les communes de 20 000 habitants au plus, \u00e0 1 000 FCFA dans celles de plus de 20 000 habitants ainsi que dans les communes du District autonome d'Abidjan.",
+      "source_url": "https://www.sikafinance.com/marches/cote-divoire-instauration-dune-taxe-communale-sur-la-nuitee-hoteliere_59081",
+      "tax_category_code": "city_tax_flat",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Direction G\u00e9n\u00e9rale des Imp\u00f4ts / Fonds de D\u00e9veloppement Touristique",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.88,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "2026-01-05",
+      "enacted_date": "2025-12-19",
+      "legal_reference": "Annexe Fiscale 2026, Article 9 \u2014 Am\u00e9nagement des dispositions du CGI relatives \u00e0 la Taxe pour le D\u00e9veloppement Touristique (TDT)",
+      "legal_uri": "https://www.dgbf.ci/wp-content/uploads/2025/12/Annexe-1-Annexe-Fiscale-2026.pdf",
+      "rate_type": "percentage",
+      "rate_value": 2.5,
+      "source_quote": "\u00c0 partir de 2026, cette taxe passera de 1,5 % \u00e0 2,5 %, dans l'objectif de renforcer les ressources financi\u00e8res destin\u00e9es au d\u00e9veloppement et \u00e0 la modernisation des infrastructures touristiques.",
+      "source_url": "https://www.aip.ci/284968/cote-divoire-aip-la-taxe-de-sejour-portee-a-25-pour-soutenir-les-investissements-structurants-dans-le-secteur-touristique-des-2026/",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Direction G\u00e9n\u00e9rale des Imp\u00f4ts de C\u00f4te d'Ivoire",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.85,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "1998-01-01",
+      "enacted_date": null,
+      "legal_reference": "Code G\u00e9n\u00e9ral des Imp\u00f4ts de C\u00f4te d'Ivoire (CGI), Article 339 et suivants",
+      "legal_uri": "https://dgi.cgici.com/",
+      "rate_type": "percentage",
+      "rate_value": 18.0,
+      "source_quote": "Le taux standard de TVA en C\u00f4te d'Ivoire est de 18%, mais il existe \u00e9galement des taux r\u00e9duits pour certains produits et services sp\u00e9cifiques.",
+      "source_url": "https://cours-de-droit.net/declaration-tva-droit-ivoirien/",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "tiers": [
+          {
+            "amount": 500,
+            "condition": "stars == 0",
+            "currency": "XOF"
+          },
+          {
+            "amount": 1000,
+            "condition": "stars == 1",
+            "currency": "XOF"
+          },
+          {
+            "amount": 1500,
+            "condition": "stars == 2",
+            "currency": "XOF"
+          },
+          {
+            "amount": 2000,
+            "condition": "stars >= 3",
+            "currency": "XOF"
+          }
+        ],
+        "type": "tiered_flat"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "property_type",
+        "operator": "==",
+        "value": "hotel"
+      },
+      "confidence": 0.9,
+      "description": "The new municipal overnight tax (taxe communale de nuit\u00e9e) for hotels in C\u00f4te d'Ivoire is tiered based on the hotel's official star classification: 500 XOF (unrated), 1,000 XOF (1-star), 1,500 XOF (2-star), 2,000 XOF (3+ stars) per guest per night. Applies across all hotels in the Autonomous District of Abidjan. Collected by the hotel from guests at checkout and remitted to the municipal treasurer by the 15th of the following month.",
+      "effective_end": null,
+      "effective_start": "2026-01-05",
+      "enacted_date": "2025-12-19",
+      "legal_reference": "Annexe Fiscale 2026, Loi de Finances pour la gestion 2026 \u2014 fiscalit\u00e9 des collectivit\u00e9s territoriales",
+      "name": "Taxe de Nuit\u00e9e \u2014 H\u00f4tels (tiered by star rating)",
+      "rule_type": "condition",
+      "source_quote": "Pour les h\u00f4tels sans \u00e9toile, \u00e7a fera 500 FCFA par nuit\u00e9e; pour les h\u00f4tels avec une \u00e9toile, \u00e7a fera 1000 FCFA par nuit\u00e9e; 1500 FCA par nuit\u00e9e pour les h\u00f4tels avec deux \u00e9toiles et 2000 FCFA par nuit\u00e9e pour les h\u00f4tels avec plus de trois \u00e9toiles.",
+      "source_url": "https://news.abidjan.net/articles/746131/cote-divoire-annexe-fiscale-2026-les-clients-des-hotels-et-residences-meublees-devront-sacquitter-desormais-dune-taxe-de-nuitee"
+    },
+    {
+      "action": {
+        "amount": 1000,
+        "currency": "XOF",
+        "type": "flat"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "property_type",
+            "operator": "==",
+            "value": "furnished_residence"
+          },
+          {
+            "field": "location",
+            "operator": "==",
+            "value": "Autonomous District of Abidjan"
+          }
+        ]
+      },
+      "confidence": 0.9,
+      "description": "For furnished residences (r\u00e9sidences meubl\u00e9es) located in the Autonomous District of Abidjan (including its communes), the overnight tax is fixed at 1,000 XOF per night per guest. For furnished residences in communes with population \u2264 20,000 (outside Abidjan District), the rate is 500 XOF; in regions outside communal perimeters, it is 300 XOF.",
+      "effective_end": null,
+      "effective_start": "2026-01-05",
+      "enacted_date": "2025-12-19",
+      "legal_reference": "Annexe Fiscale 2026, Loi de Finances pour la gestion 2026",
+      "name": "Taxe de Nuit\u00e9e \u2014 R\u00e9sidences Meubl\u00e9es, District d'Abidjan",
+      "rule_type": "condition",
+      "source_quote": "La taxe est fix\u00e9e \u00e0 500 FCFA par nuit\u00e9e dans les communes de 20 000 habitants au plus, \u00e0 1 000 FCFA dans celles de plus de 20 000 habitants ainsi que dans les communes du District autonome d'Abidjan.",
+      "source_url": "https://www.sikafinance.com/marches/cote-divoire-instauration-dune-taxe-communale-sur-la-nuitee-hoteliere_59081"
+    },
+    {
+      "action": {
+        "deadline": "15th of following month",
+        "payee": "tr\u00e9sorier municipal",
+        "type": "remittance_deadline"
+      },
+      "change_type": "new",
+      "conditions": null,
+      "confidence": 0.88,
+      "description": "Hotels and furnished residence operators must collect the taxe de nuit\u00e9e from guests at the time of payment and remit it to the municipal treasurer (tr\u00e9sorier municipal) by the 15th of the month following collection.",
+      "effective_end": null,
+      "effective_start": "2026-01-05",
+      "enacted_date": "2025-12-19",
+      "legal_reference": "Annexe Fiscale 2026",
+      "name": "Taxe de Nuit\u00e9e \u2014 Remittance Deadline",
+      "rule_type": "condition",
+      "source_quote": "Cette taxe sera pr\u00e9lev\u00e9e par les \u00e9tablissements h\u00f4teliers et les propri\u00e9taires de r\u00e9sidences meubl\u00e9es et elles devraient \u00eatre vers\u00e9es au plus tard, le 15 du mois qui suit l'encaissement aupr\u00e8s du tr\u00e9sorier municipal.",
+      "source_url": "https://news.abidjan.net/articles/746131/cote-divoire-annexe-fiscale-2026-les-clients-des-hotels-et-residences-meublees-devront-sacquitter-desormais-dune-taxe-de-nuitee"
+    },
+    {
+      "action": {
+        "base": "amount_HT_invoiced",
+        "rate_pct": 2.5,
+        "type": "apply_rate"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "taxpayer_regime",
+        "operator": "in",
+        "value": [
+          "real_regime",
+          "entreprenant_regime"
+        ]
+      },
+      "confidence": 0.87,
+      "description": "From 2026, the Taxe pour le D\u00e9veloppement Touristique (TDT) at the new rate of 2.5% is extended to cover businesses under the 'Entreprenant' regime (those subject to the state entreprenant tax and the communal entreprenant tax), in addition to businesses already subject under the real tax regime. The rate was previously 1.5% (reduced from 4% in 2013). Applied to the amount invoiced to the client excluding VAT (HT).",
+      "effective_end": null,
+      "effective_start": "2026-01-05",
+      "enacted_date": "2025-12-19",
+      "legal_reference": "Annexe Fiscale 2026, Article 9 \u2014 CGI Taxe pour le D\u00e9veloppement Touristique",
+      "name": "Taxe pour le D\u00e9veloppement Touristique (TDT) \u2014 Scope Extended to Entreprenant Regime",
+      "rule_type": "condition",
+      "source_quote": "L'Annexe fiscale 2026 \u00e9largit le champ d'application de la Taxe pour le D\u00e9veloppement Touristique aux entreprises relevant du r\u00e9gime de l'Entreprenant. Dans le m\u00eame temps, le taux de cette taxe est relev\u00e9 de 1,5 % \u00e0 2,5 % du montant hors taxes factur\u00e9 au client.",
+      "source_url": "https://afriksoir.net/fiscalite-touristique-2026-un-tournant-risque-pour-leconomie-locale/"
+    },
+    {
+      "action": {
+        "rate_pct": 2.5,
+        "type": "apply_tourism_tax"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "business_type",
+        "operator": "in",
+        "value": [
+          "hotel",
+          "furnished_hotel_residence",
+          "motel",
+          "holiday_village",
+          "restaurant",
+          "maquis",
+          "bar",
+          "nightclub",
+          "travel_agency",
+          "tour_organizer",
+          "vehicle_rental",
+          "marina",
+          "casino",
+          "gaming_hall",
+          "amusement_park",
+          "event_space"
+        ]
+      },
+      "confidence": 0.82,
+      "description": "The Taxe pour le D\u00e9veloppement Touristique applies to operators in tourism-related sectors including: hotels, furnished hotel residences, motels, holiday villages, restaurants, maquis, bars and nightclubs, travel agencies and tour organizers, vehicle/boat/aircraft rental agencies, marinas, casinos, gaming halls, amusement parks, and event spaces.",
+      "effective_end": null,
+      "effective_start": "2026-01-05",
+      "enacted_date": "2025-12-19",
+      "legal_reference": "Annexe Fiscale 2026, Article 9; CGI C\u00f4te d'Ivoire",
+      "name": "TDT \u2014 Scope of Tourism Establishments",
+      "rule_type": "condition",
+      "source_quote": "Hotels, r\u00e9sidences-h\u00f4tels meubl\u00e9s, motels, villages de vacances \u2022 Restaurant, maquis, bars et night-clubs \u2022 Agences de voyages et organisateurs de circuits touristiques \u2022 Agences de location de voitures, cars, bateaux et avions \u2022 Marinas \u2022 Casinos et Salles de jeux \u2022 Parcs d'attractions \u2022 Espaces \u00e9v\u00e8nementiels",
+      "source_url": "https://fr.scribd.com/document/1002328468/Annexe-Fiscale-2026-Support-Deloitte-CI"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "taxpayer_regime",
+        "operator": "==",
+        "value": "impot_synthetique"
+      },
+      "confidence": 0.65,
+      "description": "Prior to 2026, the Taxe pour le D\u00e9veloppement Touristique was not due by taxpayers subject to the imp\u00f4t synth\u00e9tique regime. From 2026, the scope is extended to the Entreprenant regime, but the imp\u00f4t synth\u00e9tique exemption status vis-\u00e0-vis TDT should be confirmed from the full legal text.",
+      "effective_end": null,
+      "effective_start": "2026-01-05",
+      "enacted_date": null,
+      "legal_reference": "CGI C\u00f4te d'Ivoire; Annexe Fiscale 2026, Article 9",
+      "name": "TDT \u2014 Exemption for Imp\u00f4t Synth\u00e9tique Regime (pre-2026)",
+      "rule_type": "exemption",
+      "source_quote": "La taxe n'est pas due par les contribuables soumis au r\u00e9gime de l'imp\u00f4t synth\u00e9tique.",
+      "source_url": "https://souleymane-sangare.com/comprendre-la-taxe-pour-le-tourisme/"
+    },
+    {
+      "action": {
+        "ministry_of_tourism_pct": 50,
+        "state_pct": 50,
+        "type": "revenue_split"
+      },
+      "change_type": "new",
+      "conditions": null,
+      "confidence": 0.85,
+      "description": "From 2026, revenue from the Taxe pour le D\u00e9veloppement Touristique is split equally: 50% allocated to the State and 50% to the Ministry of Tourism and Leisure, to fund tourism infrastructure development under the 'Sublime C\u00f4te d'Ivoire' programme.",
+      "effective_end": null,
+      "effective_start": "2026-01-05",
+      "enacted_date": "2025-12-19",
+      "legal_reference": "Annexe Fiscale 2026, Article 9",
+      "name": "TDT Revenue Split \u2014 50/50 State vs. Tourism Ministry",
+      "rule_type": "condition",
+      "source_quote": "la r\u00e9partition de cette taxe sera d\u00e9sormais de 50 % pour l'\u00c9tat et 50 % pour le minist\u00e8re du Tourisme et des Loisirs.",
+      "source_url": "https://www.aip.ci/284968/cote-divoire-aip-la-taxe-de-sejour-portee-a-25-pour-soutenir-les-investissements-structurants-dans-le-secteur-touristique-des-2026/"
+    }
+  ],
+  "sources_checked": [
+    "https://www.dgbf.ci/wp-content/uploads/2025/12/Annexe-1-Annexe-Fiscale-2026.pdf",
+    "https://www.dgi.gouv.ci/assets/documents/ANNEXE_FISCALE_2026/",
+    "https://www.aip.ci/284968/cote-divoire-aip-la-taxe-de-sejour-portee-a-25-pour-soutenir-les-investissements-structurants-dans-le-secteur-touristique-des-2026/",
+    "https://news.abidjan.net/articles/746131/cote-divoire-annexe-fiscale-2026-les-clients-des-hotels-et-residences-meublees-devront-sacquitter-desormais-dune-taxe-de-nuitee",
+    "https://www.sikafinance.com/marches/cote-divoire-instauration-dune-taxe-communale-sur-la-nuitee-hoteliere_59081",
+    "https://beninwebtv.com/cote-divoire-la-taxe-de-nuitee-desormais-applicable-dans-les-hotels-et-residences-meublees/",
+    "https://afriksoir.net/fiscalite-touristique-2026-un-tournant-risque-pour-leconomie-locale/",
+    "https://www.yessouan.ci/Annexe-fiscale-2026-desormais-une-taxe-de-nuitee-entre-500-et-2000-FCFA-pour-les-clients-des-hotels-et-residences_a6564.html",
+    "https://www.aip.ci/305022/cote-divoire-aip-annexe-fiscale-2026-entre-incitations-ciblees-modernisation-des-procedures-et-renforcement-de-la-recette/",
+    "https://cours-de-droit.net/declaration-tva-droit-ivoirien/",
+    "https://dgi.gouv.ci/",
+    "https://taxsummaries.pwc.com/ivory-coast/corporate/other-taxes"
+  ],
+  "summary": "Comprehensive research into Abidjan/C\u00f4te d'Ivoire accommodation taxes reveals two major new levies introduced by the Annexe Fiscale 2026, which entered into force on 5 January 2026. (1) A new tiered flat \"Taxe Communale de Nuit\u00e9e\" (overnight/bed tax) was instituted for hotels (based on star rating: 500\u20132,000 XOF/night) and furnished residences (1,000 XOF/night in the Autonomous District of Abidjan). (2) The existing \"Taxe pour le D\u00e9veloppement Touristique\" (TDT) was raised from 1.5% to 2.5% of the amount invoiced to the client (HT), and its scope was extended to \"Entreprenant\" regime taxpayers. The standard VAT rate in C\u00f4te d'Ivoire is 18% (unchanged). No prior accommodation tax rates were in our database. Sources checked include the official Annexe Fiscale 2026 from dgbf.ci, the DGI portal, AIP (Agence Ivoirienne de Presse), news.abidjan.net, sikafinance.com, beninwebtv.com, and afriksoir.net. 6 sources checked overall."
+}

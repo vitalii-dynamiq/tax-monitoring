@@ -1,0 +1,226 @@
+{
+  "_meta": {
+    "country_code": "UZ",
+    "currency_code": "UZS",
+    "elapsed_seconds": 77.0,
+    "jurisdiction_code": "UZ-BHK",
+    "jurisdiction_id": 815,
+    "jurisdiction_name": "Bukhara",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "soliq.uz",
+      "soliq.uz"
+    ],
+    "researched_at": "2026-04-21T20:35:54.412363+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.428963+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "UZ-BHK",
+  "notes": "1. Bukhara (UZ-BHK) does not appear to have any city-specific or regional accommodation tax beyond the national Uzbekistan tourist tax framework. All taxes identified are national-level, applied uniformly throughout Uzbekistan including Bukhara. 2. The soliq.uz (Uzbekistan State Tax Committee) website provided very limited publicly accessible detail in English on specific tourist tax rates; the most complete documentation came from hotel chain Reikartz (which operates Reikartz Bahor Bukhara) citing the legal framework directly. 3. The tourist tax for foreign citizens is calculated as a PERCENTAGE of the BFA (Basic Fiscal/Settlement Amount \u2014 a government-set reference amount updated periodically, not of the room rate). Reikartz Bahor Bukhara (a larger property with 40+ rooms) currently shows 61,800 UZS per night for foreign guests, which equates to 15% of the current BFA (BFA = 412,000 UZS as of recent updates). For smaller properties the absolute amounts differ. The rate_value for the tiered foreign-citizen tourist tax is expressed as % of BFA (not % of room price). 4. The BFA (Basic Fiscal Amount) is periodically updated by the government; as of available data, the resident tourist tax translates to approximately 1,648 UZS/night and for foreign guests at larger hotels approximately 61,800 UZS/night. These UZS amounts change as the BFA is adjusted. 5. VAT rate of 12% confirmed unchanged through at least January 1, 2028 per government decree. 6. The 1% turnover tax on hotel accommodation (introduced April 2022) expired December 31, 2024 and was not extended per PwC Tax Summaries (January 2025).",
+  "overall_confidence": 0.72,
+  "rates": [
+    {
+      "authority_name": "Cabinet of Ministers of Uzbekistan",
+      "base_type": "per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.82,
+      "currency_code": "UZS",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-08-25",
+      "legal_reference": "Cabinet of Ministers Resolution No. 475, dated August 25, 2022",
+      "legal_uri": null,
+      "rate_type": "tiered",
+      "rate_value": null,
+      "source_quote": "From foreign citizens for each night of stay is charged: \u2022 5% of the BRF for up to 10 hotel rooms; \u2022 10% of the BRF for the number of rooms in the hotel from 11 to 40; \u2022 15% of the BRF - for more than 40 rooms.",
+      "source_url": "https://reikartz.com/en/hotels/reikartz-bahor-buhara/rules/",
+      "tax_category_code": "tourism_pct",
+      "tier_type": "threshold",
+      "tiers": [
+        {
+          "basis": "percent_of_BFA",
+          "description": "5% of BFA per night for foreign guests, hotels with up to 10 rooms",
+          "max_rooms": 10,
+          "min_rooms": 1,
+          "rate_value": 5.0
+        },
+        {
+          "basis": "percent_of_BFA",
+          "description": "10% of BFA per night for foreign guests, hotels with 11-40 rooms",
+          "max_rooms": 40,
+          "min_rooms": 11,
+          "rate_value": 10.0
+        },
+        {
+          "basis": "percent_of_BFA",
+          "description": "15% of BFA per night for foreign guests, hotels with more than 40 rooms",
+          "max_rooms": null,
+          "min_rooms": 41,
+          "rate_value": 15.0
+        }
+      ]
+    },
+    {
+      "authority_name": "Cabinet of Ministers of Uzbekistan",
+      "base_type": "per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.82,
+      "currency_code": "UZS",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-08-25",
+      "legal_reference": "Cabinet of Ministers Resolution No. 475, dated August 25, 2022",
+      "legal_uri": null,
+      "rate_type": "percentage",
+      "rate_value": 0.4,
+      "source_quote": "Local residents, excluding children under the age of 16, are required to pay 0.4% of the basic settlement amount (BFA) for each day of residence.",
+      "source_url": "https://reikartz.com/en/hotels/reikartz-bahor-buhara/rules/",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Tax Committee of the Republic of Uzbekistan",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.85,
+      "currency_code": "UZS",
+      "effective_end": "2028-01-01",
+      "effective_start": "2019-01-01",
+      "enacted_date": null,
+      "legal_reference": "Tax Code of the Republic of Uzbekistan",
+      "legal_uri": "https://tax-legal.uz/en/value-added-tax/",
+      "rate_type": "percentage",
+      "rate_value": 12.0,
+      "source_quote": "The rate of value added tax (VAT) in Uzbekistan is set at 12%. VAT is levied on the sale of goods and services in the territory of Uzbekistan.",
+      "source_url": "https://tax-legal.uz/en/value-added-tax/",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "guest_type",
+            "operator": "==",
+            "value": "resident"
+          }
+        ],
+        "field": "guest_age",
+        "operator": "<",
+        "value": 16
+      },
+      "confidence": 0.82,
+      "description": "Children under the age of 16 who are residents of the Republic of Uzbekistan are exempt from the tourist tax (0.4% of BFA per night) that applies to local residents.",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-08-25",
+      "legal_reference": "Cabinet of Ministers Resolution No. 475, dated August 25, 2022",
+      "name": "Children Under 16 Exemption (Resident Tourist Tax)",
+      "rule_type": "exemption",
+      "source_quote": "Local residents, excluding children under the age of 16, are required to pay 0.4% of the basic settlement amount (BFA) for each day of residence.",
+      "source_url": "https://reikartz.com/en/hotels/reikartz-bahor-buhara/rules/"
+    },
+    {
+      "action": {
+        "description": "Charge tourist tax as if full night stay",
+        "type": "override"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "stay_length_hours",
+        "operator": "<",
+        "value": 24
+      },
+      "confidence": 0.82,
+      "description": "Tourist tax for an incomplete night stay is charged as for a full night stay. This applies to both resident and foreign guest tourist tax obligations.",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-08-25",
+      "legal_reference": "Cabinet of Ministers Resolution No. 475, dated August 25, 2022",
+      "name": "Incomplete Night Charged as Full Night",
+      "rule_type": "condition",
+      "source_quote": "Tourist tax for incomplete night stay is charged as for full night stay.",
+      "source_url": "https://reikartz.com/en/hotels/reikartz-bahor-buhara/rules/"
+    },
+    {
+      "action": {
+        "description": "Both residents and non-residents must pay tourist tax per night, at different rates",
+        "type": "condition"
+      },
+      "change_type": "new",
+      "conditions": null,
+      "confidence": 0.82,
+      "description": "From January 1, 2023, tourist tax must be paid by both residents of the Republic of Uzbekistan and non-residents (foreign citizens). Prior to March 2021, only foreigners paid it; from March 1, 2021 to end of 2022, the resident tax was introduced but the unified 2023 framework consolidated both under Cabinet of Ministers Resolution No. 475.",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-08-25",
+      "legal_reference": "Cabinet of Ministers Resolution No. 475, dated August 25, 2022",
+      "name": "Tourist Tax Applies to Both Residents and Non-Residents (from 2023)",
+      "rule_type": "condition",
+      "source_quote": "Tourist tax is a fee from January 1, 2023, the funds from which are credited to the budget. It must be paid both to residents of the Republic of Uzbekistan and non-residents in accordance with the Cabinet of Ministers Resolution No. 475 dated August 25, 2022.",
+      "source_url": "https://reikartz.com/en/hotels/reikartz-bahor-buhara/rules/"
+    },
+    {
+      "action": {
+        "description": "Tourist tax must be collected as a separate charge from the accommodation room rate",
+        "type": "condition"
+      },
+      "change_type": "new",
+      "conditions": null,
+      "confidence": 0.8,
+      "description": "The tourist tax is not included in the room rate and must be paid separately at the time of booking or check-in. VAT is included in the room rate, but tourist tax is not.",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-08-25",
+      "legal_reference": "Cabinet of Ministers Resolution No. 475, dated August 25, 2022",
+      "name": "Tourist Tax Paid Separately from Room Rate",
+      "rule_type": "condition",
+      "source_quote": "Tourist tax is not included in the room rate and must be paid separately at the time of booking.",
+      "source_url": "https://reikartz.com/en/hotels/reikartz-bahor-buhara/rules/"
+    },
+    {
+      "action": {
+        "description": "VAT at 12% is included in published room rates",
+        "type": "condition"
+      },
+      "change_type": "new",
+      "conditions": null,
+      "confidence": 0.8,
+      "description": "Hotel room rates in Uzbekistan include value-added tax (VAT) at 12%. Hotels are subject to standard VAT on accommodation services. VAT rate confirmed unchanged until January 1, 2028.",
+      "effective_end": "2028-01-01",
+      "effective_start": "2019-01-01",
+      "enacted_date": null,
+      "legal_reference": "Tax Code of the Republic of Uzbekistan; confirmed unchanged by decree through 2028",
+      "name": "VAT Included in Hotel Room Rate",
+      "rule_type": "condition",
+      "source_quote": "Room rates includes value added tax (VAT).",
+      "source_url": "https://reikartz.com/en/hotels/reikartz-bahor-buhara/rules/"
+    }
+  ],
+  "sources_checked": [
+    "https://gov.uz/en/soliq",
+    "https://reikartz.com/en/hotels/reikartz-bahor-buhara/rules/",
+    "https://reikartz.com/en/rules/tourist-tax-uzbekistan/",
+    "https://www.apta.uz/en/news/25",
+    "https://tashkenttimes.uz/national/6383-tourist-tax-to-apply-to-uzbeks",
+    "https://taxsummaries.pwc.com/republic-of-uzbekistan/corporate/other-taxes",
+    "https://tax-legal.uz/en/value-added-tax/",
+    "https://www.ey.com/en_uz/technical/tax-alerts/2026/01/uzbekistan-tax-updates-2026",
+    "https://www.vatcalc.com/uzbekistan/uzbekistan-hospitality-vat-credits-to-boost-cashless-transactions",
+    "https://www.globalvatcompliance.com/globalvatnews/uzbekistan-tax-measures-2024/"
+  ],
+  "summary": "Researched accommodation/tourism tax regulations for Bukhara, Uzbekistan (UZ-BHK). No prior records existed in the database. Found 5 applicable tax rules/rates, all set at the national (Uzbekistan-wide) level \u2014 there are no Bukhara-specific local surcharges identified. The key framework is Uzbekistan's tourist (hotel) tax established under Cabinet of Ministers Resolution No. 475 (August 25, 2022), effective from January 1, 2023, which applies uniformly across all regions including Bukhara. The tourist tax for foreign citizens is tiered by hotel room count (5%/10%/15% of the Basic Fiscal/Settlement Amount \u2014 BFA/BRF), while for residents it is 0.4% of BFA per night. Standard VAT of 12% applies to hotel services and is confirmed unchanged until at least 2028. Checked: soliq.uz (gov.uz/en/soliq \u2014 limited detail available), reikartz.com (Bukhara property), apta.uz, tashkenttimes.uz, taxsummaries.pwc.com, tax-legal.uz, ey.com, globalvatcompliance.com, and vatcalc.com. Checked 9 sources total."
+}

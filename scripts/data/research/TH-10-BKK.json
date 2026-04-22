@@ -1,0 +1,166 @@
+{
+  "_meta": {
+    "country_code": "TH",
+    "currency_code": "THB",
+    "elapsed_seconds": 84.0,
+    "jurisdiction_code": "TH-10-BKK",
+    "jurisdiction_id": 42,
+    "jurisdiction_name": "Bangkok",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "bangkok.go.th",
+      "bangkok.go.th"
+    ],
+    "researched_at": "2026-04-21T19:49:24.408290+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.425736+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "TH-10-BKK",
+  "notes": "1. The bangkok.go.th domain (both the main site and iao.bangkok.go.th) does not publish any hotel-specific or accommodation-specific tax pages. The Bangkok Metropolitan Administration (BMA) does not appear to levy a separate city-level accommodation or tourism tax distinct from the national VAT. 2. The 10% hotel service charge is a deeply embedded industry convention in Bangkok but is NOT a statutory government tax \u2014 it is not mandated by law and some hotels do not apply it. It is reported here as an industry rate for informational completeness, with lower confidence. 3. The proposed national 300 THB tourist entry fee ('Kha Yeap Pan Din') has been in perpetual proposal status since 2020 and has never been enacted. As of April 2026, the new Anutin 2 government is again fast-tracking it for air arrivals (300 THB), but it remains a proposal. It should NOT be applied to bookings. Monitor official Royal Gazette publications. 4. Thailand's statutory VAT rate is 10% (Revenue Code Amendment Act No. 30 B.E. 2534), but the effective enforced rate has been 7% continuously since 1992 through a series of Royal Decrees. The current extension runs to 30 September 2026 (Royal Decree No. 799 B.E. 2568). 5. There is no separate Bangkok city hotel tax, tourism levy, or bed tax at the municipal level based on all sources reviewed.",
+  "overall_confidence": 0.82,
+  "rates": [
+    {
+      "authority_name": "Thai Revenue Department",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.97,
+      "currency_code": "THB",
+      "effective_end": "2026-09-30",
+      "effective_start": "1992-01-01",
+      "enacted_date": "2025-09-13",
+      "legal_reference": "Royal Decree No. 799 B.E. 2568 (AD 2025) under the Thai Revenue Code",
+      "legal_uri": "https://www.hlbthai.com/cabinet-approves-extension-of-the-7-vat-until-30-september-2026/",
+      "rate_type": "percentage",
+      "rate_value": 7.0,
+      "source_quote": "Royal Decree No. 799 was issued under the Revenue Code on 13 September 2025 to extend the 7% VAT rate for another year.",
+      "source_url": "https://www.hlbthai.com/cabinet-approves-extension-of-the-7-vat-until-30-september-2026/",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Hotel industry convention (Bangkok)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.72,
+      "currency_code": "THB",
+      "effective_end": null,
+      "effective_start": "1990-01-01",
+      "enacted_date": null,
+      "legal_reference": null,
+      "legal_uri": null,
+      "rate_type": "percentage",
+      "rate_value": 10.0,
+      "rejected": true,
+      "rejection_reason": "Auto-review: not a statutory tax or source not authoritative",
+      "source_quote": "Hotels in Bangkok will usually add a service charge of 10% service charge and VAT at 7% to the hotel bill at the end.",
+      "source_url": "https://www.worldtravelguide.net/guides/asia/thailand/bangkok/hotels/",
+      "tax_category_code": "occ_pct",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "rate_pct": 7.0,
+        "type": "apply_rate"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "vat_registration_status",
+        "operator": "==",
+        "value": "registered"
+      },
+      "confidence": 0.97,
+      "description": "Thailand's standard VAT rate is 10% under the Revenue Code, but has been continuously reduced to 7% by successive Royal Decrees since 1992. The most recent extension (Royal Decree No. 799 B.E. 2568) keeps the 7% rate in effect from 1 October 2025 to 30 September 2026. Hotel accommodation services provided by VAT-registered businesses are subject to this 7% rate.",
+      "effective_end": "2026-09-30",
+      "effective_start": "2025-10-01",
+      "enacted_date": "2025-09-13",
+      "legal_reference": "Royal Decree No. 799 B.E. 2568 under Thai Revenue Code",
+      "name": "VAT Extended to September 2026",
+      "rule_type": "condition",
+      "source_quote": "On 9 September 2025 the Thai cabinet approved in principle a draft royal decree to be issued under the Revenue Code to extend Thailand's 7% VAT rate for another year to September 30, 2026.",
+      "source_url": "https://www.hlbthai.com/cabinet-approves-extension-of-the-7-vat-until-30-september-2026/"
+    },
+    {
+      "action": {
+        "rate_pct": 7.0,
+        "type": "apply_rate"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "annual_revenue_thb",
+            "operator": ">=",
+            "value": 1800000
+          },
+          {
+            "field": "service_type",
+            "operator": "==",
+            "value": "accommodation"
+          }
+        ]
+      },
+      "confidence": 0.9,
+      "description": "Accommodation services (hotels, guesthouses, short-term rentals operating like hotels) provided by VAT-registered entities in Thailand are subject to the standard 7% VAT. Hosts/operators with annual gross revenue from taxable supply exceeding THB 1.8 million must register for VAT and charge 7% on accommodation fees.",
+      "effective_end": null,
+      "effective_start": "1992-01-01",
+      "enacted_date": null,
+      "legal_reference": "Thai Revenue Code, Section 77 et seq.",
+      "name": "VAT Applies to Accommodation Fees",
+      "rule_type": "condition",
+      "source_quote": "If you are a VAT registrant and required to charge VAT on the accommodation service you provide to guests, you generally have to charge VAT at 7% on the accommodation fees",
+      "source_url": "https://assets.airbnb.com/help/Airbnb_TaxGuide2026_Thailand_ENGLISH.pdf"
+    },
+    {
+      "action": {
+        "currency": "THB",
+        "flat_amount": 300.0,
+        "note": "NOT YET IN FORCE \u2014 proposal only",
+        "type": "surcharge"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "tourist_entry_method",
+        "operator": "==",
+        "value": "air"
+      },
+      "confidence": 0.85,
+      "description": "A 300 THB entry fee ('Kha Yeap Pan Din') for foreign tourists arriving by air has been repeatedly proposed and approved in principle by successive Thai cabinets (first in Feb 2023) but as of April 2026 has NEVER been published in the Royal Gazette and has NEVER come into force. The 'Anutin 2' government (formed ~March 2026) is again fast-tracking it, with the 300 THB fee applying to air arrivals only (land/sea plans shelved for now). No concrete enacted effective date exists. This rule is recorded for monitoring purposes only and should NOT be applied to bookings until officially enacted.",
+      "effective_end": null,
+      "effective_start": "2026-01-01",
+      "enacted_date": null,
+      "legal_reference": "National Tourism Policy Act B.E. 2562 (2019), Section 10/2; Cabinet approval in principle February 2023",
+      "name": "National Tourist Entry Fee \u2014 NOT YET ENACTED",
+      "rejected": true,
+      "rejection_reason": "Auto-review: proposal/unverified/low-confidence",
+      "rule_type": "condition",
+      "source_quote": "While the cabinet approved the National Tourism Policy Committee's proposal to collect a tourism tax from inbound travellers in February 2023, the programme has still not been implemented.",
+      "source_url": "https://www.bangkokpost.com/business/general/3133248/unpacking-the-tourism-tax"
+    }
+  ],
+  "sources_checked": [
+    "https://www.hlbthai.com/cabinet-approves-extension-of-the-7-vat-until-30-september-2026/",
+    "https://www.nishimura.com/en/knowledge/publications/20251022-116401",
+    "https://stripe.com/resources/more/value-added-tax-vat-in-thailand",
+    "https://www.vatupdate.com/2025/10/06/7-vat-rate-in-thailand-extended-until-2026/",
+    "https://assets.airbnb.com/help/Airbnb_TaxGuide2026_Thailand_ENGLISH.pdf",
+    "https://www.bangkokpost.com/business/general/3133248/unpacking-the-tourism-tax",
+    "https://www.nationthailand.com/news/tourism/40052562",
+    "https://www.euronews.com/travel/2025/07/15/thailand-delays-tourist-entry-fee-until-2026-as-arrivals-dip-and-economy-falters",
+    "https://www.khaosodenglish.com/tourism/2025/10/03/thailand-to-collect-300-baht-entry-fee-from-foreign-tourists/",
+    "https://www.thailandnews.co/2026/03/thailand-to-launch-300-baht-tourist-entry-fee-under-new-government/",
+    "https://iao.bangkok.go.th/content-detail/12308",
+    "https://iao.bangkok.go.th/storage/files/Personal%20Income%20Tax.pdf",
+    "https://invest.bangkok.go.th/safety/",
+    "https://www.tourismthailand.org/Articles/plan-your-trip-vat-tax-refund",
+    "https://www.worldtravelguide.net/guides/asia/thailand/bangkok/hotels/"
+  ],
+  "summary": "Researched Bangkok (TH-10-BKK) accommodation tax regulations across 6+ searches covering official Thai government sources, the bangkok.go.th domain, national tax authority publications, legal advisories, and reputable news sources. Key findings: (1) Thailand's standard 7% VAT applies to hotel accommodation services and has been extended to 30 September 2026 via Royal Decree No. 799 B.E. 2568. (2) A 10% hotel service charge is a widespread industry convention in Bangkok (not a statutory tax). (3) A long-proposed national tourist entry fee of 300 THB has been repeatedly delayed and has NEVER been enacted \u2014 as of April 2026 the \"Anutin 2\" government is once again fast-tracking it but no concrete effective date or Royal Gazette publication exists. This was NOT reported as an enacted rate. (4) No Bangkok Metropolitan Administration-specific accommodation tax (city-level tax) was found. The bangkok.go.th domain yielded no hotel-specific tax pages; it covers personal income tax and budget data only. Database had no prior rates, so all confirmed rates are reported as \"new\"."
+}

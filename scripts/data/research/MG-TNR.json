@@ -1,0 +1,131 @@
+{
+  "_meta": {
+    "country_code": "MG",
+    "currency_code": "MGA",
+    "elapsed_seconds": 73.2,
+    "jurisdiction_code": "MG-TNR",
+    "jurisdiction_id": 801,
+    "jurisdiction_name": "Antananarivo",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "impots.mg"
+    ],
+    "researched_at": "2026-04-21T20:17:03.905825+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.416042+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "MG-TNR",
+  "notes": "1. The priority domain impots.mg and its portal (portal.impots.mg) do not publish the specific tourist/stay tax rate tables in a publicly web-accessible format; the CGI PDF documents are extensive and the tourist tax section was referenced via the PwC Tax Summaries (last reviewed November 2025), which is highly authoritative for Madagascar. 2. The tourist/stay tax is a LOCAL para-fiscal tax \u2014 the national CGI sets the range of MGA 500\u20132,000 per night/room as the MAXIMUM bracket. The exact rate applied in Antananarivo specifically would be determined by a commune-level decision (d\u00e9lib\u00e9ration communale) of the Commune Urbaine d'Antananarivo (CUA). This specific municipal rate was NOT found in available online sources and may require direct inquiry with the CUA or the DGI local office. 3. The 2025 Finance Law (Loi n\u00b0 2024-025) and the 2024 Finance Law introduced no changes to tourist/stay tax rates \u2014 key 2025 changes were: new mobile transaction tax (0.5% on transfers >MGA 150,000), expanded IR deductibility, and invoice compliance requirements. 4. Madagascar does not have a separate national hotel occupancy tax beyond the local tourist tax and applicable VAT. 5. The Accor Hotels note that \"Some taxes may be payable on arrival at the hotel (for example, tourist tax), depending on current local regulations\" confirms the tourist tax is actively applied in Antananarivo.",
+  "overall_confidence": 0.72,
+  "rates": [
+    {
+      "authority_name": "Direction G\u00e9n\u00e9rale des Imp\u00f4ts Madagascar / Commune Urbaine d'Antananarivo",
+      "base_type": "per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.82,
+      "currency_code": "MGA",
+      "effective_end": null,
+      "effective_start": "2017-01-01",
+      "enacted_date": "2016-12-31",
+      "legal_reference": "Madagascar General Tax Code (Code G\u00e9n\u00e9ral des Imp\u00f4ts), Local para-fiscal taxes section, applicable from January 2017",
+      "legal_uri": "https://portal.impots.mg/textes/textes/2025-02-06--N-2025-MEF.SG.DGI-Ref-HIH9EC-3OPLT3.pdf",
+      "rate_type": "tiered",
+      "rate_value": null,
+      "source_quote": "Tourist tax (or stay tax): MGA 500 to MGA 2,000 per night/room. Concerning local tax, generally called 'para-fiscal taxes', the following are introduced in the tax code applicable from January 2017.",
+      "source_url": "https://taxsummaries.pwc.com/madagascar/corporate/other-taxes",
+      "tax_category_code": "city_tax_flat",
+      "tier_type": "single_amount",
+      "tiers": [
+        {
+          "description": "National maximum bracket; commune sets specific rate within this range per night per room",
+          "max_mga": 2000,
+          "min_mga": 500
+        }
+      ]
+    },
+    {
+      "authority_name": "Direction G\u00e9n\u00e9rale des Imp\u00f4ts Madagascar",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.8,
+      "currency_code": "MGA",
+      "effective_end": null,
+      "effective_start": "2017-01-01",
+      "enacted_date": null,
+      "legal_reference": "Madagascar General Tax Code (CGI), TVA provisions; mandatory for operators with annual turnover \u2265 MGA 400 million",
+      "legal_uri": "https://portal.impots.mg/textes/textes/2025-02-06--N-2025-MEF.SG.DGI-Ref-HIH9EC-3OPLT3.pdf",
+      "rate_type": "percentage",
+      "rate_value": 20.0,
+      "source_quote": "VAT is applicable to all transactions related to any services performed in Madagascar by a corporate entity with turnover equal to or more than MGA 400 million.",
+      "source_url": "https://taxsummaries.pwc.com/madagascar/corporate/other-taxes",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "rate_pct": 20,
+        "type": "apply_vat"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "annual_turnover_mga",
+        "operator": ">=",
+        "value": 400000000
+      },
+      "confidence": 0.8,
+      "description": "Hotel and accommodation operators with annual turnover of MGA 400 million or more are subject to VAT at 20%. Those below this threshold fall under the synthetic tax regime (5% of 70% of turnover) instead of VAT.",
+      "effective_end": null,
+      "effective_start": "2024-01-01",
+      "enacted_date": "2023-12-31",
+      "legal_reference": "Madagascar 2024 Finance Law; Madagascar General Tax Code, TVA provisions",
+      "name": "VAT Turnover Threshold for Hotel Operators",
+      "rule_type": "threshold",
+      "source_quote": "VAT is applicable to all transactions related to any services performed in Madagascar by a corporate entity with turnover equal to or more than MGA 400 million.",
+      "source_url": "https://taxsummaries.pwc.com/madagascar/corporate/other-taxes"
+    },
+    {
+      "action": {
+        "max_mga_per_night_per_room": 2000,
+        "min_mga_per_night_per_room": 500,
+        "set_by": "commune",
+        "type": "apply_flat_tax"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "accommodation_type",
+        "operator": "==",
+        "value": "any_paid_lodging"
+      },
+      "confidence": 0.75,
+      "description": "The national General Tax Code sets the maximum tourist/stay tax rate at MGA 500\u20132,000 per night per room. Individual communes (including Antananarivo) must set their specific rate within these national bounds. The specific Antananarivo commune rate was not found in public sources and may require direct inquiry with the Commune Urbaine d'Antananarivo.",
+      "effective_end": null,
+      "effective_start": "2017-01-01",
+      "enacted_date": "2016-12-31",
+      "legal_reference": "Madagascar General Tax Code, Local para-fiscal taxes section (applicable from January 2017)",
+      "name": "Tourist Tax Set by Commune Within National Limits",
+      "rule_type": "condition",
+      "source_quote": "These local taxes are not new since they already existed; however, their introduction to the tax code results from the principle that only a financial act can introduce tax.",
+      "source_url": "https://taxsummaries.pwc.com/madagascar/corporate/other-taxes"
+    }
+  ],
+  "sources_checked": [
+    "https://www.impots.mg/accueil",
+    "https://portal.impots.mg/textes/",
+    "https://portal.impots.mg/textes/textes/2025-02-06--N-2025-MEF.SG.DGI-Ref-HIH9EC-3OPLT3.pdf",
+    "https://portal.impots.mg/textes/textes/2025-02-28--N-2024-025-MEF.SG.DGI-Ref-Z08LHE-TOBBA6.pdf",
+    "https://taxsummaries.pwc.com/madagascar/corporate/other-taxes",
+    "https://taxsummaries.pwc.com/madagascar",
+    "https://www.madagascar-services.com/blog/en/2025/05/22/major-changes-introduced-by-the-2025-finance-act-in-madagascar/",
+    "https://www.madagascar-services.com/blog/en/2024/09/16/key-changes-to-tax-procedures-in-madagascar-in-2024/",
+    "https://torolalana.gov.mg/fr/services/les-differents-types-d-impots-a-madagascar/",
+    "https://www.mef.gov.mg/assets/vendor/ckeditor/plugins/kcfinder/upload/files/lfi_2025/Ampliation%20LOI%20n%C2%B0%202024-025LF2025_VF_PRMLG--12-18.pdf"
+  ],
+  "summary": "Researched accommodation and tourism taxes for Antananarivo (Madagascar) across multiple authoritative sources including impots.mg, portal.impots.mg (CGI text), PwC Tax Summaries (last reviewed November 2025), and the 2025 Finance Law (Loi n\u00b0 2024-025). The key finding is a national-level local para-fiscal Tourist Tax (Taxe Touristique / Taxe de S\u00e9jour) of MGA 500\u20132,000 per night/room, codified into the Madagascar General Tax Code from January 2017. This is the maximum bracket set by national law; individual communes (including Antananarivo) set their specific rate within this range. The 2025 Finance Law introduced no changes to this tourist tax. A standard VAT of 20% also applies to hotel operators with annual turnover \u2265 MGA 400 million. No Antananarivo-specific municipal rate deviation from national ranges was found in publicly accessible sources. Our database had no prior rates recorded, so all findings are reported as \"new\"."
+}

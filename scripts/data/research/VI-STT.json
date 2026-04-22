@@ -1,0 +1,245 @@
+{
+  "_meta": {
+    "country_code": "VI",
+    "currency_code": "USD",
+    "elapsed_seconds": 78.7,
+    "jurisdiction_code": "VI-STT",
+    "jurisdiction_id": 772,
+    "jurisdiction_name": "St. Thomas",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "bir.vi.gov",
+      "bir.vi.gov"
+    ],
+    "researched_at": "2026-04-21T20:39:45.965500+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.431288+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "VI-STT",
+  "notes": "1. The BIR Tax Structure Booklet (bir.vi.gov/content/booklets/tax_structure.pdf) is the primary official source and confirms the 12.5% rate and the $25/night timeshare fee. The exact publication date of the booklet is not stated, but it references Governor Albert A. Bryan Jr. (who served 2019\u20132023), suggesting it reflects regulations as of that era; the underlying statutes (VI Code Title 33 \u00a754) have not changed since. 2. A proposed legislative increase to 20%+ for short-term rentals (March 2025 Op-Ed, stthomassource.com) was NOT enacted and is NOT included. 3. The Justia VI Code citation is the 2019 edition \u2014 the most current version available on Justia \u2014 and may not reflect any post-2019 statutory amendments, though no evidence of amendments was found. 4. The effective_start date of 2017-06-01 for the hotel room tax reflects the June 1, 2017 expansion to short-term rentals; the underlying tax predates this but the current 12.5% rate took effect with the 2017 sin tax legislation.",
+  "overall_confidence": 0.92,
+  "rates": [
+    {
+      "authority_name": "Virgin Islands Bureau of Internal Revenue (BIR)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.97,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "2017-06-01",
+      "enacted_date": "2017-05-01",
+      "legal_reference": "V.I. Code Title 33, \u00a754(b)(1)",
+      "legal_uri": "https://law.justia.com/codes/virgin-islands/2019/title-33/subtitle-1/part-i/chapter-3/54/",
+      "rate_type": "percentage",
+      "rate_value": 12.5,
+      "source_quote": "Every guest of a hotel as defined above shall pay to the Government of the United States Virgin Islands a tax to be collected and remitted to the Government by the hotelkeeper or innkeeper at the rate of 12.5 percent of the gross room rate or rental.",
+      "source_url": "https://law.justia.com/codes/virgin-islands/2019/title-33/subtitle-1/part-i/chapter-3/54/",
+      "tax_category_code": "occ_pct",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Virgin Islands Bureau of Internal Revenue (BIR)",
+      "base_type": "per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": "USD",
+      "effective_end": null,
+      "effective_start": "2017-05-01",
+      "enacted_date": "2017-05-01",
+      "legal_reference": "V.I. Code Title 33, \u00a754(b)(3)(A)",
+      "legal_uri": "https://law.justia.com/codes/virgin-islands/2019/title-33/subtitle-1/part-i/chapter-3/54/",
+      "rate_type": "flat",
+      "rate_value": 25.0,
+      "source_quote": "Each timeshare unit is assessed an Environmental/Infrastructure Impact Fee of $25.00 per day of occupancy.",
+      "source_url": "https://law.justia.com/codes/virgin-islands/2019/title-33/subtitle-1/part-i/chapter-3/54/",
+      "tax_category_code": "occ_flat",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "rate_value": 12.5,
+        "tax": "occ_pct",
+        "type": "apply_tax"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "stay_length_days",
+        "operator": "<",
+        "value": 90
+      },
+      "confidence": 0.97,
+      "description": "The 12.5% hotel room tax applies only to stays of fewer than 90 days. Stays of 90 days or longer are classified as long-term rentals and are not subject to the hotel room tax.",
+      "effective_end": null,
+      "effective_start": "2017-06-01",
+      "enacted_date": null,
+      "legal_reference": "V.I. Code Title 33, \u00a754(a)(3)",
+      "name": "Short-Stay Threshold (Under 90 Days)",
+      "rule_type": "condition",
+      "source_quote": "\"Guest\" means an individual who has registered in a hotel and to whom a room has been assigned and also an individual who has rented or leased an apartment, condominium, timeshare or residence for a day, week, month or season, provided that the period of time of the rental or lease is less than 90 days.",
+      "source_url": "https://law.justia.com/codes/virgin-islands/2019/title-33/subtitle-1/part-i/chapter-3/54/"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "guest_type",
+            "operator": "==",
+            "value": "federal_government_employee"
+          },
+          {
+            "field": "payment_method",
+            "operator": "in",
+            "value": [
+              "federal_credit_card",
+              "government_check"
+            ]
+          }
+        ]
+      },
+      "confidence": 0.95,
+      "description": "The hotel room tax does not apply to rooms rented to federal government employees on official assignment to the Virgin Islands when paid directly by the federal government (via federally issued credit card or government check). This is the only exemption from the hotel room tax.",
+      "effective_end": null,
+      "effective_start": "2017-06-01",
+      "enacted_date": null,
+      "legal_reference": "V.I. Code Title 33, \u00a754; BIR Press Release March 2018",
+      "name": "Federal Government Employee Exemption",
+      "rule_type": "exemption",
+      "source_quote": "The hotel room tax will not apply to rooms rented to federal government employees on assignment to the Virgin Islands who pay the hotel room tax with a federally issued credit card or a federal government check. This is the only exemption from the hotel room tax.",
+      "source_url": "https://stjohnsource.com/2018/03/02/bir-reminds-taxpayers-of-hotel-room-tax-of-12-5-percent/"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "guest_type",
+        "operator": "==",
+        "value": "diplomatic_exempt"
+      },
+      "confidence": 0.88,
+      "description": "Persons with diplomatic status that grants exemption from locally imposed taxes may present their diplomatic exemption card to the hotel to obtain exemption from the hotel room tax.",
+      "effective_end": null,
+      "effective_start": "2017-06-01",
+      "enacted_date": null,
+      "legal_reference": "USVIHTA Government Per Diem guidance",
+      "name": "Diplomatic Status Exemption",
+      "rule_type": "exemption",
+      "source_quote": "Any person with diplomatic status that grants exemption from locally imposed taxes may present their diplomatic exemption card to the hotel to obtain exemption from the hotel room tax.",
+      "source_url": "https://usvihta.com/government-per-diem-for-u-s-virgin-islands/"
+    },
+    {
+      "action": {
+        "note": "Subject to $25/night Environmental/Infrastructure Impact Fee instead",
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "accommodation_type",
+            "operator": "==",
+            "value": "timeshare"
+          },
+          {
+            "field": "guest_type",
+            "operator": "==",
+            "value": "owner_own_vi_timeshare"
+          }
+        ]
+      },
+      "confidence": 0.93,
+      "description": "Timeshare owners occupying their own unit (based on their ownership interest in a VI timeshare) are NOT subject to the 12.5% hotel room tax. However, they ARE subject to the $25/night Environmental/Infrastructure Impact Fee instead. Exchange participants and non-VI timeshare owners remain subject to the hotel room tax.",
+      "effective_end": null,
+      "effective_start": "2017-05-01",
+      "enacted_date": null,
+      "legal_reference": "V.I. Code Title 33, \u00a754(a)(3) and \u00a754(b)(2)-(3)",
+      "name": "Timeshare Owner Exemption from Hotel Room Tax",
+      "rule_type": "exemption",
+      "source_quote": "the term does not include an individual occupying sleeping accommodations at the timeshare development based on his owning an interest at that timeshare development.",
+      "source_url": "https://law.justia.com/codes/virgin-islands/2019/title-33/subtitle-1/part-i/chapter-3/54/"
+    },
+    {
+      "action": {
+        "type": "include_in_tax_base"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "charge_type",
+        "operator": "in",
+        "value": [
+          "room_rate",
+          "energy_surcharge",
+          "maintenance_fee"
+        ]
+      },
+      "confidence": 0.95,
+      "description": "The 12.5% hotel room tax base includes the room rate plus additional charges such as energy surcharges or maintenance fees, but excludes charges for food, beverages, and gratuities.",
+      "effective_end": null,
+      "effective_start": "2017-06-01",
+      "enacted_date": null,
+      "legal_reference": "V.I. Code Title 33, \u00a754(b)(1)",
+      "name": "Gross Room Rate Base Definition",
+      "rule_type": "condition",
+      "source_quote": "Guests pay a hotel room tax of twelve and half percent (12.5%) of their gross room rate, which is the total sum charged to a guest for the use of one or more rooms plus any additional charges, such as an energy surcharge or a maintenance fee, but not charges for food, beverages, and gratuities.",
+      "source_url": "https://bir.vi.gov/content/booklets/tax_structure.pdf"
+    },
+    {
+      "action": {
+        "currency": "USD",
+        "flat_amount_per_night": 25.0,
+        "tax": "occ_flat",
+        "type": "apply_tax"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "accommodation_type",
+            "operator": "==",
+            "value": "timeshare"
+          },
+          {
+            "field": "guest_type",
+            "operator": "==",
+            "value": "timeshare_owner_or_user"
+          }
+        ]
+      },
+      "confidence": 0.95,
+      "description": "The $25/night Environmental/Infrastructure Impact Fee applies specifically to timeshare owners/users occupying their timeshare unit. It is collected by the timeshare plan manager and remitted monthly (Form 722EI) to the BIR by the 30th day after the close of the month.",
+      "effective_end": null,
+      "effective_start": "2017-05-01",
+      "enacted_date": null,
+      "legal_reference": "V.I. Code Title 33, \u00a754(b)(3)(A); BIR Tax Structure Booklet",
+      "name": "Timeshare Environmental/Infrastructure Impact Fee \u2014 Owner/User Applicability",
+      "rule_type": "condition",
+      "source_quote": "On May 1, 2017, the new Environmental/Infrastructure Impact Fee for Timeshares became law. The law imposes a $25 per night fee on the occupancy of a timeshare by the owner/user.",
+      "source_url": "https://bir.vi.gov/content/booklets/tax_structure.pdf"
+    }
+  ],
+  "sources_checked": [
+    "https://bir.vi.gov/content/booklets/tax_structure.pdf",
+    "https://bir.vi.gov/",
+    "https://bir.vi.gov/content/form/39e7855a-4f53-4fea-88a1-e4860ed51d0f/index.pdf",
+    "https://law.justia.com/codes/virgin-islands/2019/title-33/subtitle-1/part-i/chapter-3/54/",
+    "https://www.airbnb.com/help/article/2332",
+    "https://usvihta.com/government-per-diem-for-u-s-virgin-islands/",
+    "https://stjohnsource.com/2018/03/02/bir-reminds-taxpayers-of-hotel-room-tax-of-12-5-percent/",
+    "https://www.lodgecompliance.com/countries/us-virgin-islands",
+    "https://stthomassource.com/content/2025/03/25/op-ed-how-a-proposed-short-term-rental-tax-hike-could-hurt-tourism-and-local-businesses-in-the-usvi/"
+  ],
+  "summary": "Comprehensive research conducted for St. Thomas, US Virgin Islands (VI-STT). 5 sources checked including bir.vi.gov (official BIR Tax Structure Booklet and Hotel Room Tax Form 722), VI Code Title 33 \u00a754 (Justia), Airbnb's official USVI tax page, US Virgin Islands Hotel & Tourism Association, and lodgecompliance.com. Two accommodation taxes confirmed in effect: (1) A 12.5% Hotel Room Tax applying to all accommodation rentals under 90 days (hotels, villas, apartments, condos, STRs, and timeshare non-owner/exchange guests), effective since June 1, 2017; and (2) A $25/night Environmental/Infrastructure Impact Fee on timeshare units, applicable to owner/user occupancy, effective May 1, 2017. No new or changed rates found since enactment \u2014 rates are stable. A proposed increase to 20%+ for STRs (Op-Ed, March 2025) is NOT enacted and was not recorded. No rates were previously in our database, so all findings are reported as \"new.\""
+}

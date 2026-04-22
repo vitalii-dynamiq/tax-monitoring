@@ -1,5 +1,8 @@
 __pycache__/
 data/
+# Keep AI research audit trail tracked in git
+!scripts/data/
+!scripts/data/**
 *.py[cod]
 *$py.class
 *.so

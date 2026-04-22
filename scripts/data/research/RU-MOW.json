@@ -1,0 +1,200 @@
+{
+  "_meta": {
+    "country_code": "RU",
+    "currency_code": "RUB",
+    "elapsed_seconds": 105.3,
+    "jurisdiction_code": "RU-MOW",
+    "jurisdiction_id": 833,
+    "jurisdiction_name": "Moscow",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "nalog.gov.ru",
+      "nalog.gov.ru"
+    ],
+    "researched_at": "2026-04-21T20:28:19.964185+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.422318+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "RU-MOW",
+  "notes": "1. NALOG.GOV.RU/RN77 (FNS Moscow): The official page nalog.gov.ru/rn77/taxation/taxes/tourist_tax/ exists but only returned a title in search results (no detailed content accessible). However, a FNS Moscow news article (nalog.gov.ru/rn77/news/activities_fts/15398197/) titled 'How will tourist tax be calculated from January 1, 2025' was found, confirming the framework applies nationally but requires local enactment.\n\n2. MOSCOW STATUS CONFIRMED: Multiple authoritative Russian sources (audit-it.ru citing FNS, finance.mail.ru, spmag.ru) all confirm that Moscow has not enacted a tourist tax for 2025 or 2026, based on official FNS Russia statements. This is the most current and definitive finding.\n\n3. VAT EXTENSION PROPOSAL: The Russian government proposed in May 2025 to extend the 0% VAT rate on hotel accommodation from June 30, 2027 to December 31, 2030. As of the research date (April 2026), this had been discussed but formal enactment status is uncertain \u2014 further monitoring recommended.\n\n4. The smarttravel.ru source listed 'Moscow' among regions with tourist tax, but this appears to be an error or confusion with the framework. The FNS Moscow official confirmation supersedes this.\n\n5. No Moscow-specific additional accommodation levies (beyond the VAT framework) were found in any authoritative source.",
+  "overall_confidence": 0.9,
+  "rates": [
+    {
+      "authority_name": "Federal Tax Service of Russia (\u0424\u041d\u0421 \u0420\u043e\u0441\u0441\u0438\u0438)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.88,
+      "currency_code": "RUB",
+      "effective_end": "2027-06-30",
+      "effective_start": "2022-07-01",
+      "enacted_date": "2022-03-26",
+      "legal_reference": "Federal Law No. 67-FZ of 26 March 2022 (\u0424\u0435\u0434\u0435\u0440\u0430\u043b\u044c\u043d\u044b\u0439 \u0437\u0430\u043a\u043e\u043d \u043e\u0442 26.03.2022 \u2116 67-\u0424\u0417)",
+      "legal_uri": "http://publication.pravo.gov.ru/Document/View/0001202203260011",
+      "rate_type": "percentage",
+      "rate_value": 0.0,
+      "source_quote": "Hotel accommodation and other short term accommodation will also be subject to zero-rating from 1 July 2022 for five years. Currently, these services are subject to the standard VAT rate of 20%",
+      "source_url": "https://www.vatcalc.com/russia/russia-cuts-tourism-vat-to-zero-from-20-update/",
+      "tax_category_code": "vat_reduced",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Federal Tax Service of Russia (\u0424\u041d\u0421 \u0420\u043e\u0441\u0441\u0438\u0438)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.85,
+      "currency_code": "RUB",
+      "effective_end": null,
+      "effective_start": "2022-07-01",
+      "enacted_date": "2022-03-26",
+      "legal_reference": "Tax Code of the Russian Federation; Federal Law No. 67-FZ of 26 March 2022",
+      "legal_uri": "https://www.nalog.gov.ru/html/sites/www.eng.nalog.ru/Tax%20Code%20Part%20Two.pdf",
+      "rate_type": "percentage",
+      "rate_value": 20.0,
+      "source_quote": "Hotel accommodation and other short term accommodation will also be subject to zero-rating from 1 July 2022 for five years. Currently, these services are subject to the standard VAT rate of 20%",
+      "source_url": "https://www.vatcalc.com/russia/russia-cuts-tourism-vat-to-zero-from-20-update/",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "reason": "No local law enacted by Moscow City Duma as of April 2026",
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "jurisdiction",
+        "operator": "==",
+        "value": "Moscow"
+      },
+      "confidence": 0.95,
+      "description": "Moscow (City of Federal Significance) has not enacted a local tourist tax law as required by Chapter 33.1 of the Russian Tax Code. The FNS Russia (Moscow region, rn77) officially confirmed that no Moscow city law (\u0437\u0430\u043a\u043e\u043d \u0433\u043e\u0440\u043e\u0434\u0430 \u041c\u043e\u0441\u043a\u0432\u044b) introducing a tourist tax has been adopted or published \u2014 neither for 2025 nor for 2026 \u2014 including on the official Moscow City Duma website. Therefore, no tourist tax applies to hotel accommodation in Moscow.",
+      "effective_end": null,
+      "effective_start": "2025-01-01",
+      "enacted_date": null,
+      "legal_reference": "Tax Code of the Russian Federation, Chapter 33.1, Art. 418.1 et seq. (Federal Law No. 176-FZ of 12.07.2024); FNS Russia Moscow Confirmation (rn77)",
+      "name": "Moscow Tourist Tax Not Enacted \u2014 No Tax Applicable",
+      "rule_type": "exemption",
+      "source_quote": "\u0412 \u043d\u0430\u0441\u0442\u043e\u044f\u0449\u0435\u0435 \u0432\u0440\u0435\u043c\u044f \u0437\u0430\u043a\u043e\u043d \u0433\u043e\u0440\u043e\u0434\u0430 \u041c\u043e\u0441\u043a\u0432\u044b \u043e \u0432\u0432\u0435\u0434\u0435\u043d\u0438\u0438 \u0432 2026 \u0433\u043e\u0434\u0443 \u043d\u0430 \u0442\u0435\u0440\u0440\u0438\u0442\u043e\u0440\u0438\u0438 \u0433\u043e\u0440\u043e\u0434\u0430 \u041c\u043e\u0441\u043a\u0432\u044b \u0442\u0443\u0440\u0438\u0441\u0442\u0438\u0447\u0435\u0441\u043a\u043e\u0433\u043e \u043d\u0430\u043b\u043e\u0433\u0430 \u043d\u0435 \u043f\u0440\u0438\u043d\u044f\u0442 \u0438 \u043d\u0435 \u043e\u043f\u0443\u0431\u043b\u0438\u043a\u043e\u0432\u0430\u043d, \u0438\u0437 \u0447\u0435\u0433\u043e \u0441\u043b\u0435\u0434\u0443\u0435\u0442, \u0447\u0442\u043e \u043d\u0430 \u0442\u0435\u0440\u0440\u0438\u0442\u043e\u0440\u0438\u0438 \u0433\u043e\u0440\u043e\u0434\u0430 \u041c\u043e\u0441\u043a\u0432\u044b \u0442\u0443\u0440\u0438\u0441\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u043d\u0430\u043b\u043e\u0433 \u043d\u0435 \u0432\u0432\u0435\u0434\u0435\u043d",
+      "source_url": "https://www.audit-it.ru/news/finance/1131477.html"
+    },
+    {
+      "action": {
+        "note": "Standard 20% VAT reduced to 0% for accommodation services only",
+        "type": "reduce",
+        "vat_rate_pct": 0.0
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "accommodation_type",
+            "operator": "in",
+            "value": [
+              "hotel",
+              "hostel",
+              "motel",
+              "sanatorium",
+              "other_registered_accommodation"
+            ]
+          },
+          {
+            "field": "service_type",
+            "operator": "==",
+            "value": "temporary_accommodation"
+          }
+        ]
+      },
+      "confidence": 0.88,
+      "description": "Russia-wide 0% VAT rate applies to temporary accommodation services in hotels and other registered accommodation facilities under Federal Law No. 67-FZ. This replaces the standard 20% VAT rate and applies until June 30, 2027 for existing facilities; for new facilities opened after January 1, 2022, the 0% rate applies for 5 years from the date operations commence. Additional services (laundry, spa, parking, etc.) remain subject to standard 20% VAT. Note: A government proposal to extend 0% VAT to December 31, 2030 was announced in May 2025 but had not yet been formally enacted into law as of April 2026.",
+      "effective_end": "2027-06-30",
+      "effective_start": "2022-07-01",
+      "enacted_date": "2022-03-26",
+      "legal_reference": "Federal Law No. 67-FZ of 26 March 2022; Tax Code of the Russian Federation Art. 164",
+      "name": "0% VAT on Hotel Accommodation (Temporary Preference)",
+      "rule_type": "exemption",
+      "source_quote": "The zero VAT rate applies to provision of temporary accommodation of guests, as well as rental of tourist infrastructure facilities. For existing hotels, the zero VAT rate will be in effect until June 30, 2027",
+      "source_url": "https://interfax.com/newsroom/top-stories/80856/"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "moscow_city_law_enacted",
+        "operator": "==",
+        "value": false
+      },
+      "confidence": 0.92,
+      "description": "Federal Law No. 176-FZ (July 12, 2024) introduced Chapter 33.1 'Tourist Tax' into the Russian Tax Code, effective January 1, 2025. The tax is a local tax: in Moscow, St. Petersburg, and Sevastopol, it can only be introduced by a city-level legislative law (\u0437\u0430\u043a\u043e\u043d \u0441\u0443\u0431\u044a\u0435\u043a\u0442\u0430 \u0420\u0424), not by municipal ordinance. The tax would be levied on hotel owners (not guests directly), at up to 1% of accommodation cost (excluding VAT) in 2025, rising annually by 1 percentage point to a maximum of 5% by 2029, with a minimum charge of RUB 100 per room-night. Certain categories of guests are exempt at the federal level (Heroes of the USSR/Russia, WWII veterans and disabled persons, combat veterans, disabled persons of groups I and II, children with disabilities, etc.). Moscow has chosen not to enact this tax as of April 2026.",
+      "effective_end": null,
+      "effective_start": "2025-01-01",
+      "enacted_date": "2024-07-12",
+      "legal_reference": "Federal Law No. 176-FZ of 12 July 2024; Tax Code of the Russian Federation, Chapter 33.1, Arts. 418.1\u2013418.8",
+      "name": "Federal Tourist Tax Framework \u2014 Moscow Opt-Out Right",
+      "rule_type": "condition",
+      "source_quote": "The tax was introduced as part of amendments to the Russian Tax Code in July 2024, which added a new chapter titled 'Tourist Tax,' granting regional authorities discretion to implement the tax as a local levy.",
+      "source_url": "https://english.news.cn/20250101/c912f665622944dba5d6475e88165bfb/c.html"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "guest_category",
+        "operator": "in",
+        "value": [
+          "heroes_ussr_russia",
+          "wwii_veterans_disabled",
+          "combat_veterans",
+          "siege_survivors",
+          "disabled_group_1_2",
+          "disabled_children",
+          "smo_participants"
+        ]
+      },
+      "confidence": 0.8,
+      "description": "Under Federal Law No. 176-FZ and Tax Code Art. 418.4, certain guest categories are exempt from tourist tax at the federal level: Heroes of the USSR and Russia, Heroes of Socialist Labour, full holders of the Order of Glory; WWII participants and disabled veterans; combat veterans and disabled combatants; residents of besieged Leningrad/Stalingrad/Sevastopol; disabled persons of groups I and II, disabled children, persons disabled since childhood; persons who worked in anti-aircraft defence and frontline service during WWII; and participants in special military operations (Ukraine). Moscow city authorities may expand this list with additional local exemptions if/when they enact the tax.",
+      "effective_end": null,
+      "effective_start": "2025-01-01",
+      "enacted_date": "2024-07-12",
+      "legal_reference": "Federal Law No. 176-FZ of 12 July 2024; Tax Code of the Russian Federation Art. 418.4 \u00a72",
+      "name": "Federal Tourist Tax Exemptions (if/when Moscow enacts tourist tax)",
+      "rule_type": "exemption",
+      "source_quote": "\u0413\u043e\u0441\u0442\u0438\u043d\u0438\u0446\u044b \u043d\u0435 \u0431\u0443\u0434\u0443\u0442 \u0431\u0440\u0430\u0442\u044c \u0441 \u043f\u043e\u0441\u0442\u043e\u044f\u043b\u044c\u0446\u0435\u0432 \u0442\u0443\u0440\u0438\u0441\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u043d\u0430\u043b\u043e\u0433, \u0435\u0441\u043b\u0438 \u0442\u0435 \u043e\u0442\u043d\u043e\u0441\u044f\u0442\u0441\u044f \u043a \u0444\u0435\u0434\u0435\u0440\u0430\u043b\u044c\u043d\u044b\u043c \u043b\u044c\u0433\u043e\u0442\u043d\u0438\u043a\u0430\u043c, \u0432 \u0447\u0438\u0441\u043b\u0435 \u043a\u043e\u0442\u043e\u0440\u044b\u0445: \u0413\u0435\u0440\u043e\u0438 \u0421\u0421\u0421\u0420 \u0438 \u0420\u043e\u0441\u0441\u0438\u0438, \u043f\u043e\u043b\u043d\u044b\u0435 \u043a\u0430\u0432\u0430\u043b\u0435\u0440\u044b \u043e\u0440\u0434\u0435\u043d\u0430 \u0421\u043b\u0430\u0432\u044b; \u0413\u0435\u0440\u043e\u0438 \u0421\u043e\u0446\u0438\u0430\u043b\u0438\u0441\u0442\u0438\u0447\u0435\u0441\u043a\u043e\u0433\u043e \u0422\u0440\u0443\u0434\u0430 \u0438\u043b\u0438 \u0413\u0435\u0440\u043e\u0438 \u0422\u0440\u0443\u0434\u0430 \u0420\u0424",
+      "source_url": "https://www.rbc.ru/life/news/672499179a79477d5165fc6b"
+    }
+  ],
+  "sources_checked": [
+    "https://www.nalog.gov.ru/rn77/taxation/taxes/tourist_tax/",
+    "https://www.nalog.gov.ru/rn77/news/activities_fts/15398197/",
+    "https://www.audit-it.ru/news/finance/1131477.html",
+    "https://finance.mail.ru/article/moskva-ne-stala-vvodit-turisticheskij-nalog-na-2026-god-69204970/",
+    "https://spmag.ru/articles/turisticheskij-nalog-v-moskve-s-2025-goda",
+    "https://www.garant.ru/article/1801856/",
+    "https://www.kontur-extern.ru/info/53148-turisticheskij_nalog_komu_kogda_i_skolko_platit",
+    "https://www.rbc.ru/life/news/672499179a79477d5165fc6b",
+    "https://tass.ru/ekonomika/21349323",
+    "https://ria.ru/20240712/zakon-1959303974.html",
+    "https://www.ingos.ru/company/blog/2025/turisticheskiy-nalog",
+    "https://www.interfax.ru/russia/996770",
+    "https://english.news.cn/20250101/c912f665622944dba5d6475e88165bfb/c.html",
+    "https://www.vatupdate.com/2025/05/29/russia-proposes-extension-of-0-vat-rate-for-hotels-and-other-accommodation-services/",
+    "https://www.vatupdate.com/2024/11/20/president-of-russia-extends-vat-preferential-rate-for-hotels-until-2030-what-it-means-for-tourism/",
+    "https://www.vatcalc.com/russia/russia-cuts-tourism-vat-to-zero-from-20-update/",
+    "https://orbitax.com/news/country/article/Russia-to-Extend-0-VAT-Rate-f-58971",
+    "https://interfax.com/newsroom/top-stories/80856/",
+    "https://secrets.tbank.ru/buhgalteriya/tax-tourist/",
+    "https://finance.mail.ru/card/turisticheskij-nalog-962/"
+  ],
+  "summary": "Comprehensive research into Moscow (RU-MOW) accommodation tax regulations confirms the following key findings across 14+ sources including official FNS Russia (nalog.gov.ru/rn77) and authoritative Russian tax publications:\n\n1. TOURIST TAX (\u0422\u0423\u0420\u0418\u0421\u0422\u0418\u0427\u0415\u0421\u041a\u0418\u0419 \u041d\u0410\u041b\u041e\u0413): Moscow has NOT enacted a tourist tax. Federal Law No. 176-FZ (July 12, 2024) introduced a new chapter 33.1 into Russia's Tax Code allowing (but not requiring) regions to implement a local tourist tax from January 1, 2025. For Moscow, St. Petersburg, and Sevastopol, this requires a city-level law passed by the local legislature. The FNS Moscow has officially confirmed that no such law has been adopted or published for Moscow, for either 2025 or 2026. Moscow's hotel businesses are therefore NOT subject to tourist tax.\n\n2. VAT ON HOTEL ACCOMMODATION: Russia-wide 0% VAT rate on hotel accommodation services is currently in effect under Federal Law No. 67-FZ (effective July 1, 2022), applying until June 30, 2027. The standard VAT rate is 20%. As of May 2025, the Russian government proposed extending the 0% rate until December 31, 2030, but this extension has not yet been formally enacted into law.\n\n3. No other specific Moscow-level accommodation taxes were found.\n\nSources checked: nalog.gov.ru/rn77 (FNS Moscow), audit-it.ru (citing FNS), garant.ru, kontur-extern.ru, rbc.ru, tass.ru, ria.ru, ingos.ru, smartway.today, spmag.ru, finance.mail.ru, vatupdate.com, orbitax.com, vatcalc.com, interfax.com. Overall high confidence in these findings."
+}

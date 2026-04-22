@@ -1,0 +1,139 @@
+{
+  "_meta": {
+    "country_code": "AM",
+    "currency_code": "AMD",
+    "elapsed_seconds": 81.7,
+    "jurisdiction_code": "AM-YER",
+    "jurisdiction_id": 829,
+    "jurisdiction_name": "Yerevan",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "taxservice.am"
+    ],
+    "researched_at": "2026-04-21T19:55:38.339565+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.401781+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "AM-YER",
+  "notes": "1. The primary source taxservice.am returned only contact/login pages \u2014 no accessible public rate tables were found for the Hotel Tax rate. The Armenian RA Tax Code at arlis.am is available in Armenian only for the Hotel Tax sections. 2. The specific AMD rate(s) for the local Hotel Tax could not be confirmed from any accessible authoritative English-language source. The existence of the Hotel Tax is confirmed by minfin.am but rate details require direct consultation with taxservice.am or Armenian-language legal databases (e.g., arlis.am). 3. The VAT exemption for 'tourism services provided to foreign tourists' is confirmed by the Lloyds Bank Trade portal (citing Armenian legislation) but should be verified for its precise scope \u2014 it is unclear whether this applies to all accommodation services or only package tourism services sold by travel agencies. 4. Armenia has no reduced VAT rate \u2014 only 20% standard and full exemptions apply. 5. No Yerevan-specific city tourism tax (beyond the national framework) was identified.",
+  "overall_confidence": 0.45,
+  "rates": [
+    {
+      "authority_name": "State Revenue Committee of the Republic of Armenia",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.9,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "2020-01-01",
+      "enacted_date": null,
+      "legal_reference": "RA Tax Code; RA Law on VAT",
+      "legal_uri": "https://www.arlis.am/en/acts/205620",
+      "rate_type": "percentage",
+      "rate_value": 20.0,
+      "source_quote": "Armenia imposes a 20% Value Added Tax (VAT) on most goods and services, and foreign companies (non-residents) operating in Armenia may need to register for VAT under certain conditions.",
+      "source_url": "https://armenian-lawyer.com/business-immigration/armenian-vat-registration-for-foreign-businesses/",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "guest_type",
+        "operator": "==",
+        "value": "foreign_tourist"
+      },
+      "confidence": 0.75,
+      "description": "Tourism services provided to foreign tourists are VAT-exempt under Armenian law. This means that hotels and accommodation providers serving foreign tourists may not charge VAT on those services.",
+      "effective_end": null,
+      "effective_start": "2020-01-01",
+      "enacted_date": null,
+      "legal_reference": "RA Law on VAT; RA Tax Code",
+      "name": "VAT Exemption for Tourism Services to Foreign Tourists",
+      "rule_type": "exemption",
+      "source_quote": "Exempt supplies include... tourism services provided to foreign tourists; etc.",
+      "source_url": "https://www.lloydsbanktrade.com/en/market-potential/armenia/taxes"
+    },
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "annual_turnover_amd",
+            "operator": "<",
+            "value": 24000000
+          },
+          {
+            "field": "business_type",
+            "operator": "==",
+            "value": "hospitality_accommodation"
+          }
+        ]
+      },
+      "confidence": 0.65,
+      "description": "Small hospitality and accommodation businesses with annual sales not exceeding AMD 24,000,000 may qualify for the 0% microbusiness tax regime, replacing VAT and profit tax obligations. This regime is not available to businesses in Yerevan engaged in trade or service-based industries not specifically listed.",
+      "effective_end": null,
+      "effective_start": "2020-01-01",
+      "enacted_date": null,
+      "legal_reference": "RA Tax Code, Chapter 56 (Micro-entrepreneurship)",
+      "name": "Microbusiness Zero Tax Regime for Hospitality/Accommodation",
+      "rule_type": "exemption",
+      "source_quote": "Available for: Manufacturing, hospitality and accommodation, educational services, digital content creation...",
+      "source_url": "https://armenian-lawyer.com/taxes-armenia/"
+    },
+    {
+      "action": {
+        "note": "Rate unverified \u2014 consult taxservice.am or municipal authority",
+        "type": "apply_hotel_tax"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "accommodation_type",
+        "operator": "in",
+        "value": [
+          "hotel",
+          "inn",
+          "guesthouse",
+          "hostel"
+        ]
+      },
+      "confidence": 0.5,
+      "description": "Armenia has a dedicated local 'Hotel Tax' law, listed alongside Property Tax and Land Tax as a local tax by the Armenian Ministry of Finance. The specific rate(s) in AMD could not be confirmed from accessible English-language official sources. Operators of hotels in Yerevan should verify the current rate directly with taxservice.am or the Yerevan municipality.",
+      "effective_end": null,
+      "effective_start": "2018-01-01",
+      "enacted_date": null,
+      "legal_reference": "RA Law on Hotel Tax (local tax)",
+      "name": "Armenia Hotel Tax (Local) \u2014 Existence Confirmed, Rate Unverified",
+      "rejected": true,
+      "rejection_reason": "Auto-review: proposal/unverified/low-confidence",
+      "rule_type": "condition",
+      "source_quote": "the Laws... on the local 'Property Tax, Land Tax and Hotel Tax' of the Republic of Armenia",
+      "source_url": "https://minfin.am/en/page/ra_tax_system/"
+    }
+  ],
+  "sources_checked": [
+    "https://minfin.am/en/page/ra_tax_system/",
+    "https://src.taxservice.am/en/getMenusContents/125",
+    "https://file-online.taxservice.am/",
+    "https://www.arlis.am/en/acts/205620",
+    "https://taxsummaries.pwc.com/armenia/corporate/other-taxes",
+    "https://www.lloydsbanktrade.com/en/market-potential/armenia/taxes",
+    "http://www.parliament.am/legislation.php?sel=show&ID=1607&lang=eng",
+    "https://armenian-lawyer.com/taxes-armenia/",
+    "https://armenian-lawyer.com/business-immigration/armenian-vat-registration-for-foreign-businesses/",
+    "https://residentarmenia.com/en/vat-in-armenia/"
+  ],
+  "summary": "Research conducted into accommodation/tourism taxes for Yerevan, Armenia. Key findings: (1) Armenia has a dedicated \"Hotel Tax\" law (a local tax), confirmed by the Armenian Ministry of Finance (minfin.am), which lists laws on \"Property Tax, Land Tax and Hotel Tax\" as local taxes. However, no authoritative English-language source was found with a specific AMD rate or percentage for this local Hotel Tax \u2014 the taxservice.am portal returned only login/contact pages and no accessible public rate tables. (2) Standard VAT of 20% applies to accommodation services for domestic guests. (3) \"Tourism services provided to foreign tourists\" are VAT-exempt under Armenian law, representing an important rule for international hotel guests. (4) Armenia has no reduced VAT rate for accommodation \u2014 there is only a standard 20% rate and full exemptions (no mid-tier reduction). (5) No city-specific Yerevan tourism tax (separate from the national framework) was found. Confidence is moderate due to the inaccessibility of the primary taxservice.am source and the absence of precise Hotel Tax rate data in English-language official documents. 4 sources were checked, including minfin.am, taxservice.am, arlis.am (Tax Code), and lloydsbanktrade.com."
+}

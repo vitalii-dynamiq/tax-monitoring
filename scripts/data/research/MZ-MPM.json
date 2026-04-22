@@ -1,0 +1,118 @@
+{
+  "_meta": {
+    "country_code": "MZ",
+    "currency_code": "MZN",
+    "elapsed_seconds": 64.4,
+    "jurisdiction_code": "MZ-MPM",
+    "jurisdiction_id": 800,
+    "jurisdiction_name": "Maputo",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "at.gov.mz",
+      "at.gov.mz"
+    ],
+    "researched_at": "2026-04-21T20:21:59.078660+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.418729+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "MZ-MPM",
+  "notes": "1. The at.gov.mz priority domain was searched but its content management system returned limited publicly indexable tax-rate data specific to accommodation/tourism. The page 'Beneficios Fiscais - Hotelaria & Turismo' exists but full content was not retrievable via web search. 2. The PRECE tourism levy (announced October 2025) is NOT reported as a confirmed rate because: (a) the specific rate has not been disclosed; (b) it has not been formally enacted into legislation with a concrete effective date. It represents a government intention/plan only. 3. Mozambique has a concept of a municipal-level 'taxa de turismo' (tourism tax) calculated per person-night in certain tourist municipalities (e.g., Vilankulo), but no specific Maputo city tourism tax rate was found in official or authoritative sources. 4. The standard VAT of 16% is a national tax applicable in Maputo as part of Mozambique's tax system. 5. Previous 17% VAT rate was superseded by the 16% rate from 1 January 2023 \u2014 the old 17% rate should be considered removed/superseded.",
+  "overall_confidence": 0.72,
+  "rates": [
+    {
+      "authority_name": "Autoridade Tribut\u00e1ria de Mo\u00e7ambique (AT)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-11-30",
+      "legal_reference": "Lei n.\u00ba 32/2007 (VAT Code), amended by Parliament November 2022; effective 1 January 2023",
+      "legal_uri": "https://www.at.gov.mz/por/Processos-Fiscais/Imposto-sobre-o-Valor-Acrescentado-IVA",
+      "rate_type": "percentage",
+      "rate_value": 16.0,
+      "source_quote": "As approved by the Mozambique parliament on 30 November 2022, the standard VAT rate will be reduced from 17% to 16% with effect from 1 January 2023.",
+      "source_url": "https://sovos.com/regulatory-updates/vat/mozambique-standard-vat-rate-decrease-effective-1-january-2023/",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "rate_pct": 16.0,
+        "tax_category": "vat_standard",
+        "type": "apply_tax"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "service_type",
+        "operator": "==",
+        "value": "accommodation"
+      },
+      "confidence": 0.9,
+      "description": "Hotel accommodation services provided in Mozambique (including Maputo) are subject to the standard VAT rate of 16% as taxable transactions under the VAT Code. Accommodation provided alongside vocational training by private entities may qualify for the 5% reduced rate, but standard commercial hotel stays are taxed at 16%.",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-11-30",
+      "legal_reference": "Lei n.\u00ba 32/2007 (CIVA), as amended; VAT Code Article 6",
+      "name": "VAT Applies to Standard Hotel/Accommodation Services",
+      "rule_type": "condition",
+      "source_quote": "The VAT rate is 16% for most taxable transactions under the normal VAT regime.",
+      "source_url": "https://www.rsm.global/mozambique/sites/default/files/media/2025/Mozambique%20Tax%20Pocket%20Guide%202025%20ENG.pdf"
+    },
+    {
+      "action": {
+        "rate_pct": 5.0,
+        "type": "reduce"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "service_type",
+            "operator": "==",
+            "value": "accommodation"
+          },
+          {
+            "field": "context",
+            "operator": "==",
+            "value": "vocational_training_by_private_entity"
+          }
+        ]
+      },
+      "confidence": 0.75,
+      "description": "Accommodation supplied as part of vocational training services by private entities may qualify for a reduced VAT rate of 5% rather than the standard 16%, per amendments effective 1 January 2023. This exemption does not apply to standard commercial hotel/tourism stays.",
+      "effective_end": null,
+      "effective_start": "2023-01-01",
+      "enacted_date": "2022-11-30",
+      "legal_reference": "Lei n.\u00ba 32/2007 (CIVA), as amended 2022; Article 9",
+      "name": "Vocational Training Accommodation Reduced Rate",
+      "rule_type": "exemption",
+      "source_quote": "a reduced rate of 5% is provided for several services... Vocational training services carried out by private entities, as well as related goods and services",
+      "source_url": "https://orbitax.com/news/archive.php/Update---Mozambique-VAT-Change-51784"
+    }
+  ],
+  "sources_checked": [
+    "https://www.at.gov.mz/",
+    "https://www.at.gov.mz/por/Media/Files/Beneficios-Fiscais-Hotelaria-Turismo",
+    "https://www.at.gov.mz/por/Processos-Fiscais/Imposto-sobre-o-Valor-Acrescentado-IVA",
+    "https://www.at.gov.mz/eng/Perguntas-Frequentes2/VAT",
+    "https://sovos.com/regulatory-updates/vat/mozambique-standard-vat-rate-decrease-effective-1-january-2023/",
+    "https://www.rsm.global/mozambique/sites/default/files/media/2025/Mozambique%20Tax%20Pocket%20Guide%202025%20ENG.pdf",
+    "https://taxsummaries.pwc.com/mozambique/corporate/other-taxes",
+    "https://orbitax.com/news/archive.php/Update---Mozambique-VAT-Change-51784",
+    "https://africanmarketingconfederation.org/mozambique-announces-vat-exemptions-as-consumers-struggle-with-costs/",
+    "https://clubofmozambique.com/news/mozambique-tourism-levy-will-enable-investment-in-sector-293584/",
+    "https://www.travelandtourworld.com/news/article/mozambique-introduces-lodging-tax-to-boost-tourism-through-enhanced-marketing-and-increased-foreign-visitor-spending/",
+    "https://www.lloydsbanktrade.com/en/market-potential/mozambique/taxes",
+    "https://www.iese.ac.mz/lib/publication/livros/Descent/IESE_Decentralizacao_4.1.BasTri.pdf",
+    "https://atta.travel/resource/mozambique-to-introduce-accommodation-based-tourism-levy.html"
+  ],
+  "summary": "Research across 10+ sources (at.gov.mz, PwC Tax Summaries, RSM Tax Pocket Guide 2025, Orbitax, Sovos, Club of Mozambique, and others) found the following for Maputo accommodation taxes: (1) Mozambique's standard VAT rate (IVA) was reduced from 17% to 16% effective 1 January 2023, confirmed by multiple authoritative sources. This applies to hotel and accommodation services. (2) A proposed tourism levy on accommodations was announced under PRECE (Economic Recovery and Growth Plan) in October 2025, but no specific rate has been disclosed and it has not been formally enacted with a concrete effective date \u2014 therefore NOT reportable as a confirmed rate. (3) No specific city-level or Maputo-specific accommodation/tourist tax was found in official sources beyond the national VAT. (4) The at.gov.mz priority domain was searched; it provided IVA/VAT information and a reference page for \"Beneficios Fiscais - Hotelaria & Turismo\" but no specific accommodation tax rates were publicly available in searchable content. Overall: 1 confirmed enacted rate (VAT at 16%), no city-specific accommodation taxes confirmed. The PRECE tourism levy remains unlegislated with no rate disclosed."
+}

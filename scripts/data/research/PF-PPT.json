@@ -1,0 +1,284 @@
+{
+  "_meta": {
+    "country_code": "PF",
+    "currency_code": "XPF",
+    "elapsed_seconds": 122.4,
+    "jurisdiction_code": "PF-PPT",
+    "jurisdiction_id": 836,
+    "jurisdiction_name": "Tahiti/Papeete",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "impot-polynesie.gov.pf",
+      "impot-polynesie.gov.pf"
+    ],
+    "researched_at": "2026-04-21T20:26:32.649379+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.421275+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "PF-PPT",
+  "notes": "1. The official Code des Imp\u00f4ts for French Polynesia is hosted on Lexpol (lexpol.cloud.pf), which was not directly accessible. Most rates confirmed via the DICP FAQ/official pages and cross-referenced against Airbnb's professional tax guides prepared by independent third-party firms. 2. The taxe de s\u00e9jour rates (150 XPF classified / 50 XPF unclassified) are set by municipal council deliberation within the band limits set by the 1997 arr\u00eat\u00e9 (80\u2013200 XPF for classified, per the 2011 tariff presentation). The 150 XPF figure for Papeete is confirmed by travel trade sources but no direct municipal deliberation text was found. 3. The taxe pour le d\u00e9veloppement touristique exact rate schedule for classified hotels in Papeete specifically was not found in primary legislation \u2013 range quoted (50\u20132,000 XPF/person/night territory-wide) varies significantly by island and hotel category. A more conservative range of 20\u2013200 XPF is cited in the 2025 Airbnb guide for furnished rentals. 4. The 1% TVA for remote archipelagos (Tuamotu-Gambier, Marquises, Australes), enacted by the Assembl\u00e9e de Polyn\u00e9sie fran\u00e7aise and effective July 1, 2026, explicitly excludes the Soci\u00e9t\u00e9 archipelago (including Tahiti/Papeete) and is therefore not reported as applicable to this jurisdiction. 5. The effective_start dates for tourism taxes are approximate; exact enactment dates could not be confirmed from accessible sources.",
+  "overall_confidence": 0.72,
+  "rates": [
+    {
+      "authority_name": "Direction des Imp\u00f4ts et des Contributions Publiques (DICP) \u2013 Polyn\u00e9sie fran\u00e7aise",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.97,
+      "currency_code": "XPF",
+      "effective_end": null,
+      "effective_start": "1998-01-01",
+      "enacted_date": null,
+      "legal_reference": "Code des Imp\u00f4ts de Polyn\u00e9sie fran\u00e7aise \u2013 taux r\u00e9duit de TVA",
+      "legal_uri": "https://www.impot-polynesie.gov.pf/faq/quels-sont-les-principaux-taux-de-tva",
+      "rate_type": "percentage",
+      "rate_value": 5.0,
+      "source_quote": "le taux r\u00e9duit de 5 % s'applique notamment aux produits alimentaires, aux prestations de services relatives au transport de voyageurs, \u00e0 la fourniture d'\u00e9lectricit\u00e9, \u00e0 l'h\u00e9bergement dans les \u00e9tablissements h\u00f4teliers.",
+      "source_url": "https://www.impot-polynesie.gov.pf/faq/quels-sont-les-principaux-taux-de-tva",
+      "tax_category_code": "vat_reduced",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Commune de Papeete (municipal council)",
+      "base_type": "per_person_per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.78,
+      "currency_code": "XPF",
+      "effective_end": null,
+      "effective_start": "1997-01-29",
+      "enacted_date": null,
+      "legal_reference": "Arr\u00eat\u00e9 n\u00b00066/MAC du 29 janvier 1997 \u2013 tarifs de la taxe de s\u00e9jour; Code des Communes de Polyn\u00e9sie fran\u00e7aise art. L.233-29 \u00e0 L.233-45",
+      "legal_uri": "https://www.polynesie-francaise.pref.gouv.fr/contenu/telechargement/8917/52964/file/Pr%C3%A9sentation%20taxes%20communales.pdf",
+      "rate_type": "flat",
+      "rate_value": 150.0,
+      "source_quote": "150 xpf par jour et par personne dans les h\u00f4tels class\u00e9s",
+      "source_url": "https://www.letahititraveler.com/infos-touristiques/argent/cout-de-la-vie-taxes-tva/",
+      "tax_category_code": "city_tax_flat",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Commune de Papeete (municipal council)",
+      "base_type": "per_person_per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.75,
+      "currency_code": "XPF",
+      "effective_end": null,
+      "effective_start": "1997-01-29",
+      "enacted_date": null,
+      "legal_reference": "Arr\u00eat\u00e9 n\u00b00066/MAC du 29 janvier 1997 \u2013 tarifs de la taxe de s\u00e9jour (\u00e9tablissements non class\u00e9s); Code des Communes de Polyn\u00e9sie fran\u00e7aise art. L.233-29 \u00e0 L.233-45",
+      "legal_uri": "https://www.polynesie-francaise.pref.gouv.fr/contenu/telechargement/8917/52964/file/Pr%C3%A9sentation%20taxes%20communales.pdf",
+      "rate_type": "flat",
+      "rate_value": 50.0,
+      "source_quote": "50 xpf par jour et par personne dans les h\u00f4tels non class\u00e9s et autres \u00e9tablissements \u00e9quivalents",
+      "source_url": "https://www.letahititraveler.com/infos-touristiques/argent/cout-de-la-vie-taxes-tva/",
+      "tax_category_code": "city_tax_flat",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Polyn\u00e9sie fran\u00e7aise (territorial)",
+      "base_type": "per_person_per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.65,
+      "currency_code": "XPF",
+      "effective_end": null,
+      "effective_start": "1998-01-01",
+      "enacted_date": null,
+      "legal_reference": "Code des Imp\u00f4ts de Polyn\u00e9sie fran\u00e7aise \u2013 taxe pour le d\u00e9veloppement touristique",
+      "legal_uri": "https://www.service-public.pf/ade/investir/la-fiscalite/",
+      "rate_type": "tiered",
+      "rate_value": null,
+      "source_quote": "Tourism tax will be due per night and per person. The amount of the tax depends on the location of your property and may vary between 20F.CFP/night/pers and 200 F.CFP.",
+      "source_url": "https://assets.airbnb.com/help/Airbnb_TaxGuide2025_FrenchPolynesia_ENGLISH.pdf",
+      "tax_category_code": "tourism_pct",
+      "tier_type": "threshold",
+      "tiers": [
+        {
+          "description": "Range for furnished rental / non-classified accommodation, varies by location and accommodation category",
+          "max_xcfp": 200,
+          "min_xcfp": 20
+        },
+        {
+          "description": "Range for classified hotels and cruise vessels, varies by island and accommodation category",
+          "max_xcfp": 2000,
+          "min_xcfp": 50
+        }
+      ]
+    },
+    {
+      "authority_name": "Polyn\u00e9sie fran\u00e7aise (territorial)",
+      "base_type": "per_person_per_stay",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.82,
+      "currency_code": "XPF",
+      "effective_end": null,
+      "effective_start": "2000-01-01",
+      "enacted_date": null,
+      "legal_reference": "Code des Imp\u00f4ts de Polyn\u00e9sie fran\u00e7aise \u2013 taxe pour le d\u00e9veloppement de la croisi\u00e8re",
+      "legal_uri": "https://www.service-public.pf/ade/investir/la-fiscalite/",
+      "rate_type": "flat",
+      "rate_value": 500.0,
+      "source_quote": "La taxe pour le d\u00e9veloppement de la croisi\u00e8re s'applique aux passagers des navires de croisi\u00e8re qui op\u00e8rent habituellement ou occasionnellement en Polyn\u00e9sie fran\u00e7aise. Elle est de 500 XPF par passager et par escale.",
+      "source_url": "https://www.service-public.pf/ade/investir/la-fiscalite/",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "applies_to": "city_tax_flat",
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "guest_age_years",
+        "operator": "<",
+        "value": 12
+      },
+      "confidence": 0.85,
+      "description": "Children under 12 years of age are exempt from the municipal taxe de s\u00e9jour (stay tax) in all Polynesian communes that levy the tax, including Papeete.",
+      "effective_end": null,
+      "effective_start": "1997-01-29",
+      "enacted_date": null,
+      "legal_reference": "Code des Communes de Polyn\u00e9sie fran\u00e7aise art. L.233-29 \u00e0 L.233-45; Arr\u00eat\u00e9 n\u00b00066/MAC du 29 janvier 1997",
+      "name": "Children Under 12 \u2013 Taxe de S\u00e9jour Exemption",
+      "rule_type": "exemption",
+      "source_quote": "Les enfants de moins de 12 ans ne sont pas assujettis \u00e0 cette taxe.",
+      "source_url": "https://www.letahititraveler.com/infos-touristiques/argent/cout-de-la-vie-taxes-tva/"
+    },
+    {
+      "action": {
+        "applies_to": "city_tax_flat",
+        "type": "apply"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "property_commune",
+        "operator": "in",
+        "value": [
+          "Papeete",
+          "Faa'a",
+          "Punaauia",
+          "Moorea-Maiao",
+          "Bora Bora",
+          "Huahine",
+          "Rangiroa",
+          "Mataiva",
+          "Tikehau"
+        ]
+      },
+      "confidence": 0.8,
+      "description": "The taxe de s\u00e9jour is not levied by all communes in French Polynesia. It is only collected in communes that have formally instituted it by municipal council deliberation. Papeete is among the communes confirmed as levying this tax.",
+      "effective_end": null,
+      "effective_start": "1997-01-29",
+      "enacted_date": null,
+      "legal_reference": "Code des Communes de Polyn\u00e9sie fran\u00e7aise art. L.233-29 \u00e0 L.233-45",
+      "name": "Taxe de S\u00e9jour \u2013 Papeete Municipality Only",
+      "rule_type": "condition",
+      "source_quote": "Taxe de s\u00e9jour (uniquement per\u00e7ue \u00e0 Papeete, Faa'a, Punaauia, Moorea-Maiao, Bora Bora, Huahine, Rangiroa, Mataiva et Tikehau).",
+      "source_url": "https://www.letahititraveler.com/infos-touristiques/argent/cout-de-la-vie-taxes-tva/"
+    },
+    {
+      "action": {
+        "applies_to": "tourism_development_tax",
+        "type": "apply"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "accommodation_type",
+        "operator": "in",
+        "value": [
+          "classified_hotel",
+          "cruise_ship"
+        ]
+      },
+      "confidence": 0.72,
+      "description": "The territorial tourism development tax (taxe pour le d\u00e9veloppement touristique) applies only to classified hotel rooms and cruise ship berths. Unclassified establishments and furnished rentals are subject to a different, lower rate band under the general municipal stay tax framework.",
+      "effective_end": null,
+      "effective_start": "1998-01-01",
+      "enacted_date": null,
+      "legal_reference": "Code des Imp\u00f4ts de Polyn\u00e9sie fran\u00e7aise \u2013 taxe pour le d\u00e9veloppement touristique",
+      "name": "Taxe pour le D\u00e9veloppement Touristique \u2013 Classified Hotels Only",
+      "rule_type": "condition",
+      "source_quote": "Taxe pour le d\u00e9veloppement touristique sur les chambres d'h\u00f4tels class\u00e9es et les croisi\u00e8res",
+      "source_url": "https://www.letahititraveler.com/infos-touristiques/argent/cout-de-la-vie-taxes-tva/"
+    },
+    {
+      "action": {
+        "rate_type": "percentage",
+        "rate_value": 5.0,
+        "type": "apply_rate"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "service_type",
+        "operator": "==",
+        "value": "hotel_accommodation"
+      },
+      "confidence": 0.92,
+      "description": "Hotel accommodation services (h\u00e9bergement dans les \u00e9tablissements h\u00f4teliers), including cruise and charter vessels, benefit from the reduced 5% TVA rate rather than the standard 13% or 16% rates. This applies throughout the Soci\u00e9t\u00e9 archipelago including Papeete/Tahiti.",
+      "effective_end": null,
+      "effective_start": "1998-01-01",
+      "enacted_date": null,
+      "legal_reference": "Code des Imp\u00f4ts de Polyn\u00e9sie fran\u00e7aise \u2013 taux r\u00e9duit de TVA \u00e0 5%",
+      "name": "VAT 5% \u2013 Hotel Accommodation Services",
+      "rule_type": "condition",
+      "source_quote": "Ce taux s'applique \u00e9galement aux prestations de services telles que l'h\u00e9bergement h\u00f4telier (navires de croisi\u00e8re et de charter compris",
+      "source_url": "https://www.service-public.pf/ade/investir/la-fiscalite/"
+    },
+    {
+      "action": {
+        "description": "Degressive rate applies \u2013 exact brackets not publicly specified",
+        "type": "reduce"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "cruise_frequency",
+        "operator": "==",
+        "value": "habitual_operator"
+      },
+      "confidence": 0.65,
+      "description": "The 500 XPF/passenger/port-call cruise development tax includes a degressive (declining scale) system for cruise lines operating frequently in French Polynesia.",
+      "effective_end": null,
+      "effective_start": "2000-01-01",
+      "enacted_date": null,
+      "legal_reference": "Code des Imp\u00f4ts de Polyn\u00e9sie fran\u00e7aise \u2013 taxe pour le d\u00e9veloppement de la croisi\u00e8re",
+      "name": "Cruise Ship Development Tax \u2013 Degressive Rate for Frequent Operators",
+      "rule_type": "condition",
+      "source_quote": "Un syst\u00e8me d\u00e9gressif est pr\u00e9vu en faveur des navires qui op\u00e8rent durablement en Polyn\u00e9sie fran\u00e7aise.",
+      "source_url": "https://www.service-public.pf/ade/investir/la-fiscalite/"
+    }
+  ],
+  "sources_checked": [
+    "https://www.impot-polynesie.gov.pf/faq/quels-sont-les-principaux-taux-de-tva",
+    "https://www.impot-polynesie.gov.pf/",
+    "https://www.service-public.pf/dicp/professionnels/vos-impots/taxe-sur-la-valeur-ajoutee/",
+    "https://www.service-public.pf/ade/investir/la-fiscalite/",
+    "https://www.polynesie-francaise.pref.gouv.fr/Publications/Affaires-communales/Budget/Autres-recettes-locales/Les-taxes-communales-et-les-centimes-additionnels",
+    "https://www.polynesie-francaise.pref.gouv.fr/contenu/telechargement/8917/52964/file/Pr%C3%A9sentation%20taxes%20communales.pdf",
+    "https://www.polynesie-francaise.pref.gouv.fr/index.php/contenu/telechargement/8518/50729/file/taxe%20de%20s%C3%A9jour.pdf",
+    "https://assets.airbnb.com/help/Airbnb_TaxGuide2025_FrenchPolynesia_ENGLISH.pdf",
+    "https://assets.airbnb.com/help/AirbnbTaxGuide2024_FrenchPolynesia_ENGLISH.pdf",
+    "https://assets.airbnb.com/help/Airbnb-Tax-Guide-2023-French-Polynesia.pdf",
+    "https://assets.airbnb.com/help/Airbnb-Tax-Guide-2021-French-Polynesia-ENGLISH-Final.pdf",
+    "https://www.impot-polynesie.gov.pf/code/annexe-23-loi-du-pays-ndeg-2012-16-du-30-juillet-2012-relative-la-promotion-du-time-share",
+    "https://www.letahititraveler.com/infos-touristiques/argent/cout-de-la-vie-taxes-tva/",
+    "https://www.sejoursdanslesiles.pf/articles/conseils-inclus",
+    "https://www.easytahiti.com/en/booking-conditions.html",
+    "https://etahititravel.com/tahiti-practical-information/",
+    "https://www.assemblee.pf/actualite/article/septieme-seance-de-la-session-budgetaire-de-l_assemblee/10823",
+    "https://la1ere.franceinfo.fr/polynesie/tahiti/polynesie-francaise/une-tva-a-1-pour-les-iles-eloignees-mesure-phare-d-un-budget-sous-tension-politique-et-economique-1637872.html",
+    "https://www.sofidep.pf/connaitre-vos-obligations"
+  ],
+  "summary": "Comprehensive research across 10+ sources including the official DICP tax authority (impot-polynesie.gov.pf), the French Polynesia High Commissariat, Airbnb's 2021/2023/2024/2025 French Polynesia tax guides, and travel trade sources. Four distinct accommodation-related taxes were identified for Tahiti/Papeete: (1) A 5% reduced TVA (VAT) rate on hotel accommodation confirmed by the official DICP FAQ; (2) A municipal taxe de s\u00e9jour (stay tax) of 150 XPF/person/night for classified hotels and 50 XPF/person/night for unclassified establishments, levied by Papeete and neighboring communes; (3) A territorial taxe pour le d\u00e9veloppement touristique on classified hotel rooms and cruises (20\u2013200 XPF range for furnished rentals per Airbnb 2025 guide; broader 50\u20132,000 XPF range for all classified hotels per tourism sources); (4) A cruise ship development tax of 500 XPF/passenger/port call. No rates existed in our database, so all are reported as 'new'. The 1% TVA for remote archipelagos (effective July 1, 2026) explicitly does NOT apply to Papeete/Tahiti (Soci\u00e9t\u00e9 archipelago) and is therefore not reported. Municipal taxe de s\u00e9jour rates are set by each commune's deliberation within national tariff bands; Papeete-specific rates are confirmed at 150 XPF (classified) and 50 XPF (unclassified). Overall confidence is moderate due to the lack of a fully accessible live Code des Imp\u00f4ts rate schedule and the fact that some sources are travel trade rather than primary legislation."
+}

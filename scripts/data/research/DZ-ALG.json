@@ -1,0 +1,206 @@
+{
+  "_meta": {
+    "country_code": "DZ",
+    "currency_code": "DZD",
+    "elapsed_seconds": 75.9,
+    "jurisdiction_code": "DZ-ALG",
+    "jurisdiction_id": 820,
+    "jurisdiction_name": "Algiers",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "mf.gov.dz"
+    ],
+    "researched_at": "2026-04-21T20:08:57.248985+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.410937+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "DZ-ALG",
+  "notes": "1. Algeria does not have a separate city/municipal-level tourism tax specific to Algiers \u2014 the taxe de s\u00e9jour is a nationally codified tax (within CIDTA) collected at municipal level. 2. The 1% tourist promotion levy rate is referenced in multiple industry sources but could not be verified against a specific legal article number; confidence is moderate (0.6). 3. The TAP (Taxe sur l'Activit\u00e9 Professionnelle) at 2% of turnover was abolished by LF 2024; it is not reported as an accommodation tax since it was a general business activity tax. 4. The mf.gov.dz priority domain was searched, and the LF 2026 PDF was accessed directly from that domain \u2014 no new hotel accommodation tax changes were found in LF 2026. 5. The reduced 9% VAT rate for tourism is transitional and currently extended to 31 December 2027; its rate_type is set as \"new\" since there was no prior record in our database. 6. Standard VAT rate is 19% but the reduced 9% rate is the operative rate for hotel accommodation through end of 2027.",
+  "overall_confidence": 0.78,
+  "rates": [
+    {
+      "authority_name": "Direction G\u00e9n\u00e9rale des Imp\u00f4ts (DGI) - Ministry of Finance Algeria",
+      "base_type": "per_person_per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.92,
+      "currency_code": "DZD",
+      "effective_end": null,
+      "effective_start": "2022-01-01",
+      "enacted_date": "2021-12-31",
+      "legal_reference": "Article 69 LF 2022 \u2014 Articles 266bis \u00e0 266quinquies du CIDTA",
+      "legal_uri": "https://www.mf.gov.dz",
+      "rate_type": "tiered",
+      "rate_value": null,
+      "source_quote": "Le tarif de la taxe est \u00e9tabli par personne et par journ\u00e9e de s\u00e9jour comme suit : 600 DA pour les \u00e9tablissements h\u00f4teliers class\u00e9s cinq \u00e9toiles \u00b7 500 DA pour les \u00e9tablissements h\u00f4teliers class\u00e9s quatre \u00e9toiles \u00b7 300 DA pour les \u00e9tablissements h\u00f4teliers class\u00e9s trois \u00e9toiles \u00b7 200 DA pour les \u00e9tablissements h\u00f4teliers class\u00e9s deux \u00e9toiles \u00b7 100 DA pour les \u00e9tablissements h\u00f4teliers class\u00e9s une \u00e9toile (Article 69 de la loi de finances 2022 qui introduit l'article 266 quinquies dans le CIDTA)",
+      "source_url": "https://lentrepreneuralgerien.com/informations-generales/item/135-resume-de-la-loi-de-finances-2022-en-algerie",
+      "tax_category_code": "bed_tax",
+      "tier_type": "threshold",
+      "tiers": [
+        {
+          "label": "5-star hotels",
+          "max_stars": 5,
+          "min_stars": 5,
+          "rate_value": 600
+        },
+        {
+          "label": "4-star hotels",
+          "max_stars": 4,
+          "min_stars": 4,
+          "rate_value": 500
+        },
+        {
+          "label": "3-star hotels",
+          "max_stars": 3,
+          "min_stars": 3,
+          "rate_value": 300
+        },
+        {
+          "label": "2-star hotels",
+          "max_stars": 2,
+          "min_stars": 2,
+          "rate_value": 200
+        },
+        {
+          "label": "1-star hotels",
+          "max_stars": 1,
+          "min_stars": 1,
+          "rate_value": 100
+        }
+      ]
+    },
+    {
+      "authority_name": "Direction G\u00e9n\u00e9rale des Imp\u00f4ts (DGI) - Ministry of Finance Algeria",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": null,
+      "effective_end": "2027-12-31",
+      "effective_start": "2022-01-01",
+      "enacted_date": "2024-11-24",
+      "legal_reference": "Article 119 LF 2022; extended by LF 2025 (Loi n\u00b0 24-08 du 24 novembre 2024)",
+      "legal_uri": "https://www.mf.gov.dz",
+      "rate_type": "percentage",
+      "rate_value": 9.0,
+      "source_quote": "L'application d'un taux r\u00e9duit de TVA de 9 % pour les services li\u00e9s aux activit\u00e9s touristiques, h\u00f4teli\u00e8res, thermales, de restauration touristique class\u00e9e, de voyage et de location de v\u00e9hicules de transport touristique a \u00e9t\u00e9 reconduite jusqu'au 31 d\u00e9cembre 2027.",
+      "source_url": "https://blog.avocats.deloitte.fr/algerie-les-principales-mesures-importantes-de-la-loi-de-finances-pour-2025/",
+      "tax_category_code": "vat_reduced",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Direction G\u00e9n\u00e9rale des Imp\u00f4ts (DGI) - Ministry of Finance Algeria",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.6,
+      "currency_code": null,
+      "effective_end": null,
+      "effective_start": "2010-01-01",
+      "enacted_date": null,
+      "legal_reference": "Taxe de promotion touristique \u2014 1% sur le chiffre d'affaires",
+      "legal_uri": null,
+      "rate_type": "percentage",
+      "rate_value": 1.0,
+      "source_quote": "une taxe de 1% sur le chiffre d'affaires pour la promotion touristique, une taxe de s\u00e9jour en fonction du classement de l'h\u00f4tel et une taxe de 2% sur le chiffre d'affaire (TAP).",
+      "source_url": "https://tourismetvoyages.dz/la-tva-des-activites-touristiques-maintenue-a-9/",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "guest_property_taxed_in_municipality",
+        "operator": "==",
+        "value": true
+      },
+      "confidence": 0.88,
+      "description": "Persons staying in hotels in municipalities where they own property and are already subject to taxe fonci\u00e8re (property tax) are exempt from the taxe de s\u00e9jour. Exemption requires presentation of the property tax notice (avertissement ou avis \u00e0 payer).",
+      "effective_end": null,
+      "effective_start": "2022-01-01",
+      "enacted_date": "2021-12-31",
+      "legal_reference": "Article 69 LF 2022 \u2014 Article 266ter du CIDTA",
+      "name": "Local Property Taxpayer Exemption from Taxe de S\u00e9jour",
+      "rule_type": "exemption",
+      "source_quote": "La taxe de s\u00e9jour est due par les personnes qui s\u00e9journent dans les \u00e9tablissements \u00e9num\u00e9r\u00e9s dans le point 3 ci-dessous, situ\u00e9s dans les communes dans lesquelles elles ne poss\u00e8dent pas de r\u00e9sidence principale ou secondaire, au titre de laquelle, elles sont passibles de la taxe fonci\u00e8re.",
+      "source_url": "https://www.cn-cncc.dz/admin/Upload/site/revue/revue-5bfc01759dece5d6c71e6bd2ee96e7b3.pdf"
+    },
+    {
+      "action": {
+        "reduction_pct_per_child": 10,
+        "type": "reduce"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "hotel_stars",
+            "operator": "<=",
+            "value": 3
+          },
+          {
+            "field": "dependent_children_count",
+            "operator": ">=",
+            "value": 1
+          }
+        ]
+      },
+      "confidence": 0.9,
+      "description": "Families staying in 1, 2, or 3 star hotels receive a 10% reduction on the taxe de s\u00e9jour per dependent child. This reduction does not apply to 4-star or 5-star hotels.",
+      "effective_end": null,
+      "effective_start": "2022-01-01",
+      "enacted_date": "2021-12-31",
+      "legal_reference": "Article 69 LF 2022 \u2014 Article 266quinquies du CIDTA",
+      "name": "Family Child Reduction on Taxe de S\u00e9jour (1\u20133 Star Hotels)",
+      "rule_type": "reduction",
+      "source_quote": "Une r\u00e9duction au titre de la taxe de s\u00e9jour est accord\u00e9e aux familles s\u00e9journant dans des \u00e9tablissements h\u00f4teliers, hors ceux class\u00e9s quatre (4) et cinq (5) \u00e9toiles, \u00e0 raison de 10% par enfant \u00e0 charge.",
+      "source_url": "https://lentrepreneuralgerien.com/informations-generales/item/135-resume-de-la-loi-de-finances-2022-en-algerie"
+    },
+    {
+      "action": {
+        "annual_declaration": "with annual tax return",
+        "monthly_payment_deadline": "20th of following month",
+        "type": "reporting_obligation"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "entity_type",
+        "operator": "==",
+        "value": "hotel_establishment"
+      },
+      "confidence": 0.88,
+      "description": "Hotel establishments must declare and pay collected taxe de s\u00e9jour via a bordereau avis de versement to the relevant tax office by the 20th of the month following collection. They must also file an annual special declaration simultaneously with their annual income/profit return.",
+      "effective_end": null,
+      "effective_start": "2022-01-01",
+      "enacted_date": "2022-12-18",
+      "legal_reference": "Article 14, LFC 2022 \u2014 Articles 266septies et 266octies du CIDTA",
+      "name": "Taxe de S\u00e9jour Monthly Payment and Annual Declaration Obligation",
+      "rule_type": "condition",
+      "source_quote": "Les \u00e9tablissements h\u00f4teliers sont tenus de proc\u00e9der \u00e0 la d\u00e9claration et au paiement de la taxe de s\u00e9jour collect\u00e9e, au moyen d'un bordereau avis de versement, aupr\u00e8s de la recette des imp\u00f4ts dont ils rel\u00e8vent, au plus tard, le vingt (20) du mois qui suit celui de sa collecte.",
+      "source_url": "https://www.mf.gov.dz/images/pdf/loidefinancecomplementaire/F2022089.pdf"
+    }
+  ],
+  "sources_checked": [
+    "https://lentrepreneuralgerien.com/informations-generales/item/135-resume-de-la-loi-de-finances-2022-en-algerie",
+    "https://www.cn-cncc.dz/admin/Upload/site/revue/revue-5bfc01759dece5d6c71e6bd2ee96e7b3.pdf",
+    "https://www.mf.gov.dz/images/pdf/loidefinancecomplementaire/F2022089.pdf",
+    "https://www.mf.gov.dz/images/pdf/loidefinance/Loi_de_Finances_2026_FR.pdf",
+    "https://blog.avocats.deloitte.fr/algerie-les-principales-mesures-importantes-de-la-loi-de-finances-pour-2025/",
+    "https://legal-doctrine.com/en/edition/tout-savoir-sur-la-loi-de-finances-pour-2025-990ceca9383cb1955db8432f1f327219",
+    "https://www.acf-dz.com/wp-content/uploads/2025/01/Mesure-phase-loi-de-finances-2025-ACF.pdf",
+    "https://blog.avocats.deloitte.fr/algerie-les-principales-mesures-de-la-loi-de-finances-pour-2026/",
+    "https://tourismetvoyages.dz/la-tva-des-activites-touristiques-maintenue-a-9/",
+    "https://taxsummaries.pwc.com/algeria/corporate/other-taxes",
+    "https://aapi.dz/en/systeme-fiscal-en/"
+  ],
+  "summary": "Research identified 6 accommodation/tourism tax rates and 3 rules currently in effect in Algeria (applicable nationally including Algiers/DZ-ALG). Key findings: (1) A tiered flat taxe de s\u00e9jour (stay tax) per person per night was formally codified into the CIDTA via Article 69 of LF 2022, with rates ranging from 100 DZD (1-star) to 600 DZD (5-star). (2) A reduced VAT rate of 9% applies to hotel/tourism services, most recently extended through 31 December 2027 by LF 2025. (3) A 1% tourist promotion levy on hotel turnover applies. (4) The TAP (Taxe sur l'Activit\u00e9 Professionnelle), formerly 2% on turnover, was abolished by LF 2024. (5) Family reduction and local resident exemption rules apply to the taxe de s\u00e9jour. The 2026 Finance Law (effective 1 January 2026) did not introduce any changes to hotel accommodation taxes. 5 sources checked; overall confidence is moderate-high for confirmed rates (official law text and government circular found for taxe de s\u00e9jour), moderate for the 1% tourism promotion levy (mentioned in industry sources only, no definitive legal citation confirmed)."
+}

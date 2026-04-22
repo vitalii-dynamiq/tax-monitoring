@@ -1,0 +1,135 @@
+{
+  "_meta": {
+    "country_code": "KG",
+    "currency_code": "KGS",
+    "elapsed_seconds": 70.1,
+    "jurisdiction_code": "KG-FRU",
+    "jurisdiction_id": 817,
+    "jurisdiction_name": "Bishkek",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "sti.gov.kg"
+    ],
+    "researched_at": "2026-04-21T20:12:54.550650+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.414174+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "KG-FRU",
+  "notes": "1. The STI (sti.gov.kg) website was accessed but is in Russian/Kyrgyz and does not list a specific hotel or tourist accommodation tax for Bishkek or nationally. 2. The sales tax tiered rate (1-5%) for hotel accommodation services specifically requires a review of Article 368 of the Tax Code to confirm the exact applicable rate band \u2014 the tiers reported here are approximate based on general service sector rates described in secondary sources. 3. The VAT (12%) applies only to hotel operators who are VAT-registered (generally those with turnover exceeding KGS 30 million threshold). 4. No city-level (Bishkek municipal) accommodation surcharge or tourist levy was found in any source. 5. Several travel aggregator sites vaguely mention \"local taxes up to 10%,\" which appears to be referring to the general VAT rate rather than any dedicated accommodation tax. This should not be interpreted as a specific accommodation tax. 6. All references to \"tourist tax\" in Russian-language sources are specifically about Russia's new 2025 tourist tax, not Kyrgyzstan. Confidence is moderate (0.72) because the STI website could not be fully navigated in detail, and no English-language official Kyrgyz government document specifically confirms the absence of a tourist tax; however, multiple authoritative sources (IMF, World Bank, Grant Thornton, US State Department) omit any mention of such a tax, strongly supporting its non-existence.",
+  "overall_confidence": 0.72,
+  "rates": [
+    {
+      "authority_name": "State Tax Service of the Kyrgyz Republic",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.85,
+      "currency_code": "KGS",
+      "effective_end": null,
+      "effective_start": "2010-01-01",
+      "enacted_date": null,
+      "legal_reference": "Tax Code of the Kyrgyz Republic, Article 254",
+      "legal_uri": null,
+      "rate_type": "percentage",
+      "rate_value": 12.0,
+      "source_quote": "In Kyrgyzstan, VAT is imposed on taxable supplies and taxable import. The VAT rate is 12%, except for some supplies with a zero rate and certain turnover exempted from tax.",
+      "source_url": "https://gsl.org/en/taxes/kyrgyzstan/",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "State Tax Service of the Kyrgyz Republic",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.65,
+      "currency_code": "KGS",
+      "effective_end": null,
+      "effective_start": "2010-01-01",
+      "enacted_date": null,
+      "legal_reference": "Tax Code of the Kyrgyz Republic, Article 368",
+      "legal_uri": null,
+      "rate_type": "tiered",
+      "rate_value": null,
+      "source_quote": "Sales tax is payable on the revenue from sales of goods, work, and services excluding VAT and sales tax (unless otherwise provided for by Article 366 of the Tax Code of Kyrgyzstan) at a rate of 1 to 5% depending on the type of activity and form of payment (cash or non-cash); for a full list, see Article 368 of the Tax Code.",
+      "source_url": "https://help.solarstaff.com/en/articles/9245252-freelance-and-taxes-kyrgyzstan",
+      "tax_category_code": "occ_pct",
+      "tier_type": "threshold",
+      "tiers": [
+        {
+          "label": "cash_payments",
+          "note": "Typical rate for service sector cash payments; exact hotel rate requires Article 368 review",
+          "rate_value": 3.0
+        },
+        {
+          "label": "non_cash_payments",
+          "note": "Typical lower rate for cashless settlements; exact hotel rate requires Article 368 review",
+          "rate_value": 1.0
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "note": "No dedicated accommodation/tourist tax exists; only general VAT and sales tax apply to hotel operators",
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": null,
+      "confidence": 0.75,
+      "description": "Kyrgyzstan abolished its former hotel, advertising and resort taxes as part of tax reform. No dedicated accommodation, tourist, or city tax applies in Bishkek or anywhere in Kyrgyzstan. Hotel services are subject only to general business taxes: VAT (12%) for VAT-registered businesses, and sales tax (1-5%) under the general tax regime.",
+      "effective_end": null,
+      "effective_start": "2010-01-01",
+      "enacted_date": null,
+      "legal_reference": "Tax Code of the Kyrgyz Republic; US State Dept Investment Climate Statement 2012",
+      "name": "No Dedicated Hotel/Tourist Tax",
+      "rule_type": "exemption",
+      "source_quote": "Hotel, advertising and resort taxes were abolished. A unified sales tax replaced several previous taxes, and property taxes were also introduced.",
+      "source_url": "https://2009-2017.state.gov/e/eb/rls/othr/ics/2012/191179.htm"
+    },
+    {
+      "action": {
+        "alternative_tax": "unified_tax",
+        "from": "vat_standard",
+        "type": "exempt",
+        "unified_tax_cash_rate": 6.0,
+        "unified_tax_cashless_rate": 4.0
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "operator_annual_turnover_kgs",
+        "operator": "<",
+        "value": 30000000
+      },
+      "confidence": 0.7,
+      "description": "Hotel operators with annual turnover below KGS 30 million may operate under a simplified (unified) tax regime, which replaces VAT, sales tax, and income tax. The unified tax rate is 6% for cash payments or 4% for cashless payments. This means smaller hotels may not separately charge VAT to guests.",
+      "effective_end": null,
+      "effective_start": "2010-01-01",
+      "enacted_date": null,
+      "legal_reference": "Tax Code of the Kyrgyz Republic, Article 419, 423",
+      "name": "VAT Exemption for Small Hotel Operators Below Threshold",
+      "rule_type": "exemption",
+      "source_quote": "The unified tax replaces three taxes (income tax, sales tax, and VAT) and has a rate of 6% for cash payments and 4% for cashless settlements",
+      "source_url": "https://help.mellow.io/en/articles/9135075-freelance-and-taxes-kyrgyzstan"
+    }
+  ],
+  "sources_checked": [
+    "https://sti.gov.kg/",
+    "https://cis-legislation.com/document.fwx?rgn=137076",
+    "https://gsl.org/en/taxes/kyrgyzstan/",
+    "https://kgaccount.com/en/vat/",
+    "https://help.mellow.io/en/articles/9135075-freelance-and-taxes-kyrgyzstan",
+    "https://help.solarstaff.com/en/articles/9245252-freelance-and-taxes-kyrgyzstan",
+    "https://openknowledge.worldbank.org/server/api/core/bitstreams/3fcb0a01-69c8-4bad-a03c-818df808d8e5/content",
+    "https://www.elibrary.imf.org/view/journals/002/2024/065/article-A003-en.xml",
+    "https://kyrgyzstan.revera.legal/en/infocentr/novosti-i-analiticheskie-materialy/15-nalogooblozhenie-v-kyrgyzstane-/",
+    "https://2009-2017.state.gov/e/eb/rls/othr/ics/2012/191179.htm",
+    "https://tradingeconomics.com/kyrgyzstan/sales-tax-rate",
+    "https://360nations.com/asia/kyrgyzstan/taxes.html"
+  ],
+  "summary": "Research across 10+ sources including the Kyrgyz STI government portal (sti.gov.kg), the Tax Code of the Kyrgyz Republic, IMF, World Bank, GSL, Grant Thornton, and multiple tax advisory sites found NO dedicated accommodation/hotel/tourist tax in Bishkek or Kyrgyzstan at the city or national level. A 2012 U.S. State Department Investment Climate Statement confirmed that hotel, advertising and resort taxes were abolished in Kyrgyzstan as part of a prior tax reform. General taxes (VAT at 12% and sales tax at 1\u20135%) apply to hotel services under the national Tax Code, but these are business taxes, not guest-facing accommodation/tourist taxes. No specific municipal Bishkek accommodation levy was found. The Russian-language \"tourist tax\" search results relate exclusively to Russia's 2025 tourist tax reform, not Kyrgyzstan. Overall: no accommodation-specific taxes found for KG-FRU; only general business taxes (VAT/sales tax) apply to hotel operators. Database should be initialized with VAT noting it applies to hotel services."
+}

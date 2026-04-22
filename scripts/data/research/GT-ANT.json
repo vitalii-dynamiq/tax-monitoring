@@ -1,0 +1,243 @@
+{
+  "_meta": {
+    "country_code": "GT",
+    "currency_code": "GTQ",
+    "elapsed_seconds": 82.6,
+    "jurisdiction_code": "GT-ANT",
+    "jurisdiction_id": 832,
+    "jurisdiction_name": "Antigua Guatemala",
+    "jurisdiction_type": "city",
+    "model": "claude-sonnet-4-6",
+    "monitored_urls": [
+      "sat.gob.gt"
+    ],
+    "researched_at": "2026-04-21T20:10:21.807811+00:00",
+    "review_notes": "Heuristic auto-review 2026-04-22: verified source URLs match a .gov/official domain where possible, rejected items matching industry-convention/proposed-not-enacted/unverified-rate patterns. Remaining entries require secondary admin approval before draft->active flip.",
+    "reviewed_at": "2026-04-21T21:20:26.412328+00:00",
+    "reviewed_by": "claude-auto-review@taxlens.io"
+  },
+  "jurisdiction_code": "GT-ANT",
+  "notes": "1. The INGUAT 10% hotel tax predates modern records and has been in force since at least the late 1960s under Decreto 1701 (Ley Org\u00e1nica del INGUAT); its exact original effective date is approximated. The reglamento was last significantly amended via Acuerdo Gubernativo of July 22, 1980. 2. The GTQ 2.00/day minimum threshold for the INGUAT hotel tax is from the 1969/1980 legislation and is effectively irrelevant in practice today given current room rates, but is technically still part of the legal framework. 3. The Antigua Guatemala municipal fee (Acta 075-2022) was subject to legal/constitutional debate at the time of introduction (July 2022) \u2014 critics argued municipalities cannot levy taxes without Congressional approval \u2014 but no court order suspending or repealing the fee was found. The fee appears to remain in force. 4. The sat.gob.gt priority domain provided general tax administration information and hosted the Decreto 27-92 IVA text, but did not contain specific accommodation tax rate pages directly. The INGUAT official site (inguat.gob.gt) provided the most authoritative source on the hotel occupancy tax. 5. All rates marked as 'new' since there are no previously recorded rates for GT-ANT in the database. All rates are currently in effect.",
+  "overall_confidence": 0.85,
+  "rates": [
+    {
+      "authority_name": "Instituto Guatemalteco de Turismo (INGUAT)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.92,
+      "currency_code": "GTQ",
+      "effective_end": null,
+      "effective_start": "1969-01-01",
+      "enacted_date": "1969-01-01",
+      "legal_reference": "Decreto 1701 (Ley Org\u00e1nica del INGUAT); Acuerdo Gubernativo M. de E. 33-69, Art\u00edculo 26",
+      "legal_uri": "https://biblioteca.inguat.gob.gt/Digital/Documentos/1701r.pdf",
+      "rate_type": "percentage",
+      "rate_value": 10.0,
+      "source_quote": "EL INGUAT, percibir\u00e1 un impuesto del diez por ciento (10%) por hospedaje que se cobrar\u00e1 sobre las tarifas, excluida alimentaci\u00f3n y otros servicios, en hoteles, m\u00f3teles, campamentos, pensiones y dem\u00e1s centros de alojamiento, cuando la tarifa autorizada sea de dos quetzales o m\u00e1s por d\u00eda o fracci\u00f3n diaria.",
+      "source_url": "https://uip.inguat.gob.gt/index.php/ley-de-informacion-publica?download=1949:reglamento-para-la-aplicacion-de-la-ley-organica-de-inguat",
+      "tax_category_code": "tourism_pct",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Superintendencia de Administraci\u00f3n Tributaria (SAT)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.95,
+      "currency_code": "GTQ",
+      "effective_end": null,
+      "effective_start": "1992-01-01",
+      "enacted_date": "1992-01-01",
+      "legal_reference": "Decreto 27-92 (Ley del Impuesto al Valor Agregado), Art\u00edculo 10",
+      "legal_uri": "https://portal.sat.gob.gt/portal/wpfd_file/decreto-no-27-92-ley-del-impuesto-al-valor-agregado-decreto-numero-27-92/",
+      "rate_type": "percentage",
+      "rate_value": 12.0,
+      "source_quote": "Hablando en t\u00e9rminos generales, el Impuesto al Valor Agregado (IVA) en Guatemala es un impuesto sobre el consumo con una tasa general del 12%.",
+      "source_url": "https://assets.airbnb.com/help/AirbnbHostGuide2024_Guatemala_SPANISH.pdf",
+      "tax_category_code": "vat_standard",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Municipalidad de Antigua Guatemala",
+      "base_type": "per_night",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.88,
+      "currency_code": "GTQ",
+      "effective_end": null,
+      "effective_start": "2022-07-30",
+      "enacted_date": "2022-07-07",
+      "legal_reference": "Acta 075-2022, Reglamento para el cobro de tasa municipal por hospedajes, Art\u00edculo 4",
+      "legal_uri": "https://www.prensalibre.com/economia/municipalidad-de-antigua-guatemala-cobrara-tasa-por-hospedarse-en-la-ciudad-y-este-es-el-monto-a-pagar-categoria-de-hoteles-afectados-y-el-destino-de-los-fondos-breaking/",
+      "rate_type": "flat",
+      "rate_value": 20.0,
+      "source_quote": "La normativa establece que todo servicio de alojamiento tur\u00edstico deber\u00e1 de cobrar a los hu\u00e9spedes, por cada habitaci\u00f3n ocupada, una tasa de Q20 diarios, hasta un m\u00e1ximo de cinco noches.",
+      "source_url": "https://emisorasunidas.com/2022/07/29/cobro-turistas-hospedaje-antigua-guatemala/",
+      "tax_category_code": "city_tax_flat",
+      "tier_type": null,
+      "tiers": null
+    },
+    {
+      "authority_name": "Superintendencia de Administraci\u00f3n Tributaria (SAT)",
+      "base_type": "room_rate",
+      "calculation_order": 100,
+      "change_type": "new",
+      "confidence": 0.85,
+      "currency_code": "GTQ",
+      "effective_end": null,
+      "effective_start": "1992-01-01",
+      "enacted_date": "1992-01-01",
+      "legal_reference": "Decreto 27-92 (Ley del IVA), R\u00e9gimen de Peque\u00f1o Contribuyente",
+      "legal_uri": "https://portal.sat.gob.gt/portal/wpfd_file/decreto-no-27-92-ley-del-impuesto-al-valor-agregado-decreto-numero-27-92/",
+      "rate_type": "percentage",
+      "rate_value": 5.0,
+      "source_quote": "Si usted utiliza este r\u00e9gimen, no estar\u00e1 obligado al pago del Impuesto Sobre la Renta y sus servicios estar\u00e1n sujetos a una tarifa reducida de IVA del 5%.",
+      "source_url": "https://assets.airbnb.com/help/AirbnbHostGuide2024_Guatemala_SPANISH.pdf",
+      "tax_category_code": "vat_reduced",
+      "tier_type": null,
+      "tiers": null
+    }
+  ],
+  "rules": [
+    {
+      "action": {
+        "tax": "INGUAT 10% hotel tax",
+        "type": "exempt"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "stay_length_days",
+        "operator": ">=",
+        "value": 30
+      },
+      "confidence": 0.92,
+      "description": "The INGUAT 10% hotel occupancy tax does not apply to stays of 30 consecutive days or more (monthly stays). Hotels providing accommodation on a monthly or 30-consecutive-day basis are exempt from collecting or remitting the 10% INGUAT tax for those stays.",
+      "effective_end": null,
+      "effective_start": "1969-01-01",
+      "enacted_date": null,
+      "legal_reference": "Acuerdo Gubernativo M. de E. 33-69, Art\u00edculo 26; Decreto 1701 Ley Org\u00e1nica INGUAT",
+      "name": "Long-Stay INGUAT Tax Exemption (\u226530 Days)",
+      "rule_type": "exemption",
+      "source_quote": "El impuesto establecido a favor del INGUAT se aplicar\u00e1 al usuario y no estar\u00e1 involucrado en las tarifas que sobre hospedaje apruebe el INGUAT; deber\u00e1 hacerse p\u00fablico y no se cobrar\u00e1 cuando se trate de hospedaje en habitaciones o apartamentos por periodos mensuales o de treinta d\u00edas consecutivos.",
+      "source_url": "https://uip.inguat.gob.gt/index.php/ley-de-informacion-publica?download=1949:reglamento-para-la-aplicacion-de-la-ley-organica-de-inguat"
+    },
+    {
+      "action": {
+        "cap_amount": 100.0,
+        "cap_nights": 5,
+        "type": "cap"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "stay_length_nights",
+        "operator": ">=",
+        "value": 1
+      },
+      "confidence": 0.88,
+      "description": "The Antigua Guatemala municipal flat fee of Q20 per occupied room per night is capped at a maximum of 5 nights per stay. No additional municipal fee is charged for nights beyond the fifth night of a continuous stay.",
+      "effective_end": null,
+      "effective_start": "2022-07-30",
+      "enacted_date": null,
+      "legal_reference": "Acta 075-2022, Municipalidad de Antigua Guatemala, Art\u00edculo 4",
+      "name": "Antigua Municipal Fee 5-Night Cap",
+      "rule_type": "cap",
+      "source_quote": "De acuerdo con el documento todo servicio de alojamiento tur\u00edstico de Antigua Guatemala deber\u00e1 de cobrar a los hu\u00e9spedes, por cada habitaci\u00f3n ocupada, una tasa de Q20.00 diarios, hasta un m\u00e1ximo de cinco noches.",
+      "source_url": "https://republica.com/economia/hospedaje-antigua-guatemala-establece-tasa-municipal-para-incentivar-actividades-culturales--20227299470"
+    },
+    {
+      "action": {
+        "tax": "Antigua municipal lodging fee Q20/night",
+        "type": "apply"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "hotel_category",
+        "operator": "in",
+        "value": [
+          "4-star",
+          "5-star",
+          "boutique"
+        ]
+      },
+      "confidence": 0.88,
+      "description": "The Q20 per night municipal lodging fee in Antigua Guatemala applies only to accommodation establishments classified as 4-star, 5-star, or boutique hotels. Lower-category establishments (1\u20133 star hotels, hostels, guesthouses) are not subject to this municipal fee.",
+      "effective_end": null,
+      "effective_start": "2022-07-30",
+      "enacted_date": null,
+      "legal_reference": "Acta 075-2022, Municipalidad de Antigua Guatemala, Reglamento Art\u00edculo 10",
+      "name": "Antigua Municipal Fee \u2013 4/5-Star and Boutique Hotels Only",
+      "rule_type": "condition",
+      "source_quote": "la tasa para incentivar actividades culturales, de arte y de recreaci\u00f3n para el turismo en la Antigua Guatemala, es aplicable solamente a los hoteles categorizados como cuatro y cinco estrellas y hoteles boutique.",
+      "source_url": "https://www.prensalibre.com/economia/municipalidad-de-antigua-guatemala-cobrara-tasa-por-hospedarse-en-la-ciudad-y-este-es-el-monto-a-pagar-categoria-de-hoteles-afectados-y-el-destino-de-los-fondos-breaking/"
+    },
+    {
+      "action": {
+        "applicable_tax": "IVA",
+        "rate_value": 5.0,
+        "type": "reduce"
+      },
+      "change_type": "new",
+      "conditions": {
+        "AND": [
+          {
+            "field": "operator_residency",
+            "operator": "==",
+            "value": "Guatemala resident"
+          },
+          {
+            "field": "annual_income_GTQ",
+            "operator": "<=",
+            "value": 60000
+          }
+        ]
+      },
+      "confidence": 0.83,
+      "description": "Accommodation providers who are resident in Guatemala and whose annual income does not exceed GTQ 60,000 may register under the Small Taxpayer (Peque\u00f1o Contribuyente) regime, which subjects their services to a reduced 5% VAT rate instead of the standard 12%, but disqualifies them from deducting input VAT credits.",
+      "effective_end": null,
+      "effective_start": "1992-01-01",
+      "enacted_date": null,
+      "legal_reference": "Decreto 27-92 (Ley del IVA), R\u00e9gimen de Peque\u00f1o Contribuyente",
+      "name": "Small Taxpayer Reduced VAT Eligibility",
+      "rule_type": "condition",
+      "source_quote": "Usted puede aplicar a este r\u00e9gimen si es residente en Guatemala y sus ingresos anuales no superan GTQ.60.000.",
+      "source_url": "https://assets.airbnb.com/help/AirbnbHostGuide2024_Guatemala_SPANISH.pdf"
+    },
+    {
+      "action": {
+        "tax": "INGUAT 10% hotel occupancy tax",
+        "type": "apply"
+      },
+      "change_type": "new",
+      "conditions": {
+        "field": "authorized_daily_rate_GTQ",
+        "operator": ">=",
+        "value": 2.0
+      },
+      "confidence": 0.88,
+      "description": "The INGUAT 10% hotel tax only applies to accommodation where the authorized daily tariff is 2 quetzales or more per day (or fraction thereof). Establishments charging below this threshold are not subject to the INGUAT hotel tax.",
+      "effective_end": null,
+      "effective_start": "1969-01-01",
+      "enacted_date": null,
+      "legal_reference": "Acuerdo Gubernativo M. de E. 33-69, Art\u00edculo 26; Decreto 1701",
+      "name": "INGUAT Tax Minimum Rate Threshold",
+      "rule_type": "threshold",
+      "source_quote": "EL INGUAT, percibir\u00e1 un impuesto del diez por ciento (10%) por hospedaje que se cobrar\u00e1 sobre las tarifas, excluida alimentaci\u00f3n y otros servicios, en hoteles, m\u00f3teles, campamentos, pensiones y dem\u00e1s centros de alojamiento, cuando la tarifa autorizada sea de dos quetzales o m\u00e1s por d\u00eda o fracci\u00f3n diaria.",
+      "source_url": "https://uip.inguat.gob.gt/index.php/ley-de-informacion-publica?download=1949:reglamento-para-la-aplicacion-de-la-ley-organica-de-inguat"
+    }
+  ],
+  "sources_checked": [
+    "https://uip.inguat.gob.gt/index.php/ley-de-informacion-publica?download=1949:reglamento-para-la-aplicacion-de-la-ley-organica-de-inguat",
+    "https://biblioteca.inguat.gob.gt/Digital/Documentos/1701r.pdf",
+    "https://faolex.fao.org/docs/pdf/gua206964.pdf",
+    "https://portal.sat.gob.gt/portal/wpfd_file/decreto-no-27-92-ley-del-impuesto-al-valor-agregado-decreto-numero-27-92/",
+    "https://www.prensalibre.com/economia/municipalidad-de-antigua-guatemala-cobrara-tasa-por-hospedarse-en-la-ciudad-y-este-es-el-monto-a-pagar-categoria-de-hoteles-afectados-y-el-destino-de-los-fondos-breaking/",
+    "https://assets.airbnb.com/help/AirbnbHostGuide2024_Guatemala_SPANISH.pdf",
+    "https://emisorasunidas.com/2022/07/29/cobro-turistas-hospedaje-antigua-guatemala/",
+    "https://republica.com/economia/hospedaje-antigua-guatemala-establece-tasa-municipal-para-incentivar-actividades-culturales--20227299470",
+    "https://inguat.gob.gt/images/servicio-cobros/pdf/guia-pago-establecimientos-de-hospedaje.pdf"
+  ],
+  "summary": "Research identified 3 distinct accommodation-related taxes applicable in Antigua Guatemala: (1) A national 10% INGUAT hotel occupancy tax levied on the authorized room rate (excl. food/other services), established under Decreto 1701 (Ley Org\u00e1nica del INGUAT) and its Reglamento (Acuerdo Gubernativo M. de E. 33-69); (2) Guatemala's standard 12% VAT (IVA) under Decreto 27-92 applicable to all accommodation services; and (3) A municipal lodging fee (tasa municipal) of Q20 per occupied room per night, capped at 5 nights, applicable exclusively to 4- and 5-star hotels and boutique hotels in Antigua Guatemala, enacted via Acta 075-2022 and effective 30 July 2022. All three taxes are currently in force with no evidence of repeal or modification. A long-stay exemption (\u226530 consecutive days) applies to the INGUAT 10% tax. A reduced 5% VAT rate is available for qualifying small taxpayers (annual income \u2264 GTQ 60,000). 6 sources checked in total."
+}
