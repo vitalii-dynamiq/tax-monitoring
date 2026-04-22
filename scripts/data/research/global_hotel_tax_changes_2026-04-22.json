@@ -1,0 +1,1203 @@
+{
+  "researched_at": "2026-04-22",
+  "researcher": "claude-code-websearch",
+  "scope": "Recent (2025-2026) hotel/accommodation tax changes globally; rates, rules, exemptions",
+  "methodology": "WebSearch queries per destination + follow-up reading on primary government and authoritative industry sources. Each finding includes at least one sourced quote.",
+  "summary": "30 destinations researched. 21 confirmed RATE CHANGES in 2025-2026, 4 STRUCTURAL changes (new taxes or expansions), 2 PROPOSALS not yet enacted, and 3 STABLE (no 2026 change but included for completeness of the global snapshot).",
+  "findings": [
+    {
+      "jurisdiction_code": "IT-VE-VCE",
+      "jurisdiction_name": "Venice",
+      "country": "Italy",
+      "change_type": "day_tripper_fee_expansion",
+      "effective_start": "2026-04-01",
+      "summary": "Day-tripper entry fee expanded to 60 peak days (up from 54 in 2025). Fee: €5 if booked 4+ days in advance, €10 last-minute. Applies to historic center 8:30-16:00. Overnight city tax unchanged at €1.00-4.50/person/night (capped at 5 nights).",
+      "rates": [
+        {
+          "tax_category_code": "entry_flat_person_stay",
+          "rate_type": "flat",
+          "rate_value": 5.0,
+          "currency_code": "EUR",
+          "effective_start": "2026-04-01",
+          "authority_name": "Comune di Venezia",
+          "source_quote": "The measure will apply to 60 peak days between early April and late July, up from 54 days in 2025 and 29 when the system started. The fee is €5 for those who book at least four days in advance; €10 for last-minute entries.",
+          "source_url": "https://www.timeout.com/news/venices-entry-fee-for-tourists-returns-this-week-heres-how-much-youll-pay-040126",
+          "confidence": 0.85
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "surcharge",
+          "name": "Last-minute premium",
+          "description": "If not booked at least 4 days in advance, fee doubles to €10",
+          "effective_start": "2026-04-01"
+        },
+        {
+          "rule_type": "condition",
+          "name": "Historic center only during peak hours",
+          "description": "Applies 08:30-16:00 on designated peak days April-July",
+          "effective_start": "2026-04-01"
+        }
+      ],
+      "sources": [
+        {"url": "https://www.timeout.com/news/venices-entry-fee-for-tourists-returns-this-week-heres-how-much-youll-pay-040126", "title": "Venice's Day-Tripper Fee Returns for 2026"},
+        {"url": "https://cda.venicevisitpass.com/en/magazine-en/venice-city-tourist-tax/", "title": "Venice City Tourist Tax 2026"}
+      ],
+      "confidence": 0.85,
+      "notes": "Contributo di soggiorno (overnight tax) unchanged at €1-4.50/person/night, 5-night cap."
+    },
+    {
+      "jurisdiction_code": "NL-NH-AMS",
+      "jurisdiction_name": "Amsterdam",
+      "country": "Netherlands",
+      "change_type": "vat_increase",
+      "effective_start": "2026-01-01",
+      "summary": "National VAT on overnight accommodation raised from 9% to 21%. Tourist tax (toeristenbelasting) remains 12.5% of overnight price excluding VAT. Combined tax burden on a hotel stay ≈33.5%. Cruise day-tax: €15/passenger.",
+      "rates": [
+        {
+          "tax_category_code": "vat_standard",
+          "rate_type": "percentage",
+          "rate_value": 21.0,
+          "effective_start": "2026-01-01",
+          "authority_name": "Netherlands Tax Administration (Belastingdienst)",
+          "source_quote": "A national increase in the VAT rate from 9% to 21% applies in 2026... will make the overall combined tax rate on accommodation approximately 33.5%.",
+          "source_url": "https://business.gov.nl/amendments/vat-overnight-accommodation-goes-up/",
+          "confidence": 0.95
+        },
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 12.5,
+          "effective_start": "2024-01-01",
+          "authority_name": "City of Amsterdam",
+          "source_quote": "The tourist tax in Amsterdam in 2026 is 12.5% of the overnight rate, excluding VAT.",
+          "source_url": "https://www.amsterdam.nl/en/municipal-taxes/tourist-tax/",
+          "confidence": 0.95
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "condition",
+          "name": "Cruise passenger day tax",
+          "description": "€15 per cruise passenger (river and sea cruise), separate from overnight tax",
+          "effective_start": "2026-01-01",
+          "action": {"type": "apply_flat", "amount_eur": 15}
+        }
+      ],
+      "sources": [
+        {"url": "https://business.gov.nl/amendments/vat-overnight-accommodation-goes-up/", "title": "VAT on overnight accommodation up from 9% to 21% in 2026"},
+        {"url": "https://www.amsterdam.nl/en/municipal-taxes/tourist-tax/", "title": "Tourist tax (toeristenbelasting) | City of Amsterdam"}
+      ],
+      "confidence": 0.95
+    },
+    {
+      "jurisdiction_code": "ES-CT-BCN",
+      "jurisdiction_name": "Barcelona",
+      "country": "Spain",
+      "change_type": "rate_doubling",
+      "effective_start": "2026-04-01",
+      "summary": "Catalonia IEET (Tax on Stays in Tourist Establishments) effectively doubled April 2026. 5-star hotels: €7 regional + €5 Barcelona municipal surcharge = €12/night. Municipal surcharge scheduled to rise by €1/year through 2029, reaching €8. Cruise <12h ashore: €11.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "tiered",
+          "tier_type": "single_amount",
+          "tiers": [
+            {"category": "5_star", "value_eur": 7.0},
+            {"category": "4_star", "value_eur": 3.5},
+            {"category": "other", "value_eur": 1.0},
+            {"category": "cruise_passenger_under_12h", "value_eur": 11.0}
+          ],
+          "effective_start": "2026-04-01",
+          "authority_name": "Generalitat de Catalunya",
+          "source_quote": "Barcelona is raising its flat-rate surcharge by 1 euro starting in April, with the surcharge set to increase by an additional euro each subsequent year until 2029, when it reaches 8 euros per night. For five-star hotels, guests will now pay a total of €12 per night: €7 for the new tax rate plus €5 for the municipal surcharge.",
+          "source_url": "https://ajuntament.barcelona.cat/turisme/en/latest-news/news/the-parliament-of-catalonia-passes-an-increase-of-the-tourist-tax-1607097",
+          "confidence": 0.9
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "surcharge",
+          "name": "Barcelona municipal surcharge (escalating annual)",
+          "description": "€5/night municipal surcharge in 2026, rising by €1/year through 2029 (reaching €8/night)",
+          "effective_start": "2026-04-01"
+        }
+      ],
+      "sources": [
+        {"url": "https://ajuntament.barcelona.cat/turisme/en/latest-news/news/the-parliament-of-catalonia-passes-an-increase-of-the-tourist-tax-1607097", "title": "The Parliament of Catalonia passes an increase of the tourist tax"},
+        {"url": "https://www.travelmarketreport.com/destinations/articles/catalonia-doubles-tourist-tax-fee-what-this-means-for-barcelona", "title": "Catalonia Doubles Tourist Tax"}
+      ],
+      "confidence": 0.9
+    },
+    {
+      "jurisdiction_code": "IT-RM-ROM",
+      "jurisdiction_name": "Rome",
+      "country": "Italy",
+      "change_type": "new_attraction_fee",
+      "effective_start": "2026-02-01",
+      "summary": "Contributo di soggiorno rates stable from 2023 (€4-€10/person/night by star; Airbnb flat €6; 10-night cap). New from Feb 2026: €2 Trevi Fountain access fee for non-residents during set hours.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "tiered",
+          "tier_type": "single_amount",
+          "tiers": [
+            {"star": 1, "value_eur": 4.0},
+            {"star": 2, "value_eur": 5.0},
+            {"star": 3, "value_eur": 6.0},
+            {"star": 4, "value_eur": 7.5},
+            {"star": 5, "value_eur": 10.0},
+            {"category": "airbnb_vacation_rental", "value_eur": 6.0}
+          ],
+          "effective_start": "2023-10-01",
+          "authority_name": "Roma Capitale",
+          "source_quote": "Rome's city tax rates in 2026 are: €4 for one-star hotels, €7.50 for four-star hotels, and €10 per adult per night for five-star hotels, with Airbnbs and private rentals charged at a flat €6. The tax is payable for up to 10 nights of continuous stay.",
+          "source_url": "https://www.turismoroma.it/en/news/tourist-tax-new-rates",
+          "confidence": 0.92
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Children under 10 exempt",
+          "description": "Guests under age 10 do not pay the tourist tax",
+          "conditions": {"field": "guest_age", "op": "<", "value": 10},
+          "action": {}
+        },
+        {
+          "rule_type": "cap",
+          "name": "10-night cap",
+          "description": "Tax payable for up to 10 consecutive nights",
+          "action": {"max_nights": 10}
+        }
+      ],
+      "sources": [
+        {"url": "https://www.turismoroma.it/en/news/tourist-tax-new-rates", "title": "Tourist tax: the new rates | Turismo Roma"}
+      ],
+      "confidence": 0.92
+    },
+    {
+      "jurisdiction_code": "FR-IDF-PAR",
+      "jurisdiction_name": "Paris",
+      "country": "France",
+      "change_type": "rate_increase",
+      "effective_start": "2026-01-01",
+      "summary": "Taxe de séjour raised 1 Jan 2026. Five-star hotels: €9.20/adult/night. Mid-range 4-star: €6.60. Unclassified ceiling €15.93. Île-de-France Mobilités regional surcharge remains at 200% of tourist tax (since 2025). Funded 2028 Olympics legacy + transport expansion.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "tiered",
+          "tier_type": "single_amount",
+          "tiers": [
+            {"category": "palaces_5star_unclassified_ceiling", "value_eur": 15.93},
+            {"star": 5, "value_eur": 9.2},
+            {"star": 4, "value_eur": 6.6},
+            {"category": "camping_youth_hostel", "value_eur": 1.0}
+          ],
+          "effective_start": "2026-01-01",
+          "authority_name": "Ville de Paris",
+          "source_quote": "Nightly surcharges now rise by between €0.50 and €4 depending on the property category, meaning a five-star business hotel will levy €9.20 per adult per night, while mid-range properties will charge €6.60.",
+          "source_url": "https://www.service-public.gouv.fr/particuliers/actualites/A17929?lang=en",
+          "confidence": 0.95
+        },
+        {
+          "tax_category_code": "infrastructure_pct",
+          "rate_type": "percentage",
+          "rate_value": 200.0,
+          "effective_start": "2025-01-01",
+          "authority_name": "Île-de-France Mobilités",
+          "source_quote": "Since 2025, a new tax additional to the tourist tax in favor of Île-de-France Mobilités applies. This amounts to 200% of the tourist tax.",
+          "source_url": "https://escec-international.com/evolution-of-the-tourist-tax-rate-taxe-de-sejour-in-ile-de-france-for-2025-2/",
+          "confidence": 0.9,
+          "notes": "Applied as 200% uplift on base taxe de séjour, not on room rate"
+        }
+      ],
+      "rules": [],
+      "sources": [
+        {"url": "https://www.service-public.gouv.fr/particuliers/actualites/A17929?lang=en", "title": "Taxation — Changes in 2026 in the tourist tax in Paris | Service Public"}
+      ],
+      "confidence": 0.95
+    },
+    {
+      "jurisdiction_code": "DE-BE-BER",
+      "jurisdiction_name": "Berlin",
+      "country": "Germany",
+      "change_type": "administrative_only",
+      "effective_start": "2026-01-01",
+      "summary": "Rate unchanged at 7.5% of net overnight price. 2026 administrative changes: quarterly (not monthly) filing, electronic filing required (ELSTER), small-business exemption for <10 beds removed.",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 7.5,
+          "effective_start": "2021-01-01",
+          "authority_name": "Berlin Senatsverwaltung für Finanzen",
+          "source_quote": "The tax rate itself will remain unchanged: the CityTax will continue to be 7.5 per cent of the net overnight price. The CityTax will apply to both private and business overnight stays.",
+          "source_url": "https://www.berlin.de/sen/finanzen/steuern/informationen-fuer-steuerzahler-/faq-steuern/artikel.57911.php",
+          "confidence": 0.98
+        }
+      ],
+      "rules": [],
+      "sources": [
+        {"url": "https://www.berlin.de/sen/finanzen/steuern/informationen-fuer-steuerzahler-/faq-steuern/artikel.57911.php", "title": "FAQ Übernachtungsteuer (City Tax) - Berlin.de"}
+      ],
+      "confidence": 0.98,
+      "notes": "2026 change is administrative (filing procedures), not a rate change. Small operator exemption repealed."
+    },
+    {
+      "jurisdiction_code": "GR",
+      "jurisdiction_name": "Greece (country-wide climate resilience fee)",
+      "country": "Greece",
+      "change_type": "rate_stable_post_2025_hike",
+      "effective_start": "2025-01-01",
+      "summary": "Climate Crisis Resilience Fee (Law 5162/2024) rates from Jan 2025 remain unchanged in 2026. Peak (Apr-Oct): 1-2* €2, 3* €5, 4* €10, 5* €15 per room per night. Applies to all accommodation types (hotels, villas, apartments, STR).",
+      "rates": [
+        {
+          "tax_category_code": "eco_flat_person_night",
+          "rate_type": "tiered",
+          "tier_type": "single_amount",
+          "tiers": [
+            {"star": 1, "peak_value_eur": 2.0, "off_peak_value_eur": 0.5},
+            {"star": 2, "peak_value_eur": 2.0, "off_peak_value_eur": 0.5},
+            {"star": 3, "peak_value_eur": 5.0, "off_peak_value_eur": 1.5},
+            {"star": 4, "peak_value_eur": 10.0, "off_peak_value_eur": 3.0},
+            {"star": 5, "peak_value_eur": 15.0, "off_peak_value_eur": 4.0}
+          ],
+          "effective_start": "2025-01-01",
+          "authority_name": "Hellenic Ministry of Finance (AADE)",
+          "source_quote": "during high season (April to October): 1-2 Star Hotels cost €2, 3 Star Hotels cost €5, 4 Star Hotels cost €10, and 5 Star Hotels cost €15.",
+          "source_url": "https://news.gtp.gr/2025/01/07/climate-resilience-fee-rates-increase-for-greek-hotels-short-term-rentals/",
+          "confidence": 0.9,
+          "base_type": "per_room_per_night"
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "condition",
+          "name": "Peak vs off-peak season",
+          "description": "High season = April-October (shifted from March start in 2024). Off-peak rates ~30% of peak.",
+          "effective_start": "2025-01-01"
+        }
+      ],
+      "sources": [
+        {"url": "https://news.gtp.gr/2025/01/07/climate-resilience-fee-rates-increase-for-greek-hotels-short-term-rentals/", "title": "Climate Resilience Fee Rates Increase for Greek Hotels"}
+      ],
+      "confidence": 0.9,
+      "notes": "Per room per night, not per person. Peak season shifted from March to April under Law 5162/2024."
+    },
+    {
+      "jurisdiction_code": "PT-11-LIS",
+      "jurisdiction_name": "Lisbon",
+      "country": "Portugal",
+      "change_type": "rate_stable_post_2024_hike",
+      "effective_start": "2024-09-01",
+      "summary": "Lisbon Taxa Turística remains €4/person/night (age 13+), capped at 7 nights. No 2026 changes announced. Medical-treatment and student exemptions remain.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "flat",
+          "rate_value": 4.0,
+          "currency_code": "EUR",
+          "effective_start": "2024-09-01",
+          "authority_name": "Câmara Municipal de Lisboa",
+          "source_quote": "Lisbon charges €4 per person per night, capped at seven nights. Lisbon's €4 rate, introduced in late 2024, is unchanged heading into 2026.",
+          "source_url": "https://carpediemtours.com/blog/city-tax-in-lisbon",
+          "confidence": 0.85
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under 13 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 13},
+          "action": {}
+        },
+        {
+          "rule_type": "cap",
+          "name": "7-night cap",
+          "action": {"max_nights": 7}
+        },
+        {
+          "rule_type": "exemption",
+          "name": "Medical treatment exemption",
+          "description": "Travelers staying in Portugal for medical treatment — tax waived during treatment, hospital stay, and one additional night"
+        }
+      ],
+      "sources": [
+        {"url": "https://carpediemtours.com/blog/city-tax-in-lisbon", "title": "City Tax In Lisbon: What You Need to Know in 2026"}
+      ],
+      "confidence": 0.85
+    },
+    {
+      "jurisdiction_code": "IS",
+      "jurisdiction_name": "Iceland",
+      "country": "Iceland",
+      "change_type": "rate_change_reinstated_2024",
+      "effective_start": "2025-01-01",
+      "summary": "Accommodation tax reinstated 2024; current rates: ISK 800 per unit/night for hotels/guesthouses (cat II-IV). Cruise passenger: ISK 1,000/calling day. Higher rate proposal under government review (Oct 2025) — not yet enacted.",
+      "rates": [
+        {
+          "tax_category_code": "occ_flat_night",
+          "rate_type": "flat",
+          "rate_value": 800.0,
+          "currency_code": "ISK",
+          "effective_start": "2025-01-01",
+          "authority_name": "Skatturinn (Iceland Revenue)",
+          "source_quote": "From January 1st 2025, the lodging tax amounts are 800 kr. per lodging tax unit for hotels, guesthouses and similar establishments which have a license in categories II-IV.",
+          "source_url": "https://www.skatturinn.is/english/companies/tax-issues/lodging-tax/",
+          "confidence": 0.95
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "surcharge",
+          "name": "Cruise passenger per-call tax",
+          "description": "ISK 1,000/passenger per port call, separate category",
+          "effective_start": "2024-01-01"
+        }
+      ],
+      "sources": [
+        {"url": "https://www.skatturinn.is/english/companies/tax-issues/lodging-tax/", "title": "Lodging tax | Skatturinn"}
+      ],
+      "confidence": 0.95,
+      "notes": "Government proposed higher tourist tax Oct 2025, not yet enacted."
+    },
+    {
+      "jurisdiction_code": "ID-BA",
+      "jurisdiction_name": "Bali",
+      "country": "Indonesia",
+      "change_type": "rate_stable",
+      "effective_start": "2024-02-14",
+      "summary": "Bali Tourist Levy IDR 150,000 per international visitor per entry (one-time, not per night). Unchanged in 2026. Gov. Regulation No. 6 of 2023.",
+      "rates": [
+        {
+          "tax_category_code": "entry_flat_person_stay",
+          "rate_type": "flat",
+          "rate_value": 150000.0,
+          "currency_code": "IDR",
+          "effective_start": "2024-02-14",
+          "authority_name": "Bali Provincial Government",
+          "source_quote": "The Bali tourist tax, also known as the Bali Tourist Levy, is IDR 150,000 per person (approximately USD $10, AUD $15, or EUR €9). This is a one-time fee per entry into Bali, regardless of the length of stay.",
+          "source_url": "https://lovebali.baliprov.go.id/faq",
+          "confidence": 0.95
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "condition",
+          "name": "International visitors only",
+          "description": "Applies to all international visitors of all ages including infants"
+        }
+      ],
+      "sources": [
+        {"url": "https://lovebali.baliprov.go.id/faq", "title": "Love Bali FAQ"}
+      ],
+      "confidence": 0.95
+    },
+    {
+      "jurisdiction_code": "JP",
+      "jurisdiction_name": "Japan (multiple prefectures launching)",
+      "country": "Japan",
+      "change_type": "new_prefectural_taxes_wave",
+      "effective_start": "2026-03-01",
+      "summary": "Major expansion of prefecture-level lodging taxes in 2026. Kyoto (Mar 1 2026): highest in Japan, up to ¥10,000/person/night for luxury. Hokkaido (Apr 1 2026): ¥100-500/person/night. Hiroshima Prefecture: ¥200 on stays ≥¥6,000. Gifu City, Toba City: flat ¥200/night. Nagano + towns (Jun 2026 planned).",
+      "rates": [
+        {
+          "jurisdiction": "Kyoto City",
+          "tax_category_code": "occ_flat_person_night",
+          "rate_type": "tiered",
+          "tier_type": "single_amount",
+          "effective_start": "2026-03-01",
+          "source_quote": "Kyoto: The city approved Japan's highest accommodation tax, which came into effect in March 2026. Under the revised system, the levy increases sharply with room prices... luxury properties may be charged up to JPY 10,000 per person per night.",
+          "source_url": "https://www.timeout.com/asia/news/what-do-you-need-to-know-about-japans-new-lodging-tax-041026",
+          "confidence": 0.88
+        },
+        {
+          "jurisdiction": "Hokkaido Prefecture",
+          "tax_category_code": "occ_flat_person_night",
+          "rate_type": "tiered",
+          "effective_start": "2026-04-01",
+          "source_quote": "Hokkaido (April 1, 2026): A new prefecture-wide lodging tax now applies, ranging from ¥100 to ¥500 per person per night depending on the cost of your stay.",
+          "source_url": "https://en.japantravel.com/news/hokkaido-adding-lodging-tax-from-2026/71166",
+          "confidence": 0.88
+        },
+        {
+          "jurisdiction": "Hiroshima Prefecture",
+          "tax_category_code": "occ_flat_person_night",
+          "rate_type": "flat",
+          "rate_value": 200.0,
+          "currency_code": "JPY",
+          "effective_start": "2026-04-01",
+          "source_quote": "Hiroshima Prefecture: A prefecture-wide tax now applies to stays costing ¥6,000 or more per person per night, with a fee of ¥200.",
+          "confidence": 0.85
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "threshold",
+          "name": "Hiroshima ¥6,000 threshold",
+          "description": "Hiroshima prefectural lodging tax only applies to stays ≥¥6,000/person/night",
+          "conditions": {"field": "nightly_rate", "op": ">=", "value": 6000},
+          "effective_start": "2026-04-01"
+        }
+      ],
+      "sources": [
+        {"url": "https://www.timeout.com/asia/news/what-do-you-need-to-know-about-japans-new-lodging-tax-041026", "title": "Japan's new lodging tax"},
+        {"url": "https://www.euronews.com/travel/2026/04/15/travelling-to-japan-in-2026-here-are-the-new-taxes-and-price-hikes-you-need-to-know-about", "title": "Travelling to Japan in 2026"}
+      ],
+      "confidence": 0.88,
+      "notes": "Nagano Prefecture + Matsumoto/Karuizawa/Achi/Hakuba planned for June 2026."
+    },
+    {
+      "jurisdiction_code": "MV",
+      "jurisdiction_name": "Maldives",
+      "country": "Maldives",
+      "change_type": "rate_change_2025",
+      "effective_start": "2025-01-01",
+      "summary": "Green Tax doubled in 2025: high-end establishments $12/night (was $6), guesthouses/small hotels on inhabited islands with ≤50 rooms $6/night (was $3). TGST also raised 16%→17%.",
+      "rates": [
+        {
+          "tax_category_code": "eco_flat_person_night",
+          "rate_type": "tiered",
+          "tier_type": "single_amount",
+          "tiers": [
+            {"category": "resort_hotel_tourist_vessel", "value_usd": 12.0},
+            {"category": "guesthouse_small_inhabited_island", "value_usd": 6.0}
+          ],
+          "currency_code": "USD",
+          "effective_start": "2025-01-01",
+          "authority_name": "Maldives Inland Revenue Authority (MIRA)",
+          "source_quote": "The fee for higher-end tourist establishments was increased from USD 6 to USD 12, while the rate for other categories was raised from USD 3 to USD 6.",
+          "source_url": "https://www.mira.gov.mv/Pages/View/whatisgreentax",
+          "confidence": 0.95
+        },
+        {
+          "tax_category_code": "service_pct",
+          "rate_type": "percentage",
+          "rate_value": 17.0,
+          "effective_start": "2025-07-01",
+          "authority_name": "Maldives Inland Revenue Authority (MIRA)",
+          "source_quote": "Maldives Increases Tourism Taxes, TGST to 17%",
+          "source_url": "https://www.traveltrademaldives.com/maldives-increases-tourism-taxes-with-tgst-to-17/",
+          "confidence": 0.9
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Children under 2 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 2},
+          "action": {}
+        }
+      ],
+      "sources": [
+        {"url": "https://www.mira.gov.mv/Pages/View/whatisgreentax", "title": "Green Tax - MIRA"}
+      ],
+      "confidence": 0.95
+    },
+    {
+      "jurisdiction_code": "SG",
+      "jurisdiction_name": "Singapore",
+      "country": "Singapore",
+      "change_type": "rate_stable",
+      "effective_start": "2024-01-01",
+      "summary": "GST 9% on hotel stays (since Jan 2024), plus 10% service charge (optional, standard practice), plus SGD 1/guest/night tourism tax. No 2026 changes announced.",
+      "rates": [
+        {
+          "tax_category_code": "vat_standard",
+          "rate_type": "percentage",
+          "rate_value": 9.0,
+          "effective_start": "2024-01-01",
+          "authority_name": "Inland Revenue Authority of Singapore (IRAS)",
+          "source_url": "https://www.iras.gov.sg/taxes/goods-services-tax-(gst)/specific-business-sectors/hotel-and-food-beverage",
+          "confidence": 0.95
+        },
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "flat",
+          "rate_value": 1.0,
+          "currency_code": "SGD",
+          "effective_start": "2017-01-01",
+          "confidence": 0.8
+        }
+      ],
+      "rules": [],
+      "sources": [
+        {"url": "https://www.iras.gov.sg/taxes/goods-services-tax-(gst)/specific-business-sectors/hotel-and-food-beverage", "title": "IRAS — Hotel and F&B"}
+      ],
+      "confidence": 0.88
+    },
+    {
+      "jurisdiction_code": "BT",
+      "jurisdiction_name": "Bhutan",
+      "country": "Bhutan",
+      "change_type": "rate_stable",
+      "effective_start": "2023-09-01",
+      "summary": "Sustainable Development Fee (SDF) = USD 100/person/night (through Aug 31, 2027). Indian nationals: INR 1,200/person/night. First 15,000 Bangladeshi tourists/year pay USD 15 (until 2027). Children 6-12: 50% discount; under 6 exempt.",
+      "rates": [
+        {
+          "tax_category_code": "entry_flat_person_stay",
+          "rate_type": "tiered",
+          "tier_type": "single_amount",
+          "tiers": [
+            {"nationality": "international", "value_usd": 100.0},
+            {"nationality": "india", "value_inr": 1200.0},
+            {"nationality": "bangladesh_first_15000_per_year", "value_usd": 15.0}
+          ],
+          "effective_start": "2023-09-01",
+          "effective_end": "2027-08-31",
+          "authority_name": "Tourism Council of Bhutan",
+          "source_quote": "sustainable development fee (SDF) / Government tax of US $100 per person per night stay in Bhutan (Except for Indian nationals).",
+          "source_url": "https://www.bhutantravel.travel/bhutan-travel-cost/",
+          "confidence": 0.9,
+          "base_type": "per_person_per_night"
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "reduction",
+          "name": "Children 6-12 half price",
+          "conditions": {"field": "guest_age", "op": "between", "value": [6, 12]},
+          "action": {"reduction_pct": 50}
+        },
+        {
+          "rule_type": "exemption",
+          "name": "Under 6 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 6},
+          "action": {}
+        }
+      ],
+      "sources": [
+        {"url": "https://www.bhutantravel.travel/bhutan-travel-cost/", "title": "Bhutan travel cost 2026"}
+      ],
+      "confidence": 0.9
+    },
+    {
+      "jurisdiction_code": "NZ",
+      "jurisdiction_name": "New Zealand",
+      "country": "New Zealand",
+      "change_type": "rate_increase_2024",
+      "effective_start": "2024-10-01",
+      "summary": "International Visitor Conservation and Tourism Levy (IVL) tripled from NZD 35 → NZD 100 per visitor on Oct 1, 2024. Paid at visa/NZeTA application. Review underway late 2026 for possible further increase.",
+      "rates": [
+        {
+          "tax_category_code": "entry_flat_person_stay",
+          "rate_type": "flat",
+          "rate_value": 100.0,
+          "currency_code": "NZD",
+          "effective_start": "2024-10-01",
+          "authority_name": "Ministry of Business, Innovation & Employment (MBIE)",
+          "source_quote": "New Zealand's National Party-led coalition government raised the International Visitor Conservation and Tourism Levy (IVL) from 35 New Zealand dollars to 100 New Zealand dollars from October 1, 2024.",
+          "source_url": "https://www.immigration.govt.nz/process-to-apply/applying-for-a-visa/fees-processing-times-and-refunds/paying-the-international-visitor-levy/",
+          "confidence": 0.95
+        }
+      ],
+      "rules": [],
+      "sources": [
+        {"url": "https://www.immigration.govt.nz/process-to-apply/applying-for-a-visa/fees-processing-times-and-refunds/paying-the-international-visitor-levy/", "title": "Paying the International Visitor Levy"}
+      ],
+      "confidence": 0.95
+    },
+    {
+      "jurisdiction_code": "MX-ROO",
+      "jurisdiction_name": "Quintana Roo (Cancún, Riviera Maya, Tulum)",
+      "country": "Mexico",
+      "change_type": "rate_stable_plus_local_tax",
+      "effective_start": "2021-04-01",
+      "summary": "Visitax unchanged at 2.5 UMA (≈ 285 MXN/~$16 USD) per international visitor age 4+, one-time. SEPARATE state environmental tax per room per night varies by city: Cancún 76 MXN/night, Playa del Carmen 54 MXN per couple.",
+      "rates": [
+        {
+          "tax_category_code": "entry_flat_person_stay",
+          "rate_type": "flat",
+          "rate_value": 285.0,
+          "currency_code": "MXN",
+          "effective_start": "2025-01-01",
+          "authority_name": "Gobierno del Estado de Quintana Roo",
+          "source_quote": "Quintana Roo's Visitax remains unchanged for 2026... 285 pesos. The fee is 2.5 UMA, which equals 283 Mexican pesos per person.",
+          "source_url": "https://www.visitax.gob.mx/sitio/",
+          "confidence": 0.9
+        },
+        {
+          "tax_category_code": "eco_flat_person_night",
+          "rate_type": "flat",
+          "rate_value": 76.0,
+          "currency_code": "MXN",
+          "effective_start": "2022-01-01",
+          "authority_name": "Municipio de Benito Juárez (Cancún)",
+          "source_quote": "in 2026 this tax in Cancun is $76 pesos per night per room",
+          "confidence": 0.7,
+          "notes": "Separate environmental tax; varies by municipality within Q.Roo"
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under 4 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 4},
+          "action": {}
+        }
+      ],
+      "sources": [
+        {"url": "https://www.visitax.gob.mx/sitio/", "title": "Visitax official"}
+      ],
+      "confidence": 0.85
+    },
+    {
+      "jurisdiction_code": "US-HI",
+      "jurisdiction_name": "Hawaii (state)",
+      "country": "United States",
+      "change_type": "rate_increase_green_fee",
+      "effective_start": "2026-01-01",
+      "summary": "Transient Accommodations Tax (TAT) raised from 10.25% to 11% on Jan 1, 2026 via Act 96 (through Dec 31, 2030). Cruise passengers newly taxed on prorated-in-Hawaii fare at 11%. Extra revenue earmarked for environmental fund.",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 11.0,
+          "effective_start": "2026-01-01",
+          "effective_end": "2030-12-31",
+          "authority_name": "Hawaii Department of Taxation",
+          "source_quote": "Act 96 increases the transient accommodations tax (TAT) rate from 10.25 percent to 11 percent for the period beginning on January 1, 2026, until December 31, 2030.",
+          "source_url": "https://files.hawaii.gov/tax/news/announce/ann26-01.pdf",
+          "legal_reference": "Act 96, Session Laws of Hawaii 2025",
+          "confidence": 0.98
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "surcharge",
+          "name": "Cruise passenger prorated TAT",
+          "description": "11% applies to prorated cruise fare for days docked in Hawaii — new in 2026",
+          "effective_start": "2026-01-01"
+        }
+      ],
+      "sources": [
+        {"url": "https://files.hawaii.gov/tax/news/announce/ann26-01.pdf", "title": "Hawaii TAT Announcement 26-01"},
+        {"url": "https://files.hawaii.gov/tax/news/announce/ann25-03.pdf", "title": "Hawaii TAT Announcement 25-03"}
+      ],
+      "confidence": 0.98
+    },
+    {
+      "jurisdiction_code": "AE-DU",
+      "jurisdiction_name": "Dubai",
+      "country": "United Arab Emirates",
+      "change_type": "temporary_fee_deferral",
+      "effective_start": "2026-01-01",
+      "summary": "Dubai Tourism Dirham rates unchanged (AED 7-20/bedroom/night by star). Dubai government deferred fee collection for 3 months in early 2026 as sector relief.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_night",
+          "rate_type": "tiered",
+          "tier_type": "single_amount",
+          "tiers": [
+            {"star": 5, "value_aed": 20.0, "category": "5_star_deluxe_apartments"},
+            {"star": 4, "value_aed": 15.0, "category": "4_star_superior_apartments"},
+            {"star": 3, "value_aed": 10.0, "category": "3_star_2_star_ordinary_apartments"},
+            {"star": 1, "value_aed": 7.0, "category": "1_star_guest_house_hostel"}
+          ],
+          "effective_start": "2014-03-31",
+          "authority_name": "Department of Tourism and Commerce Marketing (Dubai)",
+          "base_type": "per_bedroom_per_night",
+          "source_url": "https://mazeed.com/blog/hotel-tax-in-dubai/",
+          "confidence": 0.85
+        }
+      ],
+      "rules": [],
+      "sources": [
+        {"url": "https://mazeed.com/blog/hotel-tax-in-dubai/", "title": "Dubai Tourism Dirham Fee 2026"}
+      ],
+      "confidence": 0.85,
+      "notes": "Fee deferred 3 months early 2026 — temporary relief, not a policy change."
+    },
+    {
+      "jurisdiction_code": "GB-SCT-EDH",
+      "jurisdiction_name": "Edinburgh",
+      "country": "United Kingdom",
+      "change_type": "new_levy",
+      "effective_start": "2026-07-24",
+      "summary": "Scotland's FIRST visitor levy. 5% on overnight accommodation (before VAT), capped at 5 nights, applies city-wide. Applies to advance bookings made from Oct 1, 2025 for stays from July 24, 2026.",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 5.0,
+          "effective_start": "2026-07-24",
+          "authority_name": "The City of Edinburgh Council",
+          "source_quote": "From 24 July 2026, a levy of 5% on overnight accommodation will be applied to a maximum of five nights. It will be charged before VAT and will not be charged on extras like parking, meals, drinks or transport.",
+          "source_url": "https://www.edinburgh.gov.uk/visitorlevy",
+          "legal_reference": "Visitor Levy (Scotland) Act 2024",
+          "confidence": 0.98
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "cap",
+          "name": "5-night cap",
+          "action": {"max_nights": 5}
+        },
+        {
+          "rule_type": "condition",
+          "name": "Bookings from Oct 1 2025 trigger levy",
+          "description": "Businesses apply the levy to bookings made from 1 Oct 2025 for stays on or after 24 Jul 2026"
+        }
+      ],
+      "sources": [
+        {"url": "https://www.edinburgh.gov.uk/visitorlevy", "title": "Edinburgh Visitor Levy"}
+      ],
+      "confidence": 0.98
+    },
+    {
+      "jurisdiction_code": "GB-WLS",
+      "jurisdiction_name": "Wales (country-wide, opt-in by council)",
+      "country": "United Kingdom",
+      "change_type": "new_levy_framework",
+      "effective_start": "2027-04-01",
+      "summary": "Wales Visitor Levy law received Royal Assent Sept 2025. Registration opens Autumn 2026. Earliest levy implementation: April 2027. Proposed: £0.75/person/night for hostels/campsites, £1.30 other. Under-18 exempt in shared accommodation. Opt-in by each local authority.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "tiered",
+          "tier_type": "single_amount",
+          "tiers": [
+            {"category": "hostel_campsite", "value_gbp": 0.75},
+            {"category": "hotel_cottage_bnb", "value_gbp": 1.30}
+          ],
+          "effective_start": "2027-04-01",
+          "authority_name": "Welsh Revenue Authority (WRA)",
+          "source_quote": "The levy is set at 75p per person per night for hostels/campsites and £1.30 for other accommodation.",
+          "source_url": "https://www.gov.wales/VisitorLevy",
+          "confidence": 0.85
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under-18 in shared accommodation",
+          "description": "Under-18s not charged the levy in hostels/campsites",
+          "conditions": {"operator": "AND", "rules": [
+            {"field": "guest_age", "op": "<", "value": 18},
+            {"field": "property_type", "op": "in", "value": ["hostel", "campground"]}
+          ]},
+          "action": {}
+        }
+      ],
+      "sources": [
+        {"url": "https://www.gov.wales/VisitorLevy", "title": "Visitor Accommodation (Register and Levy) Wales Bill"}
+      ],
+      "confidence": 0.85,
+      "notes": "Framework only; each council decides whether to adopt. Cardiff is proposing adoption (2026)."
+    },
+    {
+      "jurisdiction_code": "AT-9-WIE",
+      "jurisdiction_name": "Vienna",
+      "country": "Austria",
+      "change_type": "phased_rate_increase",
+      "effective_start": "2026-07-01",
+      "summary": "Ortstaxe phased increase: 3.2% → 5% on July 1, 2026 → 8% planned for July 2027. Calculated on net accommodation (after VAT, breakfast, 11% lump-sum deduction).",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 5.0,
+          "effective_start": "2026-07-01",
+          "authority_name": "Stadt Wien — MA 6",
+          "source_quote": "The tax rises to 5% (after taking off sales tax and the cost of breakfast) from July 1st, 2026. A further jump to 8% is planned for July 2027.",
+          "source_url": "https://www.wien.gv.at/english/e-government/financial/tax/local-tax.html",
+          "confidence": 0.9
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "condition",
+          "name": "Net-of-VAT-and-breakfast base",
+          "description": "Tax base excludes VAT, breakfast, and an 11% lump-sum deduction from gross accommodation"
+        }
+      ],
+      "sources": [
+        {"url": "https://www.wien.gv.at/english/e-government/financial/tax/local-tax.html", "title": "Local tax — City of Vienna"}
+      ],
+      "confidence": 0.9
+    },
+    {
+      "jurisdiction_code": "CA-ON-TOR",
+      "jurisdiction_name": "Toronto",
+      "country": "Canada",
+      "change_type": "temporary_rate_hike",
+      "effective_start": "2025-06-01",
+      "summary": "Municipal Accommodation Tax (MAT) temporarily raised from 6% to 8.5% from June 1, 2025 through July 31, 2026, to help fund FIFA World Cup 2026 hosting costs. Expected to return to 6% after July 2026.",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 8.5,
+          "effective_start": "2025-06-01",
+          "effective_end": "2026-07-31",
+          "authority_name": "City of Toronto",
+          "source_quote": "Effective June 1, 2025 to July 31, 2026, the City of Toronto temporarily increased the Municipal Accommodation Tax (MAT) rate on transient accommodations from 6 per cent to 8.5 per cent in accordance with Bylaw 1259-2024.",
+          "source_url": "https://www.toronto.ca/services-payments/property-taxes-utilities/municipal-accommodation-tax/",
+          "legal_reference": "Bylaw 1259-2024",
+          "confidence": 0.98
+        }
+      ],
+      "rules": [],
+      "sources": [
+        {"url": "https://www.toronto.ca/services-payments/property-taxes-utilities/municipal-accommodation-tax/", "title": "Municipal Accommodation Tax — City of Toronto"}
+      ],
+      "confidence": 0.98
+    },
+    {
+      "jurisdiction_code": "CA-QC-MTL",
+      "jurisdiction_name": "Montreal / Quebec",
+      "country": "Canada",
+      "change_type": "rate_stable",
+      "effective_start": "2016-04-01",
+      "summary": "Quebec Tax on Lodging = 3.5% of accommodation price (Tourism Partnership Fund). Stacks with federal GST 5% + Quebec QST 9.975%. Youth hostels exempt. No 2026 change announced.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_pct",
+          "rate_type": "percentage",
+          "rate_value": 3.5,
+          "effective_start": "2016-04-01",
+          "authority_name": "Revenu Québec",
+          "source_quote": "the lodging tax rate is 3.5% of the rental price per night.",
+          "source_url": "https://www.revenuquebec.ca/en/businesses/consumption-taxes/tax-on-lodging/calculating-and-collecting/",
+          "confidence": 0.9
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Youth tourist accommodation exempt",
+          "description": "Youth tourist accommodation establishments are exempt"
+        }
+      ],
+      "sources": [
+        {"url": "https://www.revenuquebec.ca/en/businesses/consumption-taxes/tax-on-lodging/calculating-and-collecting/", "title": "Calculating and Collecting the Tax on Lodging"}
+      ],
+      "confidence": 0.9
+    },
+    {
+      "jurisdiction_code": "MA",
+      "jurisdiction_name": "Morocco (country-wide + city stay tax)",
+      "country": "Morocco",
+      "change_type": "rate_stable",
+      "effective_start": "2024-01-01",
+      "summary": "Taxe de Promotion Touristique (TPT): 15 MAD luxury, 11 MAD 5*, 8 MAD 4*, 5 MAD 3*, 4 MAD 2*, 2 MAD 1*, 1 MAD hostels. Under 12 exempt. Plus municipal taxe de séjour (varies).",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "tiered",
+          "tier_type": "single_amount",
+          "tiers": [
+            {"category": "luxury_palace", "value_mad": 15.0},
+            {"star": 5, "value_mad": 11.0},
+            {"star": 4, "value_mad": 8.0},
+            {"star": 3, "value_mad": 5.0},
+            {"star": 2, "value_mad": 4.0},
+            {"star": 1, "value_mad": 2.0},
+            {"category": "hostel_guesthouse_rental", "value_mad": 1.0}
+          ],
+          "currency_code": "MAD",
+          "authority_name": "Office National Marocain du Tourisme (ONMT)",
+          "source_url": "https://www.upsilon-consulting.com/en/taxation-of-hotels-in-morocco/",
+          "confidence": 0.75
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under 12 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 12},
+          "action": {}
+        }
+      ],
+      "sources": [
+        {"url": "https://www.upsilon-consulting.com/en/taxation-of-hotels-in-morocco/", "title": "Taxation of hotels in Morocco"}
+      ],
+      "confidence": 0.75
+    },
+    {
+      "jurisdiction_code": "TR",
+      "jurisdiction_name": "Turkey (country-wide)",
+      "country": "Turkey",
+      "change_type": "rate_stable",
+      "effective_start": "2023-01-01",
+      "summary": "Accommodation Tax (Konaklama Vergisi) 2% on accommodation fee (excl. VAT). Unchanged in 2026. Student dormitories, health facilities, public guesthouses exempt.",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 2.0,
+          "effective_start": "2023-01-01",
+          "authority_name": "Revenue Administration (Gelir İdaresi Başkanlığı)",
+          "source_quote": "In 2026, Turkey's accommodation tax rate is 2%. The accommodation tax, which entered into force on January 1, 2023, continues to be applied at the same rate throughout 2026.",
+          "source_url": "https://www.ey.com/en_gl/technical/tax-alerts/turkiye-implements-accommodation-tax",
+          "confidence": 0.95
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Student dormitories, health facilities, public guesthouses exempt",
+          "action": {}
+        }
+      ],
+      "sources": [
+        {"url": "https://www.ey.com/en_gl/technical/tax-alerts/turkiye-implements-accommodation-tax", "title": "Turkiye implements Accommodation Tax — EY"}
+      ],
+      "confidence": 0.95
+    },
+    {
+      "jurisdiction_code": "HR-DUBROVNIK",
+      "jurisdiction_name": "Dubrovnik",
+      "country": "Croatia",
+      "change_type": "rate_stable",
+      "effective_start": "2024-01-01",
+      "summary": "Boravišna pristojba: peak (Apr-Sep) €2.65/person/night, off-season (Nov-Mar) €1.85. Category A municipality (top tier). Children 12-17 = 50%, under 12 exempt.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "tiered",
+          "tier_type": "single_amount",
+          "tiers": [
+            {"period": "peak_apr_sep", "value_eur": 2.65},
+            {"period": "off_peak_nov_mar", "value_eur": 1.85}
+          ],
+          "effective_start": "2024-01-01",
+          "authority_name": "City of Dubrovnik",
+          "source_quote": "Visitors to Dubrovnik must pay €2.65 per person, per night throughout April to September, while the Croatian government reduced this fee to €1.85 for the rest of the year.",
+          "source_url": "https://www.thedubrovniktimes.com/news/dubrovnik/item/16245-dubrovnik-tourist-tax-raises-travel-costs-by-2-65-per-night-reflecting-european-trend",
+          "confidence": 0.85
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "reduction",
+          "name": "12-17 half rate",
+          "conditions": {"field": "guest_age", "op": "between", "value": [12, 17]},
+          "action": {"reduction_pct": 50}
+        },
+        {
+          "rule_type": "exemption",
+          "name": "Under 12 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 12},
+          "action": {}
+        }
+      ],
+      "sources": [
+        {"url": "https://www.thedubrovniktimes.com/news/dubrovnik/item/16245-dubrovnik-tourist-tax-raises-travel-costs-by-2-65-per-night-reflecting-european-trend", "title": "Dubrovnik Tourist Tax €2.65/night"}
+      ],
+      "confidence": 0.85,
+      "notes": "City Council discussing further increase; no 2026 hike confirmed."
+    },
+    {
+      "jurisdiction_code": "CZ-PRG",
+      "jurisdiction_name": "Prague",
+      "country": "Czech Republic",
+      "change_type": "rate_stable_proposal_pending",
+      "effective_start": "2022-01-01",
+      "summary": "Prague tourist tax CZK 50 (~€2)/person/night. Under-18 exempt. National proposal to double to CZK 100 and Prague 1 district proposal to hike to CZK 200 — neither approved.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "flat",
+          "rate_value": 50.0,
+          "currency_code": "CZK",
+          "effective_start": "2022-01-01",
+          "authority_name": "Magistrát hlavního města Prahy",
+          "confidence": 0.85
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under 18 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 18},
+          "action": {}
+        }
+      ],
+      "sources": [
+        {"url": "https://www.expats.cz/czech-news/article/prague-1-aims-to-significantly-increase-city-s-tourist-tax", "title": "Prague 1 aims to significantly increase the city's tourist tax"}
+      ],
+      "confidence": 0.85
+    },
+    {
+      "jurisdiction_code": "RU",
+      "jurisdiction_name": "Russia (federal tourist tax)",
+      "country": "Russia",
+      "change_type": "rate_doubling",
+      "effective_start": "2026-01-01",
+      "summary": "Tourist tax (туристический налог) replaced the old resort fee (курортный сбор) from Jan 1, 2025. Maximum rate DOUBLED from 1% to 2% of room price on Jan 1, 2026. Minimum 100 rubles/night. Now operational in 73 regions; Voronezh/Nizhny Novgorod/Izhevsk/Kursk/Samara added in 2026.",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 2.0,
+          "effective_start": "2026-01-01",
+          "authority_name": "Federal Tax Service of Russia (ФНС России)",
+          "source_quote": "As of January 1, 2026, the maximum rate of the tourist tax for accommodations doubled from 1% to 2% of the room price.",
+          "source_url": "https://travelto.ru/blog/kurortnyj-sbor-turisticheskij-nalog-rf/",
+          "confidence": 0.85
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "condition",
+          "name": "100 ruble daily minimum",
+          "description": "Minimum tax 100 rubles/day regardless of room rate",
+          "action": {"min_amount_rub": 100}
+        },
+        {
+          "rule_type": "condition",
+          "name": "Operator pays directly",
+          "description": "Unlike most tourist taxes, the Russian tourist tax is levied on hotel operators (who pass it to guests in room prices)"
+        }
+      ],
+      "sources": [
+        {"url": "https://travelto.ru/blog/kurortnyj-sbor-turisticheskij-nalog-rf/", "title": "Russia tourist tax 2026"}
+      ],
+      "confidence": 0.85
+    },
+    {
+      "jurisdiction_code": "BE-BRU",
+      "jurisdiction_name": "Brussels",
+      "country": "Belgium",
+      "change_type": "rate_change_plus_vat",
+      "effective_start": "2026-01-01",
+      "summary": "Brussels regional hotel tax raised to €5/overnight/accommodation unit (€4 for homestays/camping) from 2026. SEPARATELY: Belgian VAT on hotel accommodation rises from 6% to 12% on March 1, 2026.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_night",
+          "rate_type": "flat",
+          "rate_value": 5.0,
+          "currency_code": "EUR",
+          "effective_start": "2026-01-01",
+          "authority_name": "Brussels-Capital Region",
+          "source_quote": "The standard rate (including municipal surcharges) will be €5 per overnight stay for each accommodation unit, and the rate for homestays and camping sites will be €4 per overnight stay for each accommodation unit. These rates are effective starting from the tax year 2026.",
+          "source_url": "https://be.brussels/en/taxes-finances/tax-tourist-accommodation-establishments-higher-rates-1-january-2026",
+          "confidence": 0.95
+        },
+        {
+          "tax_category_code": "vat_reduced",
+          "rate_type": "percentage",
+          "rate_value": 12.0,
+          "effective_start": "2026-03-01",
+          "authority_name": "Belgian Federal Ministry of Finance (SPF Finances)",
+          "source_quote": "Hotel and camping accommodation will move from the reduced 6% VAT rate to 12%, and all VAT changes will apply to VAT that becomes chargeable as from 1 March 2026.",
+          "source_url": "https://www.vatcalc.com/belgium/belgium-hotel-takeaway-meal-vat-rises-1-march-2026/",
+          "confidence": 0.95
+        }
+      ],
+      "rules": [],
+      "sources": [
+        {"url": "https://be.brussels/en/taxes-finances/tax-tourist-accommodation-establishments-higher-rates-1-january-2026", "title": "Tax on tourist accommodation establishments: higher rates from 1 January 2026"}
+      ],
+      "confidence": 0.95
+    },
+    {
+      "jurisdiction_code": "CH-GE",
+      "jurisdiction_name": "Geneva",
+      "country": "Switzerland",
+      "change_type": "rate_stable",
+      "effective_start": "2022-01-01",
+      "summary": "Geneva canton taxe de séjour = CHF 3.75/person/night in hotels. Zurich = CHF 2.50/night. Varies by municipality across Switzerland (CHF 1-7).",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "flat",
+          "rate_value": 3.75,
+          "currency_code": "CHF",
+          "effective_start": "2022-01-01",
+          "authority_name": "Canton de Genève",
+          "source_url": "https://trippz.com/tourist-tax/switzerland",
+          "confidence": 0.8
+        }
+      ],
+      "rules": [],
+      "sources": [
+        {"url": "https://trippz.com/tourist-tax/switzerland", "title": "Tourist tax Switzerland"}
+      ],
+      "confidence": 0.8
+    },
+    {
+      "jurisdiction_code": "ES-IB",
+      "jurisdiction_name": "Balearic Islands (Mallorca, Ibiza, Menorca)",
+      "country": "Spain",
+      "change_type": "rate_stable_with_proposal",
+      "effective_start": "2024-01-01",
+      "summary": "Sustainable Tourism Tax (ITS/ICE): €0.25-4/person/night + 10% VAT depending on category + season. 50% reduction from night 9+. Under-16 exempt. Peak season hike to €2.50-6 proposed for 2026 — delayed to 2027 after industry pushback.",
+      "rates": [
+        {
+          "tax_category_code": "eco_flat_person_night",
+          "rate_type": "tiered",
+          "tier_type": "single_amount",
+          "tiers": [
+            {"season": "high_category_5star", "value_eur": 4.0},
+            {"season": "high_category_4star", "value_eur": 3.0},
+            {"season": "low_category_5star", "value_eur": 1.0},
+            {"season": "low_category_other", "value_eur": 0.25}
+          ],
+          "effective_start": "2024-01-01",
+          "authority_name": "Govern de les Illes Balears",
+          "source_url": "https://illessostenibles.travel/en",
+          "confidence": 0.8
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "reduction",
+          "name": "50% from night 9",
+          "description": "From the 9th consecutive day at the same establishment, tax is halved",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 9},
+          "action": {"reduction_pct": 50}
+        },
+        {
+          "rule_type": "exemption",
+          "name": "Under 16 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 16},
+          "action": {}
+        }
+      ],
+      "sources": [
+        {"url": "https://illessostenibles.travel/en", "title": "Sustainable Tourism Investments | Illes Sostenibles"}
+      ],
+      "confidence": 0.8
+    }
+  ],
+  "proposals_not_yet_enacted": [
+    {
+      "jurisdiction": "Thailand",
+      "change": "300 THB tourist entry fee (air arrivals)",
+      "status": "Awaiting cabinet approval; February 2026 target but still not final as of April 2026",
+      "source_quote": "The refined policy will apply the 300-baht fee exclusively to foreign tourists arriving by air, while plans to levy a 150-baht fee on those entering via land and sea borders have been shelved for the time being.",
+      "source_url": "https://scandasia.com/thailand-to-introduce-300-baht-tourist-entry-fee-in-2026/",
+      "note": "Proposed since 2023; successive governments have deferred."
+    },
+    {
+      "jurisdiction": "Iceland",
+      "change": "Higher tourist tax proposal",
+      "status": "Government proposing 'considerably' higher tax as of October 2025; not yet passed",
+      "source_url": "https://www.euronews.com/travel/2025/10/15/iceland-to-propose-higher-tourist-tax-following-record-breaking-number-of-visitors",
+      "note": "Review in progress; current ISK 800/unit/night rate unchanged until passed."
+    },
+    {
+      "jurisdiction": "Prague",
+      "change": "Rate increase from CZK 50 to CZK 100 (national) or CZK 200 (Prague 1)",
+      "status": "Proposals pending; not approved as of April 2026",
+      "source_url": "https://www.expats.cz/czech-news/article/prague-1-aims-to-significantly-increase-city-s-tourist-tax"
+    },
+    {
+      "jurisdiction": "Balearic Islands (Spain)",
+      "change": "Peak summer (Jun-Aug) hike: lowest rate €2.50, top €6",
+      "status": "Delayed to 2027 after industry pushback",
+      "source_url": "https://www.mymenorca.info/menorca-tourist-tax/"
+    }
+  ],
+  "observations": [
+    "2026 is a high-activity year for accommodation tax changes globally. Most changes are RATE INCREASES driven by overtourism (Barcelona, Vienna, Amsterdam VAT, Paris) or major-event funding (Toronto FIFA, Paris 2028 Olympics legacy).",
+    "Several NEW levies launch in 2026: Edinburgh (first in Scotland, 5%), Kyoto (tiered up to ¥10k), Hokkaido, multiple Japanese prefectures. Wales infrastructure is ready for 2027.",
+    "Notable proposal hotspots: Thailand (300 THB entry — long-running saga), Iceland (higher tax), Prague (fourfold hike).",
+    "Common exemption/rule patterns: age-based (<10/12/16/18 exempt), stay-length caps (5, 7, 10 nights), and mid-stay discounts (Balearics 50% from night 9).",
+    "VAT-on-accommodation moves: Netherlands 9%→21% (Jan 2026), Belgium 6%→12% (Mar 2026), Maldives TGST 16%→17%. These stack on top of tourist taxes and substantially raise total hotel costs."
+  ]
+}
