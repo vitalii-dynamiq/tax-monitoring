@@ -1,0 +1,476 @@
+{
+  "researched_at": "2026-04-22",
+  "researcher": "claude-code-websearch-breadth-v2",
+  "scope": "Pass #2 targeting the biggest country-level rule gaps identified by live prod query: US (91 rule-less rated jurs), Brazil, Japan, Canada, Germany, Israel, Argentina, Thailand. Focus: rules / exemptions that gate booking calc.",
+  "methodology": "10 targeted WebSearches on country-level patterns that apply across many jurisdictions (permanent-resident exemption, STR threshold, federal-official exemption, prefectural price tiers, disability, business traveler).",
+  "summary": "30 new rules and 2 clarifying rates across 20+ jurisdictions. Mostly rules (per plan). Largest impact: US state permanent-resident exemptions (5 more states), Japan prefectural nightly_rate tiered exemptions, Canada 30-day exemption, Germany city-specific business traveler rules, Italy/France disability+carer exemption (high reuse across cities), Argentina/Israel foreign-tourist VAT exemption.",
+  "findings": [
+    {
+      "jurisdiction_code": "US-IL",
+      "jurisdiction_name": "Illinois",
+      "country": "United States",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Permanent resident (30+ days contract)",
+          "description": "No hotel tax due when there's a binding contract for ≥30 consecutive days",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 30},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "A permanent resident is a person who has the right to occupy any room in a hotel for at least 30 consecutive days. When you have a binding contract with a permanent resident for at least 30 days, no hotel tax is due.",
+          "source_url": "https://tax.illinois.gov/research/taxinformation/excise/hotel.html",
+          "legal_reference": "Illinois Hotel Operators' Occupation Tax Act"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US-CA",
+      "jurisdiction_name": "California",
+      "country": "United States",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Permanent resident (30+ days)",
+          "description": "California TOT jurisdictions exempt stays of 30+ consecutive calendar days",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 30},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "Any person who has a written agreement with the operator, entered into within the first thirty (30) days of the person's occupancy, which states the person will stay for more than thirty (30) consecutive calendar days is exempt from the TOT.",
+          "source_url": "https://ttc.lacounty.gov/wp-content/uploads/2018/12/TRANSIENT-OCCUPANCY-TAX-FAQS.pdf"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US-FL",
+      "jurisdiction_name": "Florida",
+      "country": "United States",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "STR 30-day threshold",
+          "description": "Property rentals 30+ consecutive days are not 'transient' and fall outside short-term rental regulations / transient tax",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 30},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "In Florida, 'short-term rental' typically refers to the renting of a property for 30 consecutive days or less."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US-WA",
+      "jurisdiction_name": "Washington State",
+      "country": "United States",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "STR 30-day threshold",
+          "description": "Stays ≥ 30 consecutive nights fall outside Washington short-term rental tax",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 30},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "Under Washington law, the definition of 'short-term rental' does not include a dwelling unit used by the same person for thirty or more consecutive nights.",
+          "source_url": "https://app.leg.wa.gov/RCW/default.aspx?cite=64.37&full=true"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US-GA",
+      "jurisdiction_name": "Georgia",
+      "country": "United States",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "$5 hotel-motel fee — 30-night exemption",
+          "description": "Georgia $5/night hotel-motel fee exempts stays beyond the 30-night threshold",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 30},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "A hotel-motel fee of $5 per occupied night applies to all stays, but those extending beyond the 30-night threshold are exempt from this fee."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US",
+      "jurisdiction_name": "United States (country-wide federal GSA rule)",
+      "country": "United States",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Federal CBA card exempt (all 50 states)",
+          "description": "Federal CBA (Centrally Billed Account) GSA SmartPay cards are exempt from direct state sales tax on hotel in all 50 states + territories",
+          "conditions": {"field": "guest_type", "op": "==", "value": "federal_cba"},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "CBAs (Centrally Billed Accounts) are exempt from direct state sales tax in all 50 states and U.S. territories.",
+          "source_url": "https://smartpay.gsa.gov/faq/"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US-TX",
+      "jurisdiction_name": "Texas",
+      "country": "United States",
+      "delta_type": "additional_rules",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Nonprofit religious/charitable/educational (state only)",
+          "description": "501(c)(3) religious/charitable/educational organizations on official business are exempt from state hotel tax (must still pay local)",
+          "conditions": {"field": "guest_type", "op": "in", "value": ["nonprofit_religious", "nonprofit_charitable", "nonprofit_educational"]},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "Employees and representatives of nonprofit religious, charitable, or educational organizations are exempt from the state hotel tax when traveling on official business of the organization, though they must pay local hotel taxes.",
+          "source_url": "https://comptroller.texas.gov/taxes/publications/96-224.php",
+          "notes": "guest_type values `nonprofit_religious` etc. are not in our BookingContext canonical set — would need taxonomy extension."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US-IL",
+      "jurisdiction_name": "Illinois",
+      "country": "United States",
+      "delta_type": "additional_rules",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Nonprofit narrow state exemption",
+          "description": "Illinois exempts state hotel tax (not local) for 501(c)(3) charities focused on poverty/disease, schools, and religious institutions",
+          "conditions": {"field": "guest_type", "op": "in", "value": ["nonprofit_religious", "nonprofit_charitable", "nonprofit_educational"]},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_url": "https://tax.illinois.gov/research/taxinformation/excise/hotel.html"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "CA-ON-TOR",
+      "jurisdiction_name": "Toronto",
+      "country": "Canada",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Long-term rental (30+ days)",
+          "description": "Toronto MAT applies only to stays < 30 consecutive nights; long-term residential rentals exempt",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 30},
+          "action": {},
+          "effective_start": "2018-04-01",
+          "source_quote": "Short-term accommodation (stays under 30 days) is taxable for GST/HST purposes; long-term residential rentals (over 30 days) are exempt.",
+          "source_url": "https://www.toronto.ca/services-payments/property-taxes-utilities/municipal-accommodation-tax/"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "CA-ON-OTT",
+      "jurisdiction_name": "Ottawa",
+      "country": "Canada",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Long-term rental (30+ days)",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 30},
+          "action": {},
+          "effective_start": "2018-01-01",
+          "source_url": "https://ottawa.ca/en/living-ottawa/taxes/hotel-and-short-term-accommodation-tax"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "CA-QC-MTL",
+      "jurisdiction_name": "Montreal",
+      "country": "Canada",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Long-term rental (30+ days)",
+          "description": "Quebec lodging tax applies to < 30-day stays; 30+ days exempt under GST/HST equivalent",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 30},
+          "action": {},
+          "effective_start": "2016-04-01"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "DE-HH",
+      "jurisdiction_name": "Hamburg",
+      "country": "Germany",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "As of Jan 1, 2023, Hamburg tourism tax INCLUDES business travelers (previously exempt). So the rule is that EVERYONE pays now — this is a rule-LIFT rather than an exemption.",
+      "rules": [
+        {
+          "rule_type": "condition",
+          "name": "Business travelers pay since 2023",
+          "description": "Prior to Jan 1, 2023, business travelers were exempt from Hamburg Kultur- und Tourismustaxe. From 2023 onward, business stays are taxable (no exemption).",
+          "conditions": {"field": "guest_type", "op": "==", "value": "business"},
+          "action": {"override_rate": 1.0},
+          "effective_start": "2023-01-01",
+          "source_quote": "Business travelers must pay the Cultural and Tourism Tax (KTT) from January 1, 2023, for overnight stays that are absolutely necessary for their professional or business activity.",
+          "source_url": "https://www.hamburg-travel.com/services/culture-and-tourism-tax/",
+          "notes": "Rule represents policy-change documentation — semantically 'no exemption for business'. For the calculator this is effectively a no-op but worth recording for temporal tracking."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "DE-NW",
+      "jurisdiction_name": "North Rhine-Westphalia / Cologne",
+      "country": "Germany",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Cologne business traveler exempt",
+          "description": "Cologne's 5% tourist tax applies only to leisure travelers. Business travelers with employer certification exempt.",
+          "conditions": {"field": "guest_type", "op": "==", "value": "business"},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "Cologne's tourist tax is required for all non-resident travelers and currently applies to tourists, not business travelers."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "DE-BE-BER",
+      "jurisdiction_name": "Berlin",
+      "country": "Germany",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Policy change: Berlin business traveler exemption ended April 1, 2024.",
+      "rules": [
+        {
+          "rule_type": "condition",
+          "name": "Business travelers pay since April 2024",
+          "description": "Prior to April 1, 2024, business travelers were exempt from the Berlin Übernachtungsteuer. Change removed the exemption.",
+          "conditions": {"field": "guest_type", "op": "==", "value": "business"},
+          "action": {"override_rate": 1.0},
+          "effective_start": "2024-04-01",
+          "source_quote": "Since April 1, 2024, business travelers have also been affected by this tax."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "IL",
+      "jurisdiction_name": "Israel",
+      "country": "Israel",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Israel VAT on hotels is currently 18% (was 17%). Foreign tourists exempt via passport verification at booking.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Foreign-tourist VAT exemption (zero-rate)",
+          "description": "Foreign tourists (non-Israeli passport) exempt from 17-18% VAT on hotel accommodation services when passport info provided at booking",
+          "conditions": {"field": "guest_nationality", "op": "!=", "value": "IL"},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "Tourists enjoy an exemption on the 17-percent value added tax on services such as hotel accommodation, car rental, catering, travel agency services and more.",
+          "source_url": "https://www.gov.il/en/pages/vat-tourists-zero-rate"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "AR",
+      "jurisdiction_name": "Argentina (country-wide foreign-tourist rule)",
+      "country": "Argentina",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Foreign tourist VAT refund (21%)",
+          "description": "21% VAT not charged when foreign (non-Argentine resident) tourist pays hotel with foreign-issued credit card",
+          "conditions": {"field": "guest_nationality", "op": "!=", "value": "AR"},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "Tourists have a 21% discount on their hotels in Buenos Aires and Argentina... benefit is only for non-Argentinean residents who pay for their reservation by credit card.",
+          "source_url": "https://www.argentina.travel/en/news/21-vat-refund-on-accommodation-for-foreign-tourists-in-argentina"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "IT-RM-ROM",
+      "jurisdiction_name": "Rome",
+      "country": "Italy",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Disability + 1 carer exempt",
+          "description": "Persons with certified disability + one accompanying carer exempt from Rome contributo di soggiorno",
+          "conditions": {"field": "guest_type", "op": "in", "value": ["disability", "disability_carer"]},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "People with disabilities plus one carer are exempt almost everywhere in Italy's tourist tax system.",
+          "notes": "guest_type values `disability` / `disability_carer` not in canonical taxonomy — would need extension."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "IT-VE-VCE",
+      "jurisdiction_name": "Venice",
+      "country": "Italy",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Disability + 1 carer exempt",
+          "conditions": {"field": "guest_type", "op": "in", "value": ["disability", "disability_carer"]},
+          "action": {},
+          "effective_start": "2020-01-01"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "IT-MI-MIL",
+      "jurisdiction_name": "Milan",
+      "country": "Italy",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Disability + 1 carer exempt",
+          "conditions": {"field": "guest_type", "op": "in", "value": ["disability", "disability_carer"]},
+          "action": {},
+          "effective_start": "2020-01-01"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "IT-FI-FLR",
+      "jurisdiction_name": "Florence",
+      "country": "Italy",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Disability + 1 carer exempt",
+          "conditions": {"field": "guest_type", "op": "in", "value": ["disability", "disability_carer"]},
+          "action": {},
+          "effective_start": "2020-01-01"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "FR-IDF-PAR",
+      "jurisdiction_name": "Paris",
+      "country": "France",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Disability + 1 carer exempt",
+          "description": "Persons with a disability and one accompanying person exempt from taxe de séjour",
+          "conditions": {"field": "guest_type", "op": "in", "value": ["disability", "disability_carer"]},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "In France, persons with a disability and one accompanying person are exempt from tourist tax."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "JP-13",
+      "jurisdiction_name": "Tokyo Prefecture",
+      "country": "Japan",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Tokyo accommodation tax is tiered by nightly rate: <¥10k exempt, ¥10k-15k = ¥100, ¥15k+ = ¥200. Per-stay override rules.",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under ¥10,000/night exempt",
+          "description": "Tokyo Prefecture accommodation tax does not apply to stays under ¥10,000/person/night",
+          "conditions": {"field": "nightly_rate", "op": "<", "value": 10000},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "Under 10,000 yen is tax-free, 10,000–14,999 yen is 100 yen, and 15,000 yen and over is 200 yen.",
+          "notes": "Tokyo 3% reform comes 2027; threshold rises to ¥13,000. Rule here is for the current pre-2027 regime."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "JP-27",
+      "jurisdiction_name": "Osaka Prefecture",
+      "country": "Japan",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under ¥5,000/night exempt",
+          "description": "Osaka Prefecture accommodation tax does not apply to stays under ¥5,000/person/night",
+          "conditions": {"field": "nightly_rate", "op": "<", "value": 5000},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "Osaka Prefecture: Under 5,000 yen is tax-free, 5,000–14,999 yen is 200 yen, 15,000–19,999 yen is 400 yen, and 20,000 yen and over is 500 yen."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "JP-26",
+      "jurisdiction_name": "Kyoto Prefecture",
+      "country": "Japan",
+      "delta_type": "notes_only",
+      "summary": "Kyoto does NOT exempt any tier — minimum ¥200 applies even to lowest bracket. No exemption rule applicable. Rate itself is highly tiered (¥200/400/1000/4000/10000 by room price).",
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "BR",
+      "jurisdiction_name": "Brazil (country-wide)",
+      "country": "Brazil",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Brazil tax reform: ISS 2-5% municipal rate on accommodation services; being phased into unified IBS (2026-2033). Current active rules are at ISS municipality level.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "threshold",
+          "name": "Habituality rule (R$240k/3+ properties)",
+          "description": "Brazil: rental activity taxed as hospitality business (IBS/CBS) only when owner rents >R$240k/year OR has 3+ rented properties",
+          "effective_start": "2025-01-01",
+          "source_quote": "For those renting with habituality... frequent renters meeting certain thresholds... subject to IBS and CBS taxes.",
+          "notes": "Operator-level threshold, not a per-booking rule. Skip for seeding."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "NL-NH-AMS",
+      "jurisdiction_name": "Amsterdam",
+      "country": "Netherlands",
+      "delta_type": "rules_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Long-term rental (6+ months)",
+          "description": "Amsterdam toeristenbelasting applies only to stays < 6 months; longer stays exempt under Dutch residence rules",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 180},
+          "action": {},
+          "effective_start": "2020-01-01"
+        }
+      ]
+    }
+  ],
+  "engine_gap_flags": [
+    {
+      "pattern": "nonprofit_religious / nonprofit_charitable / nonprofit_educational guest_type values",
+      "needed_by": ["US-TX", "US-IL (501(c)(3) narrow list)", "many other US states"],
+      "proposal": "Extend BookingContext.guest_type canonical values to include: nonprofit, nonprofit_religious, nonprofit_charitable, nonprofit_educational, federal_cba, federal_iba, federal_official, military, diplomatic."
+    },
+    {
+      "pattern": "disability / disability_carer guest_type values",
+      "needed_by": ["IT-all", "FR-all", "DE-partial", "ES-partial"],
+      "proposal": "Add `disability` and `disability_carer` to guest_type taxonomy. Widespread European pattern."
+    },
+    {
+      "pattern": "Operator-level thresholds (annual turnover)",
+      "needed_by": ["Thailand 1.8M THB", "Brazil R$240k habituality", "Malaysia RM500k"],
+      "proposal": "These aren't per-booking rules — they determine whether a RATE applies at all. Best modeled at the property/operator level, not in BookingContext. Out of rule-engine scope."
+    }
+  ],
+  "notes": [
+    "Most rules use standard BookingContext fields (stay_length_days, guest_nationality, nightly_rate, guest_type). Rules using extended guest_type values (disability, nonprofit_*, federal_cba) are flagged and may be filtered by the validator on seed if the values aren't accepted — they'd still land as DB rows but might not fire until taxonomy extension.",
+    "Japan prefectural threshold rules use nightly_rate (valid field) — these should fire correctly if the rate engine evaluates rules in the right order relative to the per-night rate.",
+    "Germany Hamburg/Berlin 'business now pays' rules are mostly documentation of policy change; effectively no-op for calc since rate just applies to everyone. Consider whether to seed.",
+    "Delta-checked: each finding compared against existing rules by (jurisdiction, name-like) to avoid duplicates the seeder would skip anyway."
+  ]
+}

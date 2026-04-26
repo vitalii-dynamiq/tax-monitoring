@@ -1,0 +1,794 @@
+{
+  "researched_at": "2026-04-22",
+  "researcher": "claude-code-websearch-breadth",
+  "scope": "Breadth-first pass over 2020-2025 changes, PLUS rules/exemptions for existing DB jurisdictions (which are 83% rule-less). Deltas vs. prod verified via live SQL lookup.",
+  "methodology": "~20 WebSearches split across thematic (age exemptions / stay caps / student / business traveler / diplomatic / long-stay), regional breadth (Eastern Europe, Baltics, UK cities, more US cities, Pacific, Caribbean, Middle East, Africa, South America), and historical backfill (2020-2023 changes).",
+  "summary": "28 new rate entries (historical and newly-discovered 2020-2025 changes) + 25 new rules/exemptions for jurisdictions that had rates but zero rules. Rule patterns heavily recur: under-X age exemption (X=10..18), N-night stay caps (7/10/21/30), permanent-resident long-stay exemption (30/90/180 days), business-traveler exemption in select cities.",
+  "findings": [
+    {
+      "jurisdiction_code": "LV-RIX",
+      "jurisdiction_name": "Riga",
+      "country": "Latvia",
+      "delta_type": "new_rate",
+      "summary": "Riga introduced €1/person/night tourist fee from Jan 2023. Max €10 (=10 nights cap). <18 exempt.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "flat",
+          "rate_value": 1.0,
+          "currency_code": "EUR",
+          "effective_start": "2023-01-01",
+          "authority_name": "Riga City Council",
+          "source_quote": "Starting in January 2023, Riga introduced a tourist fee of 1 euro per night per visitor for overnight stays, with a maximum charged amount of 10 euros. Children under the age of 18 will not be taxed.",
+          "source_url": "https://www.themayor.eu/en/a/view/riga-introduces-a-tourist-fee-in-2023-11186",
+          "confidence": 0.85
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under 18 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 18},
+          "action": {},
+          "effective_start": "2023-01-01",
+          "source_quote": "Children under the age of 18 will not be taxed.",
+          "source_url": "https://www.themayor.eu/en/a/view/riga-introduces-a-tourist-fee-in-2023-11186",
+          "confidence": 0.9
+        },
+        {
+          "rule_type": "cap",
+          "name": "10-night cap",
+          "action": {"cap_nights": 10},
+          "effective_start": "2023-01-01",
+          "source_quote": "with a maximum charged amount of 10 euros."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "GB-ENG-MAN",
+      "jurisdiction_name": "Manchester",
+      "country": "United Kingdom",
+      "delta_type": "new_rate",
+      "summary": "Voluntary 'city visitor charge' £1/room/night from April 2023 via Accommodation BID model.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_night",
+          "rate_type": "flat",
+          "rate_value": 1.0,
+          "currency_code": "GBP",
+          "effective_start": "2023-04-01",
+          "authority_name": "Manchester Accommodation BID",
+          "source_quote": "Manchester introduced a voluntary 'city visitor charge' in April 2023 through a partnership in which local businesses fund shared projects, with hotels in the city center charging guests $1.33 per room per night.",
+          "source_url": "https://britbrief.co.uk/business/tourism/uk-tourist-taxes-what-visitors-pay-in-2025.html",
+          "confidence": 0.8
+        }
+      ],
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "GB-ENG-LIV",
+      "jurisdiction_name": "Liverpool",
+      "country": "United Kingdom",
+      "delta_type": "new_rate",
+      "summary": "Liverpool ABID levy £2/night from June 2025 (~100 participating hotels).",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_night",
+          "rate_type": "flat",
+          "rate_value": 2.0,
+          "currency_code": "GBP",
+          "effective_start": "2025-06-01",
+          "authority_name": "Liverpool ABID",
+          "source_quote": "Liverpool introduced its own ABID levy in June 2025, with approximately 100 participating hotels charging guests £2 per night.",
+          "source_url": "https://britbrief.co.uk/business/tourism/uk-tourist-taxes-what-visitors-pay-in-2025.html",
+          "confidence": 0.8
+        }
+      ],
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "GB-SCT-EDI",
+      "jurisdiction_name": "Edinburgh",
+      "country": "United Kingdom",
+      "delta_type": "new_rate_correct_code",
+      "summary": "Previously written under GB-SCT-EDH (which doesn't exist in DB). Correct code per DB is GB-SCT-EDI. 5% visitor levy from July 24, 2026; max 5 nights, pre-VAT.",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 5.0,
+          "effective_start": "2026-07-24",
+          "authority_name": "The City of Edinburgh Council",
+          "source_url": "https://www.edinburgh.gov.uk/visitorlevy",
+          "legal_reference": "Visitor Levy (Scotland) Act 2024",
+          "confidence": 0.98
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "cap",
+          "name": "5-night cap",
+          "action": {"cap_nights": 5},
+          "effective_start": "2026-07-24"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US-TN-BNA",
+      "jurisdiction_name": "Nashville",
+      "country": "United States",
+      "delta_type": "new_rate",
+      "summary": "Nashville-Davidson County local occupancy tax raised to 7% + $2.50/night from July 1, 2023 (+1% increase).",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 7.0,
+          "effective_start": "2023-07-01",
+          "authority_name": "Metropolitan Nashville-Davidson County",
+          "source_quote": "Nashville increased its local hotel occupancy tax after legislation was adopted in late 2022, with an additional 1% beginning collection on July 1, 2023, lifting the local occupancy tax rate to 7% while keeping a $2.50 nightly fee.",
+          "source_url": "https://www.nashville.gov/departments/finance/news/increase-hotel-occupancy-tax-metropolitan-nashville-davidson-county",
+          "confidence": 0.9
+        },
+        {
+          "tax_category_code": "occ_flat_night",
+          "rate_type": "flat",
+          "rate_value": 2.5,
+          "currency_code": "USD",
+          "effective_start": "2023-07-01",
+          "authority_name": "Metropolitan Nashville-Davidson County",
+          "confidence": 0.85
+        }
+      ],
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "US-WA-SEA",
+      "jurisdiction_name": "Seattle",
+      "country": "United States",
+      "delta_type": "new_rate",
+      "summary": "Seattle citywide hotel tax 15.7% + additional 2.3% on large downtown hotels.",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 15.7,
+          "effective_start": "2021-01-01",
+          "authority_name": "City of Seattle / King County",
+          "source_quote": "The citywide hotel tax in Seattle is 15.7 percent, with an additional 2.3 percent imposed on large hotels downtown.",
+          "confidence": 0.75,
+          "notes": "This is a combined stack; needs decomposition for proper modeling."
+        }
+      ],
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "US-OR-PDX",
+      "jurisdiction_name": "Portland",
+      "country": "United States",
+      "delta_type": "new_rate",
+      "summary": "Portland city occupancy 6% + TID 3% + Multnomah County 5.5% = combined ~16% with state.",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 6.0,
+          "effective_start": "2020-01-01",
+          "authority_name": "City of Portland",
+          "source_url": "https://www.portland.gov/revenue/transient-lodgings-tax-policies",
+          "confidence": 0.85
+        },
+        {
+          "tax_category_code": "infrastructure_pct",
+          "rate_type": "percentage",
+          "rate_value": 3.0,
+          "effective_start": "2020-01-01",
+          "authority_name": "Portland Tourism Improvement District",
+          "confidence": 0.8
+        }
+      ],
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "US-DC",
+      "jurisdiction_name": "Washington DC",
+      "country": "United States",
+      "delta_type": "new_rate_temporary",
+      "summary": "DC transient accommodation sales tax 15.95% from April 2023 through Sept 30, 2027 (includes temporary 1% addition).",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 15.95,
+          "effective_start": "2023-04-01",
+          "effective_end": "2027-09-30",
+          "authority_name": "DC Office of Tax and Revenue (OTR)",
+          "source_quote": "Washington DC now charges 15.95% through 30 September 2027.",
+          "source_url": "https://otr.cfo.dc.gov/release/otr-tax-notice-2023-01-sales-and-use-tax-rate-increase-transient-accommodations",
+          "confidence": 0.9
+        }
+      ],
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "AR-BA-BUE",
+      "jurisdiction_name": "Buenos Aires",
+      "country": "Argentina",
+      "delta_type": "new_rate",
+      "summary": "$1.50 USD/person/night city tax for non-Argentine-resident guests since March 1, 2020. PLUS 21% VAT refund for foreign tourists paying with foreign cards (active program through NYE 2025).",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "flat",
+          "rate_value": 1.5,
+          "currency_code": "USD",
+          "effective_start": "2020-03-01",
+          "authority_name": "Ciudad Autónoma de Buenos Aires",
+          "source_quote": "Starting March 1, 2020, guests with permanent residency outside of Argentina are charged a city tax of USD 1.50 per person per night, not included in the rate.",
+          "source_url": "https://turismo.buenosaires.gob.ar/en/article/vat-free-accommodation",
+          "confidence": 0.85
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Argentine residents exempt",
+          "description": "Tax only applies to guests with permanent residency outside Argentina (non-residents).",
+          "conditions": {"field": "guest_nationality", "op": "!=", "value": "AR"},
+          "action": {}
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "KH-17-REP",
+      "jurisdiction_name": "Siem Reap",
+      "country": "Cambodia",
+      "delta_type": "new_rate",
+      "summary": "Siem Reap hotel charges: 10% VAT + 2% city tax + 5% service charge on accommodation.",
+      "rates": [
+        {
+          "tax_category_code": "vat_standard",
+          "rate_type": "percentage",
+          "rate_value": 10.0,
+          "effective_start": "2020-01-01",
+          "authority_name": "General Department of Taxation Cambodia",
+          "confidence": 0.8
+        },
+        {
+          "tax_category_code": "municipal_pct",
+          "rate_type": "percentage",
+          "rate_value": 2.0,
+          "effective_start": "2020-01-01",
+          "authority_name": "Siem Reap Province",
+          "confidence": 0.75
+        }
+      ],
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "CA-BC-VAN",
+      "jurisdiction_name": "Vancouver",
+      "country": "Canada",
+      "delta_type": "new_rate",
+      "summary": "Vancouver: 8% PST on short-term accommodation + up to 3% Municipal & Regional District Tax (MRDT) for tourism marketing.",
+      "rates": [
+        {
+          "tax_category_code": "vat_standard",
+          "rate_type": "percentage",
+          "rate_value": 8.0,
+          "effective_start": "2018-01-01",
+          "authority_name": "British Columbia Ministry of Finance",
+          "confidence": 0.9
+        },
+        {
+          "tax_category_code": "municipal_pct",
+          "rate_type": "percentage",
+          "rate_value": 3.0,
+          "effective_start": "2018-01-01",
+          "authority_name": "Vancouver (via provincial MRDT)",
+          "source_url": "https://www2.gov.bc.ca/gov/content/taxes/sales-taxes/pst/publications/accommodation",
+          "confidence": 0.85
+        }
+      ],
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "BH",
+      "jurisdiction_name": "Bahrain",
+      "country": "Bahrain",
+      "delta_type": "new_rate",
+      "summary": "NEW: BHD 3/room/night tourist levy effective May 1, 2024.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_night",
+          "rate_type": "flat",
+          "rate_value": 3.0,
+          "currency_code": "BHD",
+          "effective_start": "2024-05-01",
+          "authority_name": "Kingdom of Bahrain",
+          "source_quote": "Bahrain introduced a BHD 3 per room per day tourist levy on hotel accommodations, effective from May 1, 2024.",
+          "source_url": "https://www.travelandtourworld.com/news/article/uae-saudi-arabia-qatar-oman-bahrain-and-kuwait-with-new-hidden-agenda-behind-tourist-taxes-or-is-that-grinding-the-travellers-wallet-if-not-a-boon-for-the-regions-growth-then-i/",
+          "confidence": 0.8
+        }
+      ],
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "FJ",
+      "jurisdiction_name": "Fiji",
+      "country": "Fiji",
+      "delta_type": "rate_changes_2024_2025",
+      "summary": "Fiji VAT cut 15%→12.5% on hotel accommodation from Aug 1, 2025. Departure tax phased: $170 Aug 2024, returning to $200 Aug 2025.",
+      "rates": [
+        {
+          "tax_category_code": "vat_standard",
+          "rate_type": "percentage",
+          "rate_value": 12.5,
+          "effective_start": "2025-08-01",
+          "authority_name": "Fiji Revenue & Customs Service",
+          "source_quote": "from August 1st 2025, the Fijian Government reduced its Value Added Tax (VAT) from a standard 15% down to 12.5%.",
+          "source_url": "https://www.hideawayholidays.com.au/travel-blog/fiji-holidays-got-cheaper-how-lower-vat-is-setting-up-for-a-tourism-boom/",
+          "confidence": 0.85
+        }
+      ],
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "TN",
+      "jurisdiction_name": "Tunisia",
+      "country": "Tunisia",
+      "delta_type": "new_rate",
+      "summary": "Tunisia hotel tourist tax from Nov 1, 2024: 2* hotels 4 TND, 3* 8 TND, 4*/5* 12 TND per person per night. Age 12+, first 10 nights only.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "tiered",
+          "tier_type": "single_amount",
+          "tiers": [
+            {"star": 2, "value_tnd": 4.0},
+            {"star": 3, "value_tnd": 8.0},
+            {"star": 4, "value_tnd": 12.0},
+            {"star": 5, "value_tnd": 12.0}
+          ],
+          "effective_start": "2024-11-01",
+          "authority_name": "Government of Tunisia",
+          "source_quote": "As of November 1, 2024, Tunisia increased its hotel tourist tax rates to 12 Tunisian dinars (TND) per person per night for stays in 4- and 5-star hotels and 8 TND per person per night for stays in 3-star hotels.",
+          "source_url": "https://groupcarthage.com/news/tourist-tax-in-tunisia-current-rules-rates/",
+          "confidence": 0.85
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under 12 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 12},
+          "action": {},
+          "effective_start": "2024-11-01"
+        },
+        {
+          "rule_type": "cap",
+          "name": "10-night cap",
+          "action": {"cap_nights": 10},
+          "effective_start": "2024-11-01"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "TW",
+      "jurisdiction_name": "Taiwan",
+      "country": "Taiwan",
+      "delta_type": "new_rate",
+      "summary": "Taiwan hotel charges: 5% VAT + 10% customary service charge.",
+      "rates": [
+        {
+          "tax_category_code": "vat_standard",
+          "rate_type": "percentage",
+          "rate_value": 5.0,
+          "effective_start": "2020-01-01",
+          "authority_name": "Taiwan Ministry of Finance",
+          "confidence": 0.85
+        }
+      ],
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "PR",
+      "jurisdiction_name": "Puerto Rico",
+      "country": "Puerto Rico",
+      "delta_type": "new_rates_tiered_by_property_type",
+      "summary": "Puerto Rico Room Occupancy Tax: 9% general, 11% casino hotels, 7% inns / short-term supplemental, 5% all-inclusive.",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 9.0,
+          "effective_start": "2020-01-01",
+          "authority_name": "Puerto Rico Tourism Company",
+          "source_quote": "The general tax rate for room occupancy is 9%, with higher rates for casino hotels at 11%, and lower rates for inns at 7% and supplementary short-term lodging at 7%. For all-inclusive hotels, the tax is 5% of the global charge.",
+          "source_url": "https://tourism.pr.gov/room-tax/",
+          "confidence": 0.9
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "override",
+          "name": "Casino hotels 11%",
+          "description": "Casino hotels pay 11% instead of the 9% base",
+          "conditions": {"field": "property_type", "op": "==", "value": "casino_hotel"},
+          "action": {"override_rate": 0.11},
+          "effective_start": "2020-01-01",
+          "notes": "property_type value `casino_hotel` not in our existing taxonomy; may need category extension."
+        },
+        {
+          "rule_type": "override",
+          "name": "Inns and short-term supplemental 7%",
+          "conditions": {"field": "property_type", "op": "in", "value": ["bnb", "str", "vacation_rental"]},
+          "action": {"override_rate": 0.07},
+          "effective_start": "2020-01-01"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "IT-MI-MIL",
+      "jurisdiction_name": "Milan",
+      "country": "Italy",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Existing Milan tourist tax — add under-18 exemption rule (was missing).",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under 18 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 18},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "An extra fee will not be applied to children under 18 years old."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "IT-VE-VCE",
+      "jurisdiction_name": "Venice",
+      "country": "Italy",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Venice overnight contributo di soggiorno — add <14 exemption + 5-night cap rules.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under 14 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 14},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "Children under 14, Venice residents, students enrolled in local institutions, and those visiting for work are also exempt."
+        },
+        {
+          "rule_type": "cap",
+          "name": "5-night cap",
+          "action": {"cap_nights": 5},
+          "effective_start": "2020-01-01"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "IT-RM-ROM",
+      "jurisdiction_name": "Rome",
+      "country": "Italy",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Rome contributo di soggiorno — add 10-night cap (was noted in prior research but may not have seeded).",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "cap",
+          "name": "10-night cap",
+          "action": {"cap_nights": 10},
+          "effective_start": "2023-10-01"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "DE-BE-BER",
+      "jurisdiction_name": "Berlin",
+      "country": "Germany",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Berlin 21-day cap on CityTax — documented but not in DB.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "cap",
+          "name": "21-day consecutive cap",
+          "action": {"cap_nights": 21},
+          "effective_start": "2021-01-01",
+          "source_quote": "In Berlin, the tax is capped at 21 successive days.",
+          "source_url": "https://www.berlin.de/sen/finanzen/steuern/informationen-fuer-steuerzahler-/faq-steuern/artikel.57911.php"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US-NY-NYC",
+      "jurisdiction_name": "New York City",
+      "country": "United States",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "NYC 180-day permanent-resident exemption (local sales tax).",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Permanent resident (180+ days)",
+          "description": "NYC local sales tax exempt for stays ≥ 180 consecutive days",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 180},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "However, in New York City, the local sales tax applies until a guest has stayed for at least 180 consecutive days.",
+          "source_url": "https://www.tax.ny.gov/pubs_and_bulls/tg_bulletins/st/hotel_and_motel_occupancy.htm"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US-NY",
+      "jurisdiction_name": "New York State",
+      "country": "United States",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "NY State 90-day permanent-resident exemption.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Permanent resident (90+ days)",
+          "description": "NY State tax exempt for stays ≥ 90 consecutive days",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 90},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_url": "https://www.tax.ny.gov/pubs_and_bulls/tg_bulletins/st/hotel_and_motel_occupancy.htm"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US-TX",
+      "jurisdiction_name": "Texas",
+      "country": "United States",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Texas 30-day permanent-resident exemption.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Permanent resident (30+ days)",
+          "description": "Texas hotel occupancy tax exempt for stays ≥ 30 consecutive days",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 30},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "Guests who occupy a hotel room for 30 or more consecutive days are considered permanent residents and are exempt from hotel tax.",
+          "source_url": "https://comptroller.texas.gov/taxes/publications/96-224.php"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "FR-IDF-PAR",
+      "jurisdiction_name": "Paris",
+      "country": "France",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "France national: under-18 exempt from taxe de séjour.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under 18 exempt (France national rule)",
+          "conditions": {"field": "guest_age", "op": "<", "value": 18},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "France: Those 18 years and under do not have to pay the tax.",
+          "source_url": "https://www.service-public.gouv.fr/particuliers/actualites/A17929?lang=en"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "CZ",
+      "jurisdiction_name": "Czech Republic",
+      "country": "Czech Republic",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Czech Republic: under-18 AND over-70 exempt from tourist tax.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under 18 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 18},
+          "action": {},
+          "effective_start": "2020-01-01"
+        },
+        {
+          "rule_type": "exemption",
+          "name": "Over 70 exempt",
+          "conditions": {"field": "guest_age", "op": ">", "value": 70},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "People under 18 and over 70 are exempt from paying the tax."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "SI",
+      "jurisdiction_name": "Slovenia",
+      "country": "Slovenia",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Slovenia: <7 exempt, 7-18 half rate.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under 7 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 7},
+          "action": {},
+          "effective_start": "2020-01-01"
+        },
+        {
+          "rule_type": "reduction",
+          "name": "Ages 7-18 half rate",
+          "conditions": {"operator": "AND", "rules": [
+            {"field": "guest_age", "op": ">=", "value": 7},
+            {"field": "guest_age", "op": "<", "value": 18}
+          ]},
+          "action": {"reduction_pct": 50},
+          "effective_start": "2020-01-01",
+          "source_quote": "Generally, children under seven are exempt and children aged between seven and eighteen are half the rate."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "AT",
+      "jurisdiction_name": "Austria",
+      "country": "Austria",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Austria national: students/apprentices staying for educational purposes may be exempt.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Students/apprentices educational stay",
+          "description": "Guests in educational programs (students, pupils, apprentices) may be exempt",
+          "conditions": {"field": "guest_type", "op": "==", "value": "student"},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "In Austria, people staying in a municipality for educational purposes, such as pupils, students or apprentices, may be exempt from the visitor's tax."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "ES-CT-BCN",
+      "jurisdiction_name": "Barcelona",
+      "country": "Spain",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Barcelona <17 exempt from IEET / municipal surcharge.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Under 17 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 17},
+          "action": {},
+          "effective_start": "2024-04-01",
+          "source_quote": "In Barcelona, children under 17 are exempt."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "PT-11-LIS",
+      "jurisdiction_name": "Lisbon",
+      "country": "Portugal",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Lisbon 7-night cap on Taxa Turística.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "cap",
+          "name": "7-night cap",
+          "action": {"cap_nights": 7},
+          "effective_start": "2024-09-01"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US-MA-BOS",
+      "jurisdiction_name": "Boston",
+      "country": "United States",
+      "delta_type": "rules_for_existing_rate",
+      "summary": "Boston: federal diplomatic and government-official exemption applies.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Federal diplomatic/official exempt",
+          "description": "US diplomatic cardholders and US federal officials on business exempt per Mass.gov Directive 03-4",
+          "conditions": {"field": "guest_type", "op": "in", "value": ["diplomatic", "federal_official"]},
+          "action": {},
+          "effective_start": "2003-01-01",
+          "source_url": "https://www.mass.gov/directive/directive-03-4-room-occupancy-excise-and-sales-tax-exemption-for-diplomatic-personnel"
+        }
+      ]
+    }
+  ],
+  "rules_focus_summary": {
+    "age_exemptions": {
+      "description": "Very common pattern — under X exempt, sometimes tiered 7-18 half-rate. Strong coverage in this file.",
+      "examples": [
+        "FR <18", "RO <18", "CZ <18 + >70", "PT-LIS <13", "SI <7 (exempt) / 7-17 (half)",
+        "ES-CT-BCN <17", "IT-MI <18", "IT-VE <14", "ES-IB <16 (already in DB)",
+        "Tunisia <12", "Hungary <18", "Balearic <16 (already in DB)",
+        "Bhutan 6-12 half / <6 exempt (already in DB)",
+        "Greece <18 (typical Dodecanese municipalities)"
+      ]
+    },
+    "stay_length_caps": {
+      "description": "Cap on number of taxable nights. Typical values: 5, 7, 10, 21, 30.",
+      "examples": [
+        "Italy (most cities): 7 nights",
+        "Rome: 10 consecutive nights",
+        "Lisbon: 7 days",
+        "Porto: 7 nights (=€21 max)",
+        "Edinburgh: 5 nights (2026)",
+        "Berlin: 21 successive days",
+        "Tunisia: 10 nights",
+        "Venice: 5 nights",
+        "Riga: 10 nights (=€10 max)"
+      ]
+    },
+    "permanent_resident_long_stay": {
+      "description": "US pattern — stays of X consecutive days make you a 'permanent resident' and thus exempt from hotel/occupancy tax.",
+      "examples": [
+        "Texas: 30 days",
+        "New York State: 90 days",
+        "NYC local: 180 days"
+      ]
+    },
+    "student_and_business": {
+      "examples": [
+        "Austria: students / apprentices on educational stay exempt",
+        "Cologne DE: business travelers exempt (rare — most cities removed this)",
+        "Venice: students enrolled in local institutions exempt; business-trip guests exempt"
+      ]
+    },
+    "diplomatic_government": {
+      "description": "Most US states respect federal diplomatic card + US govt/military official-business exemption.",
+      "examples": [
+        "Boston / Massachusetts: Directive 03-4",
+        "Texas: Hotel Occupancy Tax Exemption Certificate (Form 12-302)",
+        "Federal: State Dept diplomatic card"
+      ]
+    },
+    "disability_and_medical": {
+      "description": "Common European pattern — persons with disability + 1 accompanying carer exempt; patients + carers at medical facilities exempt.",
+      "examples": [
+        "Common to France, Italy, Spain, Portugal (varies by municipality — needs per-city verification before seeding)"
+      ]
+    }
+  },
+  "proposals_not_yet_enacted": [
+    {
+      "jurisdiction": "Seville / Malaga",
+      "change": "Municipal tourist tax",
+      "status": "Under consideration in Andalusia; no active tax yet"
+    },
+    {
+      "jurisdiction": "Valencia (city/region)",
+      "change": "Tourist tax",
+      "status": "Planned for 2024, SCRAPPED after regional government change"
+    },
+    {
+      "jurisdiction": "London",
+      "change": "£2-3/night levy",
+      "status": "Under review; could raise £240M+/yr. Framework being considered at national level for 2026+"
+    },
+    {
+      "jurisdiction": "England (nationwide framework)",
+      "change": "Visitor levy empowerment for local councils",
+      "status": "Announced by national government Nov 2025; implementation expected 2026+, likely not effective before 2027"
+    }
+  ],
+  "notes": [
+    "This file focuses on the RULES gap: 722 of 869 rated jurisdictions in our DB have ZERO active rules. Most entries below include at least one rule per finding.",
+    "All condition fields use the BookingContext allow-list (guest_age, stay_length_days, guest_type, property_type, guest_nationality) so they will pass the validator added in commit 2fd130b.",
+    "Some rules reference property_type values not in our taxonomy (e.g., PR `casino_hotel`). Flagged in notes.",
+    "Edinburgh entry under GB-SCT-EDI CORRECTS the prior entry filed under GB-SCT-EDH (which doesn't exist in DB). Prior rate was skipped by the seeder; this re-seeds under the right code."
+  ]
+}

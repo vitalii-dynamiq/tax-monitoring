@@ -40,7 +40,10 @@ import psycopg2.extras
 from scripts.seed_missing_jurisdictions import CATEGORY_CODE_ALIASES
 
 RESEARCH_FILE = Path(__file__).parent / "data" / "research" / "global_hotel_tax_changes_2026-04-22.json"
-CREATED_BY = "ai_research_global_2026-04-22"
+DEFAULT_CREATED_BY = "ai_research_global_2026-04-22"
+
+# Module-level mutable binding so helper functions pick up the CLI override.
+CREATED_BY = DEFAULT_CREATED_BY
 
 # Fields we accept as BookingContext conditions (mirror rule_engine.py).
 BOOKING_CONTEXT_FIELDS = {
@@ -371,7 +374,13 @@ def main() -> int:
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--research-file", type=Path, default=RESEARCH_FILE)
     p.add_argument("--reviewed-by", default="claude-auto-review@taxlens.io")
+    p.add_argument("--created-by", default=DEFAULT_CREATED_BY,
+                   help="Batch tag stored in tax_rates.created_by / tax_rules.created_by")
     args = p.parse_args()
+
+    # Propagate CLI override so helper functions see the same tag.
+    global CREATED_BY
+    CREATED_BY = args.created_by
 
     data = json.loads(args.research_file.read_text())
     findings = data.get("findings") or []

@@ -1,0 +1,328 @@
+{
+  "researched_at": "2026-04-22",
+  "researcher": "claude-code-websearch-breadth-v3",
+  "scope": "Pass #3 — targeted gap hunt after 4 prior passes. Italian tier-2 cities (Naples, Bologna, Turin — all new 2024-2025 taxes), additional German cities (Dresden, Leipzig), Swiss resorts (Lucerne), Croatian coast (Split), Saudi Makkah/Madinah, US states (Colorado, Arizona, Pennsylvania, Massachusetts).",
+  "methodology": "12 WebSearches across three tracks (new 2020-2024 changes, specialty rule patterns, US state gaps). Pre-filtered to rules that use canonical BookingContext fields and values — i.e., will fire in the current engine.",
+  "summary": "Diminishing returns confirmed but still found 7 new rate changes and 10 new booking-affecting rules. Highlights: Italian Jubilee-year wave expanded to tier-2 cities (Naples/Bologna/Turin started 2024-2025); 4 more US states with permanent-resident 30-day exemptions; Dresden/Vienna/Frankfurt specialty student-hostel exemptions.",
+  "findings": [
+    {
+      "jurisdiction_code": "IT-NA-NAP",
+      "jurisdiction_name": "Naples",
+      "country": "Italy",
+      "delta_type": "new_rate_plus_rule",
+      "summary": "Naples introduced higher tourist tax rates from March 1, 2025. €3-5.50/person/night hotels (tiered), €5 STR flat. 14-night cap.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "flat",
+          "rate_value": 5.0,
+          "currency_code": "EUR",
+          "effective_start": "2025-03-01",
+          "authority_name": "Comune di Napoli",
+          "source_quote": "From March 1, 2025, Naples introduced higher tourist tax rates. Short-term rentals pay €5 per person, while other hotels pay between €3 and €5.50.",
+          "source_url": "https://www.travelandtourworld.com/news/article/italy-mandates-2025-tourist-fee-hike-in-rome-venice-florence-milan-naples-bologna-sorrento-and-amalfi-coast-hotels-and-rentals-new-update-you-need-to-know/",
+          "confidence": 0.78,
+          "notes": "Using STR €5 flat as the seeded value; per-property-type tiers would need tier structure."
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "cap",
+          "name": "14-night cap",
+          "description": "Tax applied only on first 14 consecutive nights of a booking",
+          "action": {"cap_nights": 14},
+          "effective_start": "2025-03-01",
+          "source_quote": "The tax is only applied on the first 14 consecutive nights of a booking."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "IT-BO-BLQ",
+      "jurisdiction_name": "Bologna",
+      "country": "Italy",
+      "delta_type": "new_rate_plus_rules",
+      "summary": "Bologna tourist tax started July 1, 2024. 10.5% of room rate, capped at €7/person/night, 5 consecutive nights. Under 14 exempt.",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 10.5,
+          "effective_start": "2024-07-01",
+          "authority_name": "Comune di Bologna",
+          "source_quote": "Collection began on July 1, 2024, with rates of 10.5% with a maximum limit of 7 euros per person per night of stay and 5 consecutive nights.",
+          "confidence": 0.78
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "cap",
+          "name": "5-night cap",
+          "action": {"cap_nights": 5},
+          "effective_start": "2024-07-01"
+        },
+        {
+          "rule_type": "cap",
+          "name": "€7 per-night cap",
+          "description": "Tax capped at €7 per person per night even if 10.5% of room rate would be higher",
+          "action": {"cap_per_night": 7.0},
+          "effective_start": "2024-07-01"
+        },
+        {
+          "rule_type": "exemption",
+          "name": "Under 14 exempt",
+          "conditions": {"field": "guest_age", "op": "<", "value": 14},
+          "action": {},
+          "effective_start": "2024-07-01",
+          "source_quote": "does not apply to children under 14 for a maximum consecutive stay of 5 days."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "IT-TO-TRN",
+      "jurisdiction_name": "Turin",
+      "country": "Italy",
+      "delta_type": "new_rate",
+      "summary": "Turin tourist tax started September 1, 2024. €2.30-5/person/night by star rating.",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "flat",
+          "rate_value": 5.0,
+          "currency_code": "EUR",
+          "effective_start": "2024-09-01",
+          "authority_name": "Comune di Torino",
+          "source_quote": "Collection started on September 1, 2024, with rates ranging from €2.30 to €5.00 per person per night for boutique hotels depending on quality rating.",
+          "confidence": 0.7,
+          "notes": "Using upper bound €5 as the seeded flat value; proper star-tiered modeling would need a tiered rate."
+        }
+      ],
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "DE-SN-DRS",
+      "jurisdiction_name": "Dresden",
+      "country": "Germany",
+      "delta_type": "new_rate_plus_rule",
+      "summary": "Dresden 6% accommodation tax. Under-27 guests on educational stays exempt.",
+      "rates": [
+        {
+          "tax_category_code": "occ_pct",
+          "rate_type": "percentage",
+          "rate_value": 6.0,
+          "effective_start": "2020-01-01",
+          "authority_name": "Stadt Dresden",
+          "source_quote": "Dresden has a 6% accommodation tax (from 18 years old, except for under 27-year-olds staying overnight for educational purposes).",
+          "confidence": 0.75
+        }
+      ],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Student (educational stay) exempt",
+          "description": "Dresden exempts guests under 27 on educational/university stays",
+          "conditions": {"field": "guest_type", "op": "==", "value": "student"},
+          "action": {},
+          "effective_start": "2020-01-01"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "AT-9-VIE",
+      "jurisdiction_name": "Vienna",
+      "country": "Austria",
+      "delta_type": "rule_for_existing_rate",
+      "summary": "Vienna youth hostels exempt from the 3.2% Ortstaxe.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Youth hostels exempt",
+          "description": "Properties classified as youth hostels are exempt from the Vienna Ortstaxe",
+          "conditions": {"field": "property_type", "op": "==", "value": "hostel"},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "Vienna: Youth hostels are exempt from the 3.2% local tax."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "DE-HE-FRA",
+      "jurisdiction_name": "Frankfurt",
+      "country": "Germany",
+      "delta_type": "rule_for_existing_rate",
+      "summary": "Frankfurt €2 tourist tax (since 2018); students and teachers exempt with school certificate.",
+      "rates": [],
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Student exempt with school certificate",
+          "conditions": {"field": "guest_type", "op": "==", "value": "student"},
+          "action": {},
+          "effective_start": "2018-01-01",
+          "source_quote": "Frankfurt: Students and teachers are exempt from the €2 tourist tax when presenting a school certificate."
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "SA-02-MKK",
+      "jurisdiction_name": "Makkah",
+      "country": "Saudi Arabia",
+      "delta_type": "new_rate",
+      "summary": "Makkah 5% municipal tax on 4-5 star hotels, 2.5% on other pilgrim accommodations, effective February 14, 2025.",
+      "rates": [
+        {
+          "tax_category_code": "municipal_pct",
+          "rate_type": "percentage",
+          "rate_value": 5.0,
+          "effective_start": "2025-02-14",
+          "authority_name": "Municipality of Makkah",
+          "source_quote": "A 5% tax on 4 and 5 star hotels and a 2.5% on all other accommodation housing pilgrims was imposed from February 14th by the municipalities of Makkah and Madinah.",
+          "confidence": 0.7,
+          "notes": "Star-tiered; seeded value is upper bound. Proper modeling needs star_rating condition."
+        }
+      ],
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "SA-03-MED",
+      "jurisdiction_name": "Madinah",
+      "country": "Saudi Arabia",
+      "delta_type": "new_rate",
+      "summary": "Madinah 5% municipal tax on 4-5 star hotels, 2.5% on others, from Feb 14, 2025.",
+      "rates": [
+        {
+          "tax_category_code": "municipal_pct",
+          "rate_type": "percentage",
+          "rate_value": 5.0,
+          "effective_start": "2025-02-14",
+          "authority_name": "Municipality of Madinah",
+          "confidence": 0.7
+        }
+      ],
+      "rules": []
+    },
+    {
+      "jurisdiction_code": "US-CO",
+      "jurisdiction_name": "Colorado",
+      "country": "United States",
+      "delta_type": "rule_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Permanent resident (30+ days written agreement)",
+          "description": "Colorado sales tax exempt on accommodation rented to permanent resident with written agreement for ≥30 consecutive days",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 30},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "The rental of rooms and accommodations to a permanent resident for a period of at least 30 consecutive days is exempt from sales tax.",
+          "source_url": "https://tax.colorado.gov/sales-use-tax-topics-rooms-accommodations",
+          "legal_reference": "Colorado HB20-1020"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US-AZ",
+      "jurisdiction_name": "Arizona",
+      "country": "United States",
+      "delta_type": "rule_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Long-term residential rental (30+ days)",
+          "description": "Arizona classifies rentals ≥30 days as residential rental, exempt from transient privilege tax",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 30},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "Residential rental is the rental of real property for a period of more than 29 days for residential purposes.",
+          "source_url": "https://azdor.gov/business/transaction-privilege-tax/short-term-lodging"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US-PA",
+      "jurisdiction_name": "Pennsylvania",
+      "country": "United States",
+      "delta_type": "rule_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Permanent resident (30+ days)",
+          "description": "Pennsylvania: stays ≥ 30 consecutive days make the guest a permanent resident, exempt from hotel occupancy tax",
+          "conditions": {"field": "stay_length_days", "op": ">=", "value": 30},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "In Pennsylvania, to be a permanent resident exempt from the tax, a person must occupy the property, or have the right to occupy the property, for 30 consecutive days or more.",
+          "source_url": "https://www.pacodeandbulletin.gov/Display/pacode?file=/secure/pacode/data/061/chapter38/chap38toc.html",
+          "legal_reference": "61 Pa. Code Chapter 38"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "US-MA",
+      "jurisdiction_name": "Massachusetts",
+      "country": "United States",
+      "delta_type": "rule_for_existing_rate",
+      "rules": [
+        {
+          "rule_type": "exemption",
+          "name": "Long-stay (90+ days)",
+          "description": "Massachusetts room occupancy excise applies only to rentals of 90 days or less",
+          "conditions": {"field": "stay_length_days", "op": ">", "value": 90},
+          "action": {},
+          "effective_start": "2020-01-01",
+          "source_quote": "The room occupancy excise tax applies to room rentals of 90 days or less in hotels, motels, bed and breakfast establishments, and lodging houses.",
+          "source_url": "https://www.mass.gov/regulations/830-CMR-64g11-massachusetts-room-occupancy-excise"
+        }
+      ]
+    },
+    {
+      "jurisdiction_code": "HR-21-SPU",
+      "jurisdiction_name": "Split",
+      "country": "Croatia",
+      "delta_type": "new_rate",
+      "summary": "Split tourist tax €2/person/night (Category A coastal municipality).",
+      "rates": [
+        {
+          "tax_category_code": "tourism_flat_person_night",
+          "rate_type": "flat",
+          "rate_value": 2.0,
+          "currency_code": "EUR",
+          "effective_start": "2024-01-01",
+          "authority_name": "City of Split",
+          "source_quote": "Split 2 euros per night",
+          "confidence": 0.7
+        }
+      ],
+      "rules": []
+    }
+  ],
+  "deferred_for_taxonomy_extension": [
+    {
+      "jurisdiction": "Hawaii",
+      "rule": "Military personnel exempt (TAT Law)",
+      "needs": "guest_type = 'military' in canonical set"
+    },
+    {
+      "jurisdiction": "Hawaii",
+      "rule": "School dormitory exempt",
+      "needs": "property_type = 'school_dormitory' or guest_type = 'school_resident'"
+    },
+    {
+      "jurisdiction": "Brussels",
+      "rule": "Underage school-group exempt",
+      "needs": "group_type = 'school_trip' or similar"
+    },
+    {
+      "jurisdiction": "Leipzig",
+      "rule": "5.6% tax rate",
+      "needs": "Jurisdiction code DE-SN-LEJ doesn't exist in DB; skipped"
+    }
+  ],
+  "summary_of_this_pass": {
+    "new_rates_proposed": 7,
+    "new_booking_affecting_rules": 10,
+    "deferred_rules_taxonomy_gap": 4,
+    "diminishing_returns_observed": true,
+    "recommendation": "After this pass, the dominant remaining gap is TAXONOMY (nonprofit_*, military, disability, school_group values for guest_type) rather than research. Recommend extending BookingContext canonical values before another breadth pass — that would unlock the 9 rules filtered from breadth-v2 plus 4 rules deferred from this pass, for total of 13+ rules without any additional research."
+  }
+}
