@@ -65,6 +65,10 @@ class BaseAnthropicAgent(ABC):
     action_tools: ClassVar[list[ActionToolDef]] = []
     # Optional: override the web_search max_uses for this agent.
     max_search_uses: ClassVar[int | None] = None
+    # Optional: override the agentic-loop max_turns for this agent.
+    # Triage needs more turns than monitoring/discovery because batches can
+    # legitimately require dozens of per-item decisions.
+    max_turns: ClassVar[int | None] = None
 
     def __init__(self) -> None:
         if not settings.anthropic_api_key:
@@ -91,7 +95,8 @@ class BaseAnthropicAgent(ABC):
         """
         tools = self._build_tools()
         messages: list[dict] = [{"role": "user", "content": user_prompt}]
-        max_turns = settings.anthropic_max_agent_turns
+        max_turns = self.max_turns or settings.anthropic_max_agent_turns
+        max_searches = self.max_search_uses or settings.anthropic_max_search_uses
 
         logger.info(
             "%sStarting %s agent (model=%s, max_turns=%d, max_searches=%d)",
@@ -99,7 +104,7 @@ class BaseAnthropicAgent(ABC):
             self.name,
             settings.anthropic_model,
             max_turns,
-            settings.anthropic_max_search_uses,
+            max_searches,
         )
 
         last_response = None
@@ -193,7 +198,17 @@ class BaseAnthropicAgent(ABC):
                     messages.append({"role": "user", "content": tool_results})
                 continue
 
-        # Loop exhausted without a report
+        # Loop exhausted without a report. Give the subclass a chance to
+        # synthesize a fallback result so queued state isn't lost.
+        fallback = self.on_loop_exhausted()
+        if fallback is not None:
+            logger.warning(
+                "%s%s agent exhausted %d turns without calling %s — using fallback result",
+                f"[{log_label}] " if log_label else "",
+                self.name, max_turns, self.report_tool_name,
+            )
+            return fallback
+
         raise RuntimeError(
             f"{self.name} agent exhausted {max_turns} turns without producing a report. "
             f"Last stop_reason: {getattr(last_response, 'stop_reason', '?')}"
@@ -210,6 +225,16 @@ class BaseAnthropicAgent(ABC):
         """
         return f"Tool {name} is registered but has no handler."
 
+    def on_loop_exhausted(self) -> BaseModel | None:
+        """Optional fallback when max_turns is hit without a report tool call.
+
+        Return a valid result_model instance to treat the run as completed
+        (the runner sees a result and applies whatever side-state the agent
+        accumulated). Return None to preserve the default "raise RuntimeError"
+        behaviour — appropriate for agents whose work has no partial value.
+        """
+        return None
+
     # ─── Internals ───────────────────────────────────────────────────
 
     def _build_tools(self) -> list[dict]:
@@ -219,6 +244,7 @@ class BaseAnthropicAgent(ABC):
                 "name": "web_search",
                 "max_uses": self.max_search_uses or settings.anthropic_max_search_uses,
             },
+
             {
                 "name": self.report_tool_name,
                 "description": self.report_tool_description,

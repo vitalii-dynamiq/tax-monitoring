@@ -490,6 +490,14 @@ async def run_monitoring_job(job_id: int) -> None:
                 system_prompt=SYSTEM_PROMPT,
                 initial_user_prompt=user_prompt,
             )
+
+            # Persist prompts NOW so operators can inspect them while the job
+            # is running. recorder.flush() will re-set them at the end.
+            job.model = settings.anthropic_model
+            job.system_prompt = SYSTEM_PROMPT
+            job.initial_user_prompt = user_prompt
+            await db.commit()
+
             agent = get_agent("tax_monitoring")
             ai_result = await agent.run(
                 user_prompt=user_prompt,

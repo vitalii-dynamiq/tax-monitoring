@@ -108,13 +108,21 @@ export default function PendingApprovals() {
         title="Pending Approvals"
         description="Review and approve AI-generated draft rates and rules before they go live."
         actions={
-          <button
-            className="btn-primary flex items-center gap-1.5 text-sm py-1.5 px-3"
-            onClick={() => setTriageOpen(true)}
-            title="Let the AI triage agent verify pending items against their sources"
-          >
-            <Sparkles className="w-4 h-4" /> Triage with AI
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              className="btn-primary flex items-center gap-1.5 text-sm py-1.5 px-3"
+              onClick={() => setTriageOpen(true)}
+              title="Let the AI triage agent verify pending items against their sources"
+            >
+              <Sparkles className="w-4 h-4" /> Triage with AI
+            </button>
+            <button
+              className="text-sm text-accent hover:underline"
+              onClick={() => navigate("/app/agent-monitoring?tab=triage")}
+            >
+              View triage history →
+            </button>
+          </div>
         }
       />
       <TriageRunModal open={triageOpen} onClose={() => setTriageOpen(false)} />

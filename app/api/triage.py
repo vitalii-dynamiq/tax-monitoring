@@ -1,4 +1,4 @@
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -8,7 +8,7 @@ from app.db.session import get_db
 from app.models.monitoring_job import MonitoringJob
 from app.schemas.monitoring import MonitoringJobResponse
 from app.schemas.triage import TriageRunRequest
-from app.services.monitoring_job_service import create_job
+from app.services.monitoring_job_service import create_job, list_jobs
 from app.services.triage_job_service import run_triage_job_with_limits
 
 router = APIRouter(prefix="/v1/triage", tags=["Triage"])
@@ -71,3 +71,26 @@ async def trigger_triage_run(
 
     background_tasks.add_task(run_triage_job_with_limits, job.id)
     return _job_to_response(job)
+
+
+@router.get("/runs", response_model=list[MonitoringJobResponse])
+async def list_triage_runs(
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+    status: str | None = None,
+    _admin=Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    """List recent triage MonitoringJob rows (admin-only).
+
+    Returns runs in reverse-chronological order. Used by the /app/agent-monitoring
+    Triage Runs tab to give operators a history view.
+    """
+    jobs = await list_jobs(
+        db,
+        job_type="triage",
+        status=status,
+        limit=limit,
+        offset=offset,
+    )
+    return [_job_to_response(j) for j in jobs]

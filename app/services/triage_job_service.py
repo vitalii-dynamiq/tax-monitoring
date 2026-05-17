@@ -25,7 +25,6 @@ from app.models.jurisdiction import Jurisdiction
 from app.models.tax_rate import TaxRate
 from app.models.tax_rule import TaxRule
 from app.services.agent_run_recorder import AgentRunRecorder
-from app.services.agents import get_agent
 from app.services.monitoring_job_service import _job_semaphore, get_job
 from app.services.monitoring_service import review_change
 from app.services.prompts.triage import (
@@ -390,7 +389,20 @@ async def run_triage_job(job_id: int) -> None:
                 system_prompt=TRIAGE_SYSTEM_PROMPT,
                 initial_user_prompt=user_prompt,
             )
-            agent = get_agent("triage")
+
+            # Persist the prompts NOW so operators can inspect them while the
+            # job is still running. The recorder.flush() at the end re-sets
+            # the same values + the usage totals — idempotent.
+            job.model = settings.anthropic_model
+            job.system_prompt = TRIAGE_SYSTEM_PROMPT
+            job.initial_user_prompt = user_prompt
+            await db.commit()
+
+            # Construct TriageAgent directly (not via get_agent) so we can
+            # pass the batch_size and let the agent nudge itself toward
+            # report_triage_complete once every item has a decision.
+            from app.services.agents.triage import TriageAgent
+            agent = TriageAgent(batch_size=len(items))
             report = await agent.run(
                 user_prompt=user_prompt,
                 recorder=recorder,

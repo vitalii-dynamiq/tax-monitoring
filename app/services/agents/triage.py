@@ -45,6 +45,8 @@ class TriageAgent(BaseAnthropicAgent):
     # Triage runs may need to verify many items; raise the cap accordingly.
     # Stay under Anthropic's 50-per-request hard limit.
     max_search_uses: ClassVar[int | None] = 40
+    # Triage batches of 50 items often need >20 turns. Override the global cap.
+    max_turns: ClassVar[int | None] = 50
 
     action_tools: ClassVar[list[ActionToolDef]] = [
         {
@@ -76,10 +78,42 @@ class TriageAgent(BaseAnthropicAgent):
         },
     ]
 
-    def __init__(self) -> None:
+    def __init__(self, batch_size: int | None = None) -> None:
         super().__init__()
         # Decisions queued during the loop; runner applies them after.
         self.decisions: list[TriageDecision] = []
+        # If set, the runner tells us how many items are in the batch — used
+        # to nudge the model toward report_triage_complete once every item
+        # has a decision queued.
+        self.batch_size = batch_size
+
+    def _progress_suffix(self) -> str:
+        n = len(self.decisions)
+        if self.batch_size is None:
+            return f"Decisions so far: {n}."
+        if n >= self.batch_size:
+            return (
+                f"Decisions so far: {n}/{self.batch_size}. "
+                f"ALL ITEMS DECIDED — call report_triage_complete now."
+            )
+        return f"Decisions so far: {n}/{self.batch_size}."
+
+    def on_loop_exhausted(self) -> TriageReport | None:
+        """If the agent decided on at least some items but never called the
+        report tool, synthesize a TriageReport so the runner applies what we
+        have instead of throwing it away.
+        """
+        if not self.decisions:
+            return None  # Nothing happened — let the base raise.
+        return TriageReport(
+            summary=(
+                f"Agent reached the max-turn cap before calling "
+                f"report_triage_complete. {len(self.decisions)} decision"
+                f"{'s' if len(self.decisions) != 1 else ''} queued and will "
+                f"be applied; any undecided items remain pending."
+            ),
+            items_reviewed=len(self.decisions),
+        )
 
     async def _handle_action_tool(self, name: str, tool_input: dict) -> str:
         try:
@@ -97,8 +131,7 @@ class TriageAgent(BaseAnthropicAgent):
                 )
                 return (
                     f"Queued APPROVE for {v.item_type}#{v.item_id} "
-                    f"(confidence {v.confidence:.2f}). "
-                    f"Decisions so far: {len(self.decisions)}."
+                    f"(confidence {v.confidence:.2f}). {self._progress_suffix()}"
                 )
             if name == "reject_item":
                 v = RejectItemInput.model_validate(tool_input)
@@ -113,8 +146,7 @@ class TriageAgent(BaseAnthropicAgent):
                 )
                 return (
                     f"Queued REJECT for {v.item_type}#{v.item_id} "
-                    f"(confidence {v.confidence:.2f}). "
-                    f"Decisions so far: {len(self.decisions)}."
+                    f"(confidence {v.confidence:.2f}). {self._progress_suffix()}"
                 )
             if name == "defer_item":
                 v = DeferItemInput.model_validate(tool_input)
@@ -127,8 +159,7 @@ class TriageAgent(BaseAnthropicAgent):
                     )
                 )
                 return (
-                    f"Queued DEFER for {v.item_type}#{v.item_id}. "
-                    f"Decisions so far: {len(self.decisions)}."
+                    f"Queued DEFER for {v.item_type}#{v.item_id}. {self._progress_suffix()}"
                 )
             return f"Unknown action tool: {name}"
         except ValidationError as e:

@@ -553,6 +553,8 @@ export const api = {
         method: "POST",
         body: JSON.stringify(body),
       }),
+    listRuns: (params?: Record<string, string>) =>
+      request<MonitoringJob[]>(`/v1/triage/runs?${new URLSearchParams(params)}`),
   },
 
   discovery: {

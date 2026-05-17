@@ -16,8 +16,9 @@ import {
 } from "../lib/api";
 import ScheduleRow from "../components/agent-schedules/ScheduleRow";
 import BulkActionBar from "../components/agent-schedules/BulkActionBar";
+import TriageRunsTab from "../components/agent-schedules/TriageRunsTab";
 
-type Tab = "monitoring" | "discovery";
+type Tab = "monitoring" | "discovery" | "triage";
 type Filter = "all" | "enabled" | "disabled" | "failed24h";
 
 const FILTERS: { id: Filter; label: string }[] = [
@@ -46,10 +47,14 @@ export default function AgentSchedules() {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [bulkBusy, setBulkBusy] = useState(false);
 
+  // Schedules are only relevant for monitoring/discovery; triage tab fetches
+  // its own data inside <TriageRunsTab>. Fetch with a harmless default to
+  // keep the useApi-hook count stable across tabs.
+  const scheduleJobType = tab === "triage" ? "monitoring" : tab;
   const { data, loading, error, refetch } = useApi(
     () =>
-      api.monitoring.listSchedules({ job_type: tab, limit: "2000" }),
-    [tab]
+      api.monitoring.listSchedules({ job_type: scheduleJobType, limit: "2000" }),
+    [scheduleJobType]
   );
 
   // Local mirror so per-row edits can update without a refetch flicker
@@ -176,32 +181,34 @@ export default function AgentSchedules() {
         description="Schedule and debug AI agents that monitor taxes and discover sub-jurisdictions."
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <StatCard
-          label="Total schedules"
-          value={stats.total}
-          icon={Activity}
-          onClick={() => setFilter("all")}
-        />
-        <StatCard
-          label="Enabled"
-          value={stats.enabled}
-          accent="success"
-          icon={PlayCircle}
-          onClick={() => setFilter("enabled")}
-        />
-        <StatCard
-          label="Failed in last 24h"
-          value={stats.failing24h}
-          sub={stats.failing24h > 0 ? "needs attention — click to filter" : "all healthy"}
-          accent={stats.failing24h > 0 ? "danger" : "default"}
-          icon={stats.failing24h > 0 ? AlertTriangle : PauseCircle}
-          onClick={() => setFilter("failed24h")}
-        />
-      </div>
+      {tab !== "triage" && (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <StatCard
+            label="Total schedules"
+            value={stats.total}
+            icon={Activity}
+            onClick={() => setFilter("all")}
+          />
+          <StatCard
+            label="Enabled"
+            value={stats.enabled}
+            accent="success"
+            icon={PlayCircle}
+            onClick={() => setFilter("enabled")}
+          />
+          <StatCard
+            label="Failed in last 24h"
+            value={stats.failing24h}
+            sub={stats.failing24h > 0 ? "needs attention — click to filter" : "all healthy"}
+            accent={stats.failing24h > 0 ? "danger" : "default"}
+            icon={stats.failing24h > 0 ? AlertTriangle : PauseCircle}
+            onClick={() => setFilter("failed24h")}
+          />
+        </div>
+      )}
 
       <div className="flex items-center gap-1 border-b border-border mb-4">
-        {(["monitoring", "discovery"] as Tab[]).map((t) => (
+        {(["monitoring", "discovery", "triage"] as Tab[]).map((t) => (
           <button
             key={t}
             onClick={() => switchTab(t)}
@@ -211,11 +218,19 @@ export default function AgentSchedules() {
                 : "border-transparent text-muted hover:text-text"
             }`}
           >
-            {t === "monitoring" ? "Tax Monitoring" : "Sub-Jurisdiction Discovery"}
+            {t === "monitoring"
+              ? "Tax Monitoring"
+              : t === "discovery"
+                ? "Sub-Jurisdiction Discovery"
+                : "Triage Runs"}
           </button>
         ))}
       </div>
 
+      {tab === "triage" ? (
+        <TriageRunsTab />
+      ) : (
+      <>
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <input
           type="text"
@@ -338,6 +353,8 @@ export default function AgentSchedules() {
           </div>
         )}
       </Card>
+      </>
+      )}
     </PageContainer>
   );
 }

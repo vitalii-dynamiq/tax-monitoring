@@ -74,3 +74,31 @@ class TestTriageRunEndpoint:
             json={"max_items": 999},  # over 200 cap
         )
         assert resp.status_code == 422
+
+
+class TestListTriageRuns:
+    async def test_returns_jobs_in_reverse_chronological_order(self, app_client, auth_headers):
+        from app.config import settings
+        if not settings.anthropic_api_key:
+            settings.anthropic_api_key = "sk-test"
+
+        # Dispatch 2 triage runs back-to-back. The second-attempt 409 path
+        # means we need to mark the first as completed before triggering the
+        # second — easiest: just hit /runs after a single dispatch.
+        r = await app_client.post(
+            "/v1/triage/run", headers=auth_headers, json={"max_items": 10}
+        )
+        assert r.status_code == 202
+        new_id = r.json()["id"]
+
+        runs = await app_client.get("/v1/triage/runs", headers=auth_headers)
+        assert runs.status_code == 200
+        rows = runs.json()
+        assert len(rows) >= 1
+        # All returned rows are triage jobs
+        assert all(row["job_type"] == "triage" for row in rows)
+        # The new one is included
+        assert any(row["id"] == new_id for row in rows)
+        # Reverse-chrono ordering: ids monotonically decrease (BIGSERIAL)
+        ids = [row["id"] for row in rows]
+        assert ids == sorted(ids, reverse=True)

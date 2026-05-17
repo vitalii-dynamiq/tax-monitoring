@@ -93,6 +93,14 @@ async def _run_discovery_job_inner(job_id: int) -> None:
                 system_prompt=DISCOVERY_SYSTEM_PROMPT,
                 initial_user_prompt=initial_user_prompt,
             )
+
+            # Persist prompts NOW so operators can inspect them while the job
+            # is running. recorder.flush() will re-set them at the end.
+            job.model = settings.anthropic_model
+            job.system_prompt = DISCOVERY_SYSTEM_PROMPT
+            job.initial_user_prompt = initial_user_prompt
+            await db.commit()
+
             agent = get_agent("discovery")
             result = await agent.run(
                 user_prompt=initial_user_prompt,
