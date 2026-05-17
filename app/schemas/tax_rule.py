@@ -71,6 +71,7 @@ class TaxRuleResponse(BaseModel):
     created_by: str
     reviewed_by: str | None = None
     reviewed_at: datetime | None = None
+    monitoring_job_id: int | None = None
     created_at: datetime
     updated_at: datetime
 

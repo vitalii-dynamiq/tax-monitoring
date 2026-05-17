@@ -427,11 +427,7 @@ async def main_async(args) -> int:
         len(json_files), research_dir, args.dry_run,
     )
 
-    stats = {k: 0 for k in (
-        "files_reviewed", "files_unreviewed", "files_parse_error", "files_no_jurisdiction",
-        "rates_inserted", "rates_existing", "rates_skipped", "rates_would_insert",
-        "rules_inserted", "rules_existing", "rules_skipped", "rules_would_insert",
-    )}
+    stats = dict.fromkeys(("files_reviewed", "files_unreviewed", "files_parse_error", "files_no_jurisdiction", "rates_inserted", "rates_existing", "rates_skipped", "rates_would_insert", "rules_inserted", "rules_existing", "rules_skipped", "rules_would_insert"), 0)
 
     async with async_session_factory() as db:
         try:

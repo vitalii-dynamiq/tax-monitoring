@@ -7,6 +7,7 @@ from app.core.rule_engine import BOOKING_CONTEXT_FIELDS
 
 if TYPE_CHECKING:
     from app.models.jurisdiction import Jurisdiction
+    from app.models.monitored_source import MonitoredSource
     from app.models.tax_rate import TaxRate
     from app.models.tax_rule import TaxRule
 
@@ -24,15 +25,27 @@ track operator compliance, business registration, filing procedures, or other
 administrative rules. Only report regulations that would change the TAX
 CALCULATION for a given booking.
 
+## Scope: One Run = One Country
+Each run covers ONE COUNTRY and ALL of its sub-jurisdictions (states, provinces,
+cities, districts, special zones) at once. The user prompt lists every known
+jurisdiction in the country plus the rates and rules we currently have on file.
+
+Your job is to research the country and report the COMPLETE current picture of
+accommodation taxes across the country tree, tagging each finding with the
+specific jurisdiction it applies to.
+
 ## Your Capabilities
 You have access to web search. Use it to find current, authoritative tax information.
 
 ## Your Task
-For a given jurisdiction, research ALL current accommodation/tourism tax regulations by:
+For the given country and its sub-jurisdictions, research ALL current
+accommodation/tourism tax regulations by:
 1. Searching the provided monitored source URLs (government sites, tax authority pages)
-2. Searching for additional official sources for this jurisdiction's accommodation taxes
+2. Searching for additional official sources at country, state/province, and city level
 3. Comparing what you find against the currently known tax data in our database
-4. Reporting ALL findings using the report_tax_findings tool
+4. Reporting ALL findings using the report_tax_findings tool, tagging every rate
+   and rule with the EXACT `jurisdiction_code` from the user prompt that it
+   applies to (the country, a state, or a city)
 
 ## Research Process
 - Search each monitored source URL to find current tax rates and rules
@@ -166,92 +179,146 @@ def _format_rule(rule: TaxRule) -> str:
     return " ".join(parts)
 
 
+def _format_rate_for_jur(rate: TaxRate, code_by_id: dict[int, str]) -> str:
+    """Same as _format_rate but prefixes with the jurisdiction code for clarity."""
+    code = code_by_id.get(rate.jurisdiction_id, "?")
+    return f"  [{code}]" + _format_rate(rate)[3:]  # drop the "  -" prefix and replace
+
+
+def _format_rule_for_jur(rule: TaxRule, code_by_id: dict[int, str]) -> str:
+    code = code_by_id.get(rule.jurisdiction_id, "?")
+    return f"  [{code}]" + _format_rule(rule)[3:]
+
+
 def build_user_prompt(
-    jurisdiction: Jurisdiction,
+    country: Jurisdiction,
+    descendants: list[Jurisdiction],
     current_rates: list[TaxRate],
     current_rules: list[TaxRule],
-    monitored_domains: list[str],
+    monitored_sources: list[MonitoredSource],
 ) -> str:
-    """Build the user prompt with jurisdiction context and priority domains.
+    """Build the user prompt with the FULL country tree + all current rates/rules.
 
-    The agent uses web_search to find tax information, prioritizing the given domains.
+    The agent uses web_search to find tax information, prioritising the given domains.
+    Every reported rate/rule must be tagged with the exact jurisdiction_code from
+    the tree listed in this prompt.
     """
-    sections = []
+    sections: list[str] = []
+    code_by_id: dict[int, str] = {country.id: country.code}
+    for d in descendants:
+        code_by_id[d.id] = d.code
 
-    # Jurisdiction info
-    sections.append(
-        f"## Jurisdiction to Research\n"
-        f"- Code: {jurisdiction.code}\n"
-        f"- Name: {jurisdiction.name}\n"
-        f"- Type: {jurisdiction.jurisdiction_type}\n"
-        f"- Country: {jurisdiction.country_code}\n"
-        f"- Currency: {jurisdiction.currency_code}\n"
-        f"- Path: {jurisdiction.path}"
+    # ── Country header ──
+    header = (
+        f"## Country to Research\n"
+        f"- Code: {country.code}\n"
+        f"- Name: {country.name}\n"
+        f"- Currency: {country.currency_code}\n"
+        f"- Timezone: {country.timezone or 'varies'}"
     )
-    if jurisdiction.local_name:
-        sections[-1] += f"\n- Local Name: {jurisdiction.local_name}"
+    if country.local_name:
+        header += f"\n- Local Name: {country.local_name}"
+    sections.append(header)
 
-    # Priority government domains to search
-    if monitored_domains:
-        domain_list = "\n".join(f"  - {d}" for d in monitored_domains)
+    # ── Jurisdiction tree ──
+    if descendants:
+        # Group by jurisdiction_type for legibility
+        by_type: dict[str, list[Jurisdiction]] = {}
+        for d in descendants:
+            by_type.setdefault(d.jurisdiction_type, []).append(d)
+        order = ["state", "province", "region", "city", "district", "special_zone"]
+        groups = []
+        # Keep the original ordering when possible, append unknown types at end
+        type_order = [t for t in order if t in by_type] + [
+            t for t in by_type if t not in order
+        ]
+        for t in type_order:
+            rows = sorted(by_type[t], key=lambda j: j.code)
+            lines = [f"  - {j.code}  {j.name}" for j in rows]
+            groups.append(f"### {t}s ({len(rows)})\n" + "\n".join(lines))
         sections.append(
-            f"## Priority Government Domains ({len(monitored_domains)})\n"
-            f"Prioritize searching these official domains for tax information:\n{domain_list}"
+            f"## Sub-Jurisdictions ({len(descendants)})\n"
+            f"Tag any findings that apply ONLY to a sub-jurisdiction with its EXACT "
+            f"`jurisdiction_code` from the list below. Country-wide findings use "
+            f"`{country.code}`.\n\n"
+            + "\n\n".join(groups)
         )
     else:
         sections.append(
-            "## Sources\n"
-            "No specific domains configured. Use web search to find "
-            "official government and tax authority pages for this jurisdiction."
+            f"## Sub-Jurisdictions\n"
+            f"This country has no sub-jurisdictions tracked. All findings should "
+            f"use `jurisdiction_code = \"{country.code}\"`."
         )
 
-    # Current rates grouped by status
+    # ── Regulatory sources (operator-curated, per jurisdiction) ──
+    if monitored_sources:
+        lines = []
+        for s in monitored_sources:
+            j_code = code_by_id.get(s.jurisdiction_id, "?") if s.jurisdiction_id else "—"
+            lines.append(
+                f"  - [{s.source_type}] {s.url}  "
+                f"({s.language or 'en'}, jurisdiction={j_code})"
+            )
+        sections.append(
+            f"## Regulatory Sources ({len(monitored_sources)} curated by operators)\n"
+            f"These are the URLs we already track as authoritative for tax information "
+            f"in this country. Prioritize them in your research:\n"
+            + "\n".join(lines)
+        )
+    else:
+        sections.append(
+            "## Regulatory Sources\n"
+            "No operator-curated sources are configured for this country. Use web "
+            "search to find official government and tax authority pages."
+        )
+
+    # ── Current rates ──
     active_rates = [r for r in current_rates if r.status == "active"]
     draft_rates = [r for r in current_rates if r.status in ("draft", "scheduled", "approved")]
-
     if active_rates or draft_rates:
         rate_sections = []
         if active_rates:
-            rate_lines = [_format_rate(r) for r in active_rates]
+            lines = [_format_rate_for_jur(r, code_by_id) for r in active_rates]
             rate_sections.append(
                 f"### ACTIVE Rates ({len(active_rates)}) — currently enforced:\n"
-                + "\n".join(rate_lines)
+                + "\n".join(lines)
             )
         if draft_rates:
-            rate_lines = [_format_rate(r) for r in draft_rates]
+            lines = [_format_rate_for_jur(r, code_by_id) for r in draft_rates]
             rate_sections.append(
-                f"### DRAFT Rates ({len(draft_rates)}) — already detected, pending review (do NOT re-report):\n"
-                + "\n".join(rate_lines)
+                f"### DRAFT Rates ({len(draft_rates)}) — already detected, pending review "
+                f"(do NOT re-report):\n"
+                + "\n".join(lines)
             )
         sections.append(
             f"## Known Tax Rates ({len(active_rates)} active, {len(draft_rates)} draft)\n"
-            "Compare your findings against ACTIVE rates. Do NOT re-detect DRAFT rates.\n\n"
+            f"Compare your findings against ACTIVE rates. Do NOT re-detect DRAFT rates.\n\n"
             + "\n\n".join(rate_sections)
         )
     else:
         sections.append("## Known Tax Rates\nNone recorded in our database.")
 
-    # Current rules grouped by status
+    # ── Current rules ──
     active_rules = [r for r in current_rules if r.status == "active"]
     draft_rules = [r for r in current_rules if r.status in ("draft", "scheduled", "approved")]
-
     if active_rules or draft_rules:
         rule_sections = []
         if active_rules:
-            rule_lines = [_format_rule(r) for r in active_rules]
+            lines = [_format_rule_for_jur(r, code_by_id) for r in active_rules]
             rule_sections.append(
                 f"### ACTIVE Rules ({len(active_rules)}) — currently enforced:\n"
-                + "\n".join(rule_lines)
+                + "\n".join(lines)
             )
         if draft_rules:
-            rule_lines = [_format_rule(r) for r in draft_rules]
+            lines = [_format_rule_for_jur(r, code_by_id) for r in draft_rules]
             rule_sections.append(
-                f"### DRAFT Rules ({len(draft_rules)}) — already detected, pending review (do NOT re-report):\n"
-                + "\n".join(rule_lines)
+                f"### DRAFT Rules ({len(draft_rules)}) — already detected, pending review "
+                f"(do NOT re-report):\n"
+                + "\n".join(lines)
             )
         sections.append(
             f"## Known Tax Rules & Exemptions ({len(active_rules)} active, {len(draft_rules)} draft)\n"
-            "Compare against ACTIVE rules. Do NOT re-detect DRAFT rules.\n\n"
+            f"Compare against ACTIVE rules. Do NOT re-detect DRAFT rules.\n\n"
             + "\n\n".join(rule_sections)
         )
     else:
@@ -259,11 +326,12 @@ def build_user_prompt(
 
     sections.append(
         "## Instructions\n"
-        "1. Search each priority source URL listed above\n"
-        "2. Search for additional official sources about accommodation/hotel/tourism taxes "
-        f"in {jurisdiction.name} ({jurisdiction.country_code})\n"
-        "3. Compare all findings against our currently known rates and rules\n"
-        "4. Call the report_tax_findings tool with your complete findings"
+        f"1. Search priority sources for accommodation/hotel/tourism taxes in {country.name}\n"
+        "2. For each sub-jurisdiction listed above, check whether it levies its OWN "
+        "accommodation tax beyond what the country imposes\n"
+        "3. Compare all findings against the rates and rules listed above\n"
+        "4. Call the report_tax_findings tool exactly once with the COMPLETE findings, "
+        "tagging every rate/rule with its EXACT `jurisdiction_code` from the lists above"
     )
 
     return "\n\n".join(sections)

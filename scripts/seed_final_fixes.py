@@ -12,8 +12,8 @@ Usage: python -m scripts.seed_final_fixes
 import argparse
 import asyncio
 import time
-import httpx
 
+import httpx
 
 # ── Missing US cities ──────────────────────────────────────────────
 US_CITIES = [

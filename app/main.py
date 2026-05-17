@@ -15,6 +15,7 @@ from app.api import (
     tax_calculation,
     tax_rates,
     tax_rules,
+    triage,
 )
 from app.middleware import setup_middleware
 from app.services.scheduler import start_scheduler, stop_scheduler
@@ -56,6 +57,7 @@ app.include_router(tax_rates.router)
 app.include_router(tax_rules.router)
 app.include_router(tax_calculation.router)
 app.include_router(monitoring.router)
+app.include_router(triage.router)
 app.include_router(audit.router)
 app.include_router(approvals.router)
 

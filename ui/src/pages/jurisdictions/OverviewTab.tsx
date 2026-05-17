@@ -11,7 +11,7 @@ import {
   type TaxCalculationResponse,
 } from "../../lib/api";
 import { useToast } from "../../hooks/useToast";
-import { formatDate, formatDateTime, formatCurrency, formatPercent, cn } from "../../lib/utils";
+import { formatDate, formatCurrency, formatPercent, cn } from "../../lib/utils";
 import {
   ChevronRight,
   Globe,
@@ -161,6 +161,8 @@ function PropField({
 
 // ─── Regulatory Sources Section ─────────────────────────────
 
+// Freq + Last Checked dropped — frequency lives on the schedule, and "last
+// checked" is recorded per monitoring_job, not per source.
 const SOURCE_COLUMNS: Column<MonitoredSource>[] = [
   {
     key: "type",
@@ -176,23 +178,10 @@ const SOURCE_COLUMNS: Column<MonitoredSource>[] = [
         href={r.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-accent hover:underline text-sm truncate block max-w-[400px]"
+        className="text-accent hover:underline text-sm truncate block max-w-[600px]"
       >
         {r.url}
       </a>
-    ),
-  },
-  {
-    key: "frequency",
-    header: "Freq.",
-    render: (r) => <span className="text-muted font-mono text-xs">{r.check_frequency_days}d</span>,
-    className: "w-16",
-  },
-  {
-    key: "last_checked",
-    header: "Last Checked",
-    render: (r) => (
-      <span className="text-dim text-sm">{formatDateTime(r.last_checked_at)}</span>
     ),
   },
   {

@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.jurisdiction import Jurisdiction
 from app.schemas.jurisdiction import JurisdictionCreate
+from app.services.audit_service import log_change
 
 
 async def resolve_jurisdiction(
@@ -176,3 +177,38 @@ async def create_jurisdictions_bulk(
         j = await create_jurisdiction(db, child)
         results.append(j)
     return results
+
+
+async def update_jurisdiction_status(
+    db: AsyncSession,
+    code: str,
+    new_status: str,
+    reviewed_by: str,
+    review_notes: str | None = None,
+) -> Jurisdiction | None:
+    """Set a jurisdiction's status and write an audit_log entry.
+
+    Mirrors update_rate_status / _update_rule_status. Used by the
+    new approve/reject endpoints AND by the triage runner.
+    Returns the updated row, or None if not found.
+    """
+    j = await get_jurisdiction_by_code(db, code)
+    if not j:
+        return None
+
+    old_status = j.status
+    j.status = new_status
+    await db.flush()
+
+    await log_change(
+        db,
+        entity_type="jurisdiction",
+        entity_id=j.id,
+        action="status_change",
+        changed_by=reviewed_by,
+        change_source=reviewed_by,
+        old_values={"status": old_status},
+        new_values={"status": new_status},
+        change_reason=review_notes or f"Status changed by {reviewed_by}",
+    )
+    return j

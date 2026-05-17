@@ -117,6 +117,7 @@ class TaxRateResponse(BaseModel):
     reviewed_by: str | None = None
     reviewed_at: datetime | None = None
     review_notes: str | None = None
+    monitoring_job_id: int | None = None
     created_at: datetime
     updated_at: datetime
 

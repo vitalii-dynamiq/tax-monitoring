@@ -205,7 +205,7 @@ def evaluate_conditions(conditions: dict, context: BookingContext) -> bool:
 
     if operator == "AND":
         return all(results)
-    elif operator == "OR":
+    if operator == "OR":
         return any(results)
     return False
 

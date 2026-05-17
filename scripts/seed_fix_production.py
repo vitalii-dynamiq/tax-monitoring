@@ -18,7 +18,7 @@ Usage:
 import asyncio
 from datetime import date
 
-from sqlalchemy import select, and_
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.session import async_session_factory
@@ -26,7 +26,6 @@ from app.models.jurisdiction import Jurisdiction
 from app.models.tax_category import TaxCategory
 from app.models.tax_rate import TaxRate
 from app.models.tax_rule import TaxRule
-
 
 # ──────────────────────────────────────────────────────────────────────
 # Helpers

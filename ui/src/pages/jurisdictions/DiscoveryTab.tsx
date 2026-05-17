@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Card from "../../components/Card";
 import Badge from "../../components/Badge";
 import StatCard from "../../components/StatCard";
@@ -9,7 +10,7 @@ import { useApi } from "../../hooks/useApi";
 import { usePollingApi } from "../../hooks/usePollingApi";
 import { useToast } from "../../hooks/useToast";
 import { formatDateTime, formatDuration } from "../../lib/utils";
-import { Search, CheckCircle2, XCircle, Loader2 } from "lucide-react";
+import { Search, CheckCircle2, XCircle, Loader2, ExternalLink } from "lucide-react";
 
 interface PendingJurisdiction {
   code: string;
@@ -187,6 +188,19 @@ export default function DiscoveryTab({
 
   return (
     <div className="space-y-5">
+      <div className="flex items-center justify-between flex-wrap gap-3 text-sm text-muted">
+        <span>
+          Discovery is country-scoped — this page shows runs and the schedule
+          for <span className="font-mono text-text">{jurisdictionCode}</span>.
+        </span>
+        <Link
+          to="/app/agent-monitoring?tab=discovery"
+          className="inline-flex items-center gap-1 text-accent hover:underline"
+        >
+          Manage all discovery schedules <ExternalLink className="w-3.5 h-3.5" />
+        </Link>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
         <StatCard
           label="Discovery Runs"

@@ -277,6 +277,9 @@ async def seed_nyc_hierarchy(db: AsyncSession) -> dict:
         tax_rate_id=rate_pct.id,
     )
 
+    # A real MonitoringJob row so tests that pass job_id satisfy the FK.
+    monitoring_job = await create_monitoring_job(db, jurisdiction_id=nyc.id)
+
     await db.commit()
 
     return {
@@ -284,4 +287,5 @@ async def seed_nyc_hierarchy(db: AsyncSession) -> dict:
         "occ_pct_cat": occ_pct_cat, "flat_cat": flat_cat,
         "rate_pct": rate_pct, "rate_flat": rate_flat,
         "rule_exempt": rule_exempt,
+        "monitoring_job": monitoring_job,
     }

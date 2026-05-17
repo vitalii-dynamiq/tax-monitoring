@@ -28,9 +28,8 @@ import argparse
 import json
 import os
 import sys
-from collections import defaultdict
 from dataclasses import dataclass, field
-from datetime import UTC, date, datetime
+from datetime import date
 from pathlib import Path
 from typing import Any
 

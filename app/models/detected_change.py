@@ -34,6 +34,11 @@ class DetectedChange(Base):
     applied_rate_id: Mapped[int | None] = mapped_column(BigInteger, ForeignKey("tax_rates.id"))
     applied_rule_id: Mapped[int | None] = mapped_column(BigInteger, ForeignKey("tax_rules.id"))
 
+    # Originating agent run (NULL for changes not produced by an agent)
+    monitoring_job_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("monitoring_jobs.id", ondelete="SET NULL")
+    )
+
     created_at: Mapped[datetime] = mapped_column(default=func.now())
 
     # Relationships
@@ -44,4 +49,5 @@ class DetectedChange(Base):
         Index("idx_changes_status", "review_status"),
         Index("idx_changes_jurisdiction", "jurisdiction_id"),
         Index("idx_changes_detected", "detected_at"),
+        Index("idx_changes_monitoring_job", "monitoring_job_id"),
     )

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import BigInteger, ForeignKey, Index, Text
+from sqlalchemy import BigInteger, DateTime, ForeignKey, Index, Text
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -18,7 +18,7 @@ class MonitoredSource(Base, TimestampMixin):
     source_type: Mapped[str] = mapped_column(Text, nullable=False)
     language: Mapped[str] = mapped_column(Text, nullable=False, default="en")
     check_frequency_days: Mapped[int] = mapped_column(default=7)
-    last_checked_at: Mapped[datetime | None] = mapped_column()
+    last_checked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     last_content_hash: Mapped[str | None] = mapped_column(Text)
     status: Mapped[str] = mapped_column(Text, nullable=False, default="active")
     metadata_: Mapped[dict] = mapped_column("metadata", JSONB, default=dict)

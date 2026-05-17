@@ -24,7 +24,7 @@ from app.services.prompts.output_schema import (
 class TestAIExtractedRate:
     def test_valid_percentage_rate(self):
         rate = AIExtractedRate(
-            change_type="new",
+            jurisdiction_code="US-NY-NYC", change_type="new",
             tax_category_code="occ_pct",
             rate_type="percentage",
             rate_value=5.875,
@@ -37,7 +37,7 @@ class TestAIExtractedRate:
 
     def test_valid_flat_rate(self):
         rate = AIExtractedRate(
-            change_type="unchanged",
+            jurisdiction_code="US-NY-NYC", change_type="unchanged",
             tax_category_code="city_tax_flat",
             rate_type="flat",
             rate_value=3.50,
@@ -52,7 +52,7 @@ class TestAIExtractedRate:
 
     def test_valid_tiered_rate(self):
         rate = AIExtractedRate(
-            change_type="changed",
+            jurisdiction_code="US-NY-NYC", change_type="changed",
             rate_type="tiered",
             tiers=[
                 {"min": 0, "max": 100, "rate_value": 2.0},
@@ -68,7 +68,7 @@ class TestAIExtractedRate:
     def test_confidence_below_zero_rejected(self):
         with pytest.raises(ValidationError):
             AIExtractedRate(
-                change_type="new",
+                jurisdiction_code="US-NY-NYC", change_type="new",
                 rate_type="percentage",
                 rate_value=5.0,
                 effective_start="2025-01-01",
@@ -79,7 +79,7 @@ class TestAIExtractedRate:
     def test_confidence_above_one_rejected(self):
         with pytest.raises(ValidationError):
             AIExtractedRate(
-                change_type="new",
+                jurisdiction_code="US-NY-NYC", change_type="new",
                 rate_type="percentage",
                 rate_value=5.0,
                 effective_start="2025-01-01",
@@ -90,7 +90,7 @@ class TestAIExtractedRate:
     def test_invalid_change_type_rejected(self):
         with pytest.raises(ValidationError):
             AIExtractedRate(
-                change_type="invalid",
+                jurisdiction_code="US-NY-NYC", change_type="invalid",
                 rate_type="percentage",
                 rate_value=5.0,
                 effective_start="2025-01-01",
@@ -101,7 +101,7 @@ class TestAIExtractedRate:
     def test_invalid_rate_type_rejected(self):
         with pytest.raises(ValidationError):
             AIExtractedRate(
-                change_type="new",
+                jurisdiction_code="US-NY-NYC", change_type="new",
                 rate_type="unknown",
                 rate_value=5.0,
                 effective_start="2025-01-01",
@@ -112,7 +112,7 @@ class TestAIExtractedRate:
     def test_missing_required_fields_rejected(self):
         with pytest.raises(ValidationError):
             AIExtractedRate(
-                change_type="new",
+                jurisdiction_code="US-NY-NYC", change_type="new",
                 rate_type="percentage",
                 # Missing: effective_start, source_quote, confidence
             )
@@ -121,7 +121,7 @@ class TestAIExtractedRate:
 class TestAIExtractedRule:
     def test_valid_exemption_rule(self):
         rule = AIExtractedRule(
-            change_type="unchanged",
+            jurisdiction_code="US-NY-NYC", change_type="unchanged",
             rule_type="exemption",
             name="Permanent Resident Exemption",
             description="Stays of 180+ consecutive days are exempt from hotel occupancy tax.",
@@ -137,7 +137,7 @@ class TestAIExtractedRule:
 
     def test_valid_reduction_rule(self):
         rule = AIExtractedRule(
-            change_type="new",
+            jurisdiction_code="US-NY-NYC", change_type="new",
             rule_type="reduction",
             name="Senior Citizen Discount",
             conditions={"field": "guest_age", "operator": ">=", "value": 65},
@@ -151,7 +151,7 @@ class TestAIExtractedRule:
     def test_invalid_rule_type_rejected(self):
         with pytest.raises(ValidationError):
             AIExtractedRule(
-                change_type="new",
+                jurisdiction_code="US-NY-NYC", change_type="new",
                 rule_type="invalid_type",
                 name="Test",
                 effective_start="2025-01-01",
@@ -167,7 +167,7 @@ class TestAIMonitoringResult:
             summary="Found 3 active tax rates and 2 exemptions. No changes detected.",
             rates=[
                 AIExtractedRate(
-                    change_type="unchanged",
+                    jurisdiction_code="US-NY-NYC", change_type="unchanged",
                     tax_category_code="occ_pct",
                     rate_type="percentage",
                     rate_value=5.875,
@@ -178,7 +178,7 @@ class TestAIMonitoringResult:
             ],
             rules=[
                 AIExtractedRule(
-                    change_type="unchanged",
+                    jurisdiction_code="US-NY-NYC", change_type="unchanged",
                     rule_type="exemption",
                     name="Permanent Resident Exemption",
                     effective_start="2020-01-01",
@@ -228,14 +228,24 @@ class TestPromptBuilding:
         jurisdiction.path = "US.NY.NYC"
         jurisdiction.local_name = None
 
-        urls = ["https://www.nyc.gov/taxes", "https://tax.ny.gov"]
-        prompt = build_user_prompt(jurisdiction, [], [], urls)
+        # Signature is now (country, descendants, rates, rules, sources)
+        source = MagicMock()
+        source.url = "https://www.nyc.gov/taxes"
+        source.source_type = "tax_authority"
+        source.language = "en"
+        source.jurisdiction_id = jurisdiction.id
+        source2 = MagicMock()
+        source2.url = "https://tax.ny.gov"
+        source2.source_type = "government_website"
+        source2.language = "en"
+        source2.jurisdiction_id = jurisdiction.id
+        prompt = build_user_prompt(jurisdiction, [], [], [], [source, source2])
 
         assert "US-NY-NYC" in prompt
         assert "New York City" in prompt
         assert "https://www.nyc.gov/taxes" in prompt
         assert "https://tax.ny.gov" in prompt
-        assert "Priority Government Domains" in prompt
+        assert "Regulatory Sources" in prompt
 
     def test_build_user_prompt_without_urls(self):
         from unittest.mock import MagicMock
@@ -251,8 +261,8 @@ class TestPromptBuilding:
         jurisdiction.path = "XX"
         jurisdiction.local_name = None
 
-        prompt = build_user_prompt(jurisdiction, [], [], [])
-        assert "No specific domains configured" in prompt
+        prompt = build_user_prompt(jurisdiction, [], [], [], [])
+        assert "No operator-curated sources" in prompt
 
     def test_system_prompt_mentions_web_search(self):
         from app.services.prompts.tax_monitoring import SYSTEM_PROMPT
@@ -306,7 +316,7 @@ class TestRateValueConversion:
 
     def test_percentage_rate_converted(self):
         rate = AIExtractedRate(
-            change_type="new",
+            jurisdiction_code="US-NY-NYC", change_type="new",
             rate_type="percentage",
             rate_value=5.875,
             effective_start="2025-01-01",
@@ -317,7 +327,7 @@ class TestRateValueConversion:
 
     def test_flat_rate_not_converted(self):
         rate = AIExtractedRate(
-            change_type="new",
+            jurisdiction_code="US-NY-NYC", change_type="new",
             rate_type="flat",
             rate_value=2.50,
             currency_code="USD",
@@ -329,7 +339,7 @@ class TestRateValueConversion:
 
     def test_tiered_rate_value_none(self):
         rate = AIExtractedRate(
-            change_type="new",
+            jurisdiction_code="US-NY-NYC", change_type="new",
             rate_type="tiered",
             rate_value=None,
             tiers=[{"min": 0, "max": 100, "rate_value": 2.0}],
@@ -341,7 +351,7 @@ class TestRateValueConversion:
 
     def test_small_percentage_converted(self):
         rate = AIExtractedRate(
-            change_type="new",
+            jurisdiction_code="US-NY-NYC", change_type="new",
             rate_type="percentage",
             rate_value=0.375,
             effective_start="2025-01-01",
@@ -352,7 +362,7 @@ class TestRateValueConversion:
 
     def test_large_percentage_converted(self):
         rate = AIExtractedRate(
-            change_type="new",
+            jurisdiction_code="US-NY-NYC", change_type="new",
             rate_type="percentage",
             rate_value=21.0,
             effective_start="2025-01-01",

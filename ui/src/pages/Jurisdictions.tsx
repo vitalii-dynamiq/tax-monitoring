@@ -53,10 +53,11 @@ const TABS_BASE: { key: JurisdictionTab; label: string }[] = [
 
 const TABS_ADMIN: { key: JurisdictionTab; label: string }[] = [
   { key: "changes", label: "Changes" },
-  { key: "monitoring", label: "Monitoring" },
 ];
 
-const TABS_DISCOVERY: { key: JurisdictionTab; label: string }[] = [
+// Country-only tabs (monitoring + discovery are country-scoped).
+const TABS_COUNTRY_ADMIN: { key: JurisdictionTab; label: string }[] = [
+  { key: "monitoring", label: "Monitoring" },
   { key: "discovery", label: "Discovery" },
 ];
 
@@ -274,7 +275,7 @@ export default function Jurisdictions() {
             {[
               ...TABS_BASE,
               ...(isAdmin ? TABS_ADMIN : []),
-              ...(isAdmin && current?.jurisdiction_type === "country" ? TABS_DISCOVERY : []),
+              ...(isAdmin && current?.jurisdiction_type === "country" ? TABS_COUNTRY_ADMIN : []),
             ].map((t) => (
               <button
                 key={t.key}
@@ -316,7 +317,9 @@ export default function Jurisdictions() {
           {activeTab === "rates" && <RatesTab jurisdictionCode={currentCode} />}
           {activeTab === "rules" && <RulesTab jurisdictionCode={currentCode} />}
           {activeTab === "changes" && <ChangesTab jurisdictionCode={currentCode} />}
-          {activeTab === "monitoring" && <MonitoringTab jurisdictionCode={currentCode} />}
+          {activeTab === "monitoring" && current?.jurisdiction_type === "country" && (
+            <MonitoringTab jurisdictionCode={currentCode} />
+          )}
           {activeTab === "discovery" && current?.jurisdiction_type === "country" && (
             <DiscoveryTab jurisdictionCode={currentCode} countryName={current.name} />
           )}

@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
+from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.auth import get_current_user, require_admin
@@ -17,7 +18,13 @@ from app.services.jurisdiction_service import (
     get_jurisdiction_by_code,
     get_jurisdiction_children,
     resolve_jurisdiction,
+    update_jurisdiction_status,
 )
+
+
+class JurisdictionReviewRequest(BaseModel):
+    reviewed_by: str = "admin"
+    review_notes: str | None = None
 
 router = APIRouter(prefix="/v1/jurisdictions", tags=["Jurisdictions"])
 
@@ -146,6 +153,40 @@ async def create_jurisdictions_bulk_endpoint(
         raise HTTPException(404, f"Parent jurisdiction not found: {data.parent_code}")
     results = await create_jurisdictions_bulk(db, data.parent_code, data.children)
     return [_jurisdiction_to_response(j) for j in results]
+
+
+@router.post("/{code}/approve", response_model=JurisdictionResponse)
+async def approve_jurisdiction(
+    code: str,
+    data: JurisdictionReviewRequest | None = None,
+    _admin=Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    """Approve a pending jurisdiction (status='pending' → 'active')."""
+    payload = data or JurisdictionReviewRequest()
+    j = await update_jurisdiction_status(
+        db, code, "active", payload.reviewed_by, payload.review_notes
+    )
+    if not j:
+        raise HTTPException(404, f"Jurisdiction not found: {code}")
+    return _jurisdiction_to_response(j)
+
+
+@router.post("/{code}/reject", response_model=JurisdictionResponse)
+async def reject_jurisdiction(
+    code: str,
+    data: JurisdictionReviewRequest | None = None,
+    _admin=Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    """Reject a pending jurisdiction (status='pending' → 'rejected')."""
+    payload = data or JurisdictionReviewRequest()
+    j = await update_jurisdiction_status(
+        db, code, "rejected", payload.reviewed_by, payload.review_notes
+    )
+    if not j:
+        raise HTTPException(404, f"Jurisdiction not found: {code}")
+    return _jurisdiction_to_response(j)
 
 
 @router.put("/{code}", response_model=JurisdictionResponse)

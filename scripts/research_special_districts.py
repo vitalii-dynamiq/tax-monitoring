@@ -28,21 +28,21 @@ import sys
 import time
 import traceback
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 # Raise search and turn budgets for this batch
 os.environ.setdefault("ANTHROPIC_MAX_SEARCH_USES", "25")
 os.environ.setdefault("ANTHROPIC_MAX_AGENT_TURNS", "30")
 
-import anthropic  # noqa: E402
-from sqlalchemy import select  # noqa: E402
-from sqlalchemy.orm import selectinload  # noqa: E402
+import anthropic
+from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 
-from app.config import settings  # noqa: E402
-from app.db.session import async_session_factory  # noqa: E402
-from app.models.jurisdiction import Jurisdiction  # noqa: E402
-from app.services.prompts.special_districts import (  # noqa: E402
+from app.config import settings
+from app.db.session import async_session_factory
+from app.models.jurisdiction import Jurisdiction
+from app.services.prompts.special_districts import (
     SYSTEM_PROMPT,
     AIDistrictDiscoveryResult,
     build_user_prompt,
@@ -251,7 +251,7 @@ async def run_agent(
 def _write_index(out_dir: Path, entries: list[dict], run_started_at: str) -> None:
     index = {
         "run_started_at": run_started_at,
-        "run_completed_at": datetime.now(timezone.utc).isoformat(),
+        "run_completed_at": datetime.now(UTC).isoformat(),
         "model": settings.anthropic_model,
         "max_search_uses": settings.anthropic_max_search_uses,
         "max_agent_turns": settings.anthropic_max_agent_turns,
@@ -270,7 +270,7 @@ async def research_one(
         "code": target.code,
         "name_hint": target.name_hint,
         "status": "pending",
-        "started_at": datetime.now(timezone.utc).isoformat(),
+        "started_at": datetime.now(UTC).isoformat(),
     }
     started = time.monotonic()
     parent = await _load_parent(db, target.code)
@@ -280,7 +280,7 @@ async def research_one(
 
     try:
         result = await run_agent(client, parent, target)
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         elapsed = time.monotonic() - started
         logger.error("[%s] FAILED after %.1fs: %s\n%s", target.code, elapsed, e, traceback.format_exc())
         entry.update(status="failed", error=f"{type(e).__name__}: {e}", elapsed_seconds=round(elapsed, 1))
@@ -297,7 +297,7 @@ async def research_one(
         "parent_db_name": parent.name if parent else None,
         "parent_db_path": parent.path if parent else None,
         "scope_note": target.scope_note,
-        "researched_at": datetime.now(timezone.utc).isoformat(),
+        "researched_at": datetime.now(UTC).isoformat(),
         "elapsed_seconds": round(elapsed, 1),
         "model": settings.anthropic_model,
     }
@@ -324,7 +324,7 @@ async def run_research(targets: list[ParentTarget], out_dir: Path, skip_existing
         return 2
 
     out_dir.mkdir(parents=True, exist_ok=True)
-    run_started_at = datetime.now(timezone.utc).isoformat()
+    run_started_at = datetime.now(UTC).isoformat()
     client = anthropic.AsyncAnthropic(api_key=settings.anthropic_api_key)
     entries: list[dict] = []
 

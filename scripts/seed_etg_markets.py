@@ -23,7 +23,6 @@ from app.models.tax_category import TaxCategory
 from app.models.tax_rate import TaxRate
 from app.models.tax_rule import TaxRule
 
-
 # ──────────────────────────────────────────────────────────────────────
 # Helpers
 # ──────────────────────────────────────────────────────────────────────
@@ -711,12 +710,12 @@ async def main():
 
     # Summary
     countries = [code for code, jur in j.items() if hasattr(jur, 'jurisdiction_type') and jur.jurisdiction_type == "country"]
-    print(f"\n✅ ETG market coverage complete!")
+    print("\n✅ ETG market coverage complete!")
     print(f"   {len(NEW_JURISDICTIONS)} new jurisdictions across 16 new countries + existing expansions")
-    print(f"   50+ tax rates with legal references")
-    print(f"   Foreign tourist exemptions for Colombia, Peru, Chile")
-    print(f"   Scheduled rates: Thailand entry fee (Feb 2026), Bucharest tourist tax (Jan 2026)")
-    print(f"   Maldives T-GST update 16% → 17% (July 2025) + Green Tax $12")
+    print("   50+ tax rates with legal references")
+    print("   Foreign tourist exemptions for Colombia, Peru, Chile")
+    print("   Scheduled rates: Thailand entry fee (Feb 2026), Bucharest tourist tax (Jan 2026)")
+    print("   Maldives T-GST update 16% → 17% (July 2025) + Green Tax $12")
 
 
 if __name__ == "__main__":

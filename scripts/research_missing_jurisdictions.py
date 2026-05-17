@@ -36,7 +36,7 @@ import os
 import sys
 import time
 import traceback
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 # Raise search and turn limits for this research batch. Set BEFORE importing app.config
@@ -44,14 +44,13 @@ from pathlib import Path
 os.environ.setdefault("ANTHROPIC_MAX_SEARCH_USES", "20")
 os.environ.setdefault("ANTHROPIC_MAX_AGENT_TURNS", "30")
 
-from sqlalchemy import select  # noqa: E402
-from sqlalchemy.orm import selectinload  # noqa: E402
+from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 
-from app.config import settings  # noqa: E402
-from app.db.session import async_session_factory  # noqa: E402
-from app.models.jurisdiction import Jurisdiction  # noqa: E402
-from app.services.ai_agent_service import TaxMonitoringAgent  # noqa: E402
-
+from app.config import settings
+from app.db.session import async_session_factory
+from app.models.jurisdiction import Jurisdiction
+from app.services.ai_agent_service import TaxMonitoringAgent
 
 # 47 jurisdictions audited as missing active tax rates on 2026-04-21.
 # Per plan scope, only the 37 city-level ones are in scope. The 10 state/prefecture
@@ -137,7 +136,7 @@ def _write_index(out_dir: Path, entries: list[dict], run_started_at: str) -> Non
     index_path = out_dir / "_index.json"
     index = {
         "run_started_at": run_started_at,
-        "run_completed_at": datetime.now(timezone.utc).isoformat(),
+        "run_completed_at": datetime.now(UTC).isoformat(),
         "model": settings.anthropic_model,
         "max_search_uses": settings.anthropic_max_search_uses,
         "max_agent_turns": settings.anthropic_max_agent_turns,
@@ -154,7 +153,7 @@ async def research_one(
     out_dir: Path,
 ) -> dict:
     """Run the agent against one jurisdiction, write its JSON, return index entry."""
-    entry = {"code": code, "status": "pending", "started_at": datetime.now(timezone.utc).isoformat()}
+    entry = {"code": code, "status": "pending", "started_at": datetime.now(UTC).isoformat()}
     started = time.monotonic()
 
     jurisdiction = await _load_jurisdiction(db, code)
@@ -177,7 +176,7 @@ async def research_one(
             current_rules=[],
             monitored_urls=monitored_urls,
         )
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         elapsed = time.monotonic() - started
         logger.error(
             "[%s] research FAILED after %.1fs: %s\n%s",
@@ -201,7 +200,7 @@ async def research_one(
         "country_code": jurisdiction.country_code,
         "currency_code": jurisdiction.currency_code,
         "monitored_urls": monitored_urls,
-        "researched_at": datetime.now(timezone.utc).isoformat(),
+        "researched_at": datetime.now(UTC).isoformat(),
         "elapsed_seconds": round(elapsed, 1),
         "model": settings.anthropic_model,
     }
@@ -231,7 +230,7 @@ async def run_research(codes: list[str], out_dir: Path, skip_existing: bool) -> 
         return 2
 
     out_dir.mkdir(parents=True, exist_ok=True)
-    run_started_at = datetime.now(timezone.utc).isoformat()
+    run_started_at = datetime.now(UTC).isoformat()
     agent = TaxMonitoringAgent()
     entries: list[dict] = []
 

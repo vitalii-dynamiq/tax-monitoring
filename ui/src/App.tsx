@@ -8,6 +8,8 @@ import AuditLog from "./pages/AuditLog";
 import ApiDocs from "./pages/ApiDocs";
 import ApiKeysPage from "./pages/ApiKeysPage";
 import PendingApprovals from "./pages/PendingApprovals";
+import AgentSchedules from "./pages/AgentSchedules";
+import AgentRunDetail from "./pages/AgentRunDetail";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import { useAuth } from "./hooks/useAuth";
@@ -44,6 +46,8 @@ export default function App() {
             <Route path="jurisdictions" element={<Jurisdictions />} />
             <Route path="calculator" element={<Calculator />} />
             <Route path="approvals" element={<PendingApprovals />} />
+            <Route path="agent-monitoring" element={<AgentSchedules />} />
+            <Route path="agent-monitoring/runs/:jobId" element={<AgentRunDetail />} />
             <Route path="audit" element={<AuditLog />} />
             <Route path="api-keys" element={<ApiKeysPage />} />
             <Route path="docs" element={<ApiDocs />} />

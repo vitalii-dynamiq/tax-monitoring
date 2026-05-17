@@ -10,6 +10,7 @@ import {
   RiKey2Line,
   RiSideBarLine,
   RiCheckboxCircleLine,
+  RiPulseLine,
 } from "react-icons/ri";
 import { cn } from "../lib/utils";
 import { useEffect, useState } from "react";
@@ -30,6 +31,7 @@ const NAV: NavEntry[] = [
   { to: "/app/jurisdictions", icon: RiMapPinLine, label: "Jurisdictions", badgeKey: "pending" },
   { to: "/app/calculator", icon: RiCalculatorLine, label: "Calculator" },
   { to: "/app/approvals", icon: RiCheckboxCircleLine, label: "Approvals", badgeKey: "approvals", adminOnly: true },
+  { to: "/app/agent-monitoring", icon: RiPulseLine, label: "Agent Monitoring", adminOnly: true },
 ];
 
 const DEV_NAV = [

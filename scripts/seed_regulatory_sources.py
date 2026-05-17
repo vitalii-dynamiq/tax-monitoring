@@ -8,6 +8,7 @@ Usage: python -m scripts.seed_regulatory_sources
 import argparse
 import asyncio
 import time
+
 import httpx
 
 # (jurisdiction_code, url, source_type, language)

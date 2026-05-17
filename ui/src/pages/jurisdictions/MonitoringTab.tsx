@@ -1,4 +1,6 @@
 import { useState, useCallback } from "react";
+import { Link } from "react-router-dom";
+import { ExternalLink } from "lucide-react";
 import StatCard from "../../components/StatCard";
 import { api, type MonitoringJob } from "../../lib/api";
 import { useApi } from "../../hooks/useApi";
@@ -57,6 +59,19 @@ export default function MonitoringTab({
 
   return (
     <div className="space-y-5">
+      <div className="flex items-center justify-between flex-wrap gap-3 text-sm text-muted">
+        <span>
+          Monitoring is country-scoped — this page shows runs and the schedule
+          for <span className="font-mono text-text">{jurisdictionCode}</span>.
+        </span>
+        <Link
+          to="/app/agent-monitoring?tab=monitoring"
+          className="inline-flex items-center gap-1 text-accent hover:underline"
+        >
+          Manage all schedules <ExternalLink className="w-3.5 h-3.5" />
+        </Link>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
         <StatCard
           label="Total Jobs"

@@ -90,6 +90,7 @@ async def _create_draft_rate(
         supersedes_id=supersedes_id,
         status="draft",
         created_by="ai_monitoring",
+        monitoring_job_id=job_id,
     )
     db.add(rate)
     await db.flush()
@@ -148,6 +149,7 @@ async def _create_draft_rule(
         supersedes_id=supersedes_id,
         status="draft",
         created_by="ai_monitoring",
+        monitoring_job_id=job_id,
     )
     db.add(rule)
     await db.flush()
@@ -211,17 +213,49 @@ async def process_ai_results(
     job_id: int,
     current_rates: list[TaxRate],
     current_rules: list[TaxRule],
+    *,
+    jurisdictions_by_code: dict[str, Jurisdiction] | None = None,
 ) -> dict:
     """Compare AI findings with current data and create drafts for changes.
 
-    Handles new, changed, and removed rates/rules.
-    Unchanged items are skipped (no action needed).
-    Returns a summary dict with counts.
+    `jurisdiction` is the country (or fallback target if no per-item code).
+    `jurisdictions_by_code` lets per-item `jurisdiction_code` route a rate/rule
+    onto the right sub-jurisdiction. If not supplied, all findings land on
+    `jurisdiction` (legacy single-jurisdiction behaviour).
+
+    Each draft's jurisdiction is resolved via the per-item code → row lookup;
+    unknown codes are logged and skipped (recorded in `unknown_codes` of the
+    returned summary so the operator can fix prompt drift).
     """
+    if jurisdictions_by_code is None:
+        jurisdictions_by_code = {jurisdiction.code: jurisdiction}
+
+    # Index current rates/rules by jurisdiction so per-target matching works.
+    rates_by_jur: dict[int, list[TaxRate]] = {}
+    for r in current_rates:
+        rates_by_jur.setdefault(r.jurisdiction_id, []).append(r)
+    rules_by_jur: dict[int, list[TaxRule]] = {}
+    for r in current_rules:
+        rules_by_jur.setdefault(r.jurisdiction_id, []).append(r)
+
     rates_created = 0
     rules_created = 0
     changes_created = 0
     removals_flagged = 0
+    unknown_codes: list[str] = []
+
+    def _resolve(code: str | None) -> Jurisdiction | None:
+        if not code:
+            return jurisdiction
+        target = jurisdictions_by_code.get(code)
+        if target is None:
+            unknown_codes.append(code)
+            logger.warning(
+                "[Job %d] Unknown jurisdiction_code %r — skipping finding. "
+                "Known codes: %s",
+                job_id, code, sorted(jurisdictions_by_code)[:10],
+            )
+        return target
 
     # ─── Process rates ───────────────────────────────────────────
     logger.info(
@@ -236,27 +270,28 @@ async def process_ai_results(
             extracted_rate.tax_category_code, extracted_rate.rate_value,
             extracted_rate.confidence,
         )
+        target = _resolve(getattr(extracted_rate, "jurisdiction_code", None))
+        if target is None:
+            continue
+        target_rates = rates_by_jur.get(target.id, [])
         if extracted_rate.change_type in ("new", "changed"):
             # Skip rates without concrete values — these are non-actionable
             if extracted_rate.rate_type in ("percentage", "flat") and extracted_rate.rate_value is None:
                 logger.warning(
                     "Skipping %s %s rate for %s: no rate_value provided",
-                    extracted_rate.change_type,
-                    extracted_rate.rate_type,
-                    jurisdiction.code,
+                    extracted_rate.change_type, extracted_rate.rate_type, target.code,
                 )
                 continue
             if extracted_rate.rate_type == "tiered" and not extracted_rate.tiers:
                 logger.warning(
                     "Skipping %s tiered rate for %s: no tiers provided",
-                    extracted_rate.change_type,
-                    jurisdiction.code,
+                    extracted_rate.change_type, target.code,
                 )
                 continue
 
-            current_rate = _find_matching_rate(extracted_rate, current_rates)
+            current_rate = _find_matching_rate(extracted_rate, target_rates)
             draft_rate = await _create_draft_rate(
-                db, jurisdiction, extracted_rate, current_rate, job_id
+                db, target, extracted_rate, current_rate, job_id
             )
             if draft_rate:
                 rates_created += 1
@@ -264,13 +299,14 @@ async def process_ai_results(
                     "rate_change" if extracted_rate.change_type == "changed" else "new_tax"
                 )
                 change = DetectedChange(
-                    jurisdiction_id=jurisdiction.id,
+                    jurisdiction_id=target.id,
                     change_type=change_type,
                     extracted_data=extracted_rate.model_dump(),
                     confidence=extracted_rate.confidence,
                     source_quote=extracted_rate.source_quote,
                     source_snapshot_url=extracted_rate.source_url,
                     applied_rate_id=draft_rate.id,
+                    monitoring_job_id=job_id,
                 )
                 db.add(change)
                 await db.flush()
@@ -279,15 +315,16 @@ async def process_ai_results(
         elif extracted_rate.change_type == "removed":
             # Flag removal for human review — don't create a new rate,
             # just record the detected change pointing to the current rate
-            current_rate = _find_matching_rate(extracted_rate, current_rates)
+            current_rate = _find_matching_rate(extracted_rate, target_rates)
             change = DetectedChange(
-                jurisdiction_id=jurisdiction.id,
+                jurisdiction_id=target.id,
                 change_type="repeal",
                 extracted_data=extracted_rate.model_dump(),
                 confidence=extracted_rate.confidence,
                 source_quote=extracted_rate.source_quote,
                 source_snapshot_url=extracted_rate.source_url,
                 applied_rate_id=current_rate.id if current_rate else None,
+                monitoring_job_id=job_id,
             )
             db.add(change)
             await db.flush()
@@ -296,38 +333,44 @@ async def process_ai_results(
 
     # ─── Process rules ───────────────────────────────────────────
     for extracted_rule in ai_result.rules:
+        target = _resolve(getattr(extracted_rule, "jurisdiction_code", None))
+        if target is None:
+            continue
+        target_rules = rules_by_jur.get(target.id, [])
         if extracted_rule.change_type in ("new", "changed"):
-            current_rule = _find_matching_rule(extracted_rule, current_rules)
+            current_rule = _find_matching_rule(extracted_rule, target_rules)
             draft_rule = await _create_draft_rule(
-                db, jurisdiction, extracted_rule, current_rule, job_id
+                db, target, extracted_rule, current_rule, job_id
             )
             rules_created += 1
             change_type = (
                 "exemption_change" if extracted_rule.change_type == "changed" else "new_tax"
             )
             change = DetectedChange(
-                jurisdiction_id=jurisdiction.id,
+                jurisdiction_id=target.id,
                 change_type=change_type,
                 extracted_data=extracted_rule.model_dump(),
                 confidence=extracted_rule.confidence,
                 source_quote=extracted_rule.source_quote,
                 source_snapshot_url=extracted_rule.source_url,
                 applied_rule_id=draft_rule.id,
+                monitoring_job_id=job_id,
             )
             db.add(change)
             await db.flush()
             changes_created += 1
 
         elif extracted_rule.change_type == "removed":
-            current_rule = _find_matching_rule(extracted_rule, current_rules)
+            current_rule = _find_matching_rule(extracted_rule, target_rules)
             change = DetectedChange(
-                jurisdiction_id=jurisdiction.id,
+                jurisdiction_id=target.id,
                 change_type="repeal",
                 extracted_data=extracted_rule.model_dump(),
                 confidence=extracted_rule.confidence,
                 source_quote=extracted_rule.source_quote,
                 source_snapshot_url=extracted_rule.source_url,
                 applied_rule_id=current_rule.id if current_rule else None,
+                monitoring_job_id=job_id,
             )
             db.add(change)
             await db.flush()
@@ -355,6 +398,8 @@ async def process_ai_results(
         "overall_confidence": ai_result.overall_confidence,
         "summary": ai_result.summary,
     }
+    if unknown_codes:
+        summary["unknown_jurisdiction_codes"] = sorted(set(unknown_codes))
 
     logger.info(
         "Change detection for %s: %d changes (%d rates, %d rules, %d removals)",

@@ -15,7 +15,7 @@ Usage:
 """
 
 import asyncio
-from datetime import date, datetime, timezone
+from datetime import date, datetime
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -28,7 +28,6 @@ from app.models.monitored_source import MonitoredSource
 from app.models.tax_category import TaxCategory
 from app.models.tax_rate import TaxRate
 from app.models.tax_rule import TaxRule
-
 
 # ──────────────────────────────────────────────────────────────────────
 # Helpers (same patterns as seed_data.py)

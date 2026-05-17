@@ -47,8 +47,6 @@ async def _run_discovery_job_inner(job_id: int) -> None:
     Discovers all sub-jurisdictions with accommodation taxes for a given country.
     Creates new jurisdictions with status='pending' for human review.
     """
-    from app.services.discovery_agent_service import JurisdictionDiscoveryAgent
-
     async with async_session_factory() as db:
         try:
             job = await get_job(db, job_id)
@@ -81,9 +79,26 @@ async def _run_discovery_job_inner(job_id: int) -> None:
             existing_codes = {j.code for j in existing_children}
             existing_names = {j.name.lower() for j in existing_children}
 
-            # Call discovery agent
-            agent = JurisdictionDiscoveryAgent()
-            result = await agent.discover_jurisdictions(country, existing_children)
+            # Call discovery agent — with telemetry recorder
+            from app.services.agent_run_recorder import AgentRunRecorder
+            from app.services.agents import get_agent
+            from app.services.prompts.discovery import (
+                DISCOVERY_SYSTEM_PROMPT,
+                build_discovery_user_prompt,
+            )
+
+            initial_user_prompt = build_discovery_user_prompt(country, existing_children)
+            recorder = AgentRunRecorder(
+                model=settings.anthropic_model,
+                system_prompt=DISCOVERY_SYSTEM_PROMPT,
+                initial_user_prompt=initial_user_prompt,
+            )
+            agent = get_agent("discovery")
+            result = await agent.run(
+                user_prompt=initial_user_prompt,
+                recorder=recorder,
+                log_label=country.code,
+            )
 
             # Process discovered jurisdictions
             created_count = 0
@@ -130,6 +145,7 @@ async def _run_discovery_job_inner(job_id: int) -> None:
                     currency_code=discovered.currency_code,
                     status="pending",
                     created_by="ai_discovery",
+                    monitoring_job_id=job_id,
                     metadata_={
                         "tax_summary": discovered.tax_summary,
                         "discovery_confidence": discovered.confidence,
@@ -212,6 +228,7 @@ async def _run_discovery_job_inner(job_id: int) -> None:
                             created_by="ai_discovery",
                             source_url=discovered.source_url,
                             authority_name=rate_data.get("description", ""),
+                            monitoring_job_id=job_id,
                         )
                         db.add(tax_rate)
                         rates_created_for_j += 1
@@ -240,6 +257,12 @@ async def _run_discovery_job_inner(job_id: int) -> None:
                 "overall_confidence": result.overall_confidence,
                 "summary": result.summary,
             }
+
+            try:
+                await recorder.flush(db, job.id)
+            except Exception:
+                logger.exception("Discovery job %d: recorder flush failed", job_id)
+
             await db.commit()
 
             logger.info(
@@ -257,6 +280,15 @@ async def _run_discovery_job_inner(job_id: int) -> None:
                         err_job.completed_at = datetime.now(UTC)
                         err_job.error_message = str(e)[:2000]
                         err_job.error_traceback = traceback.format_exc()[:5000]
+                        recorder_local = locals().get("recorder")
+                        if recorder_local is not None and recorder_local.turns:
+                            try:
+                                await recorder_local.flush(err_db, job_id)
+                            except Exception:
+                                logger.exception(
+                                    "Discovery job %d recorder flush failed on error path",
+                                    job_id,
+                                )
                         await err_db.commit()
             except Exception:
                 logger.error("Failed to update discovery job %d after error", job_id, exc_info=True)

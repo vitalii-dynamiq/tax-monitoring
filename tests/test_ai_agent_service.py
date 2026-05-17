@@ -1,8 +1,8 @@
-"""
-Unit tests for the AI agent service using mocked Anthropic client.
+"""Unit tests for TaxMonitoringAgent with a mocked Anthropic client.
 
-These tests do NOT call the real API — they mock the Anthropic client
-to verify the agentic loop logic, retry behavior, and error handling.
+After the agent restructure, the real implementation lives in
+app/services/agents/{base.py, tax_monitoring.py}. Settings are imported
+into base.py, so that's where we patch them.
 """
 
 from unittest.mock import AsyncMock, MagicMock, patch
@@ -11,18 +11,6 @@ import anthropic
 import pytest
 
 from app.services.prompts.output_schema import AIMonitoringResult
-
-
-def _make_jurisdiction():
-    j = MagicMock()
-    j.code = "US-NY-NYC"
-    j.name = "New York City"
-    j.jurisdiction_type = "city"
-    j.country_code = "US"
-    j.currency_code = "USD"
-    j.path = "US.NY.NYC"
-    j.local_name = None
-    return j
 
 
 def _make_tool_use_block(name, input_data, block_id="tool_1"):
@@ -63,6 +51,7 @@ def _valid_report_input():
                 "effective_start": "2024-01-01",
                 "source_quote": "The tax rate is 5.875%.",
                 "confidence": 0.95,
+                "jurisdiction_code": "US-NY-NYC",
             }
         ],
         "rules": [],
@@ -71,37 +60,39 @@ def _valid_report_input():
     }
 
 
+def _patch_settings(mock_settings):
+    """Common settings stub for all tests."""
+    mock_settings.anthropic_api_key = "sk-test"
+    mock_settings.anthropic_model = "claude-sonnet-4-6"
+    mock_settings.anthropic_max_tokens = 4096
+    mock_settings.anthropic_timeout_seconds = 60
+    mock_settings.anthropic_max_search_uses = 10
+    mock_settings.anthropic_max_agent_turns = 20
+
+
 class TestTaxMonitoringAgentInit:
     def test_raises_without_api_key(self):
-        with patch("app.services.ai_agent_service.settings") as mock_settings:
+        with patch("app.services.agents.base.settings") as mock_settings:
             mock_settings.anthropic_api_key = ""
-            from app.services.ai_agent_service import TaxMonitoringAgent
+            from app.services.agents.tax_monitoring import TaxMonitoringAgent
             with pytest.raises(RuntimeError, match="ANTHROPIC_API_KEY"):
                 TaxMonitoringAgent()
 
 
-class TestResearchJurisdiction:
+class TestAgentRun:
     @pytest.mark.asyncio
     async def test_report_on_first_turn(self):
         """Agent calls report_tax_findings immediately -> returns result."""
         report_block = _make_tool_use_block("report_tax_findings", _valid_report_input())
         response = _make_response([report_block], stop_reason="tool_use")
 
-        with patch("app.services.ai_agent_service.settings") as mock_settings:
-            mock_settings.anthropic_api_key = "sk-test"
-            mock_settings.anthropic_model = "claude-sonnet-4-6"
-            mock_settings.anthropic_max_tokens = 4096
-            mock_settings.anthropic_timeout_seconds = 60
-            mock_settings.anthropic_max_search_uses = 10
-            mock_settings.anthropic_max_agent_turns = 20
-
-            from app.services.ai_agent_service import TaxMonitoringAgent
+        with patch("app.services.agents.base.settings") as mock_settings:
+            _patch_settings(mock_settings)
+            from app.services.agents.tax_monitoring import TaxMonitoringAgent
             agent = TaxMonitoringAgent()
             agent._call_api = AsyncMock(return_value=response)
 
-            result = await agent.research_jurisdiction(
-                _make_jurisdiction(), [], [], []
-            )
+            result = await agent.run(user_prompt="research NYC tax")
 
             assert isinstance(result, AIMonitoringResult)
             assert result.jurisdiction_code == "US-NY-NYC"
@@ -117,21 +108,13 @@ class TestResearchJurisdiction:
         report_block = _make_tool_use_block("report_tax_findings", _valid_report_input())
         report_resp = _make_response([report_block], stop_reason="tool_use")
 
-        with patch("app.services.ai_agent_service.settings") as mock_settings:
-            mock_settings.anthropic_api_key = "sk-test"
-            mock_settings.anthropic_model = "claude-sonnet-4-6"
-            mock_settings.anthropic_max_tokens = 4096
-            mock_settings.anthropic_timeout_seconds = 60
-            mock_settings.anthropic_max_search_uses = 10
-            mock_settings.anthropic_max_agent_turns = 20
-
-            from app.services.ai_agent_service import TaxMonitoringAgent
+        with patch("app.services.agents.base.settings") as mock_settings:
+            _patch_settings(mock_settings)
+            from app.services.agents.tax_monitoring import TaxMonitoringAgent
             agent = TaxMonitoringAgent()
             agent._call_api = AsyncMock(side_effect=[search_resp, report_resp])
 
-            result = await agent.research_jurisdiction(
-                _make_jurisdiction(), [], [], []
-            )
+            result = await agent.run(user_prompt="research NYC tax")
 
             assert isinstance(result, AIMonitoringResult)
             assert agent._call_api.call_count == 2
@@ -145,23 +128,14 @@ class TestResearchJurisdiction:
         report_block = _make_tool_use_block("report_tax_findings", _valid_report_input())
         report_resp = _make_response([report_block], stop_reason="tool_use")
 
-        with patch("app.services.ai_agent_service.settings") as mock_settings:
-            mock_settings.anthropic_api_key = "sk-test"
-            mock_settings.anthropic_model = "claude-sonnet-4-6"
-            mock_settings.anthropic_max_tokens = 4096
-            mock_settings.anthropic_timeout_seconds = 60
-            mock_settings.anthropic_max_search_uses = 10
-            mock_settings.anthropic_max_agent_turns = 20
-
-            from app.services.ai_agent_service import TaxMonitoringAgent
+        with patch("app.services.agents.base.settings") as mock_settings:
+            _patch_settings(mock_settings)
+            from app.services.agents.tax_monitoring import TaxMonitoringAgent
             agent = TaxMonitoringAgent()
             agent._call_api = AsyncMock(side_effect=[end_resp, report_resp])
 
-            result = await agent.research_jurisdiction(
-                _make_jurisdiction(), [], [], []
-            )
+            result = await agent.run(user_prompt="research NYC tax")
             assert isinstance(result, AIMonitoringResult)
-            # Second call should include the nudge message
             assert agent._call_api.call_count == 2
 
     @pytest.mark.asyncio
@@ -170,22 +144,16 @@ class TestResearchJurisdiction:
         text_block = _make_text_block("Still searching...")
         end_resp = _make_response([text_block], stop_reason="end_turn")
 
-        with patch("app.services.ai_agent_service.settings") as mock_settings:
-            mock_settings.anthropic_api_key = "sk-test"
-            mock_settings.anthropic_model = "claude-sonnet-4-6"
-            mock_settings.anthropic_max_tokens = 4096
-            mock_settings.anthropic_timeout_seconds = 60
-            mock_settings.anthropic_max_search_uses = 10
+        with patch("app.services.agents.base.settings") as mock_settings:
+            _patch_settings(mock_settings)
             mock_settings.anthropic_max_agent_turns = 3
 
-            from app.services.ai_agent_service import TaxMonitoringAgent
+            from app.services.agents.tax_monitoring import TaxMonitoringAgent
             agent = TaxMonitoringAgent()
             agent._call_api = AsyncMock(return_value=end_resp)
 
             with pytest.raises(RuntimeError, match="exhausted"):
-                await agent.research_jurisdiction(
-                    _make_jurisdiction(), [], [], []
-                )
+                await agent.run(user_prompt="research NYC tax")
             assert agent._call_api.call_count == 3
 
     @pytest.mark.asyncio
@@ -194,37 +162,24 @@ class TestResearchJurisdiction:
         bad_block = _make_tool_use_block("report_tax_findings", {"bad": "data"})
         response = _make_response([bad_block], stop_reason="tool_use")
 
-        with patch("app.services.ai_agent_service.settings") as mock_settings:
-            mock_settings.anthropic_api_key = "sk-test"
-            mock_settings.anthropic_model = "claude-sonnet-4-6"
-            mock_settings.anthropic_max_tokens = 4096
-            mock_settings.anthropic_timeout_seconds = 60
-            mock_settings.anthropic_max_search_uses = 10
-            mock_settings.anthropic_max_agent_turns = 20
-
-            from app.services.ai_agent_service import TaxMonitoringAgent
+        with patch("app.services.agents.base.settings") as mock_settings:
+            _patch_settings(mock_settings)
+            from app.services.agents.tax_monitoring import TaxMonitoringAgent
             agent = TaxMonitoringAgent()
             agent._call_api = AsyncMock(return_value=response)
 
             with pytest.raises(ValueError, match="invalid structured output"):
-                await agent.research_jurisdiction(
-                    _make_jurisdiction(), [], [], []
-                )
+                await agent.run(user_prompt="research NYC tax")
 
 
 class TestCallApiRetry:
     @pytest.mark.asyncio
     async def test_retries_on_rate_limit(self):
-        """Rate limit errors are retried with backoff."""
         mock_response = _make_response([], stop_reason="end_turn")
 
-        with patch("app.services.ai_agent_service.settings") as mock_settings:
-            mock_settings.anthropic_api_key = "sk-test"
-            mock_settings.anthropic_model = "claude-sonnet-4-6"
-            mock_settings.anthropic_max_tokens = 4096
-            mock_settings.anthropic_timeout_seconds = 60
-
-            from app.services.ai_agent_service import TaxMonitoringAgent
+        with patch("app.services.agents.base.settings") as mock_settings:
+            _patch_settings(mock_settings)
+            from app.services.agents.tax_monitoring import TaxMonitoringAgent
             agent = TaxMonitoringAgent()
 
             mock_create = AsyncMock(side_effect=[
@@ -247,14 +202,9 @@ class TestCallApiRetry:
 
     @pytest.mark.asyncio
     async def test_raises_on_4xx_immediately(self):
-        """4xx errors (non-rate-limit) are NOT retried."""
-        with patch("app.services.ai_agent_service.settings") as mock_settings:
-            mock_settings.anthropic_api_key = "sk-test"
-            mock_settings.anthropic_model = "claude-sonnet-4-6"
-            mock_settings.anthropic_max_tokens = 4096
-            mock_settings.anthropic_timeout_seconds = 60
-
-            from app.services.ai_agent_service import TaxMonitoringAgent
+        with patch("app.services.agents.base.settings") as mock_settings:
+            _patch_settings(mock_settings)
+            from app.services.agents.tax_monitoring import TaxMonitoringAgent
             agent = TaxMonitoringAgent()
 
             agent.client.messages.create = AsyncMock(side_effect=anthropic.APIStatusError(
@@ -268,19 +218,13 @@ class TestCallApiRetry:
                     [{"role": "user", "content": "test"}], []
                 )
 
-            # Should NOT retry
             assert agent.client.messages.create.call_count == 1
 
     @pytest.mark.asyncio
     async def test_exhausted_retries_raises(self):
-        """After MAX_RETRIES, raises RuntimeError."""
-        with patch("app.services.ai_agent_service.settings") as mock_settings:
-            mock_settings.anthropic_api_key = "sk-test"
-            mock_settings.anthropic_model = "claude-sonnet-4-6"
-            mock_settings.anthropic_max_tokens = 4096
-            mock_settings.anthropic_timeout_seconds = 60
-
-            from app.services.ai_agent_service import TaxMonitoringAgent
+        with patch("app.services.agents.base.settings") as mock_settings:
+            _patch_settings(mock_settings)
+            from app.services.agents.tax_monitoring import TaxMonitoringAgent
             agent = TaxMonitoringAgent()
 
             agent.client.messages.create = AsyncMock(
@@ -294,3 +238,21 @@ class TestCallApiRetry:
                     )
 
             assert agent.client.messages.create.call_count == 3  # MAX_RETRIES
+
+
+class TestAgentRegistry:
+    def test_tax_monitoring_in_registry(self):
+        from app.services.agents import AGENTS, get_agent
+
+        assert "tax_monitoring" in AGENTS
+        assert "discovery" in AGENTS
+
+        with patch("app.services.agents.base.settings") as mock_settings:
+            _patch_settings(mock_settings)
+            agent = get_agent("tax_monitoring")
+            assert agent.name == "tax_monitoring"
+
+    def test_unknown_agent_raises(self):
+        from app.services.agents import get_agent
+        with pytest.raises(KeyError, match="Unknown agent"):
+            get_agent("nope")

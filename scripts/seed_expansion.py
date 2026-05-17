@@ -23,7 +23,6 @@ from app.models.tax_category import TaxCategory
 from app.models.tax_rate import TaxRate
 from app.models.tax_rule import TaxRule
 
-
 # ──────────────────────────────────────────────────────────────────────
 # Helpers (same pattern as seed_enhancement_v3.py)
 # ──────────────────────────────────────────────────────────────────────

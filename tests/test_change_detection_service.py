@@ -40,6 +40,7 @@ from tests.factories import (
 
 def _make_extracted_rate(
     *,
+    jurisdiction_code: str = "US-NY-NYC",
     change_type: str = "new",
     tax_category_code: str = "occ_pct",
     rate_type: str = "percentage",
@@ -50,6 +51,7 @@ def _make_extracted_rate(
     **kwargs,
 ) -> AIExtractedRate:
     return AIExtractedRate(
+        jurisdiction_code=jurisdiction_code,
         change_type=change_type,
         tax_category_code=tax_category_code,
         rate_type=rate_type,
@@ -63,6 +65,7 @@ def _make_extracted_rate(
 
 def _make_extracted_rule(
     *,
+    jurisdiction_code: str = "US-NY-NYC",
     change_type: str = "new",
     rule_type: str = "exemption",
     name: str = "Long Stay Exemption",
@@ -72,6 +75,7 @@ def _make_extracted_rule(
     **kwargs,
 ) -> AIExtractedRule:
     return AIExtractedRule(
+        jurisdiction_code=jurisdiction_code,
         change_type=change_type,
         rule_type=rule_type,
         name=name,
@@ -270,7 +274,7 @@ class TestCreateDraftRate:
             rate_value=6.0,
         )
         draft = await _create_draft_rate(
-            db, seed["nyc"], extracted, current_rate=None, job_id=1
+            db, seed["nyc"], extracted, current_rate=None, job_id=seed['monitoring_job'].id
         )
         assert draft is not None
         assert draft.version == 1
@@ -291,7 +295,7 @@ class TestCreateDraftRate:
             rate_value=6.5,
         )
         draft = await _create_draft_rate(
-            db, seed["nyc"], extracted, current_rate=current, job_id=1
+            db, seed["nyc"], extracted, current_rate=current, job_id=seed['monitoring_job'].id
         )
         assert draft is not None
         assert draft.version == current.version + 1
@@ -308,7 +312,7 @@ class TestCreateDraftRate:
             rate_value=3.0,
         )
         draft = await _create_draft_rate(
-            db, seed["nyc"], extracted, current_rate=None, job_id=1
+            db, seed["nyc"], extracted, current_rate=None, job_id=seed['monitoring_job'].id
         )
         assert draft is None
 
@@ -323,7 +327,7 @@ class TestCreateDraftRate:
             currency_code="USD",
         )
         draft = await _create_draft_rate(
-            db, seed["nyc"], extracted, current_rate=None, job_id=1
+            db, seed["nyc"], extracted, current_rate=None, job_id=seed['monitoring_job'].id
         )
         assert draft is not None
         assert float(draft.rate_value) == pytest.approx(3.50)
@@ -338,7 +342,7 @@ class TestCreateDraftRate:
             rate_value=5.0,
         )
         draft = await _create_draft_rate(
-            db, seed["nyc"], extracted, current_rate=None, job_id=42
+            db, seed["nyc"], extracted, current_rate=None, job_id=seed['monitoring_job'].id
         )
         assert draft is not None
 
@@ -351,7 +355,7 @@ class TestCreateDraftRate:
         log = result.scalar_one()
         assert log.action == "create"
         assert log.changed_by == "ai_monitoring"
-        assert "42" in log.change_reason
+        assert str(seed["monitoring_job"].id) in log.change_reason
 
 
 # ─── _create_draft_rule ───────────────────────────────────────────
@@ -370,7 +374,7 @@ class TestCreateDraftRule:
             action={"type": "exempt"},
         )
         draft = await _create_draft_rule(
-            db, seed["nyc"], extracted, current_rule=None, job_id=1
+            db, seed["nyc"], extracted, current_rule=None, job_id=seed['monitoring_job'].id
         )
         assert draft is not None
         assert draft.version == 1
@@ -394,7 +398,7 @@ class TestCreateDraftRule:
             action={"type": "exempt"},
         )
         draft = await _create_draft_rule(
-            db, seed["nyc"], extracted, current_rule=current, job_id=2
+            db, seed["nyc"], extracted, current_rule=current, job_id=seed['monitoring_job'].id
         )
         assert draft.version == current.version + 1
         assert draft.supersedes_id == current.id
@@ -408,7 +412,7 @@ class TestCreateDraftRule:
             name="Nightly Cap",
         )
         draft = await _create_draft_rule(
-            db, seed["nyc"], extracted, current_rule=None, job_id=99
+            db, seed["nyc"], extracted, current_rule=None, job_id=seed['monitoring_job'].id
         )
         result = await db.execute(
             select(AuditLog).where(
@@ -419,7 +423,7 @@ class TestCreateDraftRule:
         log = result.scalar_one()
         assert log.action == "create"
         assert log.changed_by == "ai_monitoring"
-        assert "99" in log.change_reason
+        assert str(seed["monitoring_job"].id) in log.change_reason
 
 
 # ─── process_ai_results ───────────────────────────────────────────
@@ -448,7 +452,7 @@ class TestProcessAiResults:
             db,
             seed["nyc"],
             ai_result,
-            job_id=10,
+            job_id=seed['monitoring_job'].id,
             current_rates=[seed["rate_pct"]],
             current_rules=[],
         )
@@ -488,7 +492,7 @@ class TestProcessAiResults:
             db,
             seed["nyc"],
             ai_result,
-            job_id=11,
+            job_id=seed['monitoring_job'].id,
             current_rates=[seed["rate_pct"]],
             current_rules=[],
         )
@@ -538,7 +542,7 @@ class TestProcessAiResults:
             db,
             seed["nyc"],
             ai_result,
-            job_id=12,
+            job_id=seed['monitoring_job'].id,
             current_rates=[seed["rate_flat"]],
             current_rules=[],
         )
@@ -578,7 +582,7 @@ class TestProcessAiResults:
             db,
             seed["nyc"],
             ai_result,
-            job_id=13,
+            job_id=seed['monitoring_job'].id,
             current_rates=[seed["rate_pct"]],
             current_rules=[],
         )
@@ -608,7 +612,7 @@ class TestProcessAiResults:
             db,
             seed["nyc"],
             ai_result,
-            job_id=14,
+            job_id=seed['monitoring_job'].id,
             current_rates=[seed["rate_pct"]],
             current_rules=[],
         )
@@ -623,7 +627,7 @@ class TestProcessAiResults:
             )
         )
         log = result.scalar_one()
-        assert "14" in log.change_reason
+        assert str(seed["monitoring_job"].id) in log.change_reason
         assert "All rates confirmed unchanged." in log.change_reason
 
     @pytest.mark.asyncio
@@ -650,7 +654,7 @@ class TestProcessAiResults:
             db,
             seed["nyc"],
             ai_result,
-            job_id=15,
+            job_id=seed['monitoring_job'].id,
             current_rates=[],
             current_rules=[],
         )
@@ -690,7 +694,7 @@ class TestProcessAiResults:
             db,
             seed["nyc"],
             ai_result,
-            job_id=16,
+            job_id=seed['monitoring_job'].id,
             current_rates=[],
             current_rules=[seed["rule_exempt"]],
         )
@@ -736,7 +740,7 @@ class TestProcessAiResults:
             db,
             seed["nyc"],
             ai_result,
-            job_id=17,
+            job_id=seed['monitoring_job'].id,
             current_rates=[],
             current_rules=[seed["rule_exempt"]],
         )
@@ -780,7 +784,7 @@ class TestProcessAiResults:
             db,
             seed["nyc"],
             ai_result,
-            job_id=18,
+            job_id=seed['monitoring_job'].id,
             current_rates=[],
             current_rules=[],
         )
@@ -790,3 +794,87 @@ class TestProcessAiResults:
         assert summary["rates_created"] == 1
         assert summary["rules_created"] == 1
         assert summary["changes_detected"] == 2
+
+    @pytest.mark.asyncio
+    async def test_per_rate_jurisdiction_routing(self, db):
+        """Country-scoped run: rates land on the jurisdiction matching their per-rate code."""
+        seed = await seed_nyc_hierarchy(db)
+        # US is the country, US-NY a state, US-NY-NYC a city
+        ai_result = AIMonitoringResult(
+            jurisdiction_code="US",
+            summary="Multi-level findings.",
+            rates=[
+                _make_extracted_rate(
+                    jurisdiction_code="US-NY",
+                    change_type="new",
+                    tax_category_code="occ_pct",
+                    rate_type="percentage",
+                    rate_value=4.0,
+                ),
+                _make_extracted_rate(
+                    jurisdiction_code="US-NY-NYC",
+                    change_type="new",
+                    tax_category_code="occ_pct",
+                    rate_type="percentage",
+                    rate_value=6.0,
+                ),
+            ],
+            rules=[],
+            sources_checked=[],
+            overall_confidence=0.9,
+        )
+        summary = await process_ai_results(
+            db,
+            seed["us"],
+            ai_result,
+            job_id=seed["monitoring_job"].id,
+            current_rates=[],
+            current_rules=[],
+            jurisdictions_by_code={
+                seed["us"].code: seed["us"],
+                seed["ny"].code: seed["ny"],
+                seed["nyc"].code: seed["nyc"],
+            },
+        )
+        assert summary["rates_created"] == 2
+        # Each draft landed on the right jurisdiction
+        drafts = (await db.execute(
+            select(TaxRate).where(TaxRate.status == "draft").order_by(TaxRate.id)
+        )).scalars().all()
+        codes = sorted(d.jurisdiction.code for d in drafts) if drafts else []
+        # Refresh jurisdiction names — selectin not loaded here
+        for d in drafts:
+            await db.refresh(d, ["jurisdiction"])
+        drafted_jurisdiction_ids = sorted(d.jurisdiction_id for d in drafts)
+        assert drafted_jurisdiction_ids == sorted([seed["ny"].id, seed["nyc"].id])
+
+    @pytest.mark.asyncio
+    async def test_unknown_jurisdiction_code_skipped_and_reported(self, db):
+        seed = await seed_nyc_hierarchy(db)
+        ai_result = AIMonitoringResult(
+            jurisdiction_code="US",
+            summary="One unknown.",
+            rates=[
+                _make_extracted_rate(
+                    jurisdiction_code="US-ZZ-MADEUP",
+                    change_type="new",
+                    tax_category_code="occ_pct",
+                    rate_type="percentage",
+                    rate_value=3.0,
+                ),
+            ],
+            rules=[],
+            sources_checked=[],
+            overall_confidence=0.5,
+        )
+        summary = await process_ai_results(
+            db,
+            seed["us"],
+            ai_result,
+            job_id=seed["monitoring_job"].id,
+            current_rates=[],
+            current_rules=[],
+            jurisdictions_by_code={seed["us"].code: seed["us"]},
+        )
+        assert summary["rates_created"] == 0
+        assert summary["unknown_jurisdiction_codes"] == ["US-ZZ-MADEUP"]

@@ -46,13 +46,25 @@ class TaxRule(Base, TimestampMixin):
     reviewed_by: Mapped[str | None] = mapped_column(Text)
     reviewed_at: Mapped[datetime | None] = mapped_column()
 
+    # Originating agent run (NULL for rules not produced by an agent)
+    monitoring_job_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("monitoring_jobs.id", ondelete="SET NULL")
+    )
+
     # Relationships
-    tax_rate: Mapped["TaxRate | None"] = relationship(back_populates="rules")  # noqa: F821
-    jurisdiction: Mapped["Jurisdiction"] = relationship(back_populates="tax_rules")  # noqa: F821
+    tax_rate: Mapped["TaxRate | None"] = relationship(  # noqa: F821
+        back_populates="rules",
+        foreign_keys=[tax_rate_id],
+    )
+    jurisdiction: Mapped["Jurisdiction"] = relationship(  # noqa: F821
+        back_populates="tax_rules",
+        foreign_keys=[jurisdiction_id],
+    )
 
     __table_args__ = (
         Index("idx_tax_rules_jurisdiction", "jurisdiction_id"),
         Index("idx_tax_rules_rate", "tax_rate_id"),
         Index("idx_tax_rules_type", "rule_type"),
         Index("idx_tax_rules_status", "status"),
+        Index("idx_tax_rules_monitoring_job", "monitoring_job_id"),
     )

@@ -846,7 +846,6 @@ def _get_currency(country_code: str) -> str:
 
 
 def main():
-    import argparse
     p = argparse.ArgumentParser()
     p.add_argument("--api-url", default="http://localhost:8001")
     p.add_argument("--api-key", default="dev-api-key-change-me")

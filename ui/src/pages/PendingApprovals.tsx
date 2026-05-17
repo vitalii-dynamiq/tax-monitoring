@@ -1,11 +1,14 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CheckCircle2, CheckCheck, ChevronDown, ChevronRight, XCircle } from "lucide-react";
+import { CheckCircle2, CheckCheck, ChevronDown, ChevronRight, Sparkles, XCircle } from "lucide-react";
 import PageHeader from "../components/PageHeader";
+import PageContainer from "../components/PageContainer";
 import Card from "../components/Card";
 import Badge from "../components/Badge";
 import EmptyState from "../components/EmptyState";
 import StatCard from "../components/StatCard";
+import Provenance from "../components/Provenance";
+import TriageRunModal from "../components/approvals/TriageRunModal";
 import { useApi } from "../hooks/useApi";
 import { useAuth } from "../hooks/useAuth";
 import { useToast } from "../hooks/useToast";
@@ -25,6 +28,7 @@ export default function PendingApprovals() {
   const [batchFilter, setBatchFilter] = useState<string>("");
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [busyCode, setBusyCode] = useState<string | null>(null);
+  const [triageOpen, setTriageOpen] = useState(false);
 
   const { data, loading, error, refetch } = useApi(() => api.approvals.summary(), []);
 
@@ -54,7 +58,7 @@ export default function PendingApprovals() {
 
   if (!isAdmin) {
     return (
-      <div className="p-6 sm:p-10 max-w-4xl mx-auto">
+      <PageContainer maxWidth="max-w-4xl">
         <Card className="p-8 text-center">
           <h2 className="text-lg font-semibold text-text mb-2">Admin access required</h2>
           <p className="text-muted mb-4">This page is only available to administrators.</p>
@@ -62,7 +66,7 @@ export default function PendingApprovals() {
             Back to Dashboard
           </button>
         </Card>
-      </div>
+      </PageContainer>
     );
   }
 
@@ -99,11 +103,21 @@ export default function PendingApprovals() {
   };
 
   return (
-    <div className="p-6 sm:p-10 max-w-7xl mx-auto">
+    <PageContainer>
       <PageHeader
         title="Pending Approvals"
         description="Review and approve AI-generated draft rates and rules before they go live."
+        actions={
+          <button
+            className="btn-primary flex items-center gap-1.5 text-sm py-1.5 px-3"
+            onClick={() => setTriageOpen(true)}
+            title="Let the AI triage agent verify pending items against their sources"
+          >
+            <Sparkles className="w-4 h-4" /> Triage with AI
+          </button>
+        }
       />
+      <TriageRunModal open={triageOpen} onClose={() => setTriageOpen(false)} />
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-6">
         <StatCard
@@ -199,7 +213,7 @@ export default function PendingApprovals() {
           />
         ))}
       </div>
-    </div>
+    </PageContainer>
   );
 }
 
@@ -458,38 +472,15 @@ function DraftRateRow({
       </div>
 
       {showDetail && (
-        <div className="border-t border-border p-3 text-xs space-y-2">
-          {rate.authority_name && (
-            <div>
-              <span className="text-dim">Authority: </span>
-              <span className="text-text">{rate.authority_name}</span>
-            </div>
-          )}
-          {rate.legal_reference && (
-            <div>
-              <span className="text-dim">Legal: </span>
-              <span className="text-text">{rate.legal_reference}</span>
-            </div>
-          )}
-          {rate.source_url && (
-            <div>
-              <span className="text-dim">Source: </span>
-              <a
-                href={rate.source_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent hover:underline break-all"
-              >
-                {rate.source_url}
-              </a>
-            </div>
-          )}
-          {rate.created_by && (
-            <div>
-              <span className="text-dim">Batch: </span>
-              <span className="font-mono text-muted">{rate.created_by}</span>
-            </div>
-          )}
+        <div className="border-t border-border p-3">
+          <Provenance
+            sourceUrl={rate.source_url}
+            authority={rate.authority_name}
+            legalReference={rate.legal_reference}
+            createdBy={rate.created_by}
+            monitoringJobId={rate.monitoring_job_id}
+            showRunMeta
+          />
         </div>
       )}
     </div>
@@ -546,12 +537,12 @@ function DraftRuleRow({
       </div>
 
       {showDetail && (
-        <div className="border-t border-border p-3 text-xs space-y-2">
+        <div className="border-t border-border p-3 space-y-3">
           {rule.description && (
-            <div className="text-muted italic">{rule.description}</div>
+            <div className="text-xs text-muted italic">{rule.description}</div>
           )}
           {rule.conditions && Object.keys(rule.conditions).length > 0 && (
-            <div>
+            <div className="text-xs">
               <span className="text-dim">Conditions: </span>
               <pre className="inline font-mono text-muted">
                 {JSON.stringify(rule.conditions)}
@@ -559,25 +550,20 @@ function DraftRuleRow({
             </div>
           )}
           {rule.action && Object.keys(rule.action).length > 0 && (
-            <div>
+            <div className="text-xs">
               <span className="text-dim">Action: </span>
               <pre className="inline font-mono text-muted">
                 {JSON.stringify(rule.action)}
               </pre>
             </div>
           )}
-          {rule.legal_reference && (
-            <div>
-              <span className="text-dim">Legal: </span>
-              <span className="text-text">{rule.legal_reference}</span>
-            </div>
-          )}
-          {rule.created_by && (
-            <div>
-              <span className="text-dim">Batch: </span>
-              <span className="font-mono text-muted">{rule.created_by}</span>
-            </div>
-          )}
+          <Provenance
+            authority={rule.authority_name}
+            legalReference={rule.legal_reference}
+            createdBy={rule.created_by}
+            monitoringJobId={rule.monitoring_job_id}
+            showRunMeta
+          />
         </div>
       )}
     </div>

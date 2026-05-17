@@ -40,12 +40,54 @@ include = ["app*"]
 
 [tool.ruff]
 target-version = "py312"
-line-length = 100
+line-length = 120
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "N", "W", "UP"]
+select = [
+    "E",    # pycodestyle errors
+    "F",    # pyflakes
+    "I",    # isort
+    "N",    # pep8-naming
+    "W",    # pycodestyle warnings
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear (real bug catches: mutable defaults, etc.)
+    "C4",   # comprehensions
+    "PIE",  # misc lints
+    "RUF",  # ruff-specific
+    "SIM",  # simplifications
+    "RET",  # return statements
+    "PT",   # pytest style
+]
+ignore = [
+    "E501",   # line too long — aesthetic; seeds + prompts have long literals
+    "B008",   # function calls in argument defaults (Depends/Query/Field)
+    "B904",   # raise from — fine for our wrappers
+    "RUF001", # ambiguous unicode in strings (intentional in test fixtures)
+    "RUF002", # ambiguous unicode in docstrings (e.g., × for multiplication)
+    "RUF003", # ambiguous unicode in comments
+    "RUF006", # asyncio.create_task return value — we intentionally fire-and-forget
+    "RUF012", # mutable class attributes (we use ClassVar already)
+    "SIM102", # nested ifs — sometimes clearer
+    "SIM108", # use ternary — sometimes if/else is clearer
+    "SIM117", # combine with statements — less readable for db sessions
+    "RET504", # superfluous variable before return — sometimes clearer
+    "PT011",  # pytest.raises without match — many existing call sites
+    "PT012",  # pytest.raises block contains multiple statements
+    "PT018",  # multi-part assertions — fine in practice
+]
 
 [tool.ruff.lint.per-file-ignores]
+"tests/*" = [
+    "S101",   # asserts
+    "N802",   # camelCase fixtures
+    "N803",   # camelCase args
+    "N805",   # first arg `self` — pytest classes don't always need it
+    "F841",   # unused locals in test setup — fine
+    "RUF059", # unused tuple-unpack vars in test setup — fine
+]
+# Seed scripts: data-only, allow loose style for the long literals + unused locals
+"scripts/seed_*.py" = ["F841", "B007", "E701"]
+"app/services/tax_calculation_service.py" = ["C401"]
 "scripts/seed_data.py" = ["E501"]
 "app/core/rule_engine.py" = ["E501"]
 "app/api/tax_rules.py" = ["E501"]

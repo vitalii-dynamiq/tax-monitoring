@@ -32,6 +32,13 @@ def _walk_condition_fields(cond: dict | None) -> set[str]:
 class AIExtractedRate(BaseModel):
     """A tax rate extracted by the AI monitoring agent."""
 
+    jurisdiction_code: str = Field(
+        description=(
+            "Code of the jurisdiction this rate applies to. Must be one of the "
+            "jurisdiction codes listed in the user prompt (the country itself or "
+            "any of its sub-jurisdictions). Use the EXACT code from the prompt."
+        ),
+    )
     change_type: Literal["new", "changed", "unchanged", "removed"] = Field(
         description="Whether this rate is new, changed from current, unchanged, or removed"
     )
@@ -103,6 +110,13 @@ class AIExtractedRate(BaseModel):
 class AIExtractedRule(BaseModel):
     """A tax rule or exemption extracted by the AI monitoring agent."""
 
+    jurisdiction_code: str = Field(
+        description=(
+            "Code of the jurisdiction this rule applies to. Must be one of the "
+            "jurisdiction codes listed in the user prompt (the country itself or "
+            "any of its sub-jurisdictions). Use the EXACT code from the prompt."
+        ),
+    )
     change_type: Literal["new", "changed", "unchanged", "removed"] = Field(
         description="Whether this rule is new, changed, unchanged, or removed"
     )
@@ -162,20 +176,35 @@ class AIExtractedRule(BaseModel):
 
 
 class AIMonitoringResult(BaseModel):
-    """Complete monitoring result from the AI agent for a jurisdiction."""
+    """Complete monitoring result from the AI agent for a country and its sub-jurisdictions."""
 
-    jurisdiction_code: str = Field(description="The jurisdiction code that was analyzed")
+    jurisdiction_code: str = Field(
+        description=(
+            "Code of the COUNTRY this run analysed. Per-rate and per-rule "
+            "`jurisdiction_code` may be this country or any of its sub-jurisdictions."
+        ),
+    )
     summary: str = Field(
         description=(
-            "Brief summary of findings: what changed, what's new, what was confirmed. "
+            "Brief summary of findings across the country and all sub-jurisdictions: "
+            "what changed, what's new, what was confirmed. "
             "Include the number of sources checked and overall assessment."
         )
     )
     rates: list[AIExtractedRate] = Field(
-        default_factory=list, description="ALL tax rates found for this jurisdiction (new, changed, unchanged, removed)"
+        default_factory=list,
+        description=(
+            "ALL tax rates found across the country and its sub-jurisdictions "
+            "(new, changed, unchanged, removed). Each rate is tagged with the "
+            "specific jurisdiction_code it applies to."
+        ),
     )
     rules: list[AIExtractedRule] = Field(
-        default_factory=list, description="ALL tax rules and exemptions found (new, changed, unchanged, removed)"
+        default_factory=list,
+        description=(
+            "ALL tax rules and exemptions found across the country and its "
+            "sub-jurisdictions (new, changed, unchanged, removed)."
+        ),
     )
     sources_checked: list[str] = Field(
         default_factory=list, description="URLs that were actually searched and analyzed"

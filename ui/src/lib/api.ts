@@ -75,6 +75,7 @@ export interface TaxRate {
   created_by: string | null;
   reviewed_by: string | null;
   reviewed_at: string | null;
+  monitoring_job_id: number | null;
   created_at: string;
   updated_at: string;
 }
@@ -99,6 +100,7 @@ export interface TaxRule {
   created_by: string | null;
   reviewed_by: string | null;
   reviewed_at: string | null;
+  monitoring_job_id: number | null;
   created_at: string;
   updated_at: string;
   supersedes_id: number | null;
@@ -243,21 +245,101 @@ export interface MonitoringJob {
   result_summary: Record<string, unknown> | null;
   changes_detected: number;
   error_message: string | null;
+  error_traceback: string | null;
+  // Agent telemetry
+  model: string | null;
+  system_prompt: string | null;
+  initial_user_prompt: string | null;
+  total_input_tokens: number;
+  total_output_tokens: number;
+  total_cache_creation_tokens: number;
+  total_cache_read_tokens: number;
+  total_web_search_count: number;
+  estimated_cost_usd: string;
   created_at: string;
   updated_at: string;
+}
+
+export interface AgentRunTurn {
+  id: number;
+  turn_index: number;
+  model: string;
+  stop_reason: string | null;
+  request_messages: unknown[];
+  response_content: unknown[];
+  input_tokens: number;
+  output_tokens: number;
+  cache_creation_input_tokens: number;
+  cache_read_input_tokens: number;
+  web_search_count: number;
+  latency_ms: number;
+  started_at: string;
+  completed_at: string;
+}
+
+export interface ProducedEntities {
+  jurisdictions: {
+    id: number;
+    code: string;
+    name: string;
+    jurisdiction_type: string;
+    status: string;
+    created_at: string;
+  }[];
+  tax_rates: {
+    id: number;
+    jurisdiction_code: string | null;
+    tax_category_code: string | null;
+    rate_type: string;
+    rate_value: number | null;
+    status: string;
+    created_at: string;
+  }[];
+  tax_rules: {
+    id: number;
+    jurisdiction_code: string | null;
+    rule_type: string;
+    name: string;
+    status: string;
+    created_at: string;
+  }[];
+  detected_changes: {
+    id: number;
+    jurisdiction_code: string | null;
+    change_type: string;
+    review_status: string;
+    confidence: number;
+    created_at: string;
+  }[];
 }
 
 export interface MonitoringSchedule {
   id: number;
   jurisdiction_id: number;
   jurisdiction_code: string | null;
+  job_type: "monitoring" | "discovery";
   enabled: boolean;
   cadence: "daily" | "weekly" | "monthly" | "custom";
   cron_expression: string | null;
   last_run_at: string | null;
   next_run_at: string | null;
+  last_run_status: "pending" | "running" | "completed" | "failed" | "cancelled" | null;
+  failed_in_last_24h: boolean;
   created_at: string;
   updated_at: string;
+}
+
+export interface BulkScheduleUpdate {
+  jurisdiction_codes: string[];
+  job_type: "monitoring" | "discovery";
+  action: "enable" | "disable" | "set_cadence";
+  cadence?: "daily" | "weekly" | "monthly" | "custom";
+  cron_expression?: string;
+}
+
+export interface BulkScheduleResponse {
+  updated: MonitoringSchedule[];
+  errors: { code: string; message: string }[];
 }
 
 export interface ChangeReviewRequest {
@@ -343,6 +425,16 @@ export const api = {
       request<Jurisdiction>("/v1/jurisdictions", {
         method: "POST",
         body: JSON.stringify(data),
+      }),
+    approve: (code: string, body?: { reviewed_by?: string; review_notes?: string }) =>
+      request<Jurisdiction>(`/v1/jurisdictions/${code}/approve`, {
+        method: "POST",
+        body: JSON.stringify(body || {}),
+      }),
+    reject: (code: string, body?: { reviewed_by?: string; review_notes?: string }) =>
+      request<Jurisdiction>(`/v1/jurisdictions/${code}/reject`, {
+        method: "POST",
+        body: JSON.stringify(body || {}),
       }),
   },
 
@@ -435,6 +527,10 @@ export const api = {
     listJobs: (params?: Record<string, string>) =>
       request<MonitoringJob[]>(`/v1/monitoring/jobs?${new URLSearchParams(params)}`),
     getJob: (jobId: number) => request<MonitoringJob>(`/v1/monitoring/jobs/${jobId}`),
+    getJobTurns: (jobId: number) =>
+      request<AgentRunTurn[]>(`/v1/monitoring/jobs/${jobId}/turns`),
+    getJobProduced: (jobId: number) =>
+      request<ProducedEntities>(`/v1/monitoring/jobs/${jobId}/produced`),
     getSchedule: (jurisdictionCode: string) =>
       request<MonitoringSchedule>(`/v1/monitoring/schedules/${jurisdictionCode}`),
     updateSchedule: (jurisdictionCode: string, data: Partial<MonitoringSchedule>) =>
@@ -444,6 +540,19 @@ export const api = {
       }),
     listSchedules: (params?: Record<string, string>) =>
       request<MonitoringSchedule[]>(`/v1/monitoring/schedules?${new URLSearchParams(params)}`),
+    bulkUpdateSchedules: (body: BulkScheduleUpdate) =>
+      request<BulkScheduleResponse>("/v1/monitoring/schedules/bulk", {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+  },
+
+  triage: {
+    run: (body: { jurisdiction_code?: string | null; max_items?: number }) =>
+      request<MonitoringJob>("/v1/triage/run", {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
   },
 
   discovery: {

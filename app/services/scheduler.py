@@ -33,6 +33,7 @@ async def check_due_schedules() -> None:
 
             logger.info("Found %d due monitoring schedules", len(due_schedules))
 
+            from app.services.discovery_job_service import run_discovery_job
             from app.services.monitoring_job_service import (
                 _compute_next_run,
                 create_job,
@@ -42,11 +43,15 @@ async def check_due_schedules() -> None:
 
             for schedule in due_schedules:
                 try:
-                    # Skip if already has a running job
-                    if await has_running_job(db, schedule.jurisdiction_id):
+                    # Skip if a job of the same type is already running for this
+                    # jurisdiction. Monitoring and discovery don't cross-block.
+                    if await has_running_job(
+                        db, schedule.jurisdiction_id, job_type=schedule.job_type
+                    ):
                         logger.info(
-                            "Skipping schedule %d — already has a running job",
+                            "Skipping schedule %d — already has a running %s job",
                             schedule.id,
+                            schedule.job_type,
                         )
                         # If schedule is stuck more than 1 hour past due, advance it
                         if schedule.next_run_at and schedule.next_run_at < now - timedelta(hours=1):
@@ -61,6 +66,7 @@ async def check_due_schedules() -> None:
                         jurisdiction_id=schedule.jurisdiction_id,
                         trigger_type="scheduled",
                         triggered_by="scheduler",
+                        job_type=schedule.job_type,
                     )
 
                     # Advance schedule to next run time
@@ -70,10 +76,14 @@ async def check_due_schedules() -> None:
                     )
                     await db.commit()
 
-                    # Dispatch job in background
-                    asyncio.create_task(run_monitoring_job_with_limits(job.id))
+                    # Dispatch job in background — branch by job type
+                    if schedule.job_type == "discovery":
+                        asyncio.create_task(run_discovery_job(job.id))
+                    else:
+                        asyncio.create_task(run_monitoring_job_with_limits(job.id))
                     logger.info(
-                        "Dispatched scheduled monitoring job %d for schedule %d",
+                        "Dispatched scheduled %s job %d for schedule %d",
+                        schedule.job_type,
                         job.id,
                         schedule.id,
                     )

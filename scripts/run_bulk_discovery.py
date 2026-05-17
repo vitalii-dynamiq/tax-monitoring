@@ -9,7 +9,6 @@ Usage:
 
 import argparse
 import asyncio
-import sys
 import time
 
 import httpx
@@ -47,7 +46,7 @@ class DiscoveryRunner:
             resp = await client.post(self.url(f"/v1/monitoring/discovery/{code}/run"))
             if resp.status_code == 202:
                 return resp.json()["id"]
-            elif resp.status_code == 409:
+            if resp.status_code == 409:
                 print(f"    {code}: skipped (job already running)")
             elif resp.status_code == 503:
                 print(f"    {code}: skipped (AI not configured)")

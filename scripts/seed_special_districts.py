@@ -39,17 +39,14 @@ import asyncio
 import json
 import logging
 import sys
-from datetime import date, datetime
+from datetime import date
 from pathlib import Path
-from typing import Any
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
 
 from app.db.session import async_session_factory
 from app.models.jurisdiction import Jurisdiction
-from app.models.tax_category import TaxCategory
 from app.models.tax_rate import TaxRate
 from app.models.tax_rule import TaxRule
 
@@ -58,13 +55,8 @@ from scripts.seed_missing_jurisdictions import (
     CATEGORY_CODE_ALIASES,
     _build_rate_kwargs,
     _build_rule_kwargs,
-    _find_existing_rate,
-    _find_existing_rule,
     _lookup_category,
     _parse_date,
-    _rate_review_notes,
-    _should_skip_rate,
-    _should_skip_rule,
 )
 
 RESEARCH_DIR = Path(__file__).parent / "data" / "research_districts"
@@ -509,14 +501,7 @@ async def main_async(args) -> int:
 
     logger.info("Found %d file(s) in %s (dry_run=%s)", len(files), research_dir, args.dry_run)
 
-    stats = {k: 0 for k in (
-        "files_reviewed", "files_unreviewed", "files_parse_error", "files_missing_parent",
-        "parents_created", "parents_would_create",
-        "districts_created", "districts_existing", "districts_skipped", "districts_invalid",
-        "districts_would_create",
-        "rates_inserted", "rates_existing", "rates_skipped", "rates_would_insert",
-        "rules_inserted", "rules_existing", "rules_skipped", "rules_would_insert",
-    )}
+    stats = dict.fromkeys(("files_reviewed", "files_unreviewed", "files_parse_error", "files_missing_parent", "parents_created", "parents_would_create", "districts_created", "districts_existing", "districts_skipped", "districts_invalid", "districts_would_create", "rates_inserted", "rates_existing", "rates_skipped", "rates_would_insert", "rules_inserted", "rules_existing", "rules_skipped", "rules_would_insert"), 0)
 
     async with async_session_factory() as db:
         try:

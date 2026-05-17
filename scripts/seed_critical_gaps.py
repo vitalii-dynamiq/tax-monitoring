@@ -20,7 +20,6 @@ import time
 
 import httpx
 
-
 # ── MISSING JURISDICTIONS ──────────────────────────────────────────
 # (code, name, type, parent_code, country_code, currency, timezone)
 JURISDICTIONS = [
