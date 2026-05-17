@@ -279,7 +279,27 @@ async def get_monitoring_job_produced(
     _admin=Depends(require_admin),
     db: AsyncSession = Depends(get_db),
 ):
-    """Return entities produced by this job: jurisdictions, rates, rules, detected_changes."""
+    """Return entities this job touched.
+
+    For monitoring/discovery runs (which CREATE entities): rows where
+    `monitoring_job_id == job_id`.
+
+    For triage runs (which only MODIFY existing rows' status): rows the run
+    approved/rejected/deferred — discovered via `audit_log` entries with
+    `change_source='ai_triage'` and `change_reason` carrying the
+    `[via triage job #N]` marker the runner stamps.
+    """
+    job = await get_job(db, job_id)
+    if not job:
+        raise HTTPException(404, "Job not found")
+
+    if job.job_type == "triage":
+        return await _produced_for_triage(db, job_id)
+    return await _produced_for_monitoring(db, job_id)
+
+
+async def _produced_for_monitoring(db: AsyncSession, job_id: int) -> "ProducedEntitiesResponse":
+    """Entities a monitoring/discovery run CREATED — keyed on monitoring_job_id FK."""
     from sqlalchemy import select
     from sqlalchemy.orm import selectinload
 
@@ -287,10 +307,6 @@ async def get_monitoring_job_produced(
     from app.models.jurisdiction import Jurisdiction
     from app.models.tax_rate import TaxRate
     from app.models.tax_rule import TaxRule
-
-    job = await get_job(db, job_id)
-    if not job:
-        raise HTTPException(404, "Job not found")
 
     juris_result = await db.execute(
         select(Jurisdiction)
@@ -363,6 +379,127 @@ async def get_monitoring_job_produced(
         )
         for c in changes_result.scalars().all()
     ]
+
+    return ProducedEntitiesResponse(
+        jurisdictions=jurisdictions,
+        tax_rates=tax_rates,
+        tax_rules=tax_rules,
+        detected_changes=detected_changes,
+    )
+
+
+async def _produced_for_triage(db: AsyncSession, job_id: int) -> "ProducedEntitiesResponse":
+    """Entities a triage run MODIFIED — keyed on audit_log change_reason marker.
+
+    The triage runner stamps every approved/rejected status change with
+    "[via triage job #N]" in the change_reason. We pull all audit_log rows
+    with that marker and resolve them back to their entity rows.
+    """
+    from sqlalchemy import and_, select
+    from sqlalchemy.orm import selectinload
+
+    from app.models.audit_log import AuditLog
+    from app.models.detected_change import DetectedChange
+    from app.models.jurisdiction import Jurisdiction
+    from app.models.tax_rate import TaxRate
+    from app.models.tax_rule import TaxRule
+
+    marker = f"[via triage job #{job_id}]"
+    audit_q = await db.execute(
+        select(AuditLog.entity_type, AuditLog.entity_id)
+        .where(
+            and_(
+                AuditLog.change_source == "ai_triage",
+                AuditLog.change_reason.ilike(f"%{marker}%"),
+            )
+        )
+    )
+    ids_by_type: dict[str, list[int]] = {}
+    for entity_type, entity_id in audit_q.all():
+        ids_by_type.setdefault(entity_type, []).append(entity_id)
+
+    jurisdictions: list[ProducedJurisdictionRow] = []
+    tax_rates: list[ProducedRateRow] = []
+    tax_rules: list[ProducedRuleRow] = []
+    detected_changes: list[ProducedDetectedChangeRow] = []
+
+    if rate_ids := ids_by_type.get("tax_rate"):
+        rates_q = await db.execute(
+            select(TaxRate)
+            .options(selectinload(TaxRate.jurisdiction), selectinload(TaxRate.tax_category))
+            .where(TaxRate.id.in_(rate_ids))
+            .order_by(TaxRate.updated_at.desc())
+        )
+        tax_rates = [
+            ProducedRateRow(
+                id=r.id,
+                jurisdiction_code=r.jurisdiction.code if r.jurisdiction else None,
+                tax_category_code=r.tax_category.code if r.tax_category else None,
+                rate_type=r.rate_type,
+                rate_value=float(r.rate_value) if r.rate_value is not None else None,
+                status=r.status,
+                created_at=r.created_at,
+            )
+            for r in rates_q.scalars().all()
+        ]
+
+    if rule_ids := ids_by_type.get("tax_rule"):
+        rules_q = await db.execute(
+            select(TaxRule)
+            .options(selectinload(TaxRule.jurisdiction))
+            .where(TaxRule.id.in_(rule_ids))
+            .order_by(TaxRule.updated_at.desc())
+        )
+        tax_rules = [
+            ProducedRuleRow(
+                id=r.id,
+                jurisdiction_code=r.jurisdiction.code if r.jurisdiction else None,
+                rule_type=r.rule_type,
+                name=r.name,
+                status=r.status,
+                created_at=r.created_at,
+            )
+            for r in rules_q.scalars().all()
+        ]
+
+    if juris_ids := ids_by_type.get("jurisdiction"):
+        juris_q = await db.execute(
+            select(Jurisdiction)
+            .where(Jurisdiction.id.in_(juris_ids))
+            .order_by(Jurisdiction.updated_at.desc())
+        )
+        jurisdictions = [
+            ProducedJurisdictionRow(
+                id=j.id,
+                code=j.code,
+                name=j.name,
+                jurisdiction_type=j.jurisdiction_type,
+                status=j.status,
+                created_at=j.created_at,
+            )
+            for j in juris_q.scalars().all()
+        ]
+
+    # detected_changes don't write audit_log on review (the existing
+    # review_change service doesn't log), but if any get added in future
+    # the marker convention will pick them up.
+    if change_ids := ids_by_type.get("detected_change"):
+        changes_q = await db.execute(
+            select(DetectedChange)
+            .options(selectinload(DetectedChange.jurisdiction))
+            .where(DetectedChange.id.in_(change_ids))
+        )
+        detected_changes = [
+            ProducedDetectedChangeRow(
+                id=c.id,
+                jurisdiction_code=c.jurisdiction.code if c.jurisdiction else None,
+                change_type=c.change_type,
+                review_status=c.review_status,
+                confidence=float(c.confidence),
+                created_at=c.created_at,
+            )
+            for c in changes_q.scalars().all()
+        ]
 
     return ProducedEntitiesResponse(
         jurisdictions=jurisdictions,

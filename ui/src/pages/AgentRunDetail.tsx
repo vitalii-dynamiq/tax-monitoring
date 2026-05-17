@@ -116,7 +116,7 @@ export default function AgentRunDetail() {
 
       {activeTab === "overview" && <RunOverviewTab job={job} />}
       {activeTab === "conversation" && <RunConversationTab jobId={job.id} job={job} />}
-      {activeTab === "produced" && <RunProducedTab jobId={job.id} />}
+      {activeTab === "produced" && <RunProducedTab jobId={job.id} job={job} />}
       {activeTab === "raw" && <RunRawTab job={job} />}
     </PageContainer>
   );

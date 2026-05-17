@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Info } from "lucide-react";
 import Card from "../Card";
 import Badge from "../Badge";
-import { api, type ProducedEntities } from "../../lib/api";
+import { api, type MonitoringJob, type ProducedEntities } from "../../lib/api";
 import { formatDateTime, formatPercent } from "../../lib/utils";
 
 interface RunProducedTabProps {
   jobId: number;
+  job: MonitoringJob;
 }
 
 function Section({
@@ -33,7 +35,7 @@ function Section({
   );
 }
 
-export default function RunProducedTab({ jobId }: RunProducedTabProps) {
+export default function RunProducedTab({ jobId, job }: RunProducedTabProps) {
   const [data, setData] = useState<ProducedEntities | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -55,9 +57,33 @@ export default function RunProducedTab({ jobId }: RunProducedTabProps) {
     return <Card className="p-6 text-muted">Loading produced entities…</Card>;
   }
 
+  const isTriage = job.job_type === "triage";
+
   return (
     <div className="space-y-4">
-      <Section title="New jurisdictions" count={data.jurisdictions.length}>
+      <Card className="p-4">
+        <div className="flex items-start gap-2 text-sm">
+          <Info className="w-4 h-4 text-dim flex-shrink-0 mt-0.5" />
+          <div className="text-muted">
+            {isTriage ? (
+              <>
+                <span className="text-text font-medium">Items decided by this triage run.</span>{" "}
+                Each row was approved, rejected, or otherwise touched by the
+                agent. The row&apos;s current <code className="font-mono text-xs">status</code>{" "}
+                reflects the decision (<span className="text-success">active</span> = approved,{" "}
+                <span className="text-danger">rejected</span> = rejected). Click any to inspect.
+              </>
+            ) : (
+              <>
+                <span className="text-text font-medium">Entities created by this run.</span>{" "}
+                Drafts await review on the Pending Approvals page until a human
+                or the triage agent decides on them.
+              </>
+            )}
+          </div>
+        </div>
+      </Card>
+      <Section title={isTriage ? "Jurisdictions touched" : "New jurisdictions"} count={data.jurisdictions.length}>
         <table className="w-full text-sm">
           <thead className="text-left text-xs uppercase tracking-wide text-dim">
             <tr>
@@ -95,7 +121,7 @@ export default function RunProducedTab({ jobId }: RunProducedTabProps) {
         </table>
       </Section>
 
-      <Section title="Draft tax rates" count={data.tax_rates.length}>
+      <Section title={isTriage ? "Tax rates decided" : "Draft tax rates"} count={data.tax_rates.length}>
         <table className="w-full text-sm">
           <thead className="text-left text-xs uppercase tracking-wide text-dim">
             <tr>
@@ -134,7 +160,7 @@ export default function RunProducedTab({ jobId }: RunProducedTabProps) {
         </table>
       </Section>
 
-      <Section title="Draft tax rules" count={data.tax_rules.length}>
+      <Section title={isTriage ? "Tax rules decided" : "Draft tax rules"} count={data.tax_rules.length}>
         <table className="w-full text-sm">
           <thead className="text-left text-xs uppercase tracking-wide text-dim">
             <tr>

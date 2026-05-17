@@ -111,10 +111,13 @@ async def review_change(
     reviewed_by: str = "system",
     review_notes: str | None = None,
 ) -> DetectedChange | None:
+    from app.services.audit_service import log_change
+
     change = await get_change_by_id(db, change_id)
     if not change:
         return None
 
+    old_status = change.review_status
     change.review_status = review_status
     change.reviewed_by = reviewed_by
     change.reviewed_at = datetime.now(UTC)
@@ -122,4 +125,17 @@ async def review_change(
         change.review_notes = review_notes
 
     await db.flush()
+
+    # Audit so triage runs (or any reviewer) can be traced back per-change.
+    await log_change(
+        db,
+        entity_type="detected_change",
+        entity_id=change.id,
+        action="review",
+        changed_by=reviewed_by,
+        change_source=reviewed_by,
+        old_values={"review_status": old_status},
+        new_values={"review_status": review_status},
+        change_reason=review_notes or f"Reviewed by {reviewed_by}",
+    )
     return change

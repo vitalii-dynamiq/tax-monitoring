@@ -160,3 +160,55 @@ class TestProducedEndpoint:
         assert data["detected_changes"][0]["change_type"] == "new_tax"
         assert data["tax_rules"] == []
         assert data["jurisdictions"] == []
+
+
+class TestProducedTriageBranch:
+    async def test_produced_for_triage_returns_audit_log_entities(
+        self, app_client, auth_headers, async_engine
+    ):
+        """Triage runs don't create entities — Produced should query audit_log
+        for the [via triage job #N] marker and return the rows the run touched."""
+        from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
+
+        from app.models.audit_log import AuditLog
+        from tests.factories import (
+            create_jurisdiction,
+            create_monitoring_job,
+            create_tax_category,
+            create_tax_rate,
+        )
+
+        async with async_sessionmaker(async_engine, class_=AsyncSession, expire_on_commit=False)() as db:
+            country = await create_jurisdiction(db, code="LU", path="LU", country_code="LU")
+            triage_job = await create_monitoring_job(
+                db, jurisdiction_id=country.id, status="completed", job_type="triage",
+            )
+            cat = await create_tax_category(db, code="lu_cat", name="LU cat")
+            rate = await create_tax_rate(
+                db, jurisdiction_id=country.id, tax_category_id=cat.id, rate_value=0.05,
+            )
+            db.add(AuditLog(
+                entity_type="tax_rate",
+                entity_id=rate.id,
+                action="status_change",
+                changed_by="ai_triage",
+                change_source="ai_triage",
+                old_values={"status": "draft"},
+                new_values={"status": "active"},
+                change_reason=f"Source verified. [via triage job #{triage_job.id}]",
+            ))
+            await db.commit()
+            triage_id = triage_job.id
+            rate_id = rate.id
+
+        resp = await app_client.get(
+            f"/v1/monitoring/jobs/{triage_id}/produced",
+            headers=auth_headers,
+        )
+        assert resp.status_code == 200, resp.text
+        data = resp.json()
+        assert len(data["tax_rates"]) == 1
+        assert data["tax_rates"][0]["id"] == rate_id
+        assert data["jurisdictions"] == []
+        assert data["tax_rules"] == []
+        assert data["detected_changes"] == []

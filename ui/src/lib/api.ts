@@ -234,9 +234,9 @@ export interface AuditLogEntry {
 
 export interface MonitoringJob {
   id: number;
-  jurisdiction_id: number;
+  jurisdiction_id: number | null;
   jurisdiction_code: string | null;
-  job_type: "monitoring" | "discovery";
+  job_type: "monitoring" | "discovery" | "triage";
   status: "pending" | "running" | "completed" | "failed" | "cancelled";
   trigger_type: "manual" | "scheduled";
   triggered_by: string;
